@@ -1,22 +1,18 @@
-package com.digitalhorizon.eve.utils
+package com.spacesofting.weshare.utils
 
 import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.util.DisplayMetrics
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.inputmethod.InputMethodManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import android.util.DisplayMetrics as DisplayMetrics1
 
-
-/**
- * Created by bender on 05/06/2017.
- */
 
 inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -76,9 +72,9 @@ fun Activity.showKeyboard() {
     }
 }
 
-val Activity.screenMetrics: DisplayMetrics
+val Activity.screenMetrics: DisplayMetrics1
     get() {
-        val metrics = DisplayMetrics()
+        val metrics = DisplayMetrics1()
         val wm = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = wm.defaultDisplay
         display.getMetrics(metrics)

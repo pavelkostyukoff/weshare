@@ -1,11 +1,119 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- AppTheme Light -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryLight</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
     </style>
 
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
+    <style name="Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Button style -->
+    <style name="Button">
+        <item name="android:background">@drawable/btn_corners_gradient_horizontal_sapphire</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@drawable/text_button_white</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Button.Hollow" parent="Button">
+        <item name="android:background">@drawable/btn_corners_bordered_hollow_sapphire</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Button.Toggle" parent="Button">
+        <item name="android:background">@drawable/toggle_selector</item>
+        <item name="android:textColor">@drawable/toggle_selector_text_color</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!-- Text style -->
+    <style name="Label">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/martini</item>
+    </style>
+
+    <style name="Label.Content">
+        <item name="android:textSize">@dimen/font_medium_again</item>
+        <item name="android:textColor">@color/dorado</item>
+    </style>
+
+    <!-- TabLayout style -->
+
+    <style name="TabLayout">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+    </style>
+
+    <style name="TabTextAppearance">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/oxford_blue</item>
+    </style>
+
+    <!-- Alert dialog style -->
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="IOSSheetDialog" parent="AlertDialog" />
+
+    <style name="IOSSheetDialog.Item">
+        <item name="android:background">@drawable/btn_with_top_line_dialog_concrete</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@drawable/text_item_chose_dialog</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="IOSSheetDialog.Button" parent="IOSSheetDialog.Item">
+        <item name="android:background">@drawable/btn_corners_dialog_concrete</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CustomDialog" parent="AlertDialog" />
+
+    <style name="CustomDialog.Button">
+        <item name="android:background">@drawable/btn_dialog_custom</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:paddingTop">@dimen/padding_double</item>
+        <item name="android:paddingBottom">@dimen/padding_double</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/azure_radiance</item>
+    </style>
+
+    <style name="regularBigWButtonPass" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/font_big</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="regularBigWButtonFail" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/font_big</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
 </resources>

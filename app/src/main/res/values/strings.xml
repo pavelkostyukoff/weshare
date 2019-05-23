@@ -1,3 +1,172 @@
 <resources>
-    <string name="app_name">WeShare</string>
+    <string name="app_name">EventManagerGPB</string>
+
+    <!-- SPLASH -->
+    <string name="splash_copyright">© 2018. АО «Газпромбанк» </string>
+
+    <!-- AUTH -->
+    <string name="auth_to_register">Зарегистрироваться</string>
+    <string name="auth_user_blocked">Пользователь заблокирован на %1$s</string>
+    <string name="auth_incorrect_phone">Неверный номер телефона</string>
+    <string name="auth_wrong_sms_code">Введен неверный код</string>
+    <string name="auth_send_again">Не пришел код? &lt;u>Отправить снова&lt;/u></string>
+    <string name="auth_sms_code_sent">Мы отправили вам смс-код</string>
+    <string name="auth_timeout_code">Время действия кода: %1$s</string>
+    <string name="auth_send_again_msg">Вы сможете запросить повторную \n отправку кода через %1$s</string>
+
+    <!-- TICKET -->
+    <string name="ticket_event_name">Ваш билет</string>
+    <string name="ticket_verification">Проверка билетов</string>
+    <string name="ticket_call">Позвонить</string>
+    <string name="ticket_welcome">"Здравствуйте,\n%1$s %2$s!"</string>
+    <string name="ticket_your_ticket">Это ваш пригласительный билет на мероприятие</string>
+    <string name="ticket_set_code">Покажите этот QR-код сотруднику при входе.</string>
+    <string name="ticket_who_call">%1$s %2$s,</string>
+
+    <!-- SECURITY -->
+    <string name="security_set_text">Сканировать QR-код</string>
+    <string name="security_good_day">Добрый день, %1$s!</string>
+    <string name="security_you_entered_as_security">Вы вошли в приложение как\nсотрудник охраны</string>
+
+    <!-- COMMON ERRORS -->
+    <string name="error_general">Произошла ошибка, попробуйте повторить позже</string>
+
+    <!--HAMBURGER MENU-->
+    <string name="hamburger_open">open</string>
+    <string name="hamburger_close">close</string>
+    <string name="hamburger_logout">Выход</string>
+    <string name="hamburger_default_username">User Name</string>
+    <string name="hamburger_guests">Гости</string>
+    <string name="hamburger_invited">Приглашенные</string>
+
+    <!-- COMMON -->
+    <string name="gazprombank">ГАЗПРОМБАНК</string>
+    <string name="events">МЕРОПРИЯТИЯ</string>
+    <string name="ok">Ок</string>
+    <string name="cancel">Отмена</string>
+    <string name="back">назад</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="pass">Пропустить</string>
+    <string name="fail">Отказать</string>
+    <string name="company">Компания</string>
+    <string name="reject">Отклонить</string>
+    <string name="approve">Согласовать</string>
+    <string name="inn">ИНН</string>
+    <string name="phone_company">Телефон компании</string>
+    <string name="phone">Телефон</string>
+    <string name="email">Электронная почта</string>
+    <string name="position">Должность</string>
+    <string name="attribute">Признак</string>
+    <string name="declarer">Заявитель</string>
+    <string name="responsible">Ответственный на площадке</string>
+    <string name="accompanying">Сопровождающие</string>
+    <string name="save">Сохранить</string>
+    <string name="escalate">Эскалировать</string>
+    <string name="remove">Удалить</string>
+    <string name="change_request">Вернуть на доработку</string>
+    <string name="edit">Редактировать</string>
+    <string name="coming_soon">Уже скоро…</string>
+    <string name="comment">Коментарий</string>
+
+    <!-- BARCODE SCANNER -->
+    <string name="barcode_scanner_hint">Разместите QR-код внутри \n этого квадрата</string>
+    <string name="barcode_scanner_title">Сканирование</string>
+
+    <!-- GUEST -->
+    <string name="guest_not_found_go_to_manager">Направьте гостя к сотрудникам рецепции или попросите связаться с его встречающим</string>
+    <string name="guest_not_found_to_database">Гость не обнаружен в базе</string>
+    <string name="guest_manager_label">Встречающий</string>
+    <string name="guest_denied">Отказано</string>
+    <string name="guest_your_manager_label">Вас встретит</string>
+    <string name="guest_manager_number">его номер для связи:</string>
+    <string name="guest_state_agreed">Согласован</string>
+    <string name="guest_state_refused">Отклонен</string>
+    <string name="guest_tab_about_guest">О госте</string>
+    <string name="guest_tab_about_company">О компании</string>
+    <string name="guest_fullname_blank">%1$s\n%2$s %3$s</string>
+    <string name="guest_deny">ОТКАЗАНО %1$d</string>
+    <string name="guest_count">Всего гостей: %1$d</string>
+
+    <!-- LOGOUT DIALOG -->
+    <string name="logout_going_exit_from_application">Вы собираетесь выйти из приложения?</string>
+
+    <!-- ERROR MESSAGE -->
+    <string name="error_message">Сообщение об ошибке :</string>
+
+    <!-- CUSTOM TOAST -->
+    <string name="toast_agreed">Согласовано:</string>
+    <string name="toast_refused">Отклонено:</string>
+
+    <!-- GUEST CARD STATE -->
+    <string name="guest_card_state_draft">Драфт</string>
+    <string name="guest_card_state_saved">Сохранено</string>
+    <string name="guest_card_state_send_for_approval">На согласовании</string>
+    <string name="guest_card_state_agreed">Согласовано</string>
+    <string name="guest_card_state_refused">Отклонено</string>
+    <string name="guest_card_state_deleted">Удалено</string>
+    <string name="guest_card_state_change_request">На доработке</string>
+
+    <!-- APPROVE DIALOG -->
+    <string name="approve_dialog_approve">Согласование</string>
+    <string name="approve_dialog_set_priority_guest">Укажите приоритет гостя</string>
+
+    <!-- DIALOG PROGRESS -->
+    <string name="dialog_progress_please_wait">Пожалуйста подождите…</string>
+
+    <!-- DIALOG_INVITE -->
+    <string name="dialog_invite_send_an_invitation_letter">Отправить письмо с приглашением?</string>
+    
+    <!-- DIALOG -->
+    <string name="dialog_title_decline">Отклонение</string>
+    <string name="dialog_title_return_for_revision">Возврат на доработку</string>
+    <string name="dialog_decline_text">Укажите причину отклонения</string>
+    <string name="dialog_save_btn">Сохранить</string>
+    <string name="dialog_chose_action">Выберите действие</string>
+    <string name="dialog_no_internet">Отсутствует подключение</string>
+
+    <!-- EDIT GUEST CARD -->
+    <string name="edit_guest_card_title">Редактировать карточку</string>
+    <string name="edit_guest_card_label_sur_name">Фамилия *</string>
+    <string name="edit_guest_card_label_first_name">Имя *</string>
+    <string name="edit_guest_card_label_last_name">Отчество *</string>
+    <string name="edit_guest_card_label_attribute">Признак *</string>
+    <string name="edit_guest_card_label_company">Компания *</string>
+    <string name="edit_guest_card_label_inn">ИНН *</string>
+    <string name="edit_guest_card_inn_count">ИНН %1$s</string>
+    <string name="edit_guest_card_label_phone_company">Телефон компании</string>
+    <string name="edit_guest_card_label_phone_company_additional">Добавочный</string>
+    <string name="edit_guest_card_label_add_phone">Добавить телефон</string>
+    <string name="edit_guest_card_label_email">Электронная почта *</string>
+    <string name="edit_guest_card_label_position">Должность *</string>
+    <string name="edit_guest_card_label_phone">Телефон *</string>
+    <string name="edit_guest_card_label_email_company">Электронная почта компании</string>
+    <string name="edit_guest_card_label_priority">Приоритет *</string>
+    <string name="edit_guest_card_label_applicant">Заявитель *</string>
+    <string name="edit_guest_card_label_responsible">Ответственный на площадке *</string>
+    <string name="edit_guest_card_label_accompanyings">Сопровождающие</string>
+    <string name="edit_guest_card_invalid">Не все поля заполнены</string>
+    <string name="edit_guest_card_valid">Поля валидны</string>
+    <string name="edit_guest_card_successfully_saved">Карта успешно сохранена</string>
+    <string name="edit_guest_card_saving">Сохранение\nкарточки…</string>
+
+    <!-- APPROVE_LIST -->
+    <string name="approve_list_hint_search">Введите ФИО или Компанию</string>
+
+    <!-- COMPANIES_LIST -->
+    <string name="companies_list_title">Компании</string>
+
+    <!-- PERMISSION -->
+    <string name="permission_read_external_storage">Требуется разрешение на чтение из памяти</string>
+
+    <!-- STRUCTURE_UNIT_LIST -->
+    <string name="structure_unit_list_title">Орг. структура</string>
+
+    <!-- SEARCH -->
+    <string name="search_hint">Введите поисковый запрос</string>
+
+    <!-- BASE_GUEST_MANAGER -->
+    <string name="base_guest_manager_all_tab">Все</string>
+    <string name="base_guest_manager_my_guests_tab">Мои гости</string>
+    <string name="base_guest_manager_i_am_interested_tab">Мне интересны</string>
 </resources>

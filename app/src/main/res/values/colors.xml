@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryDark">@color/sapphire</color>
+    <color name="colorPrimary">@color/havelock_blue</color>
+    <color name="colorPrimaryLight">@color/perano</color>
+    <color name="colorAccent">@color/cerulean_blue</color>
+
+    <color name="sapphire">#2b52ab</color>
+    <color name="sapphire_alpha_78">#c82b52ab</color>
+
+    <color name="havelock_blue">#568AD5</color>
+    <color name="havelock_blue_alpha_78">#c8568ad5</color>
+
+    <color name="perano">#9DB4E9</color>
+    <color name="cerulean_blue">#2E5CB7</color>
+    <color name="azure_radiance">#057BFD</color>
+
+    <color name="boston_blue">#317fc0</color>
+    <color name="white">#ffffff</color>
+    <color name="iron">#DFE2E5</color>
+    <color name="link_water">#D5DEF1</color>
+    <color name="alto">#D7D7D7</color>
+    <color name="alto_alpha_35">#58d7d7d7</color>
+    <color name="white_alpha_50">#80ffffff</color>
+    <color name="gray">#828282</color>
+    <color name="martini">#9B9B9B</color>
+    <color name="black">#000000</color>
+    <color name="athens_gray">#DFE3E9</color>
+    <color name="oxford_blue">#354052</color>
+    <color name="charade">#1D1D26</color>
+    <color name="charade_alpha_5">#0d1d1d26</color>
+    <color name="black_alpha_50">#80000000</color>
+    <color name="black_alpha_22">#38000000</color>
+    <color name="concrete">#f2f2f2</color>
+    <color name="dorado">#4a4a4a</color>
+    <color name="monza">#d0021b</color>
+    <color name="red_orange">#FF3B30</color>
+    <color name="roman">#E65D58</color>
+    <color name="apple">#599133</color>
+    <color name="manatee">#8F8E94</color>
+    <color name="lynch_alpha_59">#96697798</color>
+    <color name="polo_blue">#96ADDB</color>
+    <color name="california">#fc9e04</color>
+    <color name="tuna">#33333D</color>
 </resources>

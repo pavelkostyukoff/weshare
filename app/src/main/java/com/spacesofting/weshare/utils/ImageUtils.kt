@@ -2,7 +2,7 @@ package com.digitalhorizon.eve.utils
 
 import com.digitalhorizon.eve.api.Api
 import com.digitalhorizon.eve.common.ApplicationWrapper
-import com.digitalhorizon.eve.common.Settings
+import com.spacesofting.weshare.common.Settings
 import com.digitalhorizon.eve.mvp.model.Photo
 import com.pawegio.kandroid.d
 import io.reactivex.Observable
