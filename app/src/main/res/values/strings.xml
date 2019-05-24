@@ -3,6 +3,10 @@
 
     <!-- SPLASH -->
     <string name="splash_copyright">© 2018. АО «Газпромбанк» </string>
+    <string name="app_name">EventManagerGPB</string>
+
+    <!-- SPLASH -->
+    <string name="splash_copyright">© 2018. АО «Газпромбанк» </string>
 
     <!-- AUTH -->
     <string name="auth_to_register">Зарегистрироваться</string>
@@ -116,7 +120,7 @@
 
     <!-- DIALOG_INVITE -->
     <string name="dialog_invite_send_an_invitation_letter">Отправить письмо с приглашением?</string>
-    
+
     <!-- DIALOG -->
     <string name="dialog_title_decline">Отклонение</string>
     <string name="dialog_title_return_for_revision">Возврат на доработку</string>
