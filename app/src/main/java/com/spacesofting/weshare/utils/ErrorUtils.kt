@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.utils
+package com.spacesofting.weshare.utils
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
@@ -13,7 +13,7 @@ import retrofit2.HttpException
 class ErrorUtils {
 
     companion object {
-        fun parseError(error: Throwable): ServerException {
+        /*fun parseError(error: Throwable): ServerException {
             var result = ServerException()
 
             if (error is HttpException) {
@@ -26,7 +26,7 @@ class ErrorUtils {
                 }
             }
             return result
-        }
+        }*/
 
         inline fun <reified T>parseErrorFields(fields: JsonElement): T {
             d("fields: $fields")

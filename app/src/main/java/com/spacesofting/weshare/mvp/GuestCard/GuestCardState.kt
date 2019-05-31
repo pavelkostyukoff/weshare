@@ -1,7 +1,7 @@
-package com.digitalhorizon.eve.mvp.model.guestcard
+package com.spacesofting.weshare.mvp.model.guestcard
 
-import com.digitalhorizon.eve.R
 import com.google.gson.annotations.SerializedName
+import com.spacesofting.weshare.R
 import java.io.Serializable
 
 enum class GuestCardState(val strResId: Int) : Serializable {

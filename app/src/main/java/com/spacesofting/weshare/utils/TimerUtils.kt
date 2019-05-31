@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.utils
+package com.spacesofting.weshare.utils
 
 import android.content.Context
 import android.os.CountDownTimer

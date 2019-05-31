@@ -2,27 +2,31 @@ package com.spacesofting.weshare.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.widget.Toast
 import com.spacesofting.weshare.common.ActivityWrapper
-import com.digitalhorizon.eve.common.ApplicationWrapper
-import com.digitalhorizon.eve.common.ScreenPool
+import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.ui.fragment.SplashFragment
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
 class MainActivity  : ActivityWrapper() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        //restore theme to the App's one
         setTheme(R.style.AppTheme)
-
         super.onCreate(savedInstanceState)
         lockDrawerMenu(false)
-        router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
+        router.newRootScreen(ScreenPool.SPLASH_FRAGMENT)
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -34,8 +38,27 @@ class MainActivity  : ActivityWrapper() {
         ApplicationWrapper.INSTANCE.getNavigationHolder().removeNavigator()
     }
 
+
+
+    var fragment: Fragment? = null
+    override fun onNewIntent(intent: Intent) {
+
+        // Check if the fragment is an instance of the right fragment
+        if (fragment is SplashFragment) {
+            val my = fragment as SplashFragment?
+            setIntent(intent)
+        }
+    }
+
+    private fun showNFCSettings() {
+        Toast.makeText(this, "You need to enable NFC", Toast.LENGTH_SHORT).show()
+        val intent = Intent(Settings.ACTION_NFC_SETTINGS)
+        startActivity(intent)
+    }
+
     private val navigator: Navigator = object: SupportAppNavigator(this, R.id.mainContainer){
         override fun exit() {
+            // showLogoutDialogProcess()
             finish()
         }
 

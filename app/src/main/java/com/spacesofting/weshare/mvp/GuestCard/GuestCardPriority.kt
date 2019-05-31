@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.mvp.model.guestcard
+package com.spacesofting.weshare.mvp.model.guestcard
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.api.interceptor
+package com.spacesofting.weshare.api.interceptor
 
 import com.spacesofting.weshare.common.Settings
 import okhttp3.Interceptor

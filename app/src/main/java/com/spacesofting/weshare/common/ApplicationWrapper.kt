@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.common
+package com.spacesofting.weshare.common
 
 import android.app.Application
 import ru.terrakok.cicerone.Cicerone
@@ -8,7 +8,7 @@ class ApplicationWrapper : Application() {
         lateinit var INSTANCE: ApplicationWrapper
     }
 
-    private lateinit var cicerone: Cicerone<EveRouter>
+    private lateinit var cicerone: Cicerone<Goods4RentRouter>
 
     override fun onCreate() {
         super.onCreate()
@@ -16,11 +16,14 @@ class ApplicationWrapper : Application() {
         initCicerone()
     }
 
-    private fun initCicerone(){
-        cicerone = Cicerone.create(EveRouter())
+    private fun initCicerone() {
+        cicerone = Cicerone.create(Goods4RentRouter())
     }
 
     fun getNavigationHolder() = cicerone.navigatorHolder
-
     fun getRouter() = cicerone.router
+
+    fun restartApp() {
+        System.exit(0)
+    }
 }

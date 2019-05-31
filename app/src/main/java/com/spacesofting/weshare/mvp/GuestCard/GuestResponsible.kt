@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.mvp
 
-import com.digitalhorizon.eve.mvp.model.Photo
-import com.digitalhorizon.eve.mvp.model.StructureUnitUser
+import com.spacesofting.weshare.mvp.model.Photo
 import com.google.gson.annotations.SerializedName
+import com.spacesofting.weshare.mvp.model.StructureUnitUser
 import java.io.Serializable
 
 class GuestResponsible : Serializable {

@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.common
+package com.spacesofting.weshare.common
 
 import android.app.AlertDialog
 import android.graphics.PorterDuff
@@ -11,16 +11,15 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
-import com.digitalhorizon.eve.R
-import com.digitalhorizon.eve.api.Api
-import com.digitalhorizon.eve.mvp.model.RoleEnum
-import com.digitalhorizon.eve.utils.ImageUtils
+import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
+import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.AccountManager
 import com.spacesofting.weshare.common.ActivityWrapper
+import com.spacesofting.weshare.mvp.RoleEnum
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
-import kotlinx.android.synthetic.main.view_guests_items.*
 
 abstract class FragmentWrapper : MvpAppCompatFragment() {
     companion object {
@@ -57,15 +56,15 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
     abstract fun getFragmentLayout(): Int
 
     fun setTitle(str: String) {
-        val title = getToolbarContainer().findViewById<TextView>(R.id.toolbarTitle)
-        title?.text = str
+      /*  val title = getToolbarContainer().findViewById<TextView>(R.id.toolbarTitle)
+        title?.text = str*/
     }
 
     fun setTitleColor(colorId: Int) {
-        val title = getToolbarContainer().findViewById<TextView>(R.id.toolbarTitle)
+    /*  //  val title = getToolbarContainer().findViewById<TextView>(R.id.toolbarTitle)
         context?.let {
             title?.setTextColor(ContextCompat.getColor(it, colorId))
-        }
+        }*/
     }
 
     /**
@@ -192,27 +191,5 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val inflatedView: View = inflater.inflate(R.layout.view_guests_items, null, false)
         inflatedView.layoutParams = params
 
-        when (AccountManager.role) {
-            RoleEnum.ADMINISTRATOR -> {
-            }
-            RoleEnum.GUEST_MANAGER -> {
-            }
-            RoleEnum.STRUCTURE_UNIT_OFFICER -> {
-                (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
-            }
-            RoleEnum.GUEST -> {
-            }
-            RoleEnum.EVENT_MANAGER -> {
-                (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
-            }
-            RoleEnum.SECURITY -> {
-            }
-            RoleEnum.GUEST_RESPONSIBLE -> {
-                (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
-                (activity as ActivityWrapper).navItemApprove.visible = false
-            }
-            RoleEnum.NONE -> {
-            }
-        }
     }
 }

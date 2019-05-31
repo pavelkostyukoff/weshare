@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.common
+package com.spacesofting.weshare.common
 
 import android.content.Context
 import android.content.Intent
@@ -31,9 +31,7 @@ object ScreenPool {
 
     fun getFragment(screenKey: String, data: Any? = null): Fragment? {
         return when (screenKey) {
-            MAIN_FRAGMENT -> {
-                getMainFragment(AccountManager.role, data)
-            }
+
             SPLASH_FRAGMENT -> {
                 SplashFragment.getInstance()
             }
@@ -49,15 +47,7 @@ object ScreenPool {
             SECURITY_FRAGMENT -> {
                 SecurityFragment.getInstance()
             }*/
-            GUEST_CARD_FRAGMENT -> {
-                getGuestCardFragment(AccountManager.role, data)
-            }
-           /* APPROVE_LIST_FRAGMENT -> {
-                ApproveListFragment.getInstance()
-            }*/
-            EDIT_GUEST_CARD_FRAGMENT -> {
-                getEditGuestCardFragment(AccountManager.role, data)
-            }
+
            /* COMPANIES_LIST_FARGMENT -> {
                 CompaniesListFragment.getInstance()
             }

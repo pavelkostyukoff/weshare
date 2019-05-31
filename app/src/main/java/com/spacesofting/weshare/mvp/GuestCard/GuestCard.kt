@@ -1,11 +1,11 @@
 package com.spacesofting.weshare.mvp
 
-import com.digitalhorizon.eve.mvp.model.Company
-import com.digitalhorizon.eve.mvp.model.Photo
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardPriority
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardState
+import com.spacesofting.weshare.mvp.model.Company
+import com.spacesofting.weshare.mvp.model.Photo
+import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
 import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.common.StructureUnit
+import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
 import java.io.Serializable
 
 class GuestCard : Serializable {

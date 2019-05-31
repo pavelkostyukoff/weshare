@@ -1,9 +1,9 @@
-package com.digitalhorizon.eve.utils
+package com.spacesofting.weshare.utils
 
 import android.content.Context
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
-import com.digitalhorizon.eve.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ApplicationWrapper
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger

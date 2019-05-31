@@ -4,21 +4,11 @@ import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
-import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.crashlytics.android.Crashlytics
-import com.digitalhorizon.eve.api.Api
-import com.digitalhorizon.eve.common.ApplicationWrapper
-import com.digitalhorizon.eve.common.EveRouter
-import com.digitalhorizon.eve.common.ScreenPool
 import com.spacesofting.weshare.utils.inflate
-import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import io.fabric.sdk.android.Fabric
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_wrapper.*
-import kotlinx.android.synthetic.main.view_drawer_menu.*
 
 open class ActivityWrapper : MvpAppCompatActivity() {
     enum class HomeAsUpIndicatorType {
@@ -26,13 +16,12 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         BACK_ARROW,
         NONE
     }
-
-    lateinit var router: EveRouter
+    lateinit var router: Goods4RentRouter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_wrapper)
-        Fabric.with(this, Crashlytics())
+      //  Fabric.with(this, Crashlytics())
         setSupportActionBar(mainToolbar)
         router = ApplicationWrapper.INSTANCE.getRouter()
         showToolbar(false)
@@ -127,7 +116,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     }
 
     fun logout() {
-        Api.Auth.logout()
+    /*    Api.Auth.logout()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Settings.logout()
@@ -139,6 +128,6 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                     router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
                 }, { e ->
                     Toast.makeText(this, R.string.error_general, Toast.LENGTH_LONG).show()
-                })
+                })*/
     }
 }

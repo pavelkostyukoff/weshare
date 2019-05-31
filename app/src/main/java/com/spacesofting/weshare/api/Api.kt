@@ -1,11 +1,11 @@
-package com.digitalhorizon.eve.api
+package com.spacesofting.weshare.api
 
-import com.digitalhorizon.eve.api.auth.AuthService
-import com.digitalhorizon.eve.api.interceptor.AuthHeaderInterceptor
-import com.digitalhorizon.eve.api.interceptor.MockInterceptor
-import com.digitalhorizon.eve.api.interceptor.SMSInterceptor
-import com.digitalhorizon.eve.api.picture.PicturesService
-import com.digitalhorizon.eve.api.user.UserService
+import com.spacesofting.weshare.api.auth.AuthService
+import com.spacesofting.weshare.api.interceptor.AuthHeaderInterceptor
+import com.spacesofting.weshare.api.interceptor.MockInterceptor
+import com.spacesofting.weshare.api.interceptor.SMSInterceptor
+import com.spacesofting.weshare.api.picture.PicturesService
+import com.spacesofting.weshare.api.user.UserService
 import com.spacesofting.weshare.common.Settings
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient

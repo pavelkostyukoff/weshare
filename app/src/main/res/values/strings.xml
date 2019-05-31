@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">EventManagerGPB</string>
 
     <!-- SPLASH -->
-    <string name="splash_copyright">© 2018. АО «Газпромбанк» </string>
-    <string name="app_name">EventManagerGPB</string>
+    <string name="app_name">Goods4Rent</string>
 
     <!-- SPLASH -->
-    <string name="splash_copyright">© 2018. АО «Газпромбанк» </string>
+    <string name="splash_copyright">© 2019. ОАО «SpaceSofting» </string>
 
     <!-- AUTH -->
     <string name="auth_to_register">Зарегистрироваться</string>

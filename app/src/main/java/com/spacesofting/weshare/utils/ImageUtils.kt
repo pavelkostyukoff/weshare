@@ -1,10 +1,11 @@
-package com.digitalhorizon.eve.utils
+package com.spacesofting.weshare.utils
 
-import com.digitalhorizon.eve.api.Api
-import com.digitalhorizon.eve.common.ApplicationWrapper
+import com.spacesofting.weshare.api.Api
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
-import com.digitalhorizon.eve.mvp.model.Photo
+import com.spacesofting.weshare.mvp.model.Photo
 import com.pawegio.kandroid.d
+import com.spacesofting.weshare.utils.default
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.MediaType
@@ -20,7 +21,7 @@ object ImageUtils {
     private var baseImageUrl = ""
 
     fun saveBaseImageUrl() {
-        if (baseImageUrl.isEmpty() && Settings.IsAuthorized) {
+     /*   if (baseImageUrl.isEmpty() && Settings.IsAuthorized) {
             Api.Pictures.getImagePath()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ url ->
@@ -28,7 +29,7 @@ object ImageUtils {
                     }, { err ->
                         d("Base_url_error", err.message.toString())
                     })
-        }
+        }*/
     }
 
     fun getImagePath(imageName: String) = baseImageUrl + imageName

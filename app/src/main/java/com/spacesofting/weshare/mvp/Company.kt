@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.mvp.model
+package com.spacesofting.weshare.mvp.model
 import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.mvp.PhonesCompany
 import java.io.Serializable

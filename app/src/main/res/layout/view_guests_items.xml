@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/navItemGuests"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/guestsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/flag_denmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/guestsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:text="@string/hamburger_guests"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/guestsIcon"
+            app:layout_constraintStart_toEndOf="@+id/guestsIcon"
+            app:layout_constraintTop_toTopOf="@+id/guestsIcon" />
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/link_water"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/navItemGuests" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="50dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_double" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/navItemApprove"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_height"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/navItemGuests">
+
+        <ImageView
+            android:id="@+id/approveIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/flag_saint_helena"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/approveText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:text="@string/approve_dialog_approve"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/approveIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/approveIcon"
+            app:layout_constraintTop_toTopOf="@+id/approveIcon" />
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/lineTwo"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/link_water"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/navItemApprove" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/navItemInvited"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/item_height"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/navItemApprove">
+
+        <ImageView
+            android:id="@+id/invitedIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:src="@drawable/flag_albania"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/invitedText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:text="@string/hamburger_invited"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/invitedIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/invitedIcon"
+            app:layout_constraintTop_toTopOf="@+id/invitedIcon" />
+    </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/lineThree"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/link_water"
+        app:layout_constraintEnd_toEndOf="@id/guideLineEnd"
+        app:layout_constraintStart_toStartOf="@id/guideLineStart"
+        app:layout_constraintTop_toBottomOf="@id/navItemInvited" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/navItemCompanies"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navItemInvited">
+
+        <ImageView
+            android:id="@+id/companiesIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:src="@drawable/flag_jamaica"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/companiesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:text="@string/companies_list_title"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/companiesIcon"
+            app:layout_constraintStart_toEndOf="@+id/companiesIcon"
+            app:layout_constraintTop_toTopOf="@+id/companiesIcon" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

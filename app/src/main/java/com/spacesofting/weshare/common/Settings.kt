@@ -2,12 +2,11 @@ package com.spacesofting.weshare.common
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.digitalhorizon.eve.common.ApplicationWrapper
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardPriority
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardState
-import com.digitalhorizon.eve.utils.SecureUtils
 import com.spacesofting.weshare.BuildConfig
 import com.spacesofting.weshare.mvp.RoleEnum
+import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
+import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
+import com.spacesofting.weshare.utils.SecureUtils
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 
@@ -69,7 +68,6 @@ object Settings {
         ValidationToken = null
         IsAuthorized = false
     }
-
     private var apiPathName: String
         get() = PREFERENCES.getString(KEY_API_NAME, BuildConfig.DEFAULT_API_NAME)
         set(value) {

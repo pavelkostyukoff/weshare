@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.api
+package com.spacesofting.weshare.api
 
 object HttpStatusCode {
     const val NO_NETWORK_CONNECTION                 = 0

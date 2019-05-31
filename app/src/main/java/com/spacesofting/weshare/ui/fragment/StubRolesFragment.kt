@@ -2,7 +2,7 @@ package com.spacesofting.weshare.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import com.digitalhorizon.eve.common.FragmentWrapper
+import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.AccountManager
 import com.spacesofting.weshare.mvp.RoleEnum
@@ -25,12 +25,12 @@ class StubRolesFragment : FragmentWrapper() {
         showToolbar(TOOLBAR_HIDE)
         val notImpmented = "NOT IMPLEMENTED"
 
-        when(AccountManager.role) {
+     /*   when(AccountManager.role) {
             RoleEnum.ADMINISTRATOR -> text.text = "Administrator\n$notImpmented"
             RoleEnum.GUEST_MANAGER -> text.text = "Guest manager\n$notImpmented"
             RoleEnum.EVENT_MANAGER -> text.text = "Event manager\n$notImpmented"
             RoleEnum.GUEST_RESPONSIBLE -> text.text = "Guest responsible\n$notImpmented"
             RoleEnum.STRUCTURE_UNIT_OFFICER -> text.text = "Structure unit officer\n$notImpmented"
-        }
+        }*/
     }
 }

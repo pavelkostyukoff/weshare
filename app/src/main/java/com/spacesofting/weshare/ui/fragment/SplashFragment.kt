@@ -2,9 +2,9 @@ package com.spacesofting.weshare.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import com.digitalhorizon.eve.common.ApplicationWrapper
-import com.digitalhorizon.eve.common.FragmentWrapper
-import com.digitalhorizon.eve.common.ScreenPool
+import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.Settings

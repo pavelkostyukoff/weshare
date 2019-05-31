@@ -1,18 +1,8 @@
-package com.digitalhorizon.eve.api.user
-
-import com.digitalhorizon.eve.mvp.model.*
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCard
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardPriority
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardRequest
-import com.digitalhorizon.eve.mvp.model.guestcard.GuestCardState
-import io.reactivex.Observable
-import org.json.JSONArray
-import retrofit2.Response
-import retrofit2.http.*
+package com.spacesofting.weshare.api.user
 
 
 interface UserService {
-    @GET("event/pass")
+   /* @GET("event/pass")
     fun getPass(): Observable<Pass>
 
     @GET("event/guestcard")
@@ -99,5 +89,5 @@ interface UserService {
                           @Query("sortOrder") sortOrder: String? = null): Observable<StructureUnitList>
 
     @PUT("/api/v1/event/guestcards/{guestCardId}")
-    fun sendGuestCard(@Path("guestCardId") guestCardId: Int, @Body guestCardRequest: GuestCardRequest?, @Header("RowVersion") rowVersion: String?): Observable<GuestCard>
+    fun sendGuestCard(@Path("guestCardId") guestCardId: Int, @Body guestCardRequest: GuestCardRequest?, @Header("RowVersion") rowVersion: String?): Observable<GuestCard>*/
 }
