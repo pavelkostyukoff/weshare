@@ -10,6 +10,7 @@ import com.spacesofting.weshare.mvp.GuestCard
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.ui.fragment.SplashFragment
 import com.spacesofting.weshare.ui.fragment.StubRolesFragment
+import com.spacesofting.weshare.ui.fragment.ui.fragment.RegistrationPhoneFragment
 
 object ScreenPool {
     val MAIN_FRAGMENT = "main_fragment"
@@ -35,18 +36,22 @@ object ScreenPool {
             SPLASH_FRAGMENT -> {
                 SplashFragment.getInstance()
             }
-          /*  REGISTRATION_FRAGMENT -> {
+            REGISTRATION_FRAGMENT -> {
                 RegistrationPhoneFragment.getInstance()
             }
-            SMS_CONFIRMATION_FRAGMENT -> {
-                SMSConfirmFragment.getInstance(data as? SmsRegistration)
-            }
-            TICKET_FRAGMENT -> {
-                TicketFragment.getInstance()
-            }
-            SECURITY_FRAGMENT -> {
-                SecurityFragment.getInstance()
-            }*/
+
+            /*  REGISTRATION_FRAGMENT -> {
+                  RegistrationPhoneFragment.getInstance()
+              }
+              SMS_CONFIRMATION_FRAGMENT -> {
+                  SMSConfirmFragment.getInstance(data as? SmsRegistration)
+              }
+              TICKET_FRAGMENT -> {
+                  TicketFragment.getInstance()
+              }
+              SECURITY_FRAGMENT -> {
+                  SecurityFragment.getInstance()
+              }*/
 
            /* COMPANIES_LIST_FARGMENT -> {
                 CompaniesListFragment.getInstance()
