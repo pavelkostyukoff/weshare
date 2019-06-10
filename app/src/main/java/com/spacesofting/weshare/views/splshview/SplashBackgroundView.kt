@@ -61,12 +61,12 @@ class SplashBackgroundView: ListView {
         }
         scrollingTimer = fixedRateTimer(initialDelay = initScrollingDelay, period = listScrollSpeedFactor,
                 action = { runOnUiThread { scrollListBy(1) } })
-        runDelayed(listInitAnimationDuration, { (adapter as SplashBackgroundAdapter).stopIntroducingMagic() })
+   //     runDelayed(listInitAnimationDuration, { (adapter as SplashBackgroundAdapter).stopIntroducingMagic() })
     }
 
     fun startDimmingAnimation() {
         dimmingTimer = fixedRateTimer(period = listDimmingSwitchRate, action = {
-            runOnUiThread { (adapter as SplashBackgroundAdapter).dimBackground() }
+          //  runOnUiThread { (adapter as SplashBackgroundAdapter).dimBackground() }
         })
     }
 

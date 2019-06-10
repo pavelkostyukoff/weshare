@@ -6,9 +6,7 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.gpbdigital.wishninja.R
-import com.gpbdigital.wishninja.utils.dp
-import com.gpbdigital.wishninja.utils.inflate
+import com.spacesofting.weshare.R
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
@@ -17,8 +15,23 @@ import kotlin.collections.ArrayList
  * Created by bender on 06/06/2017.
  */
 class SplashBackgroundAdapter: BaseAdapter() {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    val elementsDimmingAnimationDuration = 900L
+    override fun getItem(position: Int): Any {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getItemId(position: Int): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getCount(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+/*    val elementsDimmingAnimationDuration = 900L
     val dimmingRowsInitDelay = 500
     val dimmingRowsDelta = 300
     val dimmingElementsDelta = 100
@@ -137,9 +150,9 @@ class SplashBackgroundAdapter: BaseAdapter() {
         } ?: throw NullPointerException()
     }
 
-    /**
+    *//**
      * return new random layout id from layouts array except we don't want it to be the same as previous
-     */
+     *//*
     fun getAlmostRandomLayout(prevLayoutId: Int): Int {
         var layoutId = prevLayoutId
         while (layoutId == prevLayoutId) {
@@ -149,7 +162,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
     }
 
     fun introduceImages(viewHolder: SplashElementViewHolder) {
-        val context = viewHolder.elements[0].context
+      *//*  val context = viewHolder.elements[0].context
         Picasso.with(context).load(getNextLnRes()).into(viewHolder.elements[0])
         Picasso.with(context).load(getNextLnRes()).into(viewHolder.elements[1])
         Picasso.with(context).load(getNextSqRes()).into(viewHolder.elements[2])
@@ -167,7 +180,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
                 Picasso.with(context).load(getNextSqRes()).into(viewHolder.elements[3])
                 Picasso.with(context).load(getNextBsqRes()).into(viewHolder.elements[4])
             }
-        }
+        }*//*
     }
 
     fun introduceMagic(viewHolder: SplashElementViewHolder, startDelay: Int) {
@@ -234,9 +247,9 @@ class SplashBackgroundAdapter: BaseAdapter() {
         return fatImageResources[ftCounter++]
     }
 
-    /**
+    *//**
      * returns if the element should be featured or dimmed
      * if true, the element will be featured
-     */
-    fun getMagicPortion() = random.nextFloat() > .3f
+     *//*
+    fun getMagicPortion() = random.nextFloat() > .3f*/
 }

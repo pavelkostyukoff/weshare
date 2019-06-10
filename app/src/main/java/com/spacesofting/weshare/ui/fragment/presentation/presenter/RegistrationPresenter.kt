@@ -25,24 +25,24 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
 
 
 
-    private fun registration(registration: Mail, isRetryIn: Boolean = false) {
+    fun registration(mail: Mail, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
 
-        Api.Auth.register(registration)
+        Api.Auth.register(mail)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
+            .subscribe ({
+                it
 
-                .subscribe({ result ->
-               
-            }, { e:Exception ->
-                val error = ErrorUtils.parseError(e)
-                parseError(error, registration)
-            })
+            }){
+                it
+            }
+
             }
 
     fun sendAgainSmsCode(registration: Registration) {
         Settings.ValidationToken = null
-        registration(registration, true)
+       // registration(registration, true)
     }
 
 //todo  чекает есть ли в базе уже этот телефон

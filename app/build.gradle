@@ -31,8 +31,8 @@ android {
         buildConfigField "java.util.Map<String, String>", "API_PATHS",
                 "new java.util.HashMap<String, String>() " +
                         "{{ " +
-                        "put(\"PROD\", \"https://em-gateway.azurewebsites.net/api/v" + API_VERSION + "/\"); " +
-                        "put(\"test\",  \"https://api.test.gpbevents.ru/api/v" + API_VERSION + "/\"); " +
+                        "put(\"PROD\", \"https://api.goods4rent.com"  + "/\"); " +
+                        "put(\"test\",  \"https://api.goods4rent.com"  + "/\"); " +
                         "}}"
     }
 

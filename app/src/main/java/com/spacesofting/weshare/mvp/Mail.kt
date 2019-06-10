@@ -3,9 +3,13 @@ package com.spacesofting.weshare.mvp
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class Mail(token: String) : Serializable {
+class Mail(email: String,password: String) : Serializable {
 
-    @SerializedName("token")
-    var token: String = token
+    @SerializedName("email")
+    var email: String = email
+
+    @SerializedName("password")
+    var password: String = password
+
 
 }

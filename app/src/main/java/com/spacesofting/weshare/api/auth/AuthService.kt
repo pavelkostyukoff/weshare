@@ -10,8 +10,9 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthService {
-    @POST("auth/otp")
-    fun register(@Body registration: Mail): Observable<Registration>
+
+    @POST("users/login")  //todo //Подтвердить получение задачи
+    fun register(@Body mail: Mail): Observable<Registration>
 
    /* @POST("auth/otp")
     fun register(@Body registration: Registration, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>

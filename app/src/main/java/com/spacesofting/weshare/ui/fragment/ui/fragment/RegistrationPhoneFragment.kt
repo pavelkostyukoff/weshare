@@ -15,6 +15,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.mvp.Mail
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.ui.fragment.presentation.presenter.RegistrationPresenter
@@ -45,9 +46,20 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         presenter.deviceInfo = getDeviceInfo()
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
+
+            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
+            {
+                val mail = Mail(login.text.toString(), pass.text.toString())
+                presenter.registration(mail,false)
+            }
+
         }
 
      //   keyboard.attachEditText(inputNumber)
+
+        //todo botton presenter.registration(Mail)
+
+
 
     }
 
@@ -92,8 +104,8 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
                 color = ContextCompat.getColor(it, R.color.colorPrimaryDark)
             }
 
-            phoneUnderline?.setBackgroundColor(color)
-            inputNumber?.setTextColor(color)
+            login?.setTextColor(color)
+            pass?.setTextColor(color)
         }
 
         if (isBlocked) {
