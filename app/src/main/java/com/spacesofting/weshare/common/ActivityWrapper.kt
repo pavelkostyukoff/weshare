@@ -16,7 +16,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         BACK_ARROW,
         NONE
     }
-    lateinit var router: Goods4RentRouter
+    lateinit var router: Boomerango
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

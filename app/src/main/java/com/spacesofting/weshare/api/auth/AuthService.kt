@@ -1,21 +1,23 @@
 package com.spacesofting.weshare.api.auth
 
-import android.provider.ContactsContract
 import com.spacesofting.weshare.mvp.Mail
-import com.spacesofting.weshare.mvp.Registration
+import com.spacesofting.weshare.mvp.Autorize
+import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.ResponceProfile
 
-import io.reactivex.Completable
 import io.reactivex.Observable
-import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthService {
 
     @POST("users/login")  //todo //Подтвердить получение задачи
-    fun register(@Body mail: Mail): Observable<Registration>
+    fun autorize(@Body mail: Mail): Observable<Autorize>
+
+    @POST("/users/register")  //todo //Подтвердить получение задачи
+    fun register(@Body profile: Profile): Observable<ResponceProfile>
 
    /* @POST("auth/otp")
-    fun register(@Body registration: Registration, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>
+    fun register(@Body registration: Autorize, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>
     @PUT("event/pass/accept")
     fun passGuest(@Body pass: Pass): Observable<Response<Void>>
 

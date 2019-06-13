@@ -22,10 +22,14 @@
             app:layout_constraintGuide_end="@dimen/margin_double"/>
 
     <android.support.constraint.ConstraintLayout
-            android:layout_width="347dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="32dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/gpbemLogo" app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/gpbemLogo" app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/constraintLayout2" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp" android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.228">
 
         <EditText
                 android:id="@+id/pass"
@@ -39,11 +43,11 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryLight"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/login" android:layout_marginTop="48dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/login" android:layout_marginTop="36dp"/>
         <EditText
                 android:id="@+id/login"
                 android:hint="Login: Test@gmail.com"
@@ -67,8 +71,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="264dp"
-                app:layout_constraintHorizontal_bias="1.0">
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="196dp"
+                app:layout_constraintHorizontal_bias="0.0">
 
             <ProgressBar
                     android:id="@+id/progressBar"
@@ -112,7 +116,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registrationLayout"
-                app:layout_constraintVertical_bias="1.0"/>
+                app:layout_constraintVertical_bias="0.0"/>
+
     </android.support.constraint.ConstraintLayout>
 
     <include
@@ -122,5 +127,21 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="104dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:padding="11dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/btn_rounded_sapphire"
+            android:fontFamily="@font/roboto"
+            android:text="Авторизация"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:id="@+id/autorize" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            android:layout_marginTop="64dp" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
+    />
 
 </android.support.constraint.ConstraintLayout>

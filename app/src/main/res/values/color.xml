@@ -43,4 +43,14 @@
     <color name="polo_blue">#96ADDB</color>
     <color name="california">#fc9e04</color>
     <color name="tuna">#33333D</color>
+
+
+    <color name="tangerine">#ED8B00</color>
+
+
+    <color name="app_gray">#48535B</color>
+    <color name="regent_gray">#79909c</color>
+    <color name="gothic">#758C99</color>
+    <color name="gray_gray">#A2A2A2</color>
+    <color name="boulder">#757575</color>
 </resources>

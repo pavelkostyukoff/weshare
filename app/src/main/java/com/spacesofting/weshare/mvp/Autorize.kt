@@ -3,7 +3,7 @@ package com.spacesofting.weshare.mvp
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class Registration(token: String) : Serializable {
+class Autorize(token: String) : Serializable {
 
     @SerializedName("token")
     var token: String = token
@@ -14,9 +14,5 @@ class Registration(token: String) : Serializable {
     @SerializedName("user")
     var user: User? = null
 
-
-}
-
-class User {
 
 }

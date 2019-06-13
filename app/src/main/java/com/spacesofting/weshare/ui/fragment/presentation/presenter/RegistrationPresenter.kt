@@ -2,20 +2,15 @@ package com.spacesofting.weshare.ui.fragment.presentation.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.pawegio.kandroid.d
-import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
-import com.spacesofting.weshare.api.HttpStatusCode
-import com.spacesofting.weshare.common.AccountManager
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Mail
-import com.spacesofting.weshare.mvp.Registration
+import com.spacesofting.weshare.mvp.Autorize
+import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.ui.fragment.presentation.view.RegistrationView
-import com.spacesofting.weshare.utils.ErrorUtils
-import com.spacesofting.weshare.utils.TimerUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
@@ -24,11 +19,10 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
     val router = ApplicationWrapper.INSTANCE.getRouter()
 
 
-
-    fun registration(mail: Mail, isRetryIn: Boolean = false) {
+    fun autorize(mail: Mail, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
 
-        Api.Auth.register(mail)
+        Api.Auth.autorize(mail)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
@@ -38,11 +32,31 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
                 it
             }
 
+    }
+
+    fun registration(profile: Profile, isRetryIn: Boolean = false) {
+        viewState.showProgress(true)
+
+        Api.Auth.register(profile)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { viewState.showProgress(false) }
+            .subscribe ({
+                it
+                //todo проходим в основной экран
+                router.navigateTo(ScreenPool.BASE_FRAGMENT)
+
+            }){
+                it
+
+                //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }
 
-    fun sendAgainSmsCode(registration: Registration) {
+            }
+
+    fun sendAgainSmsCode(autorize: Autorize) {
         Settings.ValidationToken = null
-       // registration(registration, true)
+       // autorize(autorize, true)
     }
 
 //todo  чекает есть ли в базе уже этот телефон
@@ -68,7 +82,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             })
     }*/
 
-   /* fun confirmSmsCode(registration: Registration, smsCode: String) {
+   /* fun confirmSmsCode(registration: Autorize, smsCode: String) {
         viewState.showProgress(true)
 
         Api.Auth.register(registration, smsCode)
@@ -85,7 +99,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             })
     }*/
 
-   /* private fun parseError(error: ServerException, registration: Registration) {
+   /* private fun parseError(error: ServerException, registration: Autorize) {
         when(error.type) {
             EnumErrorType.REQUIRED_CONFIRMATION -> {
                 val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)

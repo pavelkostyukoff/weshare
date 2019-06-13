@@ -8,7 +8,7 @@ class ApplicationWrapper : Application() {
         lateinit var INSTANCE: ApplicationWrapper
     }
 
-    private lateinit var cicerone: Cicerone<Goods4RentRouter>
+    private lateinit var cicerone: Cicerone<Boomerango>
 
     override fun onCreate() {
         super.onCreate()
@@ -17,7 +17,7 @@ class ApplicationWrapper : Application() {
     }
 
     private fun initCicerone() {
-        cicerone = Cicerone.create(Goods4RentRouter())
+        cicerone = Cicerone.create(Boomerango())
     }
 
     fun getNavigationHolder() = cicerone.navigatorHolder

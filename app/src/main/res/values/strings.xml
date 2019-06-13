@@ -1,7 +1,7 @@
 <resources>
 
     <!-- SPLASH -->
-    <string name="app_name">Goods4Rent</string>
+    <string name="app_name">BoomeranGO</string>
 
     <!-- SPLASH -->
     <string name="splash_copyright">© 2019. ОАО «SpaceSofting» </string>
@@ -171,4 +171,5 @@
     <string name="base_guest_manager_all_tab">Все</string>
     <string name="base_guest_manager_my_guests_tab">Мои гости</string>
     <string name="base_guest_manager_i_am_interested_tab">Мне интересны</string>
+    <string name="test1">test1</string>
 </resources>

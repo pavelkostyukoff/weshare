@@ -1,4 +1,4 @@
-package com.spacesofting.weshare.ui.fragment
+package com.spacesofting.weshare.ui.fragment.ui.fragment
 
 import android.os.Bundle
 import android.view.View

@@ -3,17 +3,18 @@ package com.spacesofting.weshare.common
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.spacesofting.weshare.common.AccountManager
-import com.spacesofting.weshare.mvp.GuestCard
 import com.spacesofting.weshare.mvp.RoleEnum
-import com.spacesofting.weshare.ui.fragment.SplashFragment
-import com.spacesofting.weshare.ui.fragment.StubRolesFragment
+import com.spacesofting.weshare.ui.fragment.ui.fragment.SplashFragment
+import com.spacesofting.weshare.ui.fragment.ui.fragment.StubRolesFragment
+import com.spacesofting.weshare.ui.fragment.ui.fragment.BaseFragment
 import com.spacesofting.weshare.ui.fragment.ui.fragment.RegistrationPhoneFragment
 
 object ScreenPool {
     val MAIN_FRAGMENT = "main_fragment"
+    val BASE_FRAGMENT = "base_fragment"
+
+
     val SPLASH_FRAGMENT = "splash_fragment"
     val REGISTRATION_FRAGMENT = "registration_fragment"
     val SMS_CONFIRMATION_FRAGMENT = "sms_confirmation_fragment"
@@ -38,6 +39,9 @@ object ScreenPool {
             }
             REGISTRATION_FRAGMENT -> {
                 RegistrationPhoneFragment.getInstance()
+            }
+            BASE_FRAGMENT -> {
+                BaseFragment.newInstance(data as String?)
             }
 
             /*  REGISTRATION_FRAGMENT -> {

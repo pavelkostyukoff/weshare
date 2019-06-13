@@ -1,4 +1,4 @@
-package com.spacesofting.weshare.ui.fragment
+package com.spacesofting.weshare.ui.fragment.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.Settings
 import kotlinx.android.synthetic.main.fragment_slash.*
 
 class SlashFragment : MvpFragment(), SlashView {

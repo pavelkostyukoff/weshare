@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/navigation_my_task"
+            android:icon="@drawable/ic_union"
+            android:title="Лента"/>
+
+    <item
+            android:id="@+id/navigation_dashboard"
+            android:icon="@drawable/ic_map_menu"
+            android:title="Карта"/>
+
+    <item
+            android:id="@+id/navigation_task_in_work"
+            android:icon="@drawable/ic_bagage"
+            android:title="История действий"/>
+
+</menu>

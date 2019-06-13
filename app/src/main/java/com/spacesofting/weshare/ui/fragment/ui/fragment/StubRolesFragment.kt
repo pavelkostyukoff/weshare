@@ -1,12 +1,9 @@
-package com.spacesofting.weshare.ui.fragment
+package com.spacesofting.weshare.ui.fragment.ui.fragment
 
 import android.os.Bundle
 import android.view.View
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.AccountManager
-import com.spacesofting.weshare.mvp.RoleEnum
-import kotlinx.android.synthetic.main.fragment_stub_roles.*
 
 //TODO: remove this fragment after implement all roles
 class StubRolesFragment : FragmentWrapper() {

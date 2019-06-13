@@ -16,6 +16,7 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.Mail
+import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.ui.fragment.presentation.presenter.RegistrationPresenter
@@ -44,13 +45,36 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         showToolbar(TOOLBAR_HIDE)
 
         presenter.deviceInfo = getDeviceInfo()
+        autorize.setOnClickListener {
+            //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
+
+            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
+            {
+                val mail = Mail("user@wau.su", "K1o2I2P412345")
+                //val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
+                //   val profile = Mail(login.text.toString(), pass.text.toString())
+
+                // presenter.autorize(mail,false)
+                presenter.autorize(mail,false)
+            }
+
+        }
+
+
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
             if (login.text.isNotEmpty() && pass.text.isNotEmpty())
             {
                 val mail = Mail(login.text.toString(), pass.text.toString())
-                presenter.registration(mail,false)
+                val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
+
+
+
+             //   val profile = Mail(login.text.toString(), pass.text.toString())
+
+                // presenter.autorize(mail,false)
+                presenter.registration(profile,false)
             }
 
         }
