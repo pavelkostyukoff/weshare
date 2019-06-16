@@ -5,14 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
-import com.spacesofting.weshare.ui.fragment.ui.fragment.SplashFragment
-import com.spacesofting.weshare.ui.fragment.ui.fragment.StubRolesFragment
-import com.spacesofting.weshare.ui.fragment.ui.fragment.BaseFragment
-import com.spacesofting.weshare.ui.fragment.ui.fragment.RegistrationPhoneFragment
+import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
+import com.spacesofting.weshare.ui.fragment.ui.fragment.*
 
 object ScreenPool {
     val MAIN_FRAGMENT = "main_fragment"
     val BASE_FRAGMENT = "base_fragment"
+    val INVENTORY_FRAGMENT = "inventory_fragment"
+    val PROFILEEDIT = "profile_edit_fragment"
+
+
+
 
 
     val SPLASH_FRAGMENT = "splash_fragment"
@@ -43,6 +46,14 @@ object ScreenPool {
             BASE_FRAGMENT -> {
                 BaseFragment.newInstance(data as String?)
             }
+            INVENTORY_FRAGMENT -> {
+                InventoryFragment.newInstance(data as Int?)
+            }
+            PROFILEEDIT -> {
+                ProfileEditFragment.newInstance()
+            }
+
+
 
             /*  REGISTRATION_FRAGMENT -> {
                   RegistrationPhoneFragment.getInstance()

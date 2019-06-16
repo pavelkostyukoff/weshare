@@ -26,7 +26,11 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
-                it
+                it->it.token
+                it.rowrefreshTokenVersion
+                router.navigateTo(ScreenPool.BASE_FRAGMENT)
+
+                //todo тут кладем токен в сохранялки Settings
 
             }){
                 it

@@ -18,7 +18,7 @@ class StubRolesFragment : FragmentWrapper() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHomeAsUpIndicator(TOOLBAR_INDICATOR_HAMBURGER)
+       // setHomeAsUpIndicator(TOOLBAR_INDICATOR_HAMBURGER)
         showToolbar(TOOLBAR_HIDE)
         val notImpmented = "NOT IMPLEMENTED"
 

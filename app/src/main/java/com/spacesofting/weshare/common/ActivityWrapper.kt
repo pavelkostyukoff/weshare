@@ -1,14 +1,17 @@
 package com.spacesofting.weshare.common
 
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.spacesofting.weshare.utils.inflate
 import com.spacesofting.weshare.R
 import kotlinx.android.synthetic.main.activity_wrapper.*
+import java.util.ArrayList
 
 open class ActivityWrapper : MvpAppCompatActivity() {
     enum class HomeAsUpIndicatorType {
@@ -18,6 +21,18 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     }
     lateinit var router: Boomerango
 
+    companion object {
+        var serverNumber = ""
+        var idMyTask = ""
+        var myWorkSessions = ""
+        var userSessionId = ""
+        var nameUser = ""
+        var soNameUser = ""
+        var fragmnetTag: String? = ""
+        var middleName = ""
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_wrapper)
@@ -26,6 +41,8 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         router = ApplicationWrapper.INSTANCE.getRouter()
         showToolbar(false)
         lockDrawerMenu(true)
+        scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
     }
 
     override fun setContentView(view: View?) {
@@ -113,6 +130,69 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                     dialog.cancel()
                 }
                 .show()
+    }
+    val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_my_task -> {
+
+                //todo запрос актуальных задачь - положить их в список и открыть
+             /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                   // getMyTask()
+                } else {
+                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }*/
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_dashboard -> {
+                when(fragmnetTag) {
+/*
+                    "WSTFR" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenu(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    "SIMPLJOB" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenuSimpleJob(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    "NO_PRESS" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }*/
+
+                    else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_task_in_work -> {
+                router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+              /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                    allMyTask = TaskFragment.taskList
+                    if (allMyTask.isNotEmpty()) {
+                        router.newScreenChain(ScreenPool.BMTCWWCF)
+                    } else {
+                        Toast.makeText(
+                            this, "У Вас не текущих задач.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }*/
+/*
+                } else {
+                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }*/
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 
     fun logout() {

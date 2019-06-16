@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.ui.fragment.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.spacesofting.weshare.ui.presentation.view.BaseView
@@ -12,6 +13,10 @@ import com.spacesofting.weshare.common.FragmentWrapper
 class BaseFragment : FragmentWrapper(), BaseView {
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_base
+    }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        setHamburgerForRole()
     }
 
     companion object {
@@ -37,7 +42,6 @@ class BaseFragment : FragmentWrapper(), BaseView {
         setTitle(getString(R.string.app_name))
         setToolbarBackgroundDrawable(R.color.link_water)
         // showProgressBar(false)
-
         setHomeAsUpIndicator(TOOLBAR_INDICATOR_HAMBURGER)
     }
 }

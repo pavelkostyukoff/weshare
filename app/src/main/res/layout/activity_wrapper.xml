@@ -27,7 +27,7 @@
                 <android.support.v7.widget.Toolbar
                         android:id="@+id/mainToolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="36dp"
                         android:background="@color/link_water"/>
             </android.support.design.widget.AppBarLayout>
 
@@ -58,7 +58,7 @@
                     app:itemIconTint="@drawable/bottom_nav_color"
                     app:itemTextColor="@drawable/bottom_nav_color"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:visibility="visible"
                     app:layout_constraintRight_toRightOf="parent"
@@ -100,10 +100,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
         </android.support.design.widget.NavigationView>
-
-
-
-
     </android.support.v4.widget.DrawerLayout>
 
 </FrameLayout>

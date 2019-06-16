@@ -1,6 +1,6 @@
 package com.spacesofting.weshare.common
 
-import android.app.AlertDialog
+import android.support.v7.app.AlertDialog
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -15,9 +15,6 @@ import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.AccountManager
-import com.spacesofting.weshare.common.ActivityWrapper
-import com.spacesofting.weshare.mvp.RoleEnum
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
 
@@ -26,6 +23,7 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         var isInvitedMode = false
     }
 
+    val router = ApplicationWrapper.INSTANCE.getRouter()
     val TOOLBAR_HIDE = 0
     val TOOLBAR_OVERLAY = 1
     val TOOLBAR_EMBEDDED = 2
@@ -151,10 +149,12 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
             val view = LayoutInflater.from(activity).inflate(R.layout.dialog_progress, null)
             view.findViewById<TextView>(R.id.tvLoadingMsg)?.text = getText(strResId)
 
-            dialog = AlertDialog.Builder(activity)
+            dialog = activity?.let {
+                AlertDialog.Builder(it)
                     .setView(view)
                     .setCancelable(false)
                     .show()
+            }
         } else {
             dialog?.dismiss()
         }
@@ -190,6 +190,6 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val inflatedView: View = inflater.inflate(R.layout.view_guests_items, null, false)
         inflatedView.layoutParams = params
-
+        (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
     }
 }

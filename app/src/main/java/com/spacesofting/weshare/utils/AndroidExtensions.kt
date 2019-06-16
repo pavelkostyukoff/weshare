@@ -1,6 +1,6 @@
 package com.spacesofting.weshare.utils
 
-import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 import android.content.Context
 import android.os.Build
 import android.text.Html
@@ -56,7 +56,7 @@ fun Context.inflate(res: Int, parent: ViewGroup? = null, attachToRoot: Boolean =
     return LayoutInflater.from(this).inflate(res, parent, attachToRoot)
 }
 
-fun Activity.hideKeyboard() {
+fun AppCompatActivity.hideKeyboard() {
     val view = this.currentFocus
     if (view != null) {
         val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -64,7 +64,7 @@ fun Activity.hideKeyboard() {
     }
 }
 
-fun Activity.showKeyboard() {
+fun AppCompatActivity.showKeyboard() {
     val view = this.currentFocus
     if (view != null) {
         val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -72,7 +72,7 @@ fun Activity.showKeyboard() {
     }
 }
 
-val Activity.screenMetrics: DisplayMetrics1
+val AppCompatActivity.screenMetrics: DisplayMetrics1
     get() {
         val metrics = DisplayMetrics1()
         val wm = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -81,10 +81,10 @@ val Activity.screenMetrics: DisplayMetrics1
         return metrics
     }
 
-val Activity.screenWidth: Int
+val AppCompatActivity.screenWidth: Int
     get() = screenMetrics.widthPixels
 
-val Activity.screenHeight: Int
+val AppCompatActivity.screenHeight: Int
     get() = screenMetrics.heightPixels
 
 fun fromHtml(html: String): Spanned {
@@ -100,6 +100,7 @@ fun <T> Observable<T>.default(): Observable<T> {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
+
 
 
 

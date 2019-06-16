@@ -50,7 +50,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
             if (login.text.isNotEmpty() && pass.text.isNotEmpty())
             {
-                val mail = Mail("user@wau.su", "K1o2I2P412345")
+                val mail = Mail("user@wau.su", "password")
                 //val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
                 //   val profile = Mail(login.text.toString(), pass.text.toString())
 
