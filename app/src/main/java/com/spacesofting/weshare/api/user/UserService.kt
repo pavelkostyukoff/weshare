@@ -1,7 +1,46 @@
 package com.spacesofting.weshare.api.user
 
+import com.spacesofting.weshare.mvp.GuestCard
+import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.ResponceProfile
+import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
+import retrofit2.http.*
+import java.util.*
+import io.reactivex.Observable
+
 
 interface UserService {
+
+
+    @POST("/users/register")  //todo //Подтвердить получение задачи
+    fun register(@Body profile: Profile): Observable<ResponceProfile>
+
+    //todo  Get user profile
+    @GET("users/me")
+    fun getAccount(): Observable<GuestCard>
+
+    //todo  Update user profile
+    @PATCH("users/me")
+    fun approveGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?, @Body guestPriority: GuestCardPriority): Observable<GuestCard>
+
+   /* //todo    Update user avatar
+    @PATCH("users/me/avatar")
+    fun approveGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?, @Body guestPriority: GuestCardPriority): Observable<GuestCard>
+
+    //todo  Delete user avatar
+    @DELETE("users/me/avatar")
+    fun rejectGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?): Observable<GuestCard>
+
+    //todo  Get an users list
+    @GET("users")
+    fun getPass(): Observable<Pass>
+
+    //todo Get an user by id
+    @GET("users/{userId}")
+    fun getPass(): Observable<Pass>
+*/
+
+
    /* @GET("event/pass")
     fun getPass(): Observable<Pass>
 

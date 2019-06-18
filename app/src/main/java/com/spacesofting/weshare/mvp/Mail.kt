@@ -11,5 +11,4 @@ class Mail(email: String,password: String) : Serializable {
     @SerializedName("password")
     var password: String = password
 
-
 }

@@ -35,13 +35,12 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             }){
                 it
             }
-
     }
 
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
 
-        Api.Auth.register(profile)
+        Api.Users.register(profile)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({

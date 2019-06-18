@@ -13,8 +13,7 @@ interface AuthService {
     @POST("users/login")  //todo //Подтвердить получение задачи
     fun autorize(@Body mail: Mail): Observable<Autorize>
 
-    @POST("/users/register")  //todo //Подтвердить получение задачи
-    fun register(@Body profile: Profile): Observable<ResponceProfile>
+
 
    /* @POST("auth/otp")
     fun register(@Body registration: Autorize, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>
