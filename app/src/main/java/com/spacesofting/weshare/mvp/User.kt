@@ -1,9 +1,6 @@
 package com.spacesofting.weshare.mvp
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-
-
 
 class User {
 

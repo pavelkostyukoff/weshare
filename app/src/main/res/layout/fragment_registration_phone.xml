@@ -47,7 +47,8 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/login" android:layout_marginTop="36dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/login" android:layout_marginTop="36dp"
+                tools:text="password"/>
         <EditText
                 android:id="@+id/login"
                 android:hint="Login: Test@gmail.com"
@@ -64,7 +65,7 @@
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                android:layout_marginTop="52dp"/>
+                android:layout_marginTop="52dp" tools:text="user@wau.su"/>
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/registrationLayout"
                 android:layout_width="0dp"

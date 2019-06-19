@@ -17,7 +17,7 @@ class AuthHeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()
 
-        accessToken = Settings.AccessToken
+        accessToken = "Bearer " + Settings.AccessToken
         validationToken = Settings.ValidationToken
 
         if (!accessToken.isNullOrEmpty()) {

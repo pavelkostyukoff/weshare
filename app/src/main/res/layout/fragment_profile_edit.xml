@@ -9,38 +9,40 @@
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mainAvatar2"
             android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/photo_me"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_star_blue"
             android:visibility="visible"
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+    />
     <ImageView
             android:src="@drawable/ic_pencel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/mainAvatar2" android:layout_marginTop="109dp"
+            app:layout_constraintTop_toTopOf="@+id/mainAvatar2"
             app:layout_constraintEnd_toEndOf="@+id/mainAvatar2"/>
     <TextView
-            android:text=" Имя"
+            android:text="Телефон"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView3" android:textSize="24sp"
             android:textColor="#0C0407" app:layout_constraintStart_toStartOf="@+id/textView7"
             android:layout_marginBottom="56dp" app:layout_constraintEnd_toEndOf="@+id/textView7"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"/>
+            app:layout_constraintBottom_toTopOf="@+id/textView7" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/mainAvatar2" app:layout_constraintVertical_bias="0.886"/>
     <TextView
-            android:text=" Имя"
+            android:text="Фамилия"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView6" android:textSize="24sp"
             android:textColor="#0C0407" app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editText4"
+            app:layout_constraintBaseline_toBaselineOf="@+id/lastName"
             app:layout_constraintEnd_toEndOf="@+id/textView8"/>
     <TextView
-            android:text=" Имя"
+            android:text="ДР"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView8" android:textSize="24sp"
@@ -53,46 +55,61 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView7" android:textSize="24sp"
             android:textColor="#0C0407" app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editText3"
+            app:layout_constraintBaseline_toBaselineOf="@+id/firstName"
             app:layout_constraintEnd_toEndOf="@+id/textView6"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="1988-01-03"
             android:ems="10"
-            android:id="@+id/editText"
-            android:layout_marginTop="52dp" app:layout_constraintTop_toBottomOf="@+id/editText4"
+            android:id="@+id/birthday"
+            android:layout_marginTop="52dp" app:layout_constraintTop_toBottomOf="@+id/lastName"
             android:layout_marginEnd="36dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView8"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.78"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Test"
+            android:ems="10"
+            android:id="@+id/lastName"
+            android:layout_marginTop="36dp" app:layout_constraintTop_toBottomOf="@+id/firstName"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView6"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.567" tools:text="Test"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="firstName"
+            android:ems="10"
+            android:id="@+id/firstName"
+            android:layout_marginTop="56dp" app:layout_constraintTop_toBottomOf="@+id/phone"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView7"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.75"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/editText4"
-            android:layout_marginTop="36dp" app:layout_constraintTop_toBottomOf="@+id/editText3"
+            android:id="@+id/phone"
             android:layout_marginEnd="36dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/textView3"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="0.6"/>
+    <Button
+            android:text="save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:id="@+id/editText3"
-            android:layout_marginTop="56dp" app:layout_constraintTop_toBottomOf="@+id/editText2"
-            android:layout_marginEnd="36dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_marginTop="40dp" app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            android:layout_marginEnd="36dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/goNewProfile"
+            android:layout_marginBottom="59dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_bias="0.158" app:layout_constraintHorizontal_bias="0.498"/>
 </android.support.constraint.ConstraintLayout>

@@ -43,5 +43,8 @@ class BaseFragment : FragmentWrapper(), BaseView {
         setToolbarBackgroundDrawable(R.color.link_water)
         // showProgressBar(false)
         setHomeAsUpIndicator(TOOLBAR_INDICATOR_HAMBURGER)
+
+
+      //  mBasePresenter.getProfile()
     }
 }

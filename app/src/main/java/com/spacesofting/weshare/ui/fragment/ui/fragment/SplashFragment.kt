@@ -26,7 +26,7 @@ class SplashFragment : FragmentWrapper() {
 
         runDelayed(DELAY){
             if (Settings.IsAuthorized) {
-                ApplicationWrapper.INSTANCE.getRouter().newRootScreen(ScreenPool.MAIN_FRAGMENT)
+                ApplicationWrapper.INSTANCE.getRouter().newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
             } else {
                 ApplicationWrapper.INSTANCE.getRouter().newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
             }

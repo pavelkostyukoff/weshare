@@ -9,15 +9,11 @@ import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
 import com.spacesofting.weshare.ui.fragment.ui.fragment.*
 
 object ScreenPool {
+
     val MAIN_FRAGMENT = "main_fragment"
     val BASE_FRAGMENT = "base_fragment"
     val INVENTORY_FRAGMENT = "inventory_fragment"
     val PROFILEEDIT = "profile_edit_fragment"
-
-
-
-
-
     val SPLASH_FRAGMENT = "splash_fragment"
     val REGISTRATION_FRAGMENT = "registration_fragment"
     val SMS_CONFIRMATION_FRAGMENT = "sms_confirmation_fragment"

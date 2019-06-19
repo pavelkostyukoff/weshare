@@ -12,6 +12,7 @@ import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.ui.adapter.LoginPagerAdapter
@@ -19,6 +20,8 @@ import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 
 class InventoryFragment : FragmentWrapper(), InventoryView {
+    val user = ApplicationWrapper.user
+
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_inventory
     }
@@ -78,10 +81,16 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
                 router.navigateTo(ScreenPool.BASE_FRAGMENT, result)
             }
         }*/
+        lastName.text = user.firstName.toString()
+        lastName.text = user.lastName.toString()
 
 
         showSettings.setOnClickListener {
+
+
             router.navigateTo(ScreenPool.PROFILEEDIT)
+
+
         }
 
     }

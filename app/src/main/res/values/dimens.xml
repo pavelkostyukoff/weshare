@@ -33,7 +33,7 @@
     <dimen name="item_height">56dp</dimen>
 
     <!-- Toolbar -->
-    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_height">42dp</dimen>
     <dimen name="filter_button">48dp</dimen>
 
     <!-- Keyboard num key size -->

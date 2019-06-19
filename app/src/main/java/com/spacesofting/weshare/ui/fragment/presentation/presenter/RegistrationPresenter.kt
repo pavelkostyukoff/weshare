@@ -6,7 +6,7 @@ import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Mail
+import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
@@ -19,15 +19,18 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
     val router = ApplicationWrapper.INSTANCE.getRouter()
 
 
-    fun autorize(mail: Mail, isRetryIn: Boolean = false) {
+    fun autorize(mail: Login, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
 
         Api.Auth.autorize(mail)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
-                it->it.token
-                it.rowrefreshTokenVersion
+                it->
+                Settings.AccessToken = it.token
+                Settings.ValidationToken = it.rowrefreshTokenVersion
+
+                ApplicationWrapper.user = it.user!!
                 router.navigateTo(ScreenPool.BASE_FRAGMENT)
 
                 //todo тут кладем токен в сохранялки Settings
@@ -39,7 +42,6 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
 
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
-
         Api.Users.register(profile)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
@@ -47,10 +49,8 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
                 it
                 //todo проходим в основной экран
                 router.navigateTo(ScreenPool.BASE_FRAGMENT)
-
             }){
                 it
-
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

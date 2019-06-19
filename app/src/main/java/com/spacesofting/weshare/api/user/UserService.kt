@@ -1,11 +1,7 @@
 package com.spacesofting.weshare.api.user
 
-import com.spacesofting.weshare.mvp.GuestCard
-import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.ResponceProfile
-import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
+import com.spacesofting.weshare.mvp.*
 import retrofit2.http.*
-import java.util.*
 import io.reactivex.Observable
 
 
@@ -13,7 +9,7 @@ interface UserService {
 
 
     @POST("/users/register")  //todo //Подтвердить получение задачи
-    fun register(@Body profile: Profile): Observable<ResponceProfile>
+    fun register(@Body updateProfile: Profile): Observable<ResponceProfile>
 
     //todo  Get user profile
     @GET("users/me")
@@ -21,7 +17,7 @@ interface UserService {
 
     //todo  Update user profile
     @PATCH("users/me")
-    fun approveGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?, @Body guestPriority: GuestCardPriority): Observable<GuestCard>
+    fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>
 
    /* //todo    Update user avatar
     @PATCH("users/me/avatar")

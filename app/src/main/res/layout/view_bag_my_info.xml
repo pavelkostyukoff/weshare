@@ -14,13 +14,13 @@
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="4dp"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/one"
             android:layout_width="158dp"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/navItemInviteds"
             app:layout_constraintStart_toEndOf="@+id/navItemApprove"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -53,9 +53,8 @@
             android:id="@+id/navItemApprove"
             android:layout_width="158dp"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/navItemInvited" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp">
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp">
 
         <ImageView
                 android:id="@+id/approveIcon"
@@ -87,7 +86,7 @@
             android:layout_height="50dp"
             tools:ignore="DuplicateIds,MissingConstraints"
             app:layout_constraintStart_toEndOf="@+id/navItemInvited"
-            android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.506">
 
@@ -119,7 +118,7 @@
             android:id="@+id/navItemInvited"
             android:layout_width="158dp"
             android:layout_height="50dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp">
 
@@ -189,29 +188,40 @@
 
     <!-- Елена -->
     <TextView
-            android:id="@+id/name"
+            android:id="@+id/lastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Павел Костромской"
+            android:text="Костромской"
+            android:textAppearance="@style/HelenTxt"
+            android:gravity="top"
+            app:layout_constraintStart_toEndOf="@+id/firstName"
+            android:layout_marginStart="12dp" app:layout_constraintTop_toTopOf="@+id/mainAvatar"
+            android:layout_marginTop="2dp"/>
+    <TextView
+            android:id="@+id/firstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Павел"
             android:textAppearance="@style/HelenTxt"
             android:gravity="top"
             app:layout_constraintStart_toEndOf="@+id/mainAvatar"
             android:layout_marginStart="20dp" app:layout_constraintTop_toTopOf="@+id/mainAvatar"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            android:layout_marginTop="2dp"/>
     <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content" app:srcCompat="@drawable/ic_star"
             android:id="@+id/imageView"
-            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/name"
+            android:layout_marginTop="20dp" app:layout_constraintTop_toBottomOf="@+id/lastName"
             app:layout_constraintStart_toEndOf="@+id/mainAvatar" android:layout_marginStart="20dp"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@drawable/ic_settings"
             android:id="@+id/showSettings"
-            app:layout_constraintTop_toBottomOf="@+id/name" android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/navItemInviteds" app:layout_constraintVertical_bias="0.347"
             app:layout_constraintStart_toEndOf="@+id/textView2" android:layout_marginStart="140dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -222,6 +232,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView2" android:textColor="@color/charade"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/name" app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="4dp" android:layout_marginTop="16dp"/>
 </android.support.constraint.ConstraintLayout>
