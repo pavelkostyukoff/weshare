@@ -98,6 +98,4 @@ dependencies {
     implementation 'com.github.markomilos:paginate:0.5.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-
 }
