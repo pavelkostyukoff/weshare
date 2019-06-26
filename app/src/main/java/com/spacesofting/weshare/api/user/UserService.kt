@@ -1,12 +1,13 @@
 package com.spacesofting.weshare.api.user
 
 import com.spacesofting.weshare.mvp.*
+import com.spacesofting.weshare.mvp.model.Photo
 import retrofit2.http.*
 import io.reactivex.Observable
+import java.io.File
 
 
 interface UserService {
-
 
     @POST("/users/register")  //todo //Подтвердить получение задачи
     fun register(@Body updateProfile: Profile): Observable<ResponceProfile>
@@ -19,7 +20,11 @@ interface UserService {
     @PATCH("users/me")
     fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>
 
-   /* //todo    Update user avatar
+    //todo    Update user avatar
+    @PATCH("users/me")
+    fun updateAvatar(@Body filePhoto: File): Observable<Photo>
+   /*
+
     @PATCH("users/me/avatar")
     fun approveGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?, @Body guestPriority: GuestCardPriority): Observable<GuestCard>
 

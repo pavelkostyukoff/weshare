@@ -133,7 +133,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     }
     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_my_task -> {
+            R.id.navigation_feed -> {
 
                 //todo запрос актуальных задачь - положить их в список и открыть
              /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
@@ -143,8 +143,14 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 }*/
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                when(fragmnetTag) {
+            R.id.navigation_map -> {
+
+
+                router.navigateTo(ScreenPool.MAP_FRAGMENT)
+
+
+              //  when(fragmnetTag) {
+
 /*
                     "WSTFR" -> {
                         if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
@@ -168,13 +174,13 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                         }
                     }*/
 
-                    else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
-                }
+              //      else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+            //    }
 
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_task_in_work -> {
-                router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+            R.id.navigation_inventory -> {
+                router.newRootScreen(ScreenPool.INVENTORY_FRAGMENT,1)
               /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                     allMyTask = TaskFragment.taskList
                     if (allMyTask.isNotEmpty()) {

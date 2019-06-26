@@ -16,6 +16,7 @@ import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import com.spacesofting.weshare.ui.adapter.ItemThingRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
+import java.io.File
 import java.util.ArrayList as ArrayList1
 
 class IRentFragment : FragmentWrapper(), IrentView {
@@ -101,19 +102,23 @@ class IRentFragment : FragmentWrapper(), IrentView {
         recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
         recyclerView.itemAnimator = DefaultItemAnimator()
 
+        /*val imageFile: File?
+        imageFile = R.drawable.img12*/
 
-
-        val one = RentItem("1","2",3)
+        val one = RentItem("9","2",3)
         val one1 = RentItem("12","2",3)
         val one2 = RentItem("14","2",3)
         val one3 = RentItem("1111","2",3)
 
-
         val filterList = ArrayList<RentItem>()
-
 
         filterList.add(one)
         filterList.add(one1)
+        filterList.add(one2)
+        filterList.add(one3)
+        filterList.add(one2)
+        filterList.add(one3)
+        filterList.add(one3)
         filterList.add(one2)
         filterList.add(one3)
 

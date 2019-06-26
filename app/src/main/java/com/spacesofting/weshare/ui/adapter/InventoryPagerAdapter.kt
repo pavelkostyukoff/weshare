@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import com.spacesofting.weshare.ui.fragment.ui.fragment.IRentFragment
 import com.spacesofting.weshare.ui.fragment.ui.fragment.IShootItFragment
 
-class LoginPagerAdapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class InventoryPagerAdapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

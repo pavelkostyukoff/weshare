@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/navigation_my_task"
+            android:id="@+id/navigation_feed"
             android:icon="@drawable/ic_union"
             android:title="Лента"/>
 
     <item
-            android:id="@+id/navigation_dashboard"
+            android:id="@+id/navigation_map"
             android:icon="@drawable/ic_map_menu"
             android:title="Карта"/>
 
     <item
-            android:id="@+id/navigation_task_in_work"
+            android:id="@+id/navigation_inventory"
             android:icon="@drawable/ic_bagage"
             android:title="История"/>
 

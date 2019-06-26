@@ -2,25 +2,21 @@ package com.spacesofting.weshare.ui.fragment.ui.fragment
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.spacesofting.weshare.ui.presentation.view.InventoryView
 import com.spacesofting.weshare.ui.presentation.presenter.InventoryPresenter
 
-import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.ui.adapter.LoginPagerAdapter
+import com.spacesofting.weshare.ui.adapter.InventoryPagerAdapter
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 
 class InventoryFragment : FragmentWrapper(), InventoryView {
-    val user = ApplicationWrapper.user
+   // val user = ApplicationWrapper.user
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_inventory
@@ -52,7 +48,7 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
         setTitle("Bag")
         setToolbarBackgroundDrawable(R.color.link_water)
         setHomeAsUpIndicator(TOOLBAR_INDICATOR_BACK_ARROW)
-        val fragmentAdapter = LoginPagerAdapter(childFragmentManager)
+        val fragmentAdapter = InventoryPagerAdapter(childFragmentManager)
         viewpager_main.adapter = fragmentAdapter
 //data
 
@@ -81,8 +77,9 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
                 router.navigateTo(ScreenPool.BASE_FRAGMENT, result)
             }
         }*/
-        lastName.text = user.firstName.toString()
-        lastName.text = user.lastName.toString()
+
+
+
 
 
         showSettings.setOnClickListener {
@@ -93,5 +90,16 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nameUpdate()
+    }
+    fun nameUpdate()
+    {
+        val user = ApplicationWrapper.user
+        firstName.text = user.firstName.toString()
+        lastName.text = user.lastName.toString()
     }
 }

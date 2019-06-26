@@ -2,22 +2,17 @@ package com.spacesofting.weshare.mvp.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import com.google.gson.annotations.Expose
+
+
 
 class Photo : Serializable {
-    @SerializedName("picture_id")
+    @SerializedName("id")
     val pictureId: Int = 0
 
-    @SerializedName("picture_name")
+    @SerializedName("url")
     val pictureName: String? = null
 
-    @SerializedName("width")
-    val width: Int = 0
-
-    @SerializedName("height")
-    val height: Int = 0
-
-    @SerializedName("ratio")
-    val ratio: Double? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -30,10 +25,7 @@ class Photo : Serializable {
 
         if (other is Photo) {
             if (pictureId == other.pictureId &&
-                    pictureName == other.pictureName &&
-                    width == other.width &&
-                    height == other.height &&
-                    ratio == other.ratio) {
+                    pictureName == other.pictureName ) {
                 return true
             }
         }
@@ -44,9 +36,6 @@ class Photo : Serializable {
         val prime = 31
         var result = pictureId
         result = prime * result + (pictureName?.hashCode() ?: 0)
-        result = prime * result + width
-        result = prime * result + height
-        result = prime * result + (ratio?.hashCode() ?: 0)
         return result
     }
 }

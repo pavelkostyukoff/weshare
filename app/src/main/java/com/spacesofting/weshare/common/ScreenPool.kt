@@ -7,11 +7,17 @@ import android.support.v4.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
 import com.spacesofting.weshare.ui.fragment.ui.fragment.*
+import com.spacesofting.weshare.ui.ui.fragment.MyMapFragment
 
 object ScreenPool {
 
     val MAIN_FRAGMENT = "main_fragment"
     val BASE_FRAGMENT = "base_fragment"
+    val MAP_FRAGMENT = "map_fragment"
+    val FEED_FRAGMENT = "feed_fragment"
+
+
+
     val INVENTORY_FRAGMENT = "inventory_fragment"
     val PROFILEEDIT = "profile_edit_fragment"
     val SPLASH_FRAGMENT = "splash_fragment"
@@ -48,6 +54,11 @@ object ScreenPool {
             PROFILEEDIT -> {
                 ProfileEditFragment.newInstance()
             }
+            MAP_FRAGMENT -> {
+               MyMapFragment.newInstance()
+            }
+
+
 
 
 

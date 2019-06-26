@@ -48,15 +48,15 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         autorize.setOnClickListener {
             //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
-            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
-            {
+           // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
+          //  {
                 val mail = Login("user@wau.su", "password")
                 //val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
                 //   val profile = Login(login.text.toString(), pass.text.toString())
 
                 // presenter.autorize(mail,false)
                 presenter.autorize(mail,false)
-            }
+          //  }
 
         }
 
