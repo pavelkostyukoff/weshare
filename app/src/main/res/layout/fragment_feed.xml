@@ -3,10 +3,6 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".ui.ui.fragment.MyMapFragment">
+             tools:context=".ui.ui.fragment.FeedFragment">
 
-   <com.yandex.mapkit.mapview.MapView
-           android:id="@+id/mapview"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
 </FrameLayout>

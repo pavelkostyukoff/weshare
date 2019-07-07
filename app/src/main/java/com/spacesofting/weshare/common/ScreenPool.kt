@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
 import com.spacesofting.weshare.ui.fragment.ui.fragment.*
+import com.spacesofting.weshare.ui.ui.fragment.FeedFragment
 import com.spacesofting.weshare.ui.ui.fragment.MyMapFragment
 
 object ScreenPool {
@@ -57,9 +58,9 @@ object ScreenPool {
             MAP_FRAGMENT -> {
                MyMapFragment.newInstance()
             }
-
-
-
+            FEED_FRAGMENT -> {
+                FeedFragment.newInstance()
+            }
 
 
             /*  REGISTRATION_FRAGMENT -> {

@@ -10,6 +10,8 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven {         url "http://maven.google.com/"
+        }
 
     }
 }
@@ -80,6 +82,14 @@ dependencies {
     kapt 'com.arello-mobile:moxy-compiler:1.5.3'
     implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
     implementation 'com.github.jkwiecien:EasyImage:1.3.1'
+
+    // Основная библиотека MapKit.
+    implementation 'com.yandex.android:mapkit:3.3.1'
+    // Дополнительные модули MapKit.
+    // Удалите зависимости если ваше приложение не использует их.
+    implementation 'com.yandex.android:directions:3.3.1'
+    implementation 'com.yandex.android:places:3.3.1'
+    implementation 'com.yandex.android:search:3.3.1'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true

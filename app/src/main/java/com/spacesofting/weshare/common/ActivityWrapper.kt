@@ -134,6 +134,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_feed -> {
+                router.navigateTo(ScreenPool.FEED_FRAGMENT)
 
                 //todo запрос актуальных задачь - положить их в список и открыть
              /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
@@ -180,7 +181,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_inventory -> {
-                router.newRootScreen(ScreenPool.INVENTORY_FRAGMENT,1)
+                router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
               /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                     allMyTask = TaskFragment.taskList
                     if (allMyTask.isNotEmpty()) {

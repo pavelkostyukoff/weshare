@@ -3,17 +3,17 @@ package com.spacesofting.weshare.ui.fragment
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.presentation.view.ProfileEditView
 import com.spacesofting.weshare.presentation.presenter.ProfileEditPresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.UpdateProfile
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -67,6 +67,7 @@ return R.layout.fragment_profile_edit
         }
 //todo жмем на карандаж запрашиваем права - если они есть
         editPhoto.setOnClickListener { checkPermission() }
+        refresh.setOnClickListener { refreshed() }
 
         goNewProfile2.setOnClickListener {
 
@@ -79,6 +80,30 @@ return R.layout.fragment_profile_edit
             //todo а в презентере viewState который перешлет фото сюда и поменяет его через пикассо
         }*/
     }
+    fun refreshed()
+    {
+        val validationToken = Settings.ValidationToken
+
+        //todo autorize
+        val token = validationToken?.let { Refrash(it) }
+
+        token?.let {
+            Api.Auth.getNewToken(it)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({ it->
+                    Settings.AccessToken = it.token
+                    Settings.ValidationToken = it.rowrefreshTokenVersion
+                    ApplicationWrapper.user = it.user!!
+
+                    //todo тут кладем токен в сохранялки Settings
+
+                }){
+                    it
+                }
+        }
+    }
+
+
     private fun checkPermission() {
         activity?.let {
             RxPermissions(it)
