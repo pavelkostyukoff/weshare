@@ -1,7 +1,10 @@
-package com.gpbdigital.wishninja.data.dto
+package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.gpbdigital.wishninja.ui.adapter.ListWishElement
+import com.spacesofting.weshare.ui.adapter.ListWishElement
+import com.spacesofting.weshare.mvp.Money
+
+
 
 class Template: ListWishElement {
     @SerializedName("template_id")
@@ -14,7 +17,7 @@ class Template: ListWishElement {
     override var name: String? = ""
 
     @SerializedName("price")
-    override var price: Money? = null
+    var price: Money? = null
 
     @SerializedName("pictures")
     val images: Array<Image>? = null
@@ -38,7 +41,7 @@ class Template: ListWishElement {
     var skipWarnings: Boolean = true
 
     @SerializedName("profile")
-    override var profile: Profile? = null
+    var profile: Profile? = null
 
     @SerializedName("additions_count")
     override var additionsCount: Int? = 0
@@ -49,11 +52,11 @@ class Template: ListWishElement {
     @Transient
     override val type = "template"
 
-    override fun getImage() = images?.get(0)
+    fun getImage() = images?.get(0)
 
-    override fun isLoading() = isLoadingField
+    fun isLoading() = isLoadingField
 
-    override fun setLoading(value: Boolean) {
+    fun setLoading(value: Boolean) {
         isLoadingField = value
     }
 

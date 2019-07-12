@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.ui.adapter
+package com.spacesofting.weshare
 
 interface BaseListItem {
     /**

@@ -89,6 +89,7 @@ dependencies {
     // Удалите зависимости если ваше приложение не использует их.
     implementation 'com.yandex.android:directions:3.3.1'
     implementation 'com.yandex.android:places:3.3.1'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.yandex.android:search:3.3.1'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {

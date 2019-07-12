@@ -1,12 +1,9 @@
-package com.gpbdigital.wishninja.ui.adapter
+package com.spacesofting.weshare.ui.adapter
 
 import com.google.gson.annotations.SerializedName
-import com.gpbdigital.wishninja.data.dto.Image
-import com.gpbdigital.wishninja.data.dto.Money
-import com.gpbdigital.wishninja.data.dto.Profile
 import java.io.Serializable
 
-interface ListWishElement : Serializable, BaseListItem {
+interface ListWishElement : Serializable {
 
     enum class Status {
         @SerializedName("active")
@@ -22,16 +19,16 @@ interface ListWishElement : Serializable, BaseListItem {
     var id: Int
     var parentId: Int?
     var name: String?
-    var price: Money?
+//    var price: Money?
     var url: String?
     var isBlocked: Boolean
     var isComplain: Boolean
     var additionsCount: Int?
     val type: String
     val description: String?
-    val profile: Profile?
+  //  val profile: Profile?
     val status: Status
 
-    fun getImage(): Image?
+  //  fun getImage(): Image?
     fun isClosed(): Boolean
 }

@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.data.dto
+package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

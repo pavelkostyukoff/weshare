@@ -1,7 +1,7 @@
-package com.gpbdigital.wishninja.data.dto
+package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.gpbdigital.wishninja.ui.adapter.BaseListItem
+import com.spacesofting.weshare.BaseListItem
 import java.io.Serializable
 
 

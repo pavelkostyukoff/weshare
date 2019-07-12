@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.ui.adapter
+package com.spacesofting.weshare.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
@@ -11,20 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
-import com.gpbdigital.wishninja.R
-import com.gpbdigital.wishninja.data.dto.Compilation
-import com.gpbdigital.wishninja.data.dto.Image
-import com.gpbdigital.wishninja.data.dto.Wish
-import com.gpbdigital.wishninja.presentation.presenter.main.FeedCompilationsPresenter
-import com.gpbdigital.wishninja.utils.ImageUtils
-import com.gpbdigital.wishninja.utils.alphaAnimation
-import com.gpbdigital.wishninja.utils.dp
+import com.spacesofting.weshare.R
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
+import com.spacesofting.weshare.mvp.Compilation
+import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.ui.fragment.ui.fragment.presentation.presenter.FeedCompilationsPresenter
+import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.list_item_compilation.view.*
+import kotlinx.android.synthetic.main.list_item_category.view.*
 import java.util.*
 
 class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
@@ -37,12 +34,12 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
     override fun getItemCount() = dataset.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CompilationViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_compilation, parent, false)
+    override fun onCreateViewHolder(p0: ViewGroup, viewType: Int): CompilationViewHolder {
+        val view = LayoutInflater.from(p0?.context).inflate(R.layout.list_item_category, p0, false)
         return CompilationViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CompilationViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: CompilationViewHolder, position: Int) {
         holder?.let{
             val item = dataset[position]
             val viewHolder = it
@@ -58,20 +55,20 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             viewHolder.subscribe.visible = !item.isFavorite
             viewHolder.unsubscribe.visible = item.isFavorite
             viewHolder.setLoading(item.isLoading())
-            viewHolder.showMore.setOnClickListener { presenter.showCompilationDetails(item) }
+            /*viewHolder.showMore.setOnClickListener { presenter.showCompilationDetails(item) }
             viewHolder.subscribe.setOnClickListener { presenter.subscribeCompilations(hashSetOf(item.id)) }
-            viewHolder.unsubscribe.setOnClickListener { presenter.unsubscribeCompilation(item) }
+            viewHolder.unsubscribe.setOnClickListener { presenter.unsubscribeCompilation(item) }*/
             viewHolder.wishImage.setImageResource(R.drawable.wish_default_img)
             viewHolder.add.setOnClickListener {  }
             viewHolder.progress.visible = true
 
             if (!item.isInitialized) {
                 item.isInitialized = true
-
+/*
                 presenter.loadCompilationsWishes(item, { list ->
                     item.wishList.addAll(list)
                     onUpdate(item)
-                }, {})
+                }, {})*/
             } else if(item.wishList.isNotEmpty()) {
                 setWishList(viewHolder, item.wishList, item)
                 updateItemView(viewHolder, item.wishList, item)
@@ -79,6 +76,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         }
     }
 
+    // todo подборка категорий
     private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Compilation){
         val adapter = CompilationsWishAdapter(wishList, item, this)
 
@@ -89,6 +87,8 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         adapter.notifyDataSetChanged()
     }
 
+
+    // todo подборка вещей
     private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Compilation){
         val size = wishList.size
         val num = if (itemNum <= size - 1) itemNum else (size - 1)

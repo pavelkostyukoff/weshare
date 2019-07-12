@@ -1,8 +1,9 @@
-package com.gpbdigital.wishninja.data.dto
+package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.gpbdigital.wishninja.ApplicationWrapper
-import com.gpbdigital.wishninja.ui.adapter.ListWishElement
+import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.ui.adapter.ListWishElement
+import com.yandex.mapkit.Money
 import java.io.Serializable
 import java.util.*
 
@@ -17,7 +18,7 @@ class Wish(): Serializable, Cloneable, ListWishElement {
         this.templateId = template.id
         this.name = template.name
         this.images = template.images
-        this.price = template.price
+      //  this.price = template.price
         this.status = template.status
         /*this.listId = listId*/
     }
@@ -58,8 +59,8 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     @SerializedName("privacy_level")
     var privacy: PrivacyLevel? = PrivacyLevel.PUBLIC
 
-    @SerializedName("price")
-    override var price: Money? = null
+ //   @SerializedName("price")
+ //   override var price: Money? = null
 
     @SerializedName("pictures")
     var images: Array<Image>? = null
@@ -76,8 +77,8 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     @SerializedName("skip_warnings")
     var skipWarnings: Boolean = true
 
-    @SerializedName("profile")
-    override var profile: Profile? = null
+   // @SerializedName("profile")
+ //   override var profile: Profile? = null
 
     @SerializedName("additions_count")
     override var additionsCount: Int? = 0
@@ -88,20 +89,20 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     @Transient
     override val type = "wish"
 
-    override fun getImage(): Image? {
-        images?.let {
-            if (it.isNotEmpty()) {
-                return it[0]
-            }
-        }
-        return null
-    }
+  //  override fun getImage(): Image? {
+      //  images?.let {
+      //      if (it.isNotEmpty()) {
+      //          return it[0]
+      //      }
+      //  }
+     //   return null
+  //  }
 
-    override fun isLoading() = isDeleting
+   /* override fun isLoading() = isDeleting
 
     override fun setLoading(value: Boolean) {
         isDeleting = value
-    }
+    }*/
 
     override public fun clone(): Any = super.clone()
 
@@ -110,10 +111,10 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     fun isMy(): Boolean {
         var isMy = false
 
-        val myProfile = ApplicationWrapper.instance.profile
+     /*   val myProfile = ApplicationWrapper.instance.profile
         if(myProfile != null && profile != null){
             isMy = profile!!.id == myProfile.id
-        }
+        }*/
 
         return isMy
     }
@@ -125,7 +126,7 @@ class Wish(): Serializable, Cloneable, ListWishElement {
                 other.name == name
                 && other.privacy == privacy
                 && other.description == description
-                && other.price == price
+               // && other.price == price
                 && id == other.id
                 && other.status == status
                 && other.url == url) {
@@ -133,11 +134,11 @@ class Wish(): Serializable, Cloneable, ListWishElement {
             val thisImages = images
             val otherImages = other.images
 
-            if(other.profile != null && profile != null) {
+           /* if(other.profile != null && profile != null) {
                 if (other.profile != profile){
                     return false
                 }
-            }
+            }*/
 
             if (otherImages == null && thisImages == null){
                 return true
@@ -157,10 +158,10 @@ class Wish(): Serializable, Cloneable, ListWishElement {
         result = 31 * result + (name?.hashCode() ?: 0)
         result = 31 * result + (privacy?.hashCode() ?: 0)
         result = 31 * result + (description?.hashCode() ?: 0)
-        result = 31 * result + (price?.hashCode() ?: 0)
+     //   result = 31 * result + (price?.hashCode() ?: 0)
         result = 31 * result + (images?.let { Arrays.hashCode(it) } ?: 0)
         result = 31 * result + isDeleting.hashCode()
-        result = 31 * result + (profile?.hashCode() ?: 0)
+       // result = 31 * result + (profile?.hashCode() ?: 0)
         return result
     }
 }

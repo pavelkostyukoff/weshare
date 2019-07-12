@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.data.dto
+package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -33,7 +33,7 @@ class Money(): Serializable, Cloneable {
     @SerializedName("value")
     var amount: Number? = null
 
-    @SerializedName("currency")
+/*    @SerializedName("currency")
     var currency: Currency? = Currency.RUR
 
     override fun toString(): String {
@@ -41,13 +41,13 @@ class Money(): Serializable, Cloneable {
         val result = "$price ${currency?.sign()}"
 
         return result
-    }
+    }*/
 
     override fun equals(other: Any?): Boolean {
         return other != null
                 && other is Money
                 && amount?.toDouble() == other.amount?.toDouble()
-                && currency == other.currency
+              //  && currency == other.currency
     }
 
     override public fun clone(): Any {
@@ -61,14 +61,14 @@ class Money(): Serializable, Cloneable {
 
         val result = Money()
 
-        if (money.amount != null && amount != null && currency == money.currency) {
+   /*     if (money.amount != null && amount != null && currency == money.currency) {
             val diff = amount!!.toDouble().minus(money.amount!!.toDouble())
 
             result.amount = diff
             result.currency = currency
         } else {
             throw IllegalArgumentException()
-        }
+        }*/
 
         return result
     }
@@ -79,7 +79,7 @@ class Money(): Serializable, Cloneable {
         }
 
         val result = Money()
-
+/*
         if (money.amount != null && amount != null && currency == money.currency) {
             val diff = amount!!.toDouble().plus(money.amount!!.toDouble())
 
@@ -87,14 +87,14 @@ class Money(): Serializable, Cloneable {
             result.currency = currency
         } else {
             throw IllegalArgumentException()
-        }
+        }*/
 
         return result
     }
 
     override fun hashCode(): Int {
         var result = amount?.hashCode() ?: 0
-        result = 31 * result + (currency?.hashCode() ?: 0)
+       // result = 31 * result + (currency?.hashCode() ?: 0)
         return result
     }
 }
