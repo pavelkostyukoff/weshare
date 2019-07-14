@@ -13,7 +13,7 @@ import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.ui.fragment.ui.fragment.SplashFragment
+import com.spacesofting.weshare.ui.fragment.SplashFragment
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command

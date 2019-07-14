@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.presentation.view.ProfileEditView
-import com.spacesofting.weshare.presentation.presenter.ProfileEditPresenter
+import com.spacesofting.weshare.mvp.view.ProfileEditView
+import com.spacesofting.weshare.mvp.presentation.ProfileEditPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper

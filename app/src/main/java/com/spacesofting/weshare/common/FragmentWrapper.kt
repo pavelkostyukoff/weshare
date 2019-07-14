@@ -192,4 +192,7 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         inflatedView.layoutParams = params
         (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
     }
+
+    abstract fun onResumeFragment()
+    abstract fun onPauseFragment()
 }

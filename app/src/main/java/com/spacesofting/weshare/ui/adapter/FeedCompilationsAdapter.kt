@@ -17,7 +17,7 @@ import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
-import com.spacesofting.weshare.ui.fragment.ui.fragment.presentation.presenter.FeedCompilationsPresenter
+import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso

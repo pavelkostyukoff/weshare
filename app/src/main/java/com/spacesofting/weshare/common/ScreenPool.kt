@@ -5,10 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
-import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
-import com.spacesofting.weshare.ui.fragment.ui.fragment.*
-import com.spacesofting.weshare.ui.ui.fragment.FeedFragment
-import com.spacesofting.weshare.ui.ui.fragment.MyMapFragment
+import com.spacesofting.weshare.ui.fragment.*
 
 object ScreenPool {
 
