@@ -80,7 +80,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Compilation){
         val adapter = CompilationsWishAdapter(wishList, item, this)
 
-        holder.wishList.recycledViewPool = viewPool
+       // holder.wishList.recycledViewPool = viewPool
         holder.wishList.visible = true
         holder.wishList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.wishList.adapter = adapter
@@ -96,9 +96,9 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val width = context.displayWidth - 16.dp * 2
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
-        loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
+      // loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
         holder.wishName.text = wishList[num].name
-        holder.wishCost.text = wishList[num].price?.toString()
+     //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
 
         holder.add.setOnClickListener {
@@ -122,7 +122,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         }
     }
 
-    fun loadImage(wishImg: RoundedImageView, img: Image?, width: Int, height: Int, isAnimation: Boolean = false){
+  /*  fun loadImage(wishImg: RoundedImageView, img: Image?, width: Int, height: Int, isAnimation: Boolean = false){
         val animation = AnimationUtils.loadAnimation(context, R.anim.alpha_show)
         animation.duration = 600
 
@@ -151,7 +151,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
                         })
             }
         }
-    }
+    }*/
 
     fun updateCompilationView(){
         // todo refactoring

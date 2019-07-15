@@ -9,11 +9,8 @@ import com.spacesofting.weshare.mvp.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
-import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
@@ -38,7 +35,6 @@ class FeedCompilationsFragment :
             FeedCompilationsFragment()
     }
 
-
     private fun initCompilationsList() {
         feedAdapter = FeedCompilationsAdapter(activity as Context, mPresenter)
         compilationsList.adapter = feedAdapter
@@ -54,34 +50,29 @@ class FeedCompilationsFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view?.let { super.onViewCreated(it, savedInstanceState) }
+        view.let { super.onViewCreated(it, savedInstanceState) }
         initCompilationsList()
         setProgressAnimation(true)
-
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
             reload()
         }
     }
 
-    override fun onResumeFragment() {
+ /*   override fun onResumeFragment() {
         runDelayed(300, {
             feedAdapter?.updateCompilationView()
 
             if (isAuthenticated) {
                 //todo тут при подсоединениее фрагмента после авторизации смотрим был ли подписан наш человечек к подборкам 
                 // todo и если да то метод дает список подборок после чего мы их красим что подписаны все
-               /* if (ApplicationWrapper.instance.isNewUserProfile()) {
+               *//* if (ApplicationWrapper.instance.isNewUserProfile()) {
                     mPresenter.subscribeCompilations(Settings.getListInt())
                     //reload()
-                }*/
+                }*//*
             }
         })
-    }
-
-    override fun onPauseFragment() {
-
-    }
+    }*/
 
     /**
      * view staste functions
@@ -105,8 +96,7 @@ class FeedCompilationsFragment :
         mPresenter.paginateLoading = false
         mPresenter.page++
         mPresenter.lastLoadedCount = list.size
-
-        feedAdapter?.let {
+      /*  feedAdapter?.let {
             val arry = Settings.getListInt()
             if (ApplicationWrapper.instance.profile == null && !arry.isEmpty()) {
                 arry.forEach {
@@ -115,19 +105,19 @@ class FeedCompilationsFragment :
             }
             it.dataset.addAll(list)
             it.notifyDataSetChanged()
-        }
+        }*/
     }
 
     //todo тут мы переходим в понравившуюся нам категорию
     override fun goToCompilation(compilation: Compilation) {
-        val intent = CompilationActivity.getIntent(context, compilation)
-        startActivityForResult(intent, CompilationActivity.RESULT_OK)
+        /*val intent = CompilationActivity.getIntent(context, compilation)
+        startActivityForResult(intent, CompilationActivity.RESULT_OK)*/
     }
 
     //todo после перехода нам что то понравилось мы чекнули и по возвращении говорим что да это моя категория подписаться
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        data?.let {
+       /* data?.let {
             if (requestCode == CompilationActivity.RESULT_OK) {
                 val compilation = it.getSerializableExtra(CompilationActivity.COMPILATION) as Compilation?
 
@@ -137,17 +127,17 @@ class FeedCompilationsFragment :
                     onUnsubscribe(compilation.id)
                 }
             }
-        }
+        }*/
     }
 
     //todo редактирования вещи
     override fun goToEditWish(wish: Wish) {
-        startActivity(WishEditActivity.getIntent(activity, wish))
+       // startActivity(WishEditActivity.getIntent(activity, wish))
     }
 
     //todo открыть вещь
     override fun goToWish(wish: Wish, compilation: Compilation) {
-        startActivity(WishActivity.getIntent(activity, wish, compilation))
+       // startActivity(WishActivity.getIntent(activity, wish, compilation))
     }
 
     //todo подписаться на категорию она всегда висит в топе
@@ -185,12 +175,11 @@ class FeedCompilationsFragment :
 
         val mapCompilation = HashMap<String, Any>()
         mapCompilation.put("compilation_id", compilationId)
-
        // ApplicationWrapper.trackEvent(activity, event, mapCompilation)
     }
 
     override fun hideAddAnimation(wish: Wish, compilation: Compilation?, adapter: FeedCompilationsAdapter?) {
-        if (adapter == null) {
+     /*   if (adapter == null) {
             feedAdapter?.let {
                 for (i in 0 until it.dataset.size) {
                     val element = it.dataset[i]
@@ -210,19 +199,19 @@ class FeedCompilationsFragment :
                     break
                 }
             }
-        }
+        }*/
     }
 
     //todo добавить вещь к себе - как это может пригодитсья нам? возможно позже
     override fun onAdded(wish: Wish) {
-        wishSaveSuccess(wish)
+     /*   wishSaveSuccess(wish)
 
-        ApplicationWrapper.trackEvent(activity, "wish_added", mapOf("from" to "compilations"))
+        ApplicationWrapper.trackEvent(activity, "wish_added", mapOf("from" to "compilations"))*/
     }
 
     //todo ошибка при добавлении
     override fun onErrorAdded(wish: Wish) {
-        wishSaveFailure(wish)
+       // wishSaveFailure(wish)
     }
 
     override fun scrollOnTop() {
@@ -231,6 +220,6 @@ class FeedCompilationsFragment :
 
     //todo крутилка крутилочка крутиться крутит
     override fun setProgressAnimation(isEnable: Boolean) {
-        (activity as NavigationActivity).progressBar.visible = isEnable
+      //  (activity as NavigationActivity).progressBar.visible = isEnable
     }
 }

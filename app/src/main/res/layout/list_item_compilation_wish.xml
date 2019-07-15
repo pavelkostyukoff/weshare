@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin">
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:id="@+id/linearLayout" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/wishImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="350dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/wish_default_img"
+                    app:riv_corner_radius="16dp"
+                    app:riv_border_width="1dp"
+                    app:riv_border_color="@color/colorPrimaryDark"/>
+
+            <ImageButton
+                    android:id="@+id/addBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_half"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/bg_button_plus_transparent"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_half"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+            <TextView
+                    android:id="@+id/wishName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="wishName"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/regular"/>
+
+            <TextView
+                    android:id="@+id/wishPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="wishPrice"
+                    android:textAppearance="@style/regular"
+                    android:textColor="@color/black"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

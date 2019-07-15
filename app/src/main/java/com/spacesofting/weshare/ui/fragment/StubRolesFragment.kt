@@ -8,6 +8,7 @@ import com.spacesofting.weshare.R
 //TODO: remove this fragment after implement all roles
 class StubRolesFragment : FragmentWrapper() {
 
+
     companion object {
         fun getInstance() = StubRolesFragment()
     }
