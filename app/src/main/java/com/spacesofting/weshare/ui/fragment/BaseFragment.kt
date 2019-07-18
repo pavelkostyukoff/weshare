@@ -14,6 +14,7 @@ class BaseFragment : FragmentWrapper(), BaseView {
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_base
     }
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         setHamburgerForRole()
@@ -21,7 +22,6 @@ class BaseFragment : FragmentWrapper(), BaseView {
 
     companion object {
         const val TAG = "BaseFragment"
-
         fun newInstance(parement: String?): BaseFragment {
             val fragment: BaseFragment =
                 BaseFragment()

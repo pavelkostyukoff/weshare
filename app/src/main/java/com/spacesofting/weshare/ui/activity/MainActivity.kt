@@ -27,7 +27,6 @@ class MainActivity  : ActivityWrapper() {
         router.newRootScreen(ScreenPool.SPLASH_FRAGMENT)
     }
 
-
     override fun onResume() {
         super.onResume()
         ApplicationWrapper.INSTANCE.getNavigationHolder().setNavigator(navigator)
@@ -37,7 +36,6 @@ class MainActivity  : ActivityWrapper() {
         super.onPause()
         ApplicationWrapper.INSTANCE.getNavigationHolder().removeNavigator()
     }
-
 
 
     var fragment: Fragment? = null
