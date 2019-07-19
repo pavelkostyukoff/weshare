@@ -9,6 +9,8 @@ import java.util.*
 
 
 class Wish(): Serializable, Cloneable, ListWishElement {
+
+
     constructor(templateId: Int?, listId: Int?) : this() {
         this.templateId = templateId
         /*this.listId = listId*/
@@ -77,8 +79,8 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     @SerializedName("skip_warnings")
     var skipWarnings: Boolean = true
 
-   // @SerializedName("profile")
- //   override var profile: Profile? = null
+    @SerializedName("profile")
+    override var profile: Profile? = null
 
     @SerializedName("additions_count")
     override var additionsCount: Int? = 0
@@ -89,20 +91,20 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     @Transient
     override val type = "wish"
 
-  //  override fun getImage(): Image? {
-      //  images?.let {
-      //      if (it.isNotEmpty()) {
-      //          return it[0]
-      //      }
-      //  }
-     //   return null
-  //  }
+    override fun getImage(): Image? {
+        images?.let {
+            if (it.isNotEmpty()) {
+                return it[0]
+            }
+        }
+        return null
+    }
 
-   /* override fun isLoading() = isDeleting
+    override fun isLoading() = isDeleting
 
     override fun setLoading(value: Boolean) {
         isDeleting = value
-    }*/
+    }
 
     override public fun clone(): Any = super.clone()
 
@@ -111,10 +113,10 @@ class Wish(): Serializable, Cloneable, ListWishElement {
     fun isMy(): Boolean {
         var isMy = false
 
-     /*   val myProfile = ApplicationWrapper.instance.profile
+        val myProfile = ApplicationWrapper.INSTANCE.profile
         if(myProfile != null && profile != null){
-            isMy = profile!!.id == myProfile.id
-        }*/
+            isMy = profile!!.phone == myProfile.phone
+        }
 
         return isMy
     }

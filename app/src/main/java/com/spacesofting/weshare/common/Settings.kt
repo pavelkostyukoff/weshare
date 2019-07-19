@@ -16,6 +16,8 @@ object Settings {
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val KEY_ROLE = "key_role"
+    val LIMIT_IMAGE_SIZE = 5
+    val THE_SIZE_OF_A_MEGABYTE = 1024
 
     var IsAuthorized = false
 
@@ -39,7 +41,15 @@ object Settings {
             encrypt(KEY_ACCESS_TOKEN, value)
             IsAuthorized = true
         }
-
+    var PicPath: String = ""
+        get() {
+            val path = BuildConfig.API_PATHS[apiPathName]
+            if (path != null) {
+                return path
+            } else {
+                return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
+            }
+        }
     var ValidationToken: String?
         get() = decrypt(KEY_VALIDATION_TOKEN)
         set(value) {

@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.utils
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.content.Context
 import android.os.Build
@@ -100,7 +101,19 @@ fun <T> Observable<T>.default(): Observable<T> {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
+val Activity.screenMetrics: android.util.DisplayMetrics
+    get() {
+        val metrics = android.util.DisplayMetrics()
+        val wm = this.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = wm.defaultDisplay
+        display.getMetrics(metrics)
+        return metrics
+    }
+val Activity.screenWidth: Int
+    get() = screenMetrics.widthPixels
 
+val Activity.screenHeight: Int
+    get() = screenMetrics.heightPixels
 
 
 

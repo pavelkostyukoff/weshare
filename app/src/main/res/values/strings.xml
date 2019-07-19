@@ -5,7 +5,13 @@
 
     <!-- SPLASH -->
     <string name="splash_copyright">© 2019. ОАО «SpaceSofting» </string>
-
+    <plurals name="add_wish_exist_plurals">
+        <item quantity="one">%1$d такое желание</item>
+        <item quantity="two">%1$d таких желания</item>
+        <item quantity="few">%1$d таких желаний</item>
+        <item quantity="many">%1$d таких желаний</item>
+        <item quantity="other">%1$d таких желаний</item>
+    </plurals>
     <!-- AUTH -->
     <string name="auth_to_register">Зарегистрироваться</string>
     <string name="auth_user_blocked">Пользователь заблокирован на %1$s</string>

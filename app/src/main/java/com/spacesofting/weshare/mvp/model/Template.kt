@@ -41,7 +41,7 @@ class Template: ListWishElement {
     var skipWarnings: Boolean = true
 
     @SerializedName("profile")
-    var profile: Profile? = null
+    override var profile: Profile? = null
 
     @SerializedName("additions_count")
     override var additionsCount: Int? = 0
@@ -52,11 +52,11 @@ class Template: ListWishElement {
     @Transient
     override val type = "template"
 
-    fun getImage() = images?.get(0)
+    override fun getImage() = images?.get(0)
 
-    fun isLoading() = isLoadingField
+    override fun isLoading() = isLoadingField
 
-    fun setLoading(value: Boolean) {
+    override fun setLoading(value: Boolean) {
         isLoadingField = value
     }
 

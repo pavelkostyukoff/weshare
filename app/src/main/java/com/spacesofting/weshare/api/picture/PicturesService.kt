@@ -1,6 +1,6 @@
 package com.spacesofting.weshare.api.picture
 
-import android.media.Image
+import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.model.Photo
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -13,5 +13,5 @@ interface PicturesService {
 
     @Multipart
     @POST("/api/v1/resources/picture")
-    fun addPicture(@Part image: MultipartBody.Part): Observable<Photo>
+    fun addPicture(@Part image: MultipartBody.Part): Observable<Image>
 }

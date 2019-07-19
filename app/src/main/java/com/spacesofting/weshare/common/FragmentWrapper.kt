@@ -44,7 +44,7 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ImageUtils.saveBaseImageUrl()
+       // ImageUtils.saveBaseImageUrl()
         getPriorities()
 
         (activity as? ActivityWrapper)?.lockDrawerMenu(true)

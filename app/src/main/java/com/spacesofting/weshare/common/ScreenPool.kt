@@ -56,7 +56,7 @@ object ScreenPool {
                MyMapFragment.newInstance()
             }
             FEED_FRAGMENT -> {
-                FeedFragment.newInstance()
+                FeedFragment.getInstance()
             }
 
 

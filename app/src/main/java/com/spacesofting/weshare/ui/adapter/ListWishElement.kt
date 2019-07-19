@@ -1,9 +1,12 @@
 package com.spacesofting.weshare.ui.adapter
 
 import com.google.gson.annotations.SerializedName
+import com.spacesofting.weshare.BaseListItem
+import com.spacesofting.weshare.mvp.Image
+import com.spacesofting.weshare.mvp.Profile
 import java.io.Serializable
 
-interface ListWishElement : Serializable {
+interface ListWishElement : Serializable , BaseListItem {
 
     enum class Status {
         @SerializedName("active")
@@ -26,9 +29,9 @@ interface ListWishElement : Serializable {
     var additionsCount: Int?
     val type: String
     val description: String?
-  //  val profile: Profile?
+    val profile: Profile?
     val status: Status
 
-  //  fun getImage(): Image?
+    fun getImage(): Image?
     fun isClosed(): Boolean
 }
