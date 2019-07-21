@@ -3,9 +3,7 @@ package com.spacesofting.weshare.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.spacesofting.weshare.mvp.view.FeedView
@@ -26,6 +24,7 @@ import com.spacesofting.weshare.utils.dp
 import com.spacesofting.weshare.utils.gone
 import com.spacesofting.weshare.utils.screenWidth
 import kotlinx.android.synthetic.main.fragment_feed.*
+import java.util.ArrayList
 
 class FeedFragment : FragmentWrapper(), FeedView,  Paginate.Callbacks {
     override fun getFragmentLayout(): Int {
@@ -57,9 +56,15 @@ return R.layout.fragment_feed
     override fun reload() {
         hidePageLoadingError()
 
+        val t = Template()
+        t.description = "SDkjasdmkjsnfmls"
+
+       val tt =  ArrayList<ListWishElement>()
+        tt.add(t)
+
         //make new adapter
         val elementWidth = (activity!!.screenWidth - 2 * 6.dp - 4 * 4.dp) / 2
-        mainAdapter = FeedAdapter(feedPresenter, elementWidth)
+        mainAdapter = FeedAdapter(feedPresenter, elementWidth,tt)
         wishesList.adapter = mainAdapter
         wishesList.init()
         paginatePage = 0

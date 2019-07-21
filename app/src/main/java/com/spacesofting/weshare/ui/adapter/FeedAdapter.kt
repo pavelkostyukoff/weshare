@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.Template
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.FeedPresenter
@@ -21,24 +18,40 @@ import com.spacesofting.weshare.utils.setHeight
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class FeedAdapter(val presenter: FeedPresenter, val elementWidth: Int): RecyclerView.Adapter<TemplateViewHolder>() {
+class FeedAdapter(
+    val presenter: FeedPresenter,
+    val elementWidth: Int,
+    t: ArrayList<ListWishElement>
+): RecyclerView.Adapter<TemplateViewHolder>() {
 
     companion object {
         const val PICASSO_TAG = "picassoTag"
-    }
 
+    }
+val t = t
     //last template which we were trying to add
     var lastTemplate = -1
-    var dataset = ArrayList<ListWishElement>()
+    var dataset = t//ArrayList<ListWishElement>()
+
     val imageMaxHeight = 280.dp
 
     override fun getItemCount() = dataset.size
 
     override fun onBindViewHolder(holder: TemplateViewHolder, position: Int) {
-        if (holder == null) {
+       /* if (holder == null) {
             return
         }
+*/
+        val t = Template()
+        t.description = "SDkjasdmkjsnfmls"
 
+
+        //val data = ListWishElement()
+        //val dataset2 = ArrayList<ListWishElement>()
+        dataset.add(t)
+
+        //  val one = ListWishElement
+       // dataset.add()
         val item = dataset[position]
 
         if (item.isBlocked == true)

@@ -23,7 +23,7 @@ class Template: ListWishElement {
     val images: Array<Image>? = null
 
     @SerializedName("description")
-    override val description: String? = null
+    override var description: String? = null
 
     @SerializedName("url")
     override var url: String? = null
