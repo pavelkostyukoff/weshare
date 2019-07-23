@@ -5,6 +5,7 @@ import com.spacesofting.weshare.api.interceptor.AuthHeaderInterceptor
 import com.spacesofting.weshare.api.interceptor.MockInterceptor
 import com.spacesofting.weshare.api.interceptor.SMSInterceptor
 import com.spacesofting.weshare.api.picture.PicturesService
+import com.spacesofting.weshare.api.picture.TagsService
 import com.spacesofting.weshare.api.user.UserService
 import com.spacesofting.weshare.common.Settings
 import io.reactivex.schedulers.Schedulers
@@ -48,4 +49,7 @@ object Api {
 
     val Pictures: PicturesService
         get() = RETROFIT.create(PicturesService::class.java)
+
+    val Tags: TagsService
+        get() = RETROFIT.create(TagsService::class.java)
 }

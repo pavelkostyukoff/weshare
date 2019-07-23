@@ -1,13 +1,14 @@
 package com.spacesofting.weshare.mvp.view
 
 import com.arellomobile.mvp.MvpView
+import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
 
 interface FeedCompilationsView : MvpView {
     fun scrollOnTop()
-    fun onLoadCompilations(list: List<Compilation>)
+    fun onLoadCompilations(list: List<Category>)
     fun onSubscribe(compilationId: Int)
     fun onUnsubscribe(compilationId: Int)
     fun hideAddAnimation(wish: Wish, compilation: Compilation?, adapter: FeedCompilationsAdapter? = null)

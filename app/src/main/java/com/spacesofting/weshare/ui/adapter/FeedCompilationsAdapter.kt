@@ -15,6 +15,7 @@ import com.spacesofting.weshare.R
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
+import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
@@ -30,7 +31,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     private var isFirstStart    = true
     private var itemNum         = 0
     private var viewPool        = RecyclerView.RecycledViewPool()
-    val dataset                 = ArrayList<Compilation>()
+    val dataset                 = ArrayList<Category>()
 
     override fun getItemCount() = dataset.size
 
@@ -44,17 +45,17 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             val item = dataset[position]
             val viewHolder = it
 
-            if(item.state == Compilation.State.INACTIVE){
+           /* if(item.state == Compilation.State.INACTIVE){
                 viewHolder.root.visible = false
                 return
             } else {
                 viewHolder.root.visible = true
-            }
+            }*/
 
-            viewHolder.title.text = item.title
-            viewHolder.subscribe.visible = !item.isFavorite
-            viewHolder.unsubscribe.visible = item.isFavorite
-            viewHolder.setLoading(item.isLoading())
+           // viewHolder.title.text = item.title
+           // viewHolder.subscribe.visible = !item.isFavorite
+          //  viewHolder.unsubscribe.visible = item.isFavorite
+           // viewHolder.setLoading(item.isLoading())
             /*viewHolder.showMore.setOnClickListener { presenter.showCompilationDetails(item) }
             viewHolder.subscribe.setOnClickListener { presenter.subscribeCompilations(hashSetOf(item.id)) }
             viewHolder.unsubscribe.setOnClickListener { presenter.unsubscribeCompilation(item) }*/
@@ -62,17 +63,18 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             viewHolder.add.setOnClickListener {  }
             viewHolder.progress.visible = true
 
-            if (!item.isInitialized) {
+            //todo что то тас при иницализации чото там рисуем если есть
+           /* if (!item.isInitialized) {
                 item.isInitialized = true
-/*
+*//*
                 presenter.loadCompilationsWishes(item, { list ->
                     item.wishList.addAll(list)
                     onUpdate(item)
-                }, {})*/
+                }, {})*//*
             } else if(item.wishList.isNotEmpty()) {
                 setWishList(viewHolder, item.wishList, item)
                 updateItemView(viewHolder, item.wishList, item)
-            }
+            }*/
         }
     }
 
@@ -115,10 +117,10 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     //todo refactoring
     private fun onUpdate(compilation: Compilation){
         for (i in 0 until dataset.size){
-            if (compilation.id == dataset[i].id && dataset[i].isInitialized){
+           /* if (compilation.id == dataset[i].id && dataset[i].isInitialized){
                 notifyItemChanged(i)
                 break
-            }
+            }*/
         }
     }
 

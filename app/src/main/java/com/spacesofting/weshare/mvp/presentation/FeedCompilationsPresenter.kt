@@ -3,7 +3,9 @@ package com.spacesofting.weshare.mvp.presentation
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.d
+import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
@@ -16,7 +18,7 @@ import java.util.HashSet
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var default: WishList? = null
-        val ITEMS_PER_PAGE = 5
+        val ITEMS_PER_PAGE = 10
         val ITEMS_PER_PAGE_WISH_LIST = 10
         var page = 0
         var lastLoadedCount = 0
@@ -34,7 +36,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         fun loadCompilations() {
-          /*  Api.Wishes.getListCompilations(ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+            Api.Tags.getListCompilations("одежда","clothes",ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ list ->
                     viewState.onLoadCompilations(checkFavoritCompilations(list))
@@ -42,7 +44,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                 }, { error ->
                     viewState.onLoadCompilations(ArrayList())
                     viewState.setProgressAnimation(false)
-                })*/
+                })
         }
 
         fun loadCompilationsWishes(compilation: Compilation, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
@@ -104,7 +106,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         //todo refactoring
-        private fun checkFavoritCompilations(list: List<Compilation>): List<Compilation> {
+        private fun checkFavoritCompilations(list: List<Category>): List<Category> {
             val compilationList = list
            // val idsList = Settings.getListInt()
 

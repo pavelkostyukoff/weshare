@@ -10,7 +10,10 @@ import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
@@ -92,20 +95,21 @@ class FeedCompilationsFragment :
     }
 
     //todo подборка категорий с сервера
-    override fun onLoadCompilations(list: List<Compilation>) {
+    override fun onLoadCompilations(list: List<Category>) {
         mPresenter.paginateLoading = false
         mPresenter.page++
         mPresenter.lastLoadedCount = list.size
-      /*  feedAdapter?.let {
-            val arry = Settings.getListInt()
+        feedAdapter?.let {
+            //todo в коде ниже происходит понимание подписки
+            /*val arry = Settings.getListInt()
             if (ApplicationWrapper.instance.profile == null && !arry.isEmpty()) {
                 arry.forEach {
                     onSubscribe(it)
                 }
-            }
+            }*/
             it.dataset.addAll(list)
             it.notifyDataSetChanged()
-        }*/
+        }
     }
 
     //todo тут мы переходим в понравившуюся нам категорию
@@ -147,11 +151,11 @@ class FeedCompilationsFragment :
         feedAdapter?.let {
             for (i in 0 until it.dataset.size) {
                 val element = it.dataset[i]
-                if (element.id == compilationId && !element.isFavorite) {
+            /*    if (element.id == compilationId && !element.isFavorite) {
                     element.isFavorite = true
                     it.notifyItemChanged(i)
                     break
-                }
+                }*/
             }
         }
     }
@@ -162,11 +166,11 @@ class FeedCompilationsFragment :
         feedAdapter?.let {
             for (i in 0 until it.dataset.size) {
                 val element = it.dataset[i]
-                if (element.id == compilationId && element.isFavorite) {
+              /*  if (element.id == compilationId && element.isFavorite) {
                     element.isFavorite = false
                     it.notifyItemChanged(i)
                     break
-                }
+                }*/
             }
         }
     }

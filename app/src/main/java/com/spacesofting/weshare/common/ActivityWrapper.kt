@@ -135,6 +135,8 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_feed -> {
                 router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                router.navigateTo(ScreenPool.FEED_FRAGMENT)
+
 
                 //todo запрос актуальных задачь - положить их в список и открыть
              /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
