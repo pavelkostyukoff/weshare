@@ -11,7 +11,7 @@ import retrofit2.http.*
 interface TagsService {
 
     @GET("categories")
-    fun getListCompilations(@Query("name") categoryName : String, @Query("alias") alias : String,   @Query("limit") limit : Int, @Query("offset") offset: Int): Observable<List<Category>>
+    fun getListCompilations(/*@Query("name") categoryName : String, @Query("alias") alias : String,  */ @Query("limit") limit : Int, @Query("offset") offset: Int): Observable<Category>
     //todo туту я должен получить список кол-во категорий
 
 }

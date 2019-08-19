@@ -13,15 +13,38 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.BaseListItem
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.mvp.Compilation
+import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import kotlinx.android.synthetic.main.list_item_compilations_wish.view.*
 
-class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Compilation, val parentAdapter: FeedCompilationsAdapter): RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
+class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Datum, val parentAdapter: FeedCompilationsAdapter): RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
     var dataset =  ArrayList<Wish>()
 
+
     init {
+
         dataset.addAll(wishList)
-       // dataset.add(MoreItem())
+        val wish = Wish()
+        wish.templateId = 0
+        wish.compilationId = 0
+        wish.description = "Wow it's worked"
+        wish.name = "Next"
+        dataset.add(wish)
+
+        val wish2 = wish.clone()
+
+        dataset.add(wish2 as Wish)
+        val wish3 = wish2.clone()
+        dataset.add(wish3 as Wish)
+        val wish4 = wish.clone()
+        dataset.add(wish4 as Wish)
+        val wish5 = wish.clone()
+        dataset.add(wish5 as Wish)
+        val wish6 = wish5.clone()
+        dataset.add(wish6 as Wish)
+
+
+        // dataset.add(MoreItem())
     }
 
     override fun getItemCount() = dataset.size
@@ -38,6 +61,7 @@ class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Compilation
             val presenter = parentAdapter.presenter
             val width = it.wishImg.context.resources.getDimensionPixelSize(R.dimen.compilations_wish_image_size)
             val height = width
+            it.wishName.text = item.description
 
            /* if(item is Wish) {
                 parentAdapter.loadImage(it.wishImg, item.getImage(), width, height)

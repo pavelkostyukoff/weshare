@@ -11,9 +11,14 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.ui.adapter.InventoryPagerAdapter
+import com.spacesofting.weshare.ui.fragment.ProfileEditFragment.Companion.SCANNER_REQUEST_CODE
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
+import kotlinx.android.synthetic.main.view_bag_my_info.view.*
+import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 
 class InventoryFragment : FragmentWrapper(), InventoryView {
    // val user = ApplicationWrapper.user
@@ -89,6 +94,19 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
 
 
         }
+            router.setResultListener(SCANNER_REQUEST_CODE) { result ->
+            if (result != null) {
+
+                setFoldInfo(result as User)            }
+        }
+    }
+    fun setFoldInfo(result: User)
+    {
+        ApplicationWrapper.user = result
+       // filterCount.text = (getFiltersState.size + getFiltersPriority.size).toString()
+
+       // firstName.text = result.firstName as String
+       // lastName.text = result.lastName as String
 
     }
 
@@ -99,6 +117,8 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
     fun nameUpdate()
     {
         val user = ApplicationWrapper.user
+
+        pHone.text = user.phone.toString()
         firstName.text = user.firstName.toString()
         lastName.text = user.lastName.toString()
     }

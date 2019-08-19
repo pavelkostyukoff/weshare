@@ -17,6 +17,21 @@
         <item name="fontFamily">@font/roboto</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <!-- Button style -->
+    <style name="Button">
+        <item name="android:background">@drawable/btn_corners_gradient_horizontal_sapphire</item>
+        <item name="android:fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@drawable/text_button_white</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Button.Toggle" parent="Button">
+        <item name="android:background">@drawable/toggle_selector</item>
+        <item name="android:textColor">@drawable/toggle_selector_text_color</item>
+        <item name="android:clickable">true</item>
+    </style>
     <style name="HelenTxt">
 
         <item name="android:textSize">

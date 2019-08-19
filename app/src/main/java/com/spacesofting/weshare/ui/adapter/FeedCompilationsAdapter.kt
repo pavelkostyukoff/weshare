@@ -15,23 +15,28 @@ import com.spacesofting.weshare.R
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
-import com.spacesofting.weshare.mvp.Category
-import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.*
 import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
 import java.util.*
+import kotlin.collections.ArrayList
+
+
 
 class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
-    private val MAX_ITEM_NUM    = 10
+    private val MAX_ITEM_NUM    = 5
     private val wishItemMargin  = context.resources.getDimensionPixelSize(R.dimen.margin_half) * 2
     private var isFirstStart    = true
     private var itemNum         = 0
     private var viewPool        = RecyclerView.RecycledViewPool()
-    val dataset                 = ArrayList<Category>()
+    val dataset                 = ArrayList<Datum>()
+    val wishList = ArrayList<Wish>()
+    val w22 = Wish()
+
 
     override fun getItemCount() = dataset.size
 
@@ -45,41 +50,71 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             val item = dataset[position]
             val viewHolder = it
 
-           /* if(item.state == Compilation.State.INACTIVE){
+    /*        if(item.state == Compilation.State.INACTIVE){
                 viewHolder.root.visible = false
                 return
-            } else {
+            } else {*/
                 viewHolder.root.visible = true
-            }*/
+          //  }
 
-           // viewHolder.title.text = item.title
-           // viewHolder.subscribe.visible = !item.isFavorite
-          //  viewHolder.unsubscribe.visible = item.isFavorite
-           // viewHolder.setLoading(item.isLoading())
-            /*viewHolder.showMore.setOnClickListener { presenter.showCompilationDetails(item) }
-            viewHolder.subscribe.setOnClickListener { presenter.subscribeCompilations(hashSetOf(item.id)) }
-            viewHolder.unsubscribe.setOnClickListener { presenter.unsubscribeCompilation(item) }*/
-            viewHolder.wishImage.setImageResource(R.drawable.wish_default_img)
+            viewHolder.title.text = item.name
+           /* viewHolder.subscribe.visible = !item.isFavorite
+            viewHolder.unsubscribe.visible = item.isFavorite*/
+         //   viewHolder.setLoading(item.isLoading())
+            viewHolder.showMore.setOnClickListener { presenter.showCompilationDetails(item) }
+          //  viewHolder.subscribe.setOnClickListener { presenter.subscribeCompilations(hashSetOf(item.id)) }
+         //   viewHolder.unsubscribe.setOnClickListener { presenter.unsubscribeCompilation(item) }
+          //  viewHolder.wishImage.setImageResource(R.drawable.wish_default_img)
             viewHolder.add.setOnClickListener {  }
             viewHolder.progress.visible = true
 
             //todo что то тас при иницализации чото там рисуем если есть
-           /* if (!item.isInitialized) {
-                item.isInitialized = true
-*//*
-                presenter.loadCompilationsWishes(item, { list ->
-                    item.wishList.addAll(list)
-                    onUpdate(item)
-                }, {})*//*
-            } else if(item.wishList.isNotEmpty()) {
-                setWishList(viewHolder, item.wishList, item)
-                updateItemView(viewHolder, item.wishList, item)
-            }*/
+            //if (!item.isInitialized) {
+               // item.isInitialized = true
+              //  presenter.loadCompilationsWishes(item, { list ->
+                    //todo тут происходит подгрузка вишей из подборки?
+                    //item.wishList.addAll(list)
+              //      onUpdate(item)
+             //   }, {})
+            //} else if(item.wishList.isNotEmpty()) {
+            val arrOmg = ArrayList<Int>()
+            arrOmg.add(R.drawable.icon_closed)
+            arrOmg.add(R.drawable.icon_home)
+            arrOmg.add(R.drawable.img_splash_bsq_1)
+            arrOmg.add(R.drawable.icon_bissnes)
+            arrOmg.add(R.drawable.icon_photo)
+            arrOmg.add(R.drawable.icon_kids)
+            arrOmg.add(R.drawable.icon_uikend)
+            arrOmg.add(R.drawable.icon_model)
+            arrOmg.add(R.drawable.icon_worker)
+
+            viewHolder.wishImage.setImageResource(arrOmg.get(position))
+
+            w22.templateId = 0
+            w22.compilationId = 0
+            w22.description = "Wow it's worked"
+            w22.name = item.name
+           // w22.images() wishIamge
+            if (item.tags?.isNotEmpty()!!)
+            {
+                w22.description = item.tags?.get(0)
+
+            }
+            wishList.clear()
+            wishList.add(w22)
+
+            setWishList(viewHolder, wishList, item)
+
+//todo возмодное причина тормозов
+            https@ //ru.stackoverflow.com/questions/690916/тормозит-recyclerview-при-прокрутке-из-за-imageview-cardview
+           //// RececlerView тормозит при пролистывании android asyncReportData
+                updateItemView(viewHolder, wishList, item)
+          //  }
         }
     }
 
     // todo подборка категорий
-    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Compilation){
+    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Datum){
         val adapter = CompilationsWishAdapter(wishList, item, this)
 
        // holder.wishList.recycledViewPool = viewPool
@@ -91,22 +126,22 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
 
     // todo подборка вещей
-    private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Compilation){
+    private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Datum){
         val size = wishList.size
         val num = if (itemNum <= size - 1) itemNum else (size - 1)
         val scrollPosition = if(itemNum > size) (itemNum - size) else itemNum
         val width = context.displayWidth - 16.dp * 2
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
-      // loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
+       loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
         holder.wishName.text = wishList[num].name
      //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
 
         holder.add.setOnClickListener {
-            item.setLoading(true)
+           // item.setLoading(true)
             presenter.addWish(wishList[num], item)
-            holder.setLoading(item.isLoading())
+            holder.setLoading(true) //todo false замена тест
             notifyItemChanged(holder.adapterPosition)
         }
 
@@ -115,16 +150,16 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     }
 
     //todo refactoring
-    private fun onUpdate(compilation: Compilation){
+    private fun onUpdate(compilation: Datum){
         for (i in 0 until dataset.size){
-           /* if (compilation.id == dataset[i].id && dataset[i].isInitialized){
+            /*if (compilation.id == dataset[i].id && dataset[i].isInitialized){
                 notifyItemChanged(i)
                 break
             }*/
         }
     }
 
-  /*  fun loadImage(wishImg: RoundedImageView, img: Image?, width: Int, height: Int, isAnimation: Boolean = false){
+    fun loadImage(wishImg: RoundedImageView, img: Image?, width: Int, height: Int, isAnimation: Boolean = false){
         val animation = AnimationUtils.loadAnimation(context, R.anim.alpha_show)
         animation.duration = 600
 
@@ -153,7 +188,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
                         })
             }
         }
-    }*/
+    }
 
     fun updateCompilationView(){
         // todo refactoring

@@ -39,7 +39,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
 
     init{
         attrs?.let {
-            val a:TypedArray = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageBehavior)
+           /* val a:TypedArray = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageBehavior)
             mCustomFinalYPosition = a.getDimension(R.styleable.AvatarImageBehavior_finalYPosition, 0f)
             mCustomFinalXPosition = a.getDimension(R.styleable.AvatarImageBehavior_finalXPosition, 0f)
             mCustomStartXPosition = a.getDimension(R.styleable.AvatarImageBehavior_startXPosition, 0f)
@@ -47,7 +47,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
             mCustomStartHeight = a.getDimension(R.styleable.AvatarImageBehavior_startHeight, 0f)
             mCustomFinalHeight = a.getDimension(R.styleable.AvatarImageBehavior_finalHeight, 0f)
 
-            a.recycle()
+            a.recycle()*/
         }
 
         mAvatarMaxSize = mContext.resources!!.getDimension(R.dimen.image_width)

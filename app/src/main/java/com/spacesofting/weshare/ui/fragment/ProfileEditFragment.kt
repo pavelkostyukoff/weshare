@@ -3,7 +3,9 @@ package com.spacesofting.weshare.ui.fragment
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.mvp.view.ProfileEditView
@@ -15,6 +17,8 @@ import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.Photo
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,6 +29,20 @@ import java.io.File
 
 
 class ProfileEditFragment : FragmentWrapper(), ProfileEditView {
+
+    override fun showNewInfo(newinfo: User) {
+        phone.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
+        firstName.setText(newinfo.firstName.toString(), TextView.BufferType.EDITABLE)
+        lastName.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
+        birthday.setText(newinfo.birthday.toString(), TextView.BufferType.EDITABLE)
+    }
+
+    override fun setPhotoForPicasso(photo: Photo) {
+        Picasso.with(context)
+            .load(photo.pictureName)
+            //.resize(guestCard.photo!!.width, guestCard.photo!!.height)
+            .into(myAvatar)
+    }
 
     val user = ApplicationWrapper.user
     override fun showProgress(b: Boolean) {
@@ -37,6 +55,7 @@ return R.layout.fragment_profile_edit
 
     companion object {
         const val TAG = "ProfileEditFragment"
+        const val SCANNER_REQUEST_CODE = 100
 
         fun newInstance(): ProfileEditFragment {
             val fragment: ProfileEditFragment = ProfileEditFragment()
@@ -52,10 +71,9 @@ return R.layout.fragment_profile_edit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showToolbar(TOOLBAR_INDICATOR_BACK_ARROW)
+
         goNewProfile.setOnClickListener {
-
-            showToolbar(TOOLBAR_INDICATOR_BACK_ARROW)
-
             //  getMyEdit()
             val updProfile = UpdateProfile()
             updProfile.phone = phone.text.toString()
@@ -70,7 +88,6 @@ return R.layout.fragment_profile_edit
         refresh.setOnClickListener { refreshed() }
 
         goNewProfile2.setOnClickListener {
-
             presenter.savePhoto()
         }
 
@@ -83,10 +100,8 @@ return R.layout.fragment_profile_edit
     fun refreshed()
     {
         val validationToken = Settings.ValidationToken
-
         //todo autorize
         val token = validationToken?.let { Refrash(it) }
-
         token?.let {
             Api.Auth.getNewToken(it)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -94,7 +109,6 @@ return R.layout.fragment_profile_edit
                     Settings.AccessToken = it.token
                     Settings.ValidationToken = it.rowrefreshTokenVersion
                     ApplicationWrapper.user = it.user!!
-
                     //todo тут кладем токен в сохранялки Settings
 
                 }){
@@ -152,11 +166,8 @@ return R.layout.fragment_profile_edit
         }
     }
 
-   /* fun getMyEdit()
+    fun getMyEdit()
     {
         //todo лучше потом поставить текст вотчеры
-        phone.setText(user.phone.toString(), TextView.BufferType.EDITABLE)
-        firstName.setText(user.firstName.toString(), TextView.BufferType.EDITABLE)
-        lastName.setText(user.lastName.toString(), TextView.BufferType.EDITABLE)
-        birthday.setText(user.birthday.toString(), TextView.BufferType.EDITABLE)
-    }*/
+
+    }

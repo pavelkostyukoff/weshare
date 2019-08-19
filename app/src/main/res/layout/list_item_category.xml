@@ -60,7 +60,7 @@
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:elevation="0dp"
-            android:text="test" />
+            android:text="Look Category" />
 
         <Button
             android:id="@+id/unsubscribe"

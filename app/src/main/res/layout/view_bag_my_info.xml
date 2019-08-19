@@ -18,188 +18,19 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:id="@+id/autorize2"
-            app:layout_constraintTop_toBottomOf="@+id/lastName"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="@+id/firstName"/>
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/pHone"
+            app:layout_constraintStart_toStartOf="@+id/pHone"/>
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mainAvatar"
             android:layout_width="@dimen/view_header_avatar_size"
             android:layout_height="@dimen/view_header_avatar_size"
-            android:src="@drawable/photo_me"
+            android:src="@drawable/myphoto"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="4dp"/>
 
-    <android.support.constraint.ConstraintLayout
-            android:id="@+id/one"
-            android:layout_width="158dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/navItemInviteds"
-            app:layout_constraintStart_toEndOf="@+id/navItemApprove"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.45">
-
-        <ImageView
-                android:id="@+id/oneIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                app:srcCompat="@drawable/ic_star_blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO"/>
-
-        <TextView
-                android:id="@+id/approveText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Избранное"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/font_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/oneIcon" app:layout_constraintBottom_toBottomOf="@+id/oneIcon"
-                app:layout_constraintStart_toEndOf="@+id/oneIcon" android:layout_marginStart="8dp"
-        />
-    </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.ConstraintLayout
-            android:id="@+id/navItemApprove"
-            android:layout_width="158dp"
-            android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/navItemInvited" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:layout_marginTop="12dp">
-
-        <ImageView
-                android:id="@+id/approveIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                app:srcCompat="@drawable/ic_calendar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-                android:id="@+id/approveText2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_half"
-                android:text="Бронь"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/font_medium"
-                app:layout_constraintBottom_toBottomOf="@+id/approveIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/approveIcon"
-                app:layout_constraintTop_toTopOf="@+id/approveIcon"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-            android:id="@+id/navItemInviteds"
-            android:layout_width="158dp"
-            android:layout_height="50dp"
-            tools:ignore="DuplicateIds,MissingConstraints"
-            app:layout_constraintStart_toEndOf="@+id/navItemInvited"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.45">
-
-        <ImageView
-                android:id="@+id/invitedIcond"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_message"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="16dp"/>
-
-        <TextView
-                android:id="@+id/invitedTextd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Сообщения"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/font_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="NotSibling"
-                app:layout_constraintTop_toTopOf="@+id/invitedIcond"
-                app:layout_constraintStart_toEndOf="@+id/invitedIcond" android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/invitedIcond"
-        />
-    </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.ConstraintLayout
-            android:id="@+id/navItemInvited"
-            android:layout_width="158dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp">
-
-        <ImageView
-                android:id="@+id/invitedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                app:srcCompat="@drawable/ic_statistic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-                android:id="@+id/invitedText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_half"
-                android:text="Статистика"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/font_medium"
-                app:layout_constraintBottom_toBottomOf="@+id/invitedIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/invitedIcon"
-                app:layout_constraintTop_toTopOf="@+id/invitedIcon"
-                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.0"/>
-    </android.support.constraint.ConstraintLayout>
-
-    <FrameLayout
-            android:id="@+id/lineThree"
-            android:layout_width="330dp"
-            android:layout_height="1dp"
-            android:background="@color/link_water"
-            app:layout_constraintTop_toBottomOf="@+id/navItemInvited" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.153" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/one" app:layout_constraintVertical_bias="1.0"/>
-
-    <android.support.constraint.ConstraintLayout
-            android:id="@+id/navItemCompanies"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:visibility="gone">
-
-        <ImageView
-                android:id="@+id/companiesIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_half"
-                app:srcCompat="@drawable/ic_companies"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-                android:id="@+id/companiesText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_half"
-                android:text="@string/companies_list_title"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/font_medium"
-                app:layout_constraintBottom_toBottomOf="@+id/companiesIcon"
-                app:layout_constraintStart_toEndOf="@+id/companiesIcon"
-                app:layout_constraintTop_toTopOf="@+id/companiesIcon"/>
-    </android.support.constraint.ConstraintLayout>
 
     <!-- Елена -->
     <TextView
@@ -242,18 +73,202 @@
             app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
             android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/mainAvatar"/>
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="56dp"
             android:layout_height="38dp"
             android:id="@+id/showSettings"
             app:layout_constraintBottom_toBottomOf="@+id/autorize2" app:layout_constraintTop_toTopOf="@+id/autorize2"
-            app:layout_constraintVertical_bias="1.0" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/autorize2"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="1.0">
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.279">
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_settings"
                 android:id="@+id/test"
-                tools:layout_editor_absoluteY="48dp" tools:layout_editor_absoluteX="248dp"/>
-    </FrameLayout>
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/autorize2" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:id="@+id/setting">
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/navItemInviteds"
+                app:layout_constraintStart_toEndOf="@+id/navItemApprove"
+                app:layout_constraintEnd_toEndOf="parent"
+        >
+
+            <ImageView
+                    android:id="@+id/oneIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    app:srcCompat="@drawable/ic_star_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="TODO"/>
+
+            <TextView
+                    android:id="@+id/approveText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Избранное"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/oneIcon"
+                    app:layout_constraintBottom_toBottomOf="@+id/oneIcon"
+                    app:layout_constraintStart_toEndOf="@+id/oneIcon" android:layout_marginStart="8dp"
+            />
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/navItemApprove"
+                android:layout_width="158dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/navItemInvited" app:layout_constraintStart_toStartOf="parent"
+        >
+
+            <ImageView
+                    android:id="@+id/approveIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    app:srcCompat="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/approveText2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_half"
+                    android:text="Бронь"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_medium"
+                    app:layout_constraintBottom_toBottomOf="@+id/approveIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/approveIcon"
+                    app:layout_constraintTop_toTopOf="@+id/approveIcon"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/navItemInviteds"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                tools:ignore="DuplicateIds,MissingConstraints"
+                app:layout_constraintStart_toEndOf="@+id/navItemInvited"
+                app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.61">
+
+            <ImageView
+                    android:id="@+id/invitedIcond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_message"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp" app:layout_constraintVertical_bias="0.483"/>
+
+            <TextView
+                    android:id="@+id/invitedTextd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Сообщения"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="NotSibling"
+                    app:layout_constraintTop_toTopOf="@+id/invitedIcond"
+                    app:layout_constraintStart_toEndOf="@+id/invitedIcond" android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/invitedIcond"
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"/>
+        </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/navItemInvited"
+                android:layout_width="158dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                    android:id="@+id/invitedIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    app:srcCompat="@drawable/ic_statistic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/invitedText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_half"
+                    android:text="Статистика"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_medium"
+                    app:layout_constraintBottom_toBottomOf="@+id/invitedIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/invitedIcon"
+                    app:layout_constraintTop_toTopOf="@+id/invitedIcon"
+                    app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.0"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <FrameLayout
+                android:id="@+id/lineThree"
+                android:layout_width="330dp"
+                android:layout_height="1dp"
+                android:background="@color/link_water"
+                app:layout_constraintTop_toBottomOf="@+id/navItemInvited" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/one" app:layout_constraintVertical_bias="1.0"/>
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/navItemCompanies"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:visibility="gone">
+
+            <ImageView
+                    android:id="@+id/companiesIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_half"
+                    app:srcCompat="@drawable/ic_companies"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/companiesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_half"
+                    android:text="@string/companies_list_title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/font_medium"
+                    app:layout_constraintBottom_toBottomOf="@+id/companiesIcon"
+                    app:layout_constraintStart_toEndOf="@+id/companiesIcon"
+                    app:layout_constraintTop_toTopOf="@+id/companiesIcon"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+    <TextView
+            android:text="+7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pHone"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" app:layout_constraintStart_toStartOf="@+id/firstName"
+            android:textColorHint="#00000000" android:textColor="@color/black"/>
 </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.view.ProfileEditView
+import com.spacesofting.weshare.ui.fragment.ProfileEditFragment.Companion.SCANNER_REQUEST_CODE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.io.File
@@ -25,7 +26,7 @@ class ProfileEditPresenter : MvpPresenter<ProfileEditView>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     viewState.showProgress(false)
-
+                    viewState.setPhotoForPicasso(it)
                     // router.newRootScreen(ScreenPool.APPROVE_LIST_FRAGMENT)
                 }, { e ->
                     viewState.showProgress(false)
@@ -76,14 +77,13 @@ class ProfileEditPresenter : MvpPresenter<ProfileEditView>() {
             .subscribe ({
                 it
                 ApplicationWrapper.user = it
+                viewState.showNewInfo(it)
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
-                router.exit()
-
+                router.exitWithResult(SCANNER_REQUEST_CODE, it)
             }){
                 it
                 router.exit()
-
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

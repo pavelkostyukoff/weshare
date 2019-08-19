@@ -7,6 +7,7 @@ import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
+import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.view.FeedCompilationsView
@@ -24,7 +25,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var lastLoadedCount = 0
         var paginateLoading = false
 
-        fun addWish(wish: Wish, compilation: Compilation?, adapter: FeedCompilationsAdapter? = null) {
+        fun addWish(wish: Wish, compilation: Datum?, adapter: FeedCompilationsAdapter? = null) {
          /*   Api.Wishes.wishAdd(wish)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ wishNew ->
@@ -36,10 +37,10 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         fun loadCompilations() {
-            Api.Tags.getListCompilations("одежда","clothes",ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+            Api.Tags.getListCompilations(ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ list ->
-                    viewState.onLoadCompilations(checkFavoritCompilations(list))
+                    list.data?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
                     viewState.setProgressAnimation(false)
                 }, { error ->
                     viewState.onLoadCompilations(ArrayList())
@@ -47,8 +48,9 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                 })
         }
 
-        fun loadCompilationsWishes(compilation: Compilation, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
-           /* Api.Wishes.getWishesFromCompilation(compilation.id, ITEMS_PER_PAGE_WISH_LIST, 0)
+        fun loadCompilationsWishes(compilation: Datum, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
+            //todo а тут мы грузим все вещи по данной категории или тегу ну или имитируем
+         /*   Api.Wishes.getWishesFromCompilation(compilation.id, ITEMS_PER_PAGE_WISH_LIST, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { list -> success(list) },
@@ -97,30 +99,30 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
             }*/
         }
 
-        fun showCompilationDetails(compilation: Compilation) {
+        fun showCompilationDetails(compilation: Datum) {
             viewState.goToCompilation(compilation)
         }
 
-        fun showWish(wish: Wish, compilation: Compilation) {
+        fun showWish(wish: Wish, compilation: Datum) {
             viewState.goToWish(wish, compilation)
         }
 
         //todo refactoring
-        private fun checkFavoritCompilations(list: List<Category>): List<Category> {
+        private fun checkFavoritCompilations(list: List<Datum>): List<Datum> {
             val compilationList = list
-           // val idsList = Settings.getListInt()
+            val idsList = Settings.getListInt()
 
-        /*    if (idsList.isNotEmpty()) {
+            if (idsList.isNotEmpty()) {
                 compilationList.forEach {
                     val compilation = it
 
-                  *//*  idsList.forEach {
-                        if (compilation.id == it) {
-                            compilation.isFavorite = true
+                    idsList.forEach {
+                        if (compilation.id?.equals(it) ?: (it == null)) {
+                           // compilation.isFavorite = true
                         }
-                    }*//*
+                    }
                 }
-            }*/
+            }
             return compilationList
         }
     }

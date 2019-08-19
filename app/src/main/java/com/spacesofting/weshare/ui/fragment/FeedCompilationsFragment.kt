@@ -15,6 +15,7 @@ import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
+import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
 import kotlinx.android.synthetic.main.fragment_feed_compilations.*
@@ -54,6 +55,9 @@ class FeedCompilationsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.let { super.onViewCreated(it, savedInstanceState) }
+        setToolbarBackgroundDrawable(R.drawable.bg_vertical_gradient)
+        setTitleColor(R.color.white)
+        showToolbar(TOOLBAR_EMBEDDED, R.layout.view_toolbar_with_search_filter)
         initCompilationsList()
         setProgressAnimation(true)
         swipe.setOnRefreshListener {
@@ -95,7 +99,7 @@ class FeedCompilationsFragment :
     }
 
     //todo подборка категорий с сервера
-    override fun onLoadCompilations(list: List<Category>) {
+    override fun onLoadCompilations(list: List<Datum>) {
         mPresenter.paginateLoading = false
         mPresenter.page++
         mPresenter.lastLoadedCount = list.size
@@ -113,7 +117,7 @@ class FeedCompilationsFragment :
     }
 
     //todo тут мы переходим в понравившуюся нам категорию
-    override fun goToCompilation(compilation: Compilation) {
+    override fun goToCompilation(compilation: Datum) {
         /*val intent = CompilationActivity.getIntent(context, compilation)
         startActivityForResult(intent, CompilationActivity.RESULT_OK)*/
     }
@@ -140,7 +144,7 @@ class FeedCompilationsFragment :
     }
 
     //todo открыть вещь
-    override fun goToWish(wish: Wish, compilation: Compilation) {
+    override fun goToWish(wish: Wish, compilation: Datum) {
        // startActivity(WishActivity.getIntent(activity, wish, compilation))
     }
 
@@ -182,13 +186,13 @@ class FeedCompilationsFragment :
        // ApplicationWrapper.trackEvent(activity, event, mapCompilation)
     }
 
-    override fun hideAddAnimation(wish: Wish, compilation: Compilation?, adapter: FeedCompilationsAdapter?) {
-     /*   if (adapter == null) {
+    override fun hideAddAnimation(wish: Wish, compilation: Datum?, adapter: FeedCompilationsAdapter?) {
+        if (adapter == null) {
             feedAdapter?.let {
                 for (i in 0 until it.dataset.size) {
                     val element = it.dataset[i]
-                    if (element.id == compilation!!.id && element.isLoading()) {
-                        element.setLoading(false)
+                    if (!(element.id != compilation!!.id )) {
+                      // element.setLoading(false)
                         it.notifyItemChanged(i)
                         break
                     }
@@ -203,7 +207,7 @@ class FeedCompilationsFragment :
                     break
                 }
             }
-        }*/
+        }
     }
 
     //todo добавить вещь к себе - как это может пригодитсья нам? возможно позже

@@ -21,12 +21,14 @@ interface UserService {
     fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>
 
     //todo    Update user avatar
-    @PATCH("users/me")
-    fun updateAvatar(@Body filePhoto: File): Observable<Photo>
-   /*
+   // @PATCH("users/me")
 
     @PATCH("users/me/avatar")
-    fun approveGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?, @Body guestPriority: GuestCardPriority): Observable<GuestCard>
+    fun updateAvatar(@Part filePhoto: File): Observable<Photo>
+
+    /*
+
+
 
     //todo  Delete user avatar
     @DELETE("users/me/avatar")

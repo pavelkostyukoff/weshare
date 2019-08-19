@@ -2,6 +2,7 @@ package com.spacesofting.weshare.common
 
 import android.content.Context
 import android.preference.PreferenceManager
+import android.text.TextUtils
 import com.spacesofting.weshare.BuildConfig
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
@@ -9,12 +10,18 @@ import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
 import com.spacesofting.weshare.utils.SecureUtils
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
+import kotlin.collections.LinkedHashMap
 
 object Settings {
     private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.INSTANCE)
     private val KEY_API_NAME = "key_api_name"
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
+    private val SAVE_COMPILATIONS = "save_compilations"
+
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 5
     val THE_SIZE_OF_A_MEGABYTE = 1024
@@ -207,5 +214,18 @@ object Settings {
         }
 
         return linkedHashMapLIST
+    }
+    //TODO: Why it has so abstract name instead of concrete one like compilationSubscriptions()...
+    fun getListInt(): HashSet<Int> {
+        //TODO: Use standart Serialization mechanism here
+        val myList = TextUtils.split(PREFERENCES.getString(SAVE_COMPILATIONS, ""), "‚‗‚")
+        val arrayToList = java.util.ArrayList(Arrays.asList(*myList))
+        val newList = HashSet<Int>()
+
+        for (item in arrayToList) {
+            newList.add(Integer.parseInt(item))
+        }
+
+        return newList
     }
 }
