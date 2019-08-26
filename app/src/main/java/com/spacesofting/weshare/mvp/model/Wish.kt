@@ -3,7 +3,6 @@ package com.spacesofting.weshare.mvp
 import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.ui.adapter.ListWishElement
-import com.yandex.mapkit.Money
 import java.io.Serializable
 import java.util.*
 
