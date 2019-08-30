@@ -33,6 +33,8 @@ object ScreenPool {
     val SUO_FRAGMENT = "structure_unit_officer_fragment"
     val GUEST_RESPONSIBLE_FRAGMENT = "guest_responsible_fragment"
     val GUEST_MANAGER_FRAGMENT = "guest_manager_fragment"
+    val ADD_GOODS = "add_goods"
+
 
     fun getFragment(screenKey: String, data: Any? = null): Fragment? {
         return when (screenKey) {
@@ -53,44 +55,53 @@ object ScreenPool {
                 ProfileEditFragment.newInstance()
             }
             MAP_FRAGMENT -> {
-               MyMapFragment.newInstance()
+                MyMapFragment.newInstance()
             }
             FEED_FRAGMENT -> {
                 FeedCompilationsFragment.getInstance()
-               // FeedFragment.getInstance()
+                // FeedFragment.getInstance()
             }
+
+            ADD_GOODS -> {
+                AddGoodsFragment.getInstance()
+            }
+
+            /* ADD_GOODS -> {
+                    AddGoodsFragment.newInstance()
+                    // FeedFragment.getInstance()
+                }*/
 
 
             /*  REGISTRATION_FRAGMENT -> {
-                  RegistrationPhoneFragment.getInstance()
-              }
-              SMS_CONFIRMATION_FRAGMENT -> {
-                  SMSConfirmFragment.getInstance(data as? SmsRegistration)
-              }
-              TICKET_FRAGMENT -> {
-                  TicketFragment.getInstance()
-              }
-              SECURITY_FRAGMENT -> {
-                  SecurityFragment.getInstance()
-              }*/
+                      RegistrationPhoneFragment.getInstance()
+                  }
+                  SMS_CONFIRMATION_FRAGMENT -> {
+                      SMSConfirmFragment.getInstance(data as? SmsRegistration)
+                  }
+                  TICKET_FRAGMENT -> {
+                      TicketFragment.getInstance()
+                  }
+                  SECURITY_FRAGMENT -> {
+                      SecurityFragment.getInstance()
+                  }*/
 
-           /* COMPANIES_LIST_FARGMENT -> {
-                CompaniesListFragment.getInstance()
-            }
-            STRUCTURE_UNIT_LIST_FRAGMENT -> {
-                StructureUnitListFragment.getInstance()
-            }
-            SUO_FRAGMENT -> {
-                SUOFragment.getInstance()
-            }
-            GUEST_MANAGER_FRAGMENT -> {
-                EventManagerFragment.getInstance()
-            }
-            GUEST_RESPONSIBLE_FRAGMENT -> {
-                GuestResponsibleFragment.getInstance()
-            }*/
+            /* COMPANIES_LIST_FARGMENT -> {
+                    CompaniesListFragment.getInstance()
+                }
+                STRUCTURE_UNIT_LIST_FRAGMENT -> {
+                    StructureUnitListFragment.getInstance()
+                }
+                SUO_FRAGMENT -> {
+                    SUOFragment.getInstance()
+                }
+                GUEST_MANAGER_FRAGMENT -> {
+                    EventManagerFragment.getInstance()
+                }
+                GUEST_RESPONSIBLE_FRAGMENT -> {
+                    GuestResponsibleFragment.getInstance()
+                }*/
             else -> null
-        }
+        } as Fragment?
     }
 
     fun getActivity(context: Context, screenKey: String, data: Any? = null): Intent? {

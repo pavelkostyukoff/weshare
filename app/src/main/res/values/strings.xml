@@ -22,6 +22,18 @@
     <string name="auth_timeout_code">Время действия кода: %1$s</string>
     <string name="auth_send_again_msg">Вы сможете запросить повторную \n отправку кода через %1$s</string>
 
+    <!-- CREATE_EDIT_WISH -->
+    <string name="wish_edit_add_img">Добавить изображение</string>
+    <string name="wish_edit_add_img_obligatorily">Обязательно. Не более 5 мб.</string>
+    <string name="privacy">Приватность</string>
+    <string name="wish_edit_loader_text">Заполняю остальные поля...</string>
+    <string name="wish_edit_url_on_wish">Ссылка в интернет-магазин</string>
+    <string name="wish_edit_name_hint">Название (обязательное)</string>
+    <string name="wish_edit_price_hint">Цена (обязательное)</string>
+    <string name="wish_edit_url_broken">Некорректная ссылка</string>
+    <string name="wish_edit_description_hint">Описание</string>
+
+
     <!-- TICKET -->
     <string name="ticket_event_name">Ваш билет</string>
     <string name="ticket_verification">Проверка билетов</string>

@@ -8,5 +8,12 @@
    <com.yandex.mapkit.mapview.MapView
            android:id="@+id/mapview"
            android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
+           android:layout_height="match_parent">
+
+      <android.support.v7.widget.RecyclerView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentTop="true"
+              android:layout_alignParentEnd="true" />
+   </com.yandex.mapkit.mapview.MapView>
 </FrameLayout>

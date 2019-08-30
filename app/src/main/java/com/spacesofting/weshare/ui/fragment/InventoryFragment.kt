@@ -85,18 +85,15 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
 
 
 
-
+        goodAdd.setOnClickListener {
+            router.newScreenChain(ScreenPool.ADD_GOODS)
+        }
 
         showSettings.setOnClickListener {
-
-
-            router.navigateTo(ScreenPool.PROFILEEDIT)
-
-
+            router.newScreenChain(ScreenPool.PROFILEEDIT)
         }
             router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
-
                 setFoldInfo(result as User)            }
         }
     }

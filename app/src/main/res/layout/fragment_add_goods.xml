@@ -1,0 +1,420 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <ScrollView
+                android:id="@+id/wishEditSwipe"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:orientation="vertical">
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                        android:id="@+id/wishUrlLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:background="@null"
+                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintTextAppearance="@style/small">
+
+                    <ImageButton
+                            android:id="@+id/getUrl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginTop="-40dp"
+                            android:background="@android:color/transparent"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/ic_browser" />
+
+                    <ImageButton
+                            android:id="@+id/clearUrl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginTop="-35dp"
+                            android:background="@android:color/transparent"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/ic_reset_search" />
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                            android:id="@+id/wishUrlEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/wish_edit_url_on_wish"
+                            android:imeOptions="actionNext"
+                            android:inputType="textUri"
+                            android:lines="2"
+                            android:maxLines="3"
+                            android:paddingEnd="30dp" />
+
+                    <LinearLayout
+                            android:id="@+id/brokenUrlMessage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:visibility="invisible">
+
+                        <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin"
+                                app:srcCompat="@drawable/ic_invalid_red_14dp" />
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_half"
+                                android:text="@string/wish_edit_url_broken"
+                                android:textColor="@color/invalid" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                            android:id="@+id/checkUrlProgress"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginTop="-35dp"
+                            android:visibility="gone" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="12dp"
+                        app:cardPreventCornerOverlap="true">
+
+                    <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="180dp"
+                            android:minWidth="120dp">
+
+                        <ImageView
+                                android:id="@+id/wishEditImageView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/wish_default_img" />
+
+                        <LinearLayout
+                                android:id="@+id/addImgLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="20dp">
+
+                            <ImageButton
+                                    android:id="@+id/wishEditImageBtn"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:scaleType="fitCenter"
+                                    android:src="@drawable/bg_upload_big_button" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin_half"
+                                    android:layout_marginRight="@dimen/margin_half"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/wish_edit_add_img"
+                                    android:textColor="#b0afcc"
+                                    android:textSize="19sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin_half"
+                                    android:layout_marginRight="@dimen/margin_half"
+                                    android:layout_marginTop="@dimen/margin_half"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/wish_edit_add_img_obligatorily"
+                                    android:textColor="#b0afcc"
+                                    android:textSize="14sp"
+                                    android:textStyle="italic"
+                                    android:visibility="visible" />
+                        </LinearLayout>
+
+                        <ImageButton
+                                android:id="@+id/wishChangeImgBtn"
+                                android:layout_width="@dimen/avatar_size_profile_half"
+                                android:layout_height="@dimen/avatar_size_profile_half"
+                                android:layout_gravity="bottom|right"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitCenter"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/bg_pen_big_button" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                        android:id="@+id/wishEditNameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
+                        android:background="@null"
+                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintTextAppearance="@style/small">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                            android:id="@+id/wishEditNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/wish_edit_name_hint"
+                            android:imeOptions="actionNext"
+                            android:lines="2"
+                            android:maxLines="3" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                        android:id="@+id/wishEditAmountLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        app:hintTextAppearance="@style/small">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                            android:id="@+id/wishEditAmountEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin"
+                            android:layout_marginRight="@dimen/margin"
+                            android:hint="@string/wish_edit_price_hint"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:maxLength="8"
+                            android:text="0" />
+
+                    <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="-12dp"
+                            android:translationZ="10dp">
+
+                        <LinearLayout
+                                android:id="@+id/connectBankCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:background="@color/ym_background_color"
+                                android:orientation="vertical"
+                                android:paddingLeft="@dimen/padding_min"
+                                android:paddingRight="@dimen/padding_min"
+                                android:visibility="gone">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin_half"
+                                    android:text="@string/add_card_dialog_not_connected_bank_card"/>
+
+                            <Button
+                                    android:id="@+id/connectWalletBtn"
+                                    style="@style/button"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/button_action"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin_half"
+                                    android:layout_weight="1"
+                                    android:paddingLeft="@dimen/padding"
+                                    android:paddingRight="@dimen/padding"
+                                    android:textSize="14sp"
+                                    android:text="@string/add_card_connect_bank_card"/>
+                        </LinearLayout>
+
+                        <FrameLayout
+                                android:id="@+id/ymLimitRedLine"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginTop="2dp"
+                                android:background="@color/orange"
+                                android:visibility="gone" />
+                    </FrameLayout>
+
+                    <TextView
+                            android:id="@+id/emptyMessage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin"
+                            android:layout_marginRight="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin_half"
+                            android:layout_weight="1"
+                            android:text="@string/wish_edit_field_required"
+                            android:textColor="@color/invalid"
+                            android:visibility="gone" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                        android:id="@+id/wishEditDescriptionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
+                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        app:hintTextAppearance="@style/small">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                            android:id="@+id/wishEditDescriptionEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top|left"
+                            android:hint="@string/wish_edit_description_hint"
+                            android:inputType="textMultiLine"
+                            android:lines="8"
+                            android:maxLines="10"
+                            android:minLines="6" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_half"
+                            android:layout_marginLeft="4dp"
+                            android:text="@string/privacy"
+                            android:textAppearance="@style/small" />
+
+                    <RelativeLayout
+                            android:id="@+id/privacyOptionsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <Spinner
+                                android:id="@+id/privacyOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:dropDownWidth="match_parent"
+                                android:theme="@style/AppTheme.Light" />
+
+                        <ImageView
+                                android:id="@+id/spinnerIcon"
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_drop" />
+                    </RelativeLayout>
+
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_double" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+                android:id="@+id/save"
+                style="@style/button.bottom"
+                android:background="@drawable/bg_orange_gradient_rect_button"
+                android:enabled="false"
+                android:text="Сохранить" />
+    </LinearLayout>
+
+    <FrameLayout
+            android:id="@+id/autoCompleteProgress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/profile_background"
+            android:clickable="true"
+            android:visibility="gone">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:background="@drawable/bg_white_rounded"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:id="@+id/shurikenImg"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_double"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_shuriken_primary" />
+
+            <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_double"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_weight="1"
+                    android:text="@string/wish_edit_loader_text"
+                    android:textColor="@color/colorPrimaryDark" />
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+</android.support.design.widget.CoordinatorLayout>

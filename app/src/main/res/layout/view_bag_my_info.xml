@@ -17,10 +17,11 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:id="@+id/autorize2"
+            android:id="@+id/goodAdd"
             android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@+id/pHone"
             app:layout_constraintStart_toStartOf="@+id/pHone"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mainAvatar"
             android:layout_width="@dimen/view_header_avatar_size"
@@ -77,9 +78,9 @@
             android:layout_width="56dp"
             android:layout_height="38dp"
             android:id="@+id/showSettings"
-            app:layout_constraintBottom_toBottomOf="@+id/autorize2" app:layout_constraintTop_toTopOf="@+id/autorize2"
+            app:layout_constraintBottom_toBottomOf="@+id/goodAdd" app:layout_constraintTop_toTopOf="@+id/goodAdd"
             app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/autorize2"
+            android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/goodAdd"
             android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.279">
         <ImageView
                 android:layout_width="wrap_content"
@@ -92,7 +93,7 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/autorize2" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goodAdd" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:id="@+id/setting">
 
