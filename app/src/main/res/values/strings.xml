@@ -32,6 +32,9 @@
     <string name="wish_edit_price_hint">Цена (обязательное)</string>
     <string name="wish_edit_url_broken">Некорректная ссылка</string>
     <string name="wish_edit_description_hint">Описание</string>
+    <string name="add_card_dialog_not_connected_bank_card">Чтобы получать подарки необходимо подключить банковскую карту</string>
+    <string name="add_card_connect_bank_card">Подключить карту</string>
+    <string name="wish_edit_field_required">Поле обязательно для заполнения</string>
 
 
     <!-- TICKET -->

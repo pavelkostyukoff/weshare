@@ -13,9 +13,6 @@ object ScreenPool {
     val BASE_FRAGMENT = "base_fragment"
     val MAP_FRAGMENT = "map_fragment"
     val FEED_FRAGMENT = "feed_fragment"
-
-
-
     val INVENTORY_FRAGMENT = "inventory_fragment"
     val PROFILEEDIT = "profile_edit_fragment"
     val SPLASH_FRAGMENT = "splash_fragment"
@@ -61,7 +58,6 @@ object ScreenPool {
                 FeedCompilationsFragment.getInstance()
                 // FeedFragment.getInstance()
             }
-
             ADD_GOODS -> {
                 AddGoodsFragment.getInstance()
             }

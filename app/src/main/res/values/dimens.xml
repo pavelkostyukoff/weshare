@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- Default screen paddings, per the Android Design guidelines. -->
     <dimen name="padding_double">32dp</dimen>
     <dimen name="padding">16dp</dimen>
@@ -9,9 +8,6 @@
     <dimen name="margin">8dp</dimen>
     <dimen name="margin_half">4dp</dimen>
     <dimen name="margin_double">16dp</dimen>
-
-
-
 
     <!-- Font-->
     <dimen name="font_shall">12sp</dimen>
@@ -22,6 +18,7 @@
     <dimen name="font_big">20sp</dimen>
     <dimen name="font_hug">24sp</dimen>
     <dimen name="font_very_hug">36sp</dimen>
+    <dimen name="padding_min">4dp</dimen>
 
     <!-- Ticket -->
     <dimen name="qr_code_width">65dp</dimen>

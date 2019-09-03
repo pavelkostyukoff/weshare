@@ -32,9 +32,9 @@
                         android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin_half"
                         android:background="@null"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
-                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
-                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        android:textColorHint="@color/colorPrimary"
+                        app:counterOverflowTextAppearance="@style/TextAppearance.Design.Error"
+                        app:errorTextAppearance="@style/TextAppearance.AppCompat"
                         app:hintTextAppearance="@style/small">
 
                     <ImageButton
@@ -66,6 +66,7 @@
                             android:hint="@string/wish_edit_url_on_wish"
                             android:imeOptions="actionNext"
                             android:inputType="textUri"
+                            android:visibility="gone"
                             android:lines="2"
                             android:maxLines="3"
                             android:paddingEnd="30dp" />
@@ -91,7 +92,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="@dimen/margin_half"
                                 android:text="@string/wish_edit_url_broken"
-                                android:textColor="@color/invalid" />
+                                android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -195,7 +196,7 @@
                         android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:background="@null"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        android:textColorHint="@color/colorPrimary"
                         app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
                         app:errorTextAppearance="@style/ErrorTextAppearance"
                         app:hintTextAppearance="@style/small">

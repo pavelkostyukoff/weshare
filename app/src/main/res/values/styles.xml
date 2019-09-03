@@ -72,6 +72,10 @@
         <item name="android:paddingRight">@dimen/activity_paddings</item>
     </style>
 
+    <style name="ErrorTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
     <style name="SearchDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
         <item name="android:background">@color/white</item>
     </style>
