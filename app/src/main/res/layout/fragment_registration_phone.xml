@@ -135,7 +135,7 @@
             android:layout_gravity="bottom"
             android:background="@drawable/btn_rounded_sapphire"
             android:fontFamily="@font/roboto"
-            android:text="Авторизация"
+            android:text="@string/login_autorize"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"

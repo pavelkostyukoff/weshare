@@ -32,9 +32,9 @@
                         android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin_half"
                         android:background="@null"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
-                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
-                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        android:textColorHint="@color/pressed_bg"
+                        app:counterOverflowTextAppearance="@style/SearchDropDownListViewStyle"
+                        app:errorTextAppearance="@style/CheckBoxStyle"
                         app:hintTextAppearance="@style/small">
 
                     <ImageButton
@@ -46,7 +46,7 @@
                             android:layout_marginTop="-40dp"
                             android:background="@android:color/transparent"
                             android:visibility="gone"
-                            app:srcCompat="@drawable/ic_browser" />
+                            app:srcCompat="@drawable/ic_approve" />
 
                     <ImageButton
                             android:id="@+id/clearUrl"
@@ -84,14 +84,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="@dimen/margin"
-                                app:srcCompat="@drawable/ic_invalid_red_14dp" />
+                                app:srcCompat="@drawable/ic_button_plus" />
 
                         <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="@dimen/margin_half"
                                 android:text="@string/wish_edit_url_broken"
-                                android:textColor="@color/invalid" />
+                                android:textColor="@color/colorPrimaryDark" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -195,9 +195,9 @@
                         android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:background="@null"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
-                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
-                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        android:textColorHint="@color/pressed_bg"
+                        app:counterOverflowTextAppearance="@style/SearchDropDownListViewStyle"
+                        app:errorTextAppearance="@style/CheckBoxStyle"
                         app:hintTextAppearance="@style/small">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
@@ -215,7 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_half"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
+                        android:textColorHint="@color/pressed_bg"
                         app:hintTextAppearance="@style/small">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
@@ -241,10 +241,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:background="@color/ym_background_color"
+                                android:background="@color/black_alpha_22"
                                 android:orientation="vertical"
-                                android:paddingLeft="@dimen/padding_min"
-                                android:paddingRight="@dimen/padding_min"
+                                android:paddingLeft="@dimen/margin"
+                                android:paddingRight="@dimen/margin"
                                 android:visibility="gone">
 
                             <TextView
@@ -253,7 +253,7 @@
                                     android:layout_marginEnd="@dimen/margin"
                                     android:layout_marginStart="@dimen/margin"
                                     android:layout_marginTop="@dimen/margin_half"
-                                    android:text="@string/add_card_dialog_not_connected_bank_card"/>
+                                    android:text="@string/coming_soon"/>
 
                             <Button
                                     android:id="@+id/connectWalletBtn"
@@ -267,7 +267,7 @@
                                     android:paddingLeft="@dimen/padding"
                                     android:paddingRight="@dimen/padding"
                                     android:textSize="14sp"
-                                    android:text="@string/add_card_connect_bank_card"/>
+                                    android:text="@string/security_set_text"/>
                         </LinearLayout>
 
                         <FrameLayout
@@ -277,7 +277,7 @@
                                 android:layout_marginEnd="@dimen/margin"
                                 android:layout_marginStart="@dimen/margin"
                                 android:layout_marginTop="2dp"
-                                android:background="@color/orange"
+                                android:background="@color/red_orange"
                                 android:visibility="gone" />
                     </FrameLayout>
 
@@ -289,8 +289,8 @@
                             android:layout_marginRight="@dimen/margin"
                             android:layout_marginTop="@dimen/margin_half"
                             android:layout_weight="1"
-                            android:text="@string/wish_edit_field_required"
-                            android:textColor="@color/invalid"
+                            android:text="@string/security_good_day"
+                            android:textColor="@color/colorPrimaryDark"
                             android:visibility="gone" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
@@ -301,9 +301,9 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin_half"
-                        android:textColorHint="@color/colorPrimaryDarkTransparent"
-                        app:counterOverflowTextAppearance="@style/ErrorTextAppearance"
-                        app:errorTextAppearance="@style/ErrorTextAppearance"
+                        android:textColorHint="@color/pressed_bg"
+                        app:counterOverflowTextAppearance="@style/TextAppearance.Design.Error"
+                        app:errorTextAppearance="@style/TextAppearance.Design.Error"
                         app:hintTextAppearance="@style/small">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
