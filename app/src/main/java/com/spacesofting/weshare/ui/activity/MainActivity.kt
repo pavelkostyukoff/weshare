@@ -24,7 +24,7 @@ class MainActivity  : ActivityWrapper() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         lockDrawerMenu(false)
-        router.newRootScreen(ScreenPool.SPLASH_FRAGMENT)
+        router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
     }
 
     override fun onResume() {

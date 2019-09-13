@@ -31,7 +31,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
                 Settings.ValidationToken = it.rowrefreshTokenVersion
 
                 ApplicationWrapper.user = it.user!!
-                router.navigateTo(ScreenPool.BASE_FRAGMENT)
+                router.navigateTo(ScreenPool.FEED_FRAGMENT)
 
                 //todo тут кладем токен в сохранялки Settings
 
