@@ -76,4 +76,8 @@ class MainActivity  : ActivityWrapper() {
             fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.slide_to_left)
         }
     }
+//todo должно помоч сделать переходы ровные без логических ошибок
+    override fun onBackPressed() {
+       router.exit()
+    }
 }

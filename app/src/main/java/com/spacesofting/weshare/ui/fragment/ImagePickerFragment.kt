@@ -10,15 +10,14 @@ import android.support.constraint.ConstraintLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.*
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.ui.fragment.ui.fragment.EditProfile
 import com.squareup.picasso.Callback
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso

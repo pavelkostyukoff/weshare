@@ -13,6 +13,8 @@ import com.spacesofting.weshare.utils.hideKeyboard
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 
+
+
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView {
     override fun getFragmentLayout(): Int {
 return R.layout.fragment_add_goods
@@ -58,9 +60,19 @@ return R.layout.fragment_add_goods
                 fragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(R.id.container, picker)
+                    .add(com.spacesofting.weshare.R.id.container, picker)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
             }
+    }
+
+
+    fun onBackPressed() {
+        val fragment = fragmentManager!!.findFragmentByTag("name")
+        if (fragment != null && fragment.isVisible) {
+            //  do something
+        } else {
+            super.onBackPressed()
+        }
     }
 }
