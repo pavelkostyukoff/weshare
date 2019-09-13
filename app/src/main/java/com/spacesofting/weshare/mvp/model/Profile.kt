@@ -9,7 +9,7 @@ class Profile( phone: String,email: String,password: String,firstName: String,la
     @SerializedName("password")
     val password: String = password
     @SerializedName("firstName")
-    val firstName: String = firstName
+    var firstName: String = firstName
     @SerializedName("lastName")
     val lastName: String = lastName
     @SerializedName("phone")

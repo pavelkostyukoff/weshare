@@ -17,11 +17,9 @@ import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.ui.fragment.ui.fragment.EditProfile
 import com.squareup.picasso.Callback
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.image_picker_fragment.*
 import me.zhanghai.android.materialedittext.MaterialEditText
 import java.io.File
@@ -63,9 +61,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         uploadBtn = view?.findViewById(R.id.uploadBtn)
         linkIcon = view?.findViewById(R.id.linkIcon)
 
-        if (activity is EditProfile) {
+       /* if (activity is EditProfile) {
             activity?.scroll?.visibility = View.GONE
-        }
+        }*/
 
         if (!isAvatarForm) {
             view?.findViewById<TextView>(R.id.pickerTitle)?.visibility = View.GONE
@@ -141,7 +139,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         //todo refactoring
         //fix rarely crash set image, null pointer exception
         if (file == null) {
-            Toast.makeText(activity.applicationContext, "Ошибка загрузки изображения", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity?.applicationContext, "Ошибка загрузки изображения", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -178,8 +176,8 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                     newW = (newW.toDouble() * scaleFactor).toInt()
                 }
 
-                WishEditActivity.imgWidth = newW
-                WishEditActivity.imgHeight = newH
+              /*  WishEditActivity.imgWidth = newW
+                WishEditActivity.imgHeight = newH*/
 
                 Picasso.with(activity)
                         .load(file)
@@ -202,10 +200,10 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         }
     }
 
-    fun onBackPressed() {
+  /*  fun onBackPressed() {
         activity.hideKeyboard()
         finish()
-    }
+    }*/
 
     private fun confirmUrl() {
         val urlString = view?.findViewById<EditText>(R.id.pickerUrlEditText)?.text.toString()
@@ -216,26 +214,26 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
             Log.e("BottomSheetImagePicker", "Incorrect url: ${e.message}")
             listener?.onPickerIncorrectUrl(e)
         }
-        activity.hideKeyboard()
+      //  activity.hideKeyboard()
     }
 
     private fun confirmPressed() {
-        activity.hideKeyboard()
+      //  activity.hideKeyboard()
         listener?.onEditPhotoConfirmClick()
         finish()
     }
 
     private fun finish() {
-        activity.fragmentManager
+        activity!!.fragmentManager
                 .beginTransaction()
                 .remove(Fragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit()
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
         this.onDetach()
 
-        if (activity is EditProfile) {
+       /* if (activity is EditProfile) {
             activity.scroll.visibility = View.VISIBLE
-        }
+        }*/
     }
 }

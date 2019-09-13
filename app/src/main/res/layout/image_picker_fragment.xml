@@ -72,7 +72,7 @@
                         android:id="@+id/verticalLine"
                         android:layout_width="1dp"
                         android:layout_height="0dp"
-                        android:background="@color/grey400"
+                        android:background="@color/gray5555"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -106,7 +106,7 @@
                             android:src="@drawable/ic_photo_library_dklilac_24dp" />
 
                         <TextView
-                            fontPath="fonts/Roboto-Medium.ttf"
+                                android:fontFamily="@font/roboto"
                             android:layout_width="105dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_half"
@@ -140,7 +140,7 @@
                             android:src="@drawable/ic_photo_camera_dklilac_24dp" />
 
                         <TextView
-                            fontPath="fonts/Roboto-Medium.ttf"
+                                android:fontFamily="@font/roboto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_half"
@@ -156,7 +156,7 @@
                     android:id="@+id/horizontalLine"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey400"
+                    android:background="@color/gray5555"
                     android:orientation="horizontal"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -267,7 +267,7 @@
                 android:layout_marginTop="64dp"
                 android:text="@string/profile_set_photo_title"
                 android:textAppearance="@style/title"
-                android:textColor="@color/white87"
+                android:textColor="@color/white"
                 android:visibility="visible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

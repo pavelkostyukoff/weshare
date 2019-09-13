@@ -13,6 +13,23 @@
         <item quantity="other">%1$d таких желаний</item>
     </plurals>
     <!-- AUTH -->
+
+    <string name="wish_edit_progress">Сохранение изменений</string>
+    <string name="wish_save_progress">Создаем желание…</string>
+    <string name="edit_profile_title_nick">Никнейм в приложении</string>
+    <string name="edit_profile_profile_free_name">Никнейм корректен</string>
+    <string name="edit_profile_nick_requirements">Слишком длинный никнейм</string>
+    <string name="edit_profile_min_len_nick_name">Слишком короткий никнейм</string>
+
+    <string name="wish_edit_picker_title">Добавить фото</string>
+    <string name="wish_edit_picker_url">Ссылка на фото</string>
+    <string name="wish_edit_picker_camera">Сделать фото</string>
+
+    <string name="wish_edit_picker_gallery">Добавить из библиотеки</string>
+    <string name="profile_set_photo_title">Добавь фото</string>
+    <string name="edit_profile_profile_already_exist_name">Никнейм пользователя уже существует</string>
+    <string name="edit_profile_enter_nickname">Придумай никнейм</string>
+
     <string name="auth_to_register">Зарегистрироваться</string>
     <string name="auth_user_blocked">Пользователь заблокирован на %1$s</string>
     <string name="auth_incorrect_phone">Неверный номер телефона</string>

@@ -3,9 +3,13 @@ package com.spacesofting.weshare.ui.fragment.presentation.presenter
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.runOnUiThread
+import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
+import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +32,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     var profile: Profile? = null
-    var profileNew: Profile = Profile()
+   // var profileNew: Profile = Profile()
     var imageFile: File? = null
     var timeout: Timer? = Timer()
 
@@ -55,16 +59,16 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     fun onBackPressed() {
         // get difference
-        val equals = profile?.equals(profileNew)
+      //  val equals = profile?.equals(profileNew)
 
         //choose dialog to show
-        if (equals != null && equals) {
+       /* if (equals != null && equals) {
             viewState.close()
         } else if (isValid()) {
             viewState.save()
         } else {
             viewState.cancel()
-        }
+        }*/
     }
 
     fun save() {
@@ -83,11 +87,11 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 ImageUtils.send(saveImgFile)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe({ img ->
-                        profileNew.img = img
+                  //      profileNew.img = img
                         updateProfile()
                     }, { e ->
                         viewState.saved(false)
-                        viewState.showToast(R.string.error_link_image)
+                        viewState.showToast(R.string.error_message)
                     })
             }
         } ?: run {
@@ -101,13 +105,13 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         var isNew = false
 
         if (profile != null) {
-            observable = Api.Users.update(profileNew)
+         //   observable = Api.Users.update(profileNew)
         } else {
             isNew = true
-            observable = Api.Users.make(profileNew)
+       //     observable = Api.Users.make(profileNew)
         }
 
-        observable.subscribeOn(Schedulers.io())
+       /* observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                     profile ->
@@ -117,7 +121,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     e ->
                 ApplicationWrapper.instance.profile = profile
                 viewState.saved(false)
-            })
+            })*/
     }
 
     fun fieldChanged(value: String?, field: Field) {
@@ -125,7 +129,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             isCheckAlreadyExist = false
 
             value?.let {
-                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.nick) || (it.isNotEmpty() && it.length >= 3 && profile == null)){
+                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.firstName) || (it.isNotEmpty() && it.length >= 3 && profile == null)){
                     isCheckAlreadyExist = true
                     timeout?.cancel()
                     timeout = Timer()
@@ -133,7 +137,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                         override fun run() {
                             runOnUiThread {
                                 checkExistNick(it)
-                                profileNew.nick = it
+                             //   profileNew.firstName = it
                             }
                         }
                     }, 500)
@@ -141,11 +145,11 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     timeout?.cancel()
                     viewState.saveButtonEnabled(false)
                     isNickNameValid = false
-                    profileNew.nick = it
+               //     profileNew.firstName = it
 
                     if(it.isEmpty()){
                         viewState.onCheckNick(EditProfileView.NONE)
-                    } else if(it == profile?.nick){
+                    } else if(it == profile?.firstName){
                         isNickNameValid = true
                         viewState.onCheckNick(EditProfileView.NONE)
                         viewState.saveButtonEnabled(isAddedNewAvatar)
@@ -158,21 +162,22 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 }
             }
         } else if (field == Field.IMAGE) {
-            profileNew.img = Image(value)
+          //  profileNew.img = Image(value)
             viewState.saveButtonEnabled(isValid())
         }
     }
 
     fun isValid(): Boolean {
-        if(profileNew.nick != null) {
-            return PATTERN.matcher(profileNew.nick).matches()
+    /*    if(profileNew.firstName != null) {
+            return PATTERN.matcher(profileNew.firstName).matches()
         }else{
             return false
-        }
+        }*/
+        return false
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.instance.profile != null) {
+        if(ApplicationWrapper.INSTANCE.profile != null) {
             return true
         } else {
             Settings.logout()
@@ -199,13 +204,13 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.setPreviewPhoto(res)
                 }
             }, { e ->
-                ApplicationWrapper.instance.profile = profile
-                viewState.showToast(R.string.error_link_image)
+                ApplicationWrapper.INSTANCE.profile = profile
+                viewState.showToast(R.string.error_message)
             })
     }
 
     override fun onPickerIncorrectUrl(exception: MalformedURLException) {
-        viewState.showToast(R.string.image_url_malformed)
+        viewState.showToast(R.string.error_message)
     }
 
     override fun onEditPhotoConfirmClick() {
@@ -231,7 +236,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         viewState.showCheckNickProgress(true)
         viewState.saveButtonEnabled(false)
 
-        Api.Users.checkNickName(NickName(value))
+        /*Api.Users.checkNickName(NickName(value))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ nickNameStatus ->
                 if(isCheckAlreadyExist) {
@@ -249,6 +254,6 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.onCheckNick(EditProfileView.ALREADY_EXIST)
                     viewState.saveButtonEnabled(false)
                 }
-            })
+            })*/
     }
 }
