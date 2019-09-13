@@ -1,8 +1,7 @@
-package com.spacesofting.weshare.ui.fragment.ui.fragment
+package com.spacesofting.weshare.ui.fragment
 
 import android.app.Activity
 import android.app.FragmentTransaction
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -21,13 +20,18 @@ import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
+import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.Image
+import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.utils.ImageUtils
+import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_wrapper.*
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -35,10 +39,8 @@ import kotlin.properties.Delegates
 class EditProfile : FragmentWrapper(), EditProfileView {
 
 
-
-
     override fun getFragmentLayout(): Int {
-        return R.layout.activity_edit_profile
+        return R.layout.fragment_edit_profile
     }
 
     val CAMERA_REQUEST_CODE = 1
@@ -54,7 +56,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         const val TAG = "EditProfile"
 
         fun newInstance(): EditProfile {
-            val fragment: EditProfile = EditProfile()
+            val fragment: EditProfile =
+                EditProfile()
             val args: Bundle = Bundle()
             fragment.arguments = args
             return fragment
@@ -108,10 +111,10 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
         avatar.setOnClickListener { showPhotoPicker() }
     }
-    override fun onSupportNavigateUp(): Boolean {
+  /*  override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
+    }*/
 
     override fun showProgress(isInProgress: Boolean) {
         if (isInProgress) {
@@ -125,23 +128,23 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }
 
     override fun showToast(stringId: Int) {
-        Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
 
     override fun showProfile(profile: Profile) {
-        //load image
-        if (profile.img != null && (profile.img as Image).name != null) {
+        //load image todo узнать как загрузить аватарку?
+     /*   if (profile.img != null && (profile.img as Image).name != null) {
             val path = ImageUtils.resolveImagePath(profile.img!!.name!!)
             pathImg = path
-            Picasso.with(this).load(path).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
-            Picasso.with(this).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
+            Picasso.with(activity).load(path).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
+            Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         } else {
-            Picasso.with(this).load(R.drawable.ic_wish_fav_inactive).into(actionIcon)
-        }
+            Picasso.with(activity).load(R.drawable.ic_wish_fav_inactive).into(actionIcon)
+        }*/
 
         //load Nickname
-        nick.setText(profile.nick)
-        profileNick = profile.nick
+        nick.setText(profile.firstName)
+        profileNick = profile.firstName
 
         //hide progress
         showProgress(false)
@@ -158,30 +161,30 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     override fun saved(isSuccess: Boolean, isNew: Boolean) {
         if (isSuccess) {
             if (isNew) {
-                ApplicationWrapper.instance.setNewUserFlag(true)
-                logEvent("profile_created")
+                ApplicationWrapper.INSTANCE.setNewUserFlag(true)
+               // logEvent("profile_created")
             }
 
-            if(!Settings.isScenarioFinished && Settings.scenario == ScenarioActivity.SCENARIO_FIRST){
+      /*      if(!Settings.isScenarioFinished && Settings.scenario == ScenarioActivity.SCENARIO_FIRST){
                 val intent = ScenarioActivity.getIntent(this, Settings.scenario)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
 
-            finish()
+            finish()*/
         } else {
-            toast(R.string.edit_profile_save_failed)
+         //   toast(R.string.edit_profile_save_failed)
             showProgress(false)
         }
     }
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         if (fragmentManager.backStackEntryCount == 0) {
             mEditProfilePresenter.onBackPressed()
         } else {
             picker.onBackPressed()
         }
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
@@ -196,37 +199,41 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }
 
     override fun save() {
-        MaterialDialog.Builder(this)
-            .content(R.string.dialog_confirm_save)
-            .positiveText(R.string.save)
-            .onPositive { dialog, which ->
-                mEditProfilePresenter.save()
-            }
-            .negativeText(R.string.reset)
-            .onNegative { dialog, which ->
-                close()
-            }
-            .show()
+        activity?.let {
+            MaterialDialog.Builder(it)
+                .content(R.string.declarer)
+                .positiveText(R.string.save)
+                .onPositive { dialog, which ->
+                    mEditProfilePresenter.save()
+                }
+                .negativeText(R.string.edit_guest_card_label_first_name)
+                .onNegative { dialog, which ->
+                    close()
+                }
+                .show()
+        }
     }
 
     override fun cancel() {
-        MaterialDialog.Builder(this)
-            .title(R.string.dialog_confirm_save)
-            .content(R.string.dialog_confirm_cancel)
-            .positiveText(R.string.reset)
-            .onPositive { dialog, which ->
-                close()
-            }
-            .neutralText(R.string.edit)
-            .show()
+        activity?.let {
+            MaterialDialog.Builder(it)
+                .title(R.string.search_hint)
+                .content(R.string.dialog_chose_action)
+                .positiveText(R.string.guest_card_state_send_for_approval)
+                .onPositive { dialog, which ->
+                    close()
+                }
+                .neutralText(R.string.edit)
+                .show()
+        }
     }
 
     override fun close() {
         if (!mEditProfilePresenter.hasProfile()) {
-            startActivity(SplashActivity.getIntent(this))
+            //startActivity(SplashActivity.getIntent(this))
         }
 
-        finish()
+    //    finish()
     }
 
     fun showPhotoPicker() {
@@ -235,17 +242,19 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         picker.pathImage = pathImg
         picker.file = mEditProfilePresenter.imageFile
 
-        RxPermissions(this)
-            .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            .subscribe { granted ->
-                picker.galleryPermissionGranted = granted
-                supportFragmentManager
-                    .beginTransaction()
-                    .addToBackStack(null)
-                    .add(R.id.container, picker)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
-            }
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe { granted ->
+                    picker.galleryPermissionGranted = granted
+                    fragmentManager
+                        ?.beginTransaction()
+                        ?.addToBackStack(null)
+                        ?.add(R.id.container, picker)
+                        ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        ?.commit()
+                }
+        }
     }
 
     override fun openGallery() {
@@ -263,8 +272,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun showImage(file: File) {
         //show image
-        Picasso.with(this).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
-        Picasso.with(this).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
+        Picasso.with(activity).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
+        Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         newAvatar = true
     }
 
@@ -294,7 +303,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     fun consumeGalleryResult(data: Intent?) {
         data?.let {
             val uri = it.data as Uri
-            val path = RealFilePath.getPath(this, uri)
+            val path = activity?.let { it1 -> RealFilePath.getPath(it1, uri) }
 
             if (path != null) {
                 val file = File(path)
