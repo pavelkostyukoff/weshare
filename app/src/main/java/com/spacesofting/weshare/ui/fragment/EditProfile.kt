@@ -22,6 +22,7 @@ import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Profile
@@ -230,7 +231,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun close() {
         if (!mEditProfilePresenter.hasProfile()) {
-            //startActivity(SplashActivity.getIntent(this))
+            router.navigateTo(ScreenPool.FEED_FRAGMENT)
         }
 
     //    finish()

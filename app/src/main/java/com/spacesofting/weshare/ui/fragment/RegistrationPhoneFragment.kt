@@ -14,6 +14,7 @@ import com.spacesofting.weshare.mvp.view.RegistrationView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
@@ -22,6 +23,7 @@ import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.mvp.presentation.RegistrationPresenter
 import com.spacesofting.weshare.utils.TimerUtils
 import kotlinx.android.synthetic.main.fragment_registration_phone.*
+import kotlinx.android.synthetic.main.view_bag_my_info.*
 
 class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
@@ -64,7 +66,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
-            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
+            if (login.text.isEmpty() && pass.text.isEmpty())
             {
                 val mail = Login(login.text.toString(), pass.text.toString())
                 val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
@@ -74,7 +76,9 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
              //   val profile = Login(login.text.toString(), pass.text.toString())
 
                 // presenter.autorize(mail,false)
-                presenter.registration(profile,false)
+                //presenter.registration(profile,false)
+
+                presenter.refreshed()
             }
 
         }
@@ -99,9 +103,10 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
     override fun onResume() {
         super.onResume()
+        nameUpdate()
 
         //fix emerging keyboard after recovery state app
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+      //  activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
     /**
@@ -175,5 +180,11 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         }
 
         return deviceInfo
+    }
+
+
+    fun nameUpdate()
+    {
+        val user = ApplicationWrapper.user
     }
 }

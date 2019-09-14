@@ -30,13 +30,15 @@
                 android:id="@+id/editPhoto"
                 app:layout_constraintTop_toTopOf="@+id/myAvatar"
                 app:layout_constraintEnd_toEndOf="@+id/myAvatar"/>
+
         <ImageView
-                android:src="@drawable/ic_pencel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/refresh"
-                app:layout_constraintTop_toTopOf="@+id/myAvatar"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/myAvatar"/>
+                android:layout_width="42dp"
+                android:layout_height="63dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_bagage"
+                app:layout_constraintEnd_toStartOf="@+id/myAvatar"
+                app:layout_constraintTop_toTopOf="@+id/myAvatar" />
         <TextView
                 android:text="Телефон"
                 android:layout_width="wrap_content"

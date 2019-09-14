@@ -23,6 +23,8 @@ object Api {
     val LOG = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     val AUTH = AuthHeaderInterceptor()
 
+
+
     val CLIENT: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(AUTH)
             .addInterceptor(MOCK)
@@ -32,6 +34,10 @@ object Api {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
+
+
+
+
 
     val RETROFIT: Retrofit = Retrofit.Builder()
             .baseUrl(Settings.ApiPath)

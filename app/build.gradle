@@ -39,6 +39,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "int", "API_VERSION", API_VERSION
+        buildConfigField "boolean", "ALLOW_INVALID_CERTIFICATE", "true"
+
 
         buildConfigField "java.util.Map<String, String>", "API_PATHS",
                 "new java.util.HashMap<String, String>() " +
@@ -50,15 +52,15 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "DEFAULT_API_NAME", "\"PROD\""
         }
 
         debug {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "DEFAULT_API_NAME", "\"test\""
         }
@@ -119,5 +121,6 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.github.markomilos:paginate:0.5.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
+
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
 }

@@ -18,7 +18,7 @@ class AuthHeaderInterceptor : Interceptor {
         var request: Request = chain.request()
 
         accessToken = "Bearer " + Settings.AccessToken
-        validationToken = Settings.ValidationToken
+        validationToken = "Bearer " + Settings.ValidationToken
 
         if (!accessToken.isNullOrEmpty()) {
             request = request.newBuilder().addHeader(ACCESS, accessToken).build()

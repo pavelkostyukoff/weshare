@@ -9,6 +9,7 @@ import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.view.RegistrationView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,6 +28,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
                 it->
+
                 Settings.AccessToken = it.token
                 Settings.ValidationToken = it.rowrefreshTokenVersion
 
@@ -39,6 +41,29 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
                 it
             }
     }
+    fun refreshed()
+    {
+        val validationToken = Settings.ValidationToken
+        //todo autorize
+        val token = validationToken?.let { Refrash(it) }
+        token?.let {
+            Api.Auth.getNewToken(it)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({ it->
+                    Settings.AccessToken = it.token
+                    Settings.ValidationToken = it.rowrefreshTokenVersion
+                    ApplicationWrapper.user = it.user!!
+                    //todo тут кладем токен в сохранялки Settings
+
+                }){
+                    it
+                    //todo 403
+
+                  //  autorize(mail)
+                }
+        }
+    }
+
 
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
         viewState.showProgress(true)

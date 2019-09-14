@@ -55,7 +55,6 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
         setHomeAsUpIndicator(TOOLBAR_INDICATOR_BACK_ARROW)
         val fragmentAdapter = InventoryPagerAdapter(childFragmentManager)
         viewpager_main.adapter = fragmentAdapter
-//data
 
         tabs_main.setupWithViewPager(viewpager_main)
    /*     tabs_main.getTabAt(0)?.setIcon(R.drawable.ic_message)

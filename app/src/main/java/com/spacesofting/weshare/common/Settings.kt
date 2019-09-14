@@ -15,6 +15,8 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 import kotlin.collections.LinkedHashMap
 
+
+
 object Settings {
     private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.INSTANCE)
     private val KEY_API_NAME = "key_api_name"
@@ -40,6 +42,7 @@ object Settings {
             } else {
                 return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
             }
+
         }
 
     var AccessToken: String?
