@@ -213,7 +213,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     @SuppressLint("CheckResult")
     fun saveWish() {
         ImageUtils.send(this?.imageFile!!)?.subscribe({ img ->
-            save(img)
+           // save(img)
             imageChanged = false
         }, { error ->
         })

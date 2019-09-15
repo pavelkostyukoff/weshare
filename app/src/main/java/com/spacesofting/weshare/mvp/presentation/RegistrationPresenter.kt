@@ -73,9 +73,18 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             .subscribe ({
                 it
                 //todo проходим в основной экран
-                router.navigateTo(ScreenPool.BASE_FRAGMENT)
+                router.navigateTo(ScreenPool.FEED_FRAGMENT)
             }){
-                it
+              //  it
+              //  it.response().errorBody()
+                viewState.toastError(it.message.toString())
+
+             /*   if (it.cause.  response().errorBody() != null)
+                {
+                    viewState.showErrorText(ReadUtils.readContent(error.response().errorBody()))
+                    error.printStackTrace()
+                    viewState.goSpinner(false)
+                }*/
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

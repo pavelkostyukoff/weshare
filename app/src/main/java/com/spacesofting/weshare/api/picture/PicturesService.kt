@@ -12,6 +12,6 @@ import retrofit2.http.Part
 interface PicturesService {
 
     @Multipart
-    @POST("/api/v1/resources/picture")
-    fun addPicture(@Part image: MultipartBody.Part): Observable<Image>
+    @POST("users/me/avatar")
+    fun addPicture(@Part image: MultipartBody.Part): Observable<Photo>
 }

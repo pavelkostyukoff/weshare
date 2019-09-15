@@ -9,11 +9,14 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.widget.Toast
+import com.pawegio.kandroid.runDelayed
+import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.ui.fragment.SplashFragment
+import kotlinx.android.synthetic.main.activity_wrapper.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -25,6 +28,15 @@ class MainActivity  : ActivityWrapper() {
         super.onCreate(savedInstanceState)
         lockDrawerMenu(false)
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
+        ApplicationWrapper.context = this!!.applicationContext!!
+
+        scan.visible = false
+
+        runDelayed(4000){
+            scan.visible = true
+
+        }
+
     }
 
     override fun onResume() {

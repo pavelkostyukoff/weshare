@@ -36,7 +36,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     var profile: Profile? = null
-    var profileNew: Profile = Profile("","","","","","")
+    var profileNew: Profile = Profile()
     var imageFile: File? = null
     var timeout: Timer? = Timer()
 
@@ -55,7 +55,6 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 viewState.showProfile(profile)
               //  viewState.setTitle(R.string.edit_profile_edit)
             }, { e ->
-              //  profileNew = Profile()
                 viewState.showProfile(profileNew)
             //    viewState.setTitle(R.string.edit_profile_create)
             })
@@ -236,11 +235,45 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     override fun onEditPhotoConfirmClick() {
+
         imageFile?.let {
-            isAddedNewAvatar = true
-            viewState.showImage(it)
-            viewState.saveButtonEnabled(isNickNameValid)
+            ImageUtils.send(it)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({ img ->
+                 //   profileNew.img = img
+                    updateProfile()
+                }, { e ->
+                    viewState.saved(false)
+                    viewState.showToast(R.string.error_message)
+                })
         }
+
+        /*imageFile?.let {
+            Api.Users.updateAvatar(it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profile ->
+
+
+                  //  this.profileNew = profile
+                    //   profileNew = profile.clone() as Profile
+                  //  router.exit()
+                    viewState.showProfile(profileNew)
+
+
+                    imageFile?.let {
+                        isAddedNewAvatar = true
+                        viewState.showImage(it)
+                        viewState.saveButtonEnabled(isNickNameValid)
+                    }
+                    //  viewState.setTitle(R.string.edit_profile_edit)
+                }, { e ->
+                    //  profileNew = Profile()
+                    viewState.showProfile(profileNew)
+                    //    viewState.setTitle(R.string.edit_profile_create)
+                })*/
+
+
     }
 
     fun onCameraResult() {

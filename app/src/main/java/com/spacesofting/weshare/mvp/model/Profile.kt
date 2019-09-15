@@ -2,19 +2,19 @@ package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
 
-class Profile( phone: String,email: String,password: String,firstName: String,lastName: String,birthday: String) {
+class Profile() {
 
     @SerializedName("email")
-    val email: String = email
+    var email: String? = null
     @SerializedName("password")
-    val password: String = password
+    var password: String? = null
     @SerializedName("firstName")
-    var firstName: String = firstName
+    var firstName: String? = null
     @SerializedName("lastName")
-    val lastName: String = lastName
+    var lastName: String? = null
     @SerializedName("phone")
-    val phone: String = phone
+    var phone: String? = null
     @SerializedName("birthday")
-    val birthday: String = birthday
+    val birthday: String? = null
 
 }

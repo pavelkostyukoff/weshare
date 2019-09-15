@@ -33,6 +33,8 @@
     <string name="auth_to_register">Зарегистрироваться</string>
     <string name="auth_user_blocked">Пользователь заблокирован на %1$s</string>
     <string name="auth_incorrect_phone">Неверный номер телефона</string>
+    <string name="auth_incorrect_all">Пропущены поля авторизации</string>
+
     <string name="auth_wrong_sms_code">Введен неверный код</string>
     <string name="auth_send_again">Не пришел код? &lt;u>Отправить снова&lt;/u></string>
     <string name="auth_sms_code_sent">Мы отправили вам смс-код</string>
@@ -102,6 +104,8 @@
     <string name="responsible">Ответственный на площадке</string>
     <string name="accompanying">Сопровождающие</string>
     <string name="save">Сохранить</string>
+    <string name="rega">Вы не авторизованы, пройдите регистрацию!</string>
+
     <string name="escalate">Эскалировать</string>
     <string name="remove">Удалить</string>
     <string name="change_request">Вернуть на доработку</string>

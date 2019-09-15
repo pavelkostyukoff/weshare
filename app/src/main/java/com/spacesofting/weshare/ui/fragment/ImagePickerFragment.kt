@@ -16,6 +16,7 @@ import android.widget.*
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.utils.ImageUtils
 import com.squareup.picasso.Callback
@@ -29,7 +30,7 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnGlobalLayoutListener {
-    var imageFile: File?            = null
+    var imageFile: File?   = null
     private val CAMERA_REQUEST_CODE = 1
 
 
@@ -176,6 +177,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
         loadImageProgress.visibility = View.VISIBLE
         if (isAvatarForm) {
+            ApplicationWrapper.file = file
+
+
             Picasso.with(activity)
                     .load(file)
                     .centerCrop()
@@ -185,7 +189,6 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                                 override fun onSuccess() {
                                     loadImageProgress.visibility = View.GONE
                                 }
-
                                 override fun onError() {
                                     loadImageProgress.visibility = View.GONE
                                 }
@@ -253,6 +256,12 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         listener?.onEditPhotoConfirmClick()
         finish()
     }
+
+    fun onEditPhotoConfirmClick()
+    {
+
+    }
+
 
     private fun finish() {
         activity!!.fragmentManager

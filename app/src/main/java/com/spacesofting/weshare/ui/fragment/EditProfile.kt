@@ -23,10 +23,13 @@ import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
+import kotlinx.android.synthetic.main.image_picker_fragment.*
+
 import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
@@ -34,10 +37,10 @@ import kotlin.properties.Delegates
 class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun showNewInfo(newinfo: User) {
-        phoneEdP.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
-        firstNameEdP.setText(newinfo.firstName.toString(), TextView.BufferType.EDITABLE)
-        lastNameEdP.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
-        birthdayEdP.setText(newinfo.birthday.toString(), TextView.BufferType.EDITABLE)
+        phone.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
+        nickName.setText(newinfo.firstName.toString(), TextView.BufferType.EDITABLE)
+        name.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
+        date.setText(newinfo.birthday.toString(), TextView.BufferType.EDITABLE)
     }
 
     override fun getFragmentLayout(): Int {
@@ -68,37 +71,35 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     @InjectPresenter
     lateinit var mEditProfilePresenter: EditProfilePresenter
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //show progress
         showProgress()
 
         //handle nick changes and validate it
-        RxTextView.afterTextChangeEvents(firstNameEdP)
+        RxTextView.afterTextChangeEvents(nickName)
             .debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { tvChangeEvent ->
                 //remove unacceptable symbols
-                val newValue = firstNameEdP.text.toString()?.replace(REPLACEMENT, "")
-                if (newValue != null && newValue != firstNameEdP.text.toString()) {
-                    firstNameEdP.text.replace(0, firstNameEdP.text.length, newValue)
+                val newValue = nickName.text.toString()?.replace(REPLACEMENT, "")
+                if (newValue != null && newValue != nickName.text.toString()) {
+                    nickName.text.replace(0, nickName.text.length, newValue)
                 }
                 mEditProfilePresenter.fieldChanged(newValue, EditProfilePresenter.Field.NICK)
             }
 
-        firstNameEdP.setOnFocusChangeListener { view, isFocused ->
+        nickName.setOnFocusChangeListener { view, isFocused ->
             runDelayed(250) {
                 //scroll to the end when edit selected
                 if (isFocused) {
-                    scroll.fullScroll(View.FOCUS_DOWN)
+                 //   scroll.fullScroll(View.FOCUS_DOWN)
                 }
             }
         }
-        firstNameEdP.setOnClickListener { view ->
+        nickName.setOnClickListener { view ->
             runDelayed(250) {
                 //scroll to the end when edit clicked
-                scroll.fullScroll(View.FOCUS_DOWN)
+             //   scroll.fullScroll(View.FOCUS_DOWN)
             }
         }
 
@@ -111,12 +112,12 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun showProgress(isInProgress: Boolean) {
         if (isInProgress) {
-            content.visibility = View.INVISIBLE
+            contentProfile.visibility = View.INVISIBLE
         } else {
-            content.visibility = View.VISIBLE
+            contentProfile.visibility = View.VISIBLE
         }
 
-        save.isEnabled = !isInProgress
+       // saveProfile.isEnabled = !isInProgress
         progress.visible = isInProgress
     }
 
@@ -130,14 +131,36 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
 
         //load Nickname
-        firstNameEdP.setText(profile.firstName)
+        nickName.setText(profile.firstName)
+        phone.setText(profile.phone)
+        name.setText(profile.lastName)
+        date.setText(profile.birthday)
+
+
+
         profileNick = profile.firstName
         //hide progress
         showProgress(false)
-        save.setOnClickListener { mEditProfilePresenter.save() }
-        save.isEnabled = true
+        saveProfile.setOnClickListener {
+            mEditProfilePresenter.save() }
+      //  saveProfile.isEnabled = true
 
-
+        if (ApplicationWrapper.file != null)
+        {
+            Picasso.with(activity)
+                .load(ApplicationWrapper.file)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(avatar,
+                    object : Callback {
+                        override fun onSuccess() {
+                            loadImageProgress.visibility = View.GONE
+                        }
+                        override fun onError() {
+                            loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
     }
    /* override fun showAvatar(profile: Profile) {
         if (profile.img != null && (profile.img as Image).name != null) {
@@ -345,6 +368,6 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }
 
     override fun saveButtonEnabled(isEnabled: Boolean) {
-        save.isEnabled = isEnabled
+      //  saveProfile.isEnabled = isEnabled
     }
 }

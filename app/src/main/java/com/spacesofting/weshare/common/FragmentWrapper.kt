@@ -3,6 +3,7 @@ package com.spacesofting.weshare.common
 import android.support.v7.app.AlertDialog
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
 
@@ -39,6 +41,8 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val view = inflater.inflate(R.layout.fragment_wrapper, container, false)
         val viewContainer = view.findViewById<FrameLayout>(R.id.mainContainer)
         setLayout(getFragmentLayout(), viewContainer)
+       // scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
         return view
     }
 
@@ -52,7 +56,77 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
     }
 
     abstract fun getFragmentLayout(): Int
+   /* val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_feed -> {
+                router.navigateTo(ScreenPool.FEED_FRAGMENT)
 
+
+                //todo запрос актуальных задачь - положить их в список и открыть
+                *//*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                      // getMyTask()
+                   } else {
+                       Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                   }*//*
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_map -> {
+
+
+                router.navigateTo(ScreenPool.MAP_FRAGMENT)
+
+
+                //  when(fragmnetTag) {
+
+*//*
+                    "WSTFR" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenu(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    "SIMPLJOB" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenuSimpleJob(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    "NO_PRESS" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }*//*
+
+                //      else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                //    }
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_inventory -> {
+                router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+                *//*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                      allMyTask = TaskFragment.taskList
+                      if (allMyTask.isNotEmpty()) {
+                          router.newScreenChain(ScreenPool.BMTCWWCF)
+                      } else {
+                          Toast.makeText(
+                              this, "У Вас не текущих задач.",
+                              Toast.LENGTH_SHORT
+                          ).show()
+                      }*//*
+*//*
+                } else {
+                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }*//*
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }*/
     fun setTitle(str: String) {
       /*  val title = getToolbarContainer().findViewById<TextView>(R.id.toolbarTitle)
         title?.text = str*/

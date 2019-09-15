@@ -12,6 +12,7 @@ import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Image
+import com.spacesofting.weshare.mvp.model.Photo
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import io.reactivex.Observable
@@ -137,7 +138,7 @@ class ImageUtils {
         /**
          * Sends image to server. If image from cache then delete it
          */
-        fun send(img: File): Observable<Image> {
+        fun send(img: File): Observable<Photo> {
             //get extension for mimetype
             var extension = img.extension
             if( extension.trim().isEmpty()){

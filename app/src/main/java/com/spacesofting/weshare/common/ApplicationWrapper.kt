@@ -32,6 +32,7 @@ class ApplicationWrapper : Application() {
         lateinit var INSTANCE: ApplicationWrapper
         lateinit var user: User
         lateinit var context: Context
+        lateinit var file: File
 
         //  lateinit var updProfile: UpdateProfile
     }

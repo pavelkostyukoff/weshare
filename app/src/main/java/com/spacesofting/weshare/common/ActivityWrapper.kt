@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
+import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.utils.inflate
 import com.spacesofting.weshare.R
 import kotlinx.android.synthetic.main.activity_wrapper.*
@@ -134,7 +135,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_feed -> {
-                router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                } else {
+toast(R.string.rega)
+                }
 
 
                 //todo запрос актуальных задачь - положить их в список и открыть
@@ -147,8 +152,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
             }
             R.id.navigation_map -> {
 
-
-                router.navigateTo(ScreenPool.MAP_FRAGMENT)
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.MAP_FRAGMENT)
+                } else {
+                    toast(R.string.rega)
+                }
 
 
               //  when(fragmnetTag) {
@@ -182,7 +190,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_inventory -> {
-                router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+                } else {
+                    toast(R.string.rega)
+                }
               /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                     allMyTask = TaskFragment.taskList
                     if (allMyTask.isNotEmpty()) {

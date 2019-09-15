@@ -12,6 +12,7 @@ import android.view.WindowManager
 import com.spacesofting.weshare.mvp.view.RegistrationView
 
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -27,6 +28,11 @@ import kotlinx.android.synthetic.main.fragment_registration_phone.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 
 class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
+
+
+    override fun toastError(s: String) {
+        toast("Пароль должен состоять из 8 симовлов , цифр и букв латинского алфавита")
+    }
 
     val COUNT_DOWN = 1000L
 
@@ -53,7 +59,9 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
            // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
           //  {
-                val mail = Login("user@wau.su", "password")
+                val mail = Login()
+            mail.email = myMail.text.toString()
+            mail.password = pass.text.toString()
                 //val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
                 //   val profile = Login(login.text.toString(), pass.text.toString())
 
@@ -67,19 +75,17 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
-            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
+            if (myMail.text.isNotEmpty() && pass.text.isNotEmpty())
             {
-                val mail = Login(login.text.toString(), pass.text.toString())
-                val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
-
-
-
-             //   val profile = Login(login.text.toString(), pass.text.toString())
-
-                // presenter.autorize(mail,false)
+                val profile = Profile()
+                profile.firstName = nickName.text.toString()
+                profile.password = pass.text.toString()
+                profile.email = myMail.text.toString()
                 presenter.registration(profile,false)
-
                // presenter.refreshed()
+            }
+            else {
+                toast(R.string.auth_incorrect_all)
             }
 
         }
@@ -139,7 +145,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
                 color = ContextCompat.getColor(it, R.color.colorPrimaryDark)
             }
 
-            login?.setTextColor(color)
+            myMail?.setTextColor(color)
             pass?.setTextColor(color)
         }
 

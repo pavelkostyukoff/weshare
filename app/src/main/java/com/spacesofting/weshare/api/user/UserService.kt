@@ -4,6 +4,7 @@ import com.spacesofting.weshare.mvp.*
 import com.spacesofting.weshare.mvp.model.Photo
 import retrofit2.http.*
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import java.io.File
 
 
@@ -24,7 +25,12 @@ interface UserService {
    // @PATCH("users/me")
 
     @PATCH("users/me/avatar")
-    fun updateAvatar(@Part filePhoto: File): Observable<Photo>
+    fun updateAvatar(@Body filePhoto: File): Observable<Photo>
+
+
+/*    @Multipart
+    @POST("users/me/avatar")
+    fun updateAvatar(@Part image: MultipartBody.Part): Observable<Photo>*/
 
     /*
 

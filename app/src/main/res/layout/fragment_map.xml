@@ -5,7 +5,7 @@
              android:layout_height="match_parent"
              tools:context=".ui.fragment.MyMapFragment">
 
-   <com.yandex.mapkit.mapview.MapView
+   <!--<com.yandex.mapkit.mapview.MapView
            android:id="@+id/mapview"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
@@ -18,5 +18,5 @@
               android:layout_alignParentTop="true"
               android:layout_alignParentEnd="true"
               android:layout_marginStart="0dp" />
-   </com.yandex.mapkit.mapview.MapView>
+   </com.yandex.mapkit.mapview.MapView>-->
 </FrameLayout>
