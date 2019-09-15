@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.ui.views.splashbackgroundview
+package com.spacesofting.weshare.views.splashbackgroundview
 
 import android.content.Context
 import android.util.AttributeSet
@@ -17,7 +17,7 @@ class SplashBackgroundView: ListView {
 
     val listScrollInitDelay = 500L
     val listScrollSpeedFactor = 20L // less means faster
-    val listInitAnimationDuration = 2000L
+    val listInitAnimationDuration = 2500L
     val listDimmingSwitchRate = 3500L // once in a while will switch dimmed elements, less means more often
 
     var scrollingTimer: Timer? = null
@@ -61,12 +61,12 @@ class SplashBackgroundView: ListView {
         }
         scrollingTimer = fixedRateTimer(initialDelay = initScrollingDelay, period = listScrollSpeedFactor,
                 action = { runOnUiThread { scrollListBy(1) } })
-   //     runDelayed(listInitAnimationDuration, { (adapter as SplashBackgroundAdapter).stopIntroducingMagic() })
+        runDelayed(listInitAnimationDuration, { (adapter as SplashBackgroundAdapter).stopIntroducingMagic() })
     }
 
     fun startDimmingAnimation() {
         dimmingTimer = fixedRateTimer(period = listDimmingSwitchRate, action = {
-          //  runOnUiThread { (adapter as SplashBackgroundAdapter).dimBackground() }
+            runOnUiThread { (adapter as SplashBackgroundAdapter).dimBackground() }
         })
     }
 

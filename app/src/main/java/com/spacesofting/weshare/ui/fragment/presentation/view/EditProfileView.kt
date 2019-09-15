@@ -3,9 +3,13 @@ package com.spacesofting.weshare.ui.fragment.presentation.view
 import com.arellomobile.mvp.MvpView
 import com.spacesofting.weshare.api.NickNameStatus
 import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.User
 import java.io.File
 
 interface EditProfileView : MvpView {
+
+    fun showNewInfo(newinfo : User)
+
     companion object {
         val AVAILABLE       = NickNameStatus.AVAILABLE
         val ALREADY_EXIST   = NickNameStatus.BLOCKED

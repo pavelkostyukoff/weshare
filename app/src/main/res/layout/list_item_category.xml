@@ -44,12 +44,12 @@
                     android:textColor="@color/black" />
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/ic_enter_arrow_right_black_24dp" />
+                        android:id="@+id/imageViewmini"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@android:color/transparent"
+                        android:paddingTop="5dp"
+                        app:srcCompat="@drawable/ic_enter_arrow_right_black_24dp" />
 
             </LinearLayout>
         </LinearLayout>

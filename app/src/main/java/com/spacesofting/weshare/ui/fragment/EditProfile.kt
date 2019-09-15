@@ -5,33 +5,27 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.ui.fragment.presentation.presenter.EditProfilePresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.runDelayed
-import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -39,6 +33,12 @@ import kotlin.properties.Delegates
 
 class EditProfile : FragmentWrapper(), EditProfileView {
 
+    override fun showNewInfo(newinfo: User) {
+        phoneEdP.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
+        firstNameEdP.setText(newinfo.firstName.toString(), TextView.BufferType.EDITABLE)
+        lastNameEdP.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
+        birthdayEdP.setText(newinfo.birthday.toString(), TextView.BufferType.EDITABLE)
+    }
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_edit_profile
@@ -68,34 +68,26 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     @InjectPresenter
     lateinit var mEditProfilePresenter: EditProfilePresenter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainToolbar.visibility = View.GONE
-
         //show progress
         showProgress()
 
         //handle nick changes and validate it
-        RxTextView.afterTextChangeEvents(nick)
+        RxTextView.afterTextChangeEvents(firstNameEdP)
             .debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { tvChangeEvent ->
                 //remove unacceptable symbols
-                val newValue = nick.text.toString()?.replace(REPLACEMENT, "")
-                if (newValue != null && newValue != nick.text.toString()) {
-                    nick.text.replace(0, nick.text.length, newValue)
+                val newValue = firstNameEdP.text.toString()?.replace(REPLACEMENT, "")
+                if (newValue != null && newValue != firstNameEdP.text.toString()) {
+                    firstNameEdP.text.replace(0, firstNameEdP.text.length, newValue)
                 }
                 mEditProfilePresenter.fieldChanged(newValue, EditProfilePresenter.Field.NICK)
             }
 
-        nick.setOnFocusChangeListener { view, isFocused ->
+        firstNameEdP.setOnFocusChangeListener { view, isFocused ->
             runDelayed(250) {
                 //scroll to the end when edit selected
                 if (isFocused) {
@@ -103,7 +95,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
                 }
             }
         }
-        nick.setOnClickListener { view ->
+        firstNameEdP.setOnClickListener { view ->
             runDelayed(250) {
                 //scroll to the end when edit clicked
                 scroll.fullScroll(View.FOCUS_DOWN)
@@ -134,26 +126,31 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun showProfile(profile: Profile) {
         //load image todo узнать как загрузить аватарку?
-     /*   if (profile.img != null && (profile.img as Image).name != null) {
+
+
+
+        //load Nickname
+        firstNameEdP.setText(profile.firstName)
+        profileNick = profile.firstName
+        //hide progress
+        showProgress(false)
+        save.setOnClickListener { mEditProfilePresenter.save() }
+        save.isEnabled = true
+
+
+    }
+   /* override fun showAvatar(profile: Profile) {
+        if (profile.img != null && (profile.img as Image).name != null) {
             val path = ImageUtils.resolveImagePath(profile.img!!.name!!)
             pathImg = path
             Picasso.with(activity).load(path).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
             Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         } else {
             Picasso.with(activity).load(R.drawable.ic_wish_fav_inactive).into(actionIcon)
-        }*/
+        }
+    }*/
 
-        //load Nickname
-        nick.setText(profile.firstName)
-        profileNick = profile.firstName
 
-        //hide progress
-        showProgress(false)
-
-        save.setOnClickListener { mEditProfilePresenter.save() }
-
-        save.isEnabled = true
-    }
 
     override fun setTitle(resString: Int) {
         editProfileTitle.text = getString(resString)

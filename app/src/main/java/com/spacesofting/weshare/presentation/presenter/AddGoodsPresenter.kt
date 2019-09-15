@@ -62,6 +62,16 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
         viewState.openGallery()
     }
 
+    fun onCameraResult() {
+        imageFile?.let {
+            viewState.setPreviewImg(it)
+        }
+    }
+    fun onGalleryResult(file: File) {
+        imageFile = file
+        viewState.setPreviewImg(file)
+    }
+
     override fun onPickerCameraClick() {
         imageFile = ImageUtils.savePhotoFile()
         imageFile?.let {

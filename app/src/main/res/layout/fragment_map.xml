@@ -11,9 +11,12 @@
            android:layout_height="match_parent">
 
       <android.support.v7.widget.RecyclerView
+              android:id="@+id/categoties"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
               android:layout_alignParentTop="true"
-              android:layout_alignParentEnd="true" />
+              android:layout_alignParentEnd="true"
+              android:layout_marginStart="0dp" />
    </com.yandex.mapkit.mapview.MapView>
 </FrameLayout>

@@ -7,7 +7,6 @@ import com.spacesofting.weshare.BuildConfig
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
-import com.spacesofting.weshare.utils.SecureUtils
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.util.*
@@ -16,13 +15,13 @@ import kotlin.collections.HashSet
 import kotlin.collections.LinkedHashMap
 
 
-
 object Settings {
     private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.INSTANCE)
     private val KEY_API_NAME = "key_api_name"
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
+    private var isAuthenticated = false
 
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 5
@@ -33,24 +32,26 @@ object Settings {
     init {
         IsAuthorized = AccessToken != null
     }
+    var apiPathName: String
+        get() = PREFERENCES.getString(KEY_API_NAME, "PROD")
+        set(value) {
+            PREFERENCES.edit().putString(KEY_API_NAME, value).apply()
+        }
 
-    var ApiPath: String = ""
+    var ApiPath: String
         get() {
             val path = BuildConfig.API_PATHS[apiPathName]
             if (path != null) {
                 return path
             } else {
-                return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
+                return BuildConfig.API_PATHS["test"]!!
             }
-
         }
-
-    var AccessToken: String?
-        get() = decrypt(KEY_ACCESS_TOKEN)
         set(value) {
-            encrypt(KEY_ACCESS_TOKEN, value)
-            IsAuthorized = true
+            BuildConfig.API_PATHS[apiPathName] = value
         }
+
+/*
     var PicPath: String = ""
         get() {
             val path = BuildConfig.API_PATHS[apiPathName]
@@ -59,12 +60,37 @@ object Settings {
             } else {
                 return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
             }
+        }*/
+    fun isAuthenticated() = isAuthenticated
+
+
+
+
+
+    private fun decrypt(key: String): String? {
+        val encrypted = PREFERENCES.getString(key, null)
+       // val decrypted = SecureUtils.decrypt(key)
+
+        return encrypted
+    }
+
+    var AccessToken: String?
+        get() = decrypt(KEY_ACCESS_TOKEN)
+        set(value) {
+            isAuthenticated = true
+            encrypt(KEY_ACCESS_TOKEN, value)
         }
+
     var ValidationToken: String?
         get() = decrypt(KEY_VALIDATION_TOKEN)
         set(value) {
             encrypt(KEY_VALIDATION_TOKEN, value)
         }
+    private fun encrypt(key: String, value: String?) {
+      //  val encrypted: String? = SecureUtils.encrypt(value)
+        PREFERENCES.edit().putString(key, value).apply()
+    }
+
 
     var Role: RoleEnum
         set(value) {
@@ -88,23 +114,23 @@ object Settings {
         ValidationToken = null
         IsAuthorized = false
     }
-    private var apiPathName: String
+ /*   private var apiPathName: String
         get() = PREFERENCES.getString(KEY_API_NAME, BuildConfig.DEFAULT_API_NAME)
         set(value) {
             PREFERENCES.edit().putString(KEY_API_NAME, value).apply()
-        }
-
+        }*/
+/*
     private fun decrypt(key: String): String? {
         val encrypted = PREFERENCES.getString(key, null)
         val decrypted = SecureUtils.decrypt(encrypted)
 
         return decrypted
-    }
+    }*/
 
-    private fun encrypt(key: String, value: String?) {
+   /* private fun encrypt(key: String, value: String?) {
         val encrypted: String? = SecureUtils.encrypt(value)
         PREFERENCES.edit().putString(key, encrypted).apply()
-    }
+    }*/
 
     fun SaveLinkedHashMapToInternalStorage(SavedData: String, linkedHashMapList: LinkedHashMap<GuestCardState, Boolean>, context:Context) {
         try {
@@ -218,6 +244,8 @@ object Settings {
 
         return linkedHashMapLIST
     }
+
+
     //TODO: Why it has so abstract name instead of concrete one like compilationSubscriptions()...
     fun getListInt(): HashSet<Int> {
         //TODO: Use standart Serialization mechanism here

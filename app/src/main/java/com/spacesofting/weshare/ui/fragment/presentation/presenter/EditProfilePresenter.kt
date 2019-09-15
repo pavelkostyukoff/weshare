@@ -4,10 +4,13 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
+import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.Observable
@@ -22,6 +25,7 @@ import java.util.regex.Pattern
 
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
+    val router = ApplicationWrapper.INSTANCE.getRouter()
 
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
@@ -32,7 +36,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     var profile: Profile? = null
-   // var profileNew: Profile = Profile()
+    var profileNew: Profile = Profile("","","","","","")
     var imageFile: File? = null
     var timeout: Timer? = Timer()
 
@@ -42,19 +46,37 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     init {
         //todo запрос оправляется как только мы хотим показать профиль после логина
-       /* Api.Users.get()
+        Api.Users.getAccount()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ profile ->
                 this.profile = profile
-                profileNew = profile.clone() as Profile
+             //   profileNew = profile.clone() as Profile
                 viewState.showProfile(profile)
-                viewState.setTitle(R.string.edit_profile_edit)
+              //  viewState.setTitle(R.string.edit_profile_edit)
             }, { e ->
-                profileNew = Profile()
+              //  profileNew = Profile()
                 viewState.showProfile(profileNew)
-                viewState.setTitle(R.string.edit_profile_create)
-            })*/
+            //    viewState.setTitle(R.string.edit_profile_create)
+            })
+    }
+
+
+    fun showAvatar()
+    {
+        Api.Users.getAccount()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ profile ->
+                this.profile = profile
+                //   profileNew = profile.clone() as Profile
+                viewState.showProfile(profile)
+                //  viewState.setTitle(R.string.edit_profile_edit)
+            }, { e ->
+                //  profileNew = Profile()
+                viewState.showProfile(profileNew)
+                //    viewState.setTitle(R.string.edit_profile_create)
+            })
     }
 
     fun onBackPressed() {
@@ -255,5 +277,27 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.saveButtonEnabled(false)
                 }
             })*/
+    }
+//todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
+    fun chengeMyProfile(updProfile: UpdateProfile) {
+        viewState.showProgress(true)
+
+        Api.Users.updateProfile(updProfile)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { viewState.showProgress(false) }
+            .subscribe ({
+                it
+                ApplicationWrapper.user = it
+                viewState.showNewInfo(it)
+                //todo проходим в основной экран
+                //todo тут может отправить во вью и показать тост
+                router.exitWithResult(ProfileEditFragment.SCANNER_REQUEST_CODE, it)
+            }){
+                it
+                router.exit()
+                //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                //router.navigateTo(ScreenPool.BASE_FRAGMENT)
+            }
+
     }
 }

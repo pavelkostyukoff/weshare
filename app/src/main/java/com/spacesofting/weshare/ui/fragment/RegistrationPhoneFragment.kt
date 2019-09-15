@@ -22,6 +22,7 @@ import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.mvp.presentation.RegistrationPresenter
 import com.spacesofting.weshare.utils.TimerUtils
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_registration_phone.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 
@@ -66,7 +67,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
-            if (login.text.isEmpty() && pass.text.isEmpty())
+            if (login.text.isNotEmpty() && pass.text.isNotEmpty())
             {
                 val mail = Login(login.text.toString(), pass.text.toString())
                 val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
@@ -76,9 +77,9 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
              //   val profile = Login(login.text.toString(), pass.text.toString())
 
                 // presenter.autorize(mail,false)
-                //presenter.registration(profile,false)
+                presenter.registration(profile,false)
 
-                presenter.refreshed()
+               // presenter.refreshed()
             }
 
         }
@@ -101,9 +102,14 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         countDownTimer?.cancel()
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        countDownTimer?.cancel()
+
+    }
+
     override fun onResume() {
         super.onResume()
-        nameUpdate()
 
         //fix emerging keyboard after recovery state app
       //  activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
@@ -180,11 +186,5 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         }
 
         return deviceInfo
-    }
-
-
-    fun nameUpdate()
-    {
-        val user = ApplicationWrapper.user
     }
 }

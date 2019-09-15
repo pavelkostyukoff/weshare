@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface AuthService {
 
-    @POST("users/login")  //todo //Подтвердить получение задачи
+    @POST("users/login")  //todo //Подтвердить получение задач`и
     fun autorize(@Body mail: Login): Observable<Autorize>
 
     @POST("users/refresh-token")  //todo Refresh token

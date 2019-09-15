@@ -56,7 +56,7 @@ class ImageUtils {
             return compressedPhoto
         }
 
-        fun resolveImagePath(imageName: String) = "${Settings.PicPath}$imageName"
+        fun resolveImagePath(imageName: String) = "${Settings.ApiPath}$imageName"
 
         /**
          * Generates Path to image in the cache
@@ -71,21 +71,24 @@ class ImageUtils {
         }
 
         /**
-         * Build File which can be used to save image from camera
+         * Build File which can be used to save image from camera com.spacesofting.weshare
          */
         fun takePhotoIntent(file: File): Intent {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
             if (takePictureIntent.resolveActivity(ApplicationWrapper.INSTANCE.getPackageManager()) != null) {
-
                 // Continue only if the File was successfully created
-                val photoURI = FileProvider.getUriForFile(ApplicationWrapper.INSTANCE, ApplicationWrapper.INSTANCE.packageName, file)
+                //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.INSTANCE, ApplicationWrapper.INSTANCE.packageName, file)
+                val photoURI =
+                    FileProvider.getUriForFile(ApplicationWrapper.context, "com.spacesofting.weshare", file)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             }
 
             return takePictureIntent
         }
+
+
 
         /**
          * Downloads image and saves it into cache

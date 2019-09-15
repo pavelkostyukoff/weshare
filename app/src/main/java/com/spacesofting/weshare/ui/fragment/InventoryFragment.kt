@@ -75,21 +75,14 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
             }
         })
 
-      /*  presenter.router.setResultListener(QrScanerFragment.SCANNER_REQUEST_CODE) { result ->
-            if (result != null && result is String) {
-                // presenter.getProfile(Pass(result))
-                router.navigateTo(ScreenPool.BASE_FRAGMENT, result)
-            }
-        }*/
-
 
 
         goodAdd.setOnClickListener {
-            router.newScreenChain(ScreenPool.ADD_GOODS)
+            router.navigateTo(ScreenPool.ADD_GOODS)
         }
 
         showSettings.setOnClickListener {
-            router.newScreenChain(ScreenPool.PROFILEEDIT)
+            router.navigateTo(ScreenPool.EDIT_PROFILE)
         }
             router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {

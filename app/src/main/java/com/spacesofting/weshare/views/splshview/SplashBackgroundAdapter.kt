@@ -1,4 +1,4 @@
-package com.gpbdigital.wishninja.ui.views.splashbackgroundview
+package com.spacesofting.weshare.views.splashbackgroundview
 
 import android.animation.ObjectAnimator
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
@@ -7,31 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.utils.dp
+import com.spacesofting.weshare.utils.inflate
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
+
+
 
 /**
  * Created by bender on 06/06/2017.
  */
 class SplashBackgroundAdapter: BaseAdapter() {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun getItem(position: Int): Any {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getItemId(position: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-/*    val elementsDimmingAnimationDuration = 900L
+    val elementsDimmingAnimationDuration = 900L
     val dimmingRowsInitDelay = 500
     val dimmingRowsDelta = 300
     val dimmingElementsDelta = 100
@@ -44,76 +33,76 @@ class SplashBackgroundAdapter: BaseAdapter() {
     var dimFlag = false
 
     val elementLayouts = intArrayOf(
-            R.layout.item_splash_element_1,
-            R.layout.item_splash_element_2,
-            R.layout.item_splash_element_3,
-            R.layout.item_splash_element_4
+        R.layout.item_splash_element_1,
+        R.layout.item_splash_element_2,
+        R.layout.item_splash_element_3,
+        R.layout.item_splash_element_4
     )
     var bsqCounter = 0
     var sqCounter = 0
     var lnCounter = 0
     var ftCounter = 0
     val bigSquareImageResources = listOf (
-            R.drawable.img_splash_bsq_1,
-            R.drawable.img_splash_bsq_2,
-            R.drawable.img_splash_bsq_3,
-            R.drawable.img_splash_bsq_4,
-            R.drawable.img_splash_bsq_5,
-            R.drawable.img_splash_bsq_6,
-            R.drawable.img_splash_bsq_7
+        R.drawable.img_splash_bsq_1,
+        R.drawable.img_splash_bsq_2,
+        R.drawable.img_splash_bsq_3,
+        R.drawable.img_splash_bsq_4,
+        R.drawable.img_splash_bsq_5,
+        R.drawable.img_splash_bsq_6,
+        R.drawable.img_splash_bsq_7
     )
     val squareImageResources = listOf (
-            R.drawable.img_splash_sq_1,
-            R.drawable.img_splash_sq_2,
-            R.drawable.img_splash_sq_3,
-            R.drawable.img_splash_sq_4,
-            R.drawable.img_splash_sq_5,
-            R.drawable.img_splash_sq_6,
-            R.drawable.img_splash_sq_7,
-            R.drawable.img_splash_sq_8,
-            R.drawable.img_splash_bsq_1,
-            R.drawable.img_splash_bsq_2,
-            R.drawable.img_splash_bsq_3,
-            R.drawable.img_splash_bsq_4,
-            R.drawable.img_splash_bsq_5,
-            R.drawable.img_splash_bsq_6,
-            R.drawable.img_splash_bsq_7
+        R.drawable.img_splash_sq_1,
+        R.drawable.img_splash_sq_2,
+        R.drawable.img_splash_sq_3,
+        R.drawable.img_splash_sq_4,
+        R.drawable.img_splash_sq_5,
+        R.drawable.img_splash_sq_6,
+        R.drawable.img_splash_sq_7,
+        R.drawable.img_splash_sq_8,
+        R.drawable.img_splash_bsq_1,
+        R.drawable.img_splash_bsq_2,
+        R.drawable.img_splash_bsq_3,
+        R.drawable.img_splash_bsq_4,
+        R.drawable.img_splash_bsq_5,
+        R.drawable.img_splash_bsq_6,
+        R.drawable.img_splash_bsq_7
     )
     val fatImageResources = listOf (
-            R.drawable.img_splash_ft_1,
-            R.drawable.img_splash_ft_2,
-            R.drawable.img_splash_ft_3,
-            R.drawable.img_splash_ft_4,
-            R.drawable.img_splash_ft_5,
-            R.drawable.img_splash_ft_6,
-            R.drawable.img_splash_ft_7,
-            R.drawable.img_splash_ft_8
+        R.drawable.img_splash_ft_1,
+        R.drawable.img_splash_ft_2,
+        R.drawable.img_splash_ft_3,
+        R.drawable.img_splash_ft_4,
+        R.drawable.img_splash_ft_5,
+        R.drawable.img_splash_ft_6,
+        R.drawable.img_splash_ft_7,
+        R.drawable.img_splash_ft_8
     )
     val longImageResources = listOf (
-            R.drawable.img_splash_ln_1,
-            R.drawable.img_splash_ln_2,
-            R.drawable.img_splash_ln_3,
-            R.drawable.img_splash_ln_4,
-            R.drawable.img_splash_ln_5,
-            R.drawable.img_splash_ln_6,
-            R.drawable.img_splash_ln_7,
-            R.drawable.img_splash_ln_8,
-            R.drawable.img_splash_ln_9,
-            R.drawable.img_splash_ln_10,
-            R.drawable.img_splash_ln_11,
-            R.drawable.img_splash_ln_12,
-            R.drawable.img_splash_ln_13,
-            R.drawable.img_splash_ln_14,
-            R.drawable.img_splash_ln_15,
-            R.drawable.img_splash_ln_16,
-            R.drawable.img_splash_ft_1,
-            R.drawable.img_splash_ft_2,
-            R.drawable.img_splash_ft_3,
-            R.drawable.img_splash_ft_4,
-            R.drawable.img_splash_ft_5,
-            R.drawable.img_splash_ft_6,
-            R.drawable.img_splash_ft_7,
-            R.drawable.img_splash_ft_8
+        R.drawable.img_splash_ln_1,
+        R.drawable.img_splash_ln_2,
+        R.drawable.img_splash_ln_3,
+        R.drawable.img_splash_ln_4,
+        R.drawable.img_splash_ln_5,
+        R.drawable.img_splash_ln_6,
+        R.drawable.img_splash_ln_7,
+        R.drawable.img_splash_ln_8,
+        R.drawable.img_splash_ln_9,
+        R.drawable.img_splash_ln_10,
+        R.drawable.img_splash_ln_11,
+        R.drawable.img_splash_ln_12,
+        R.drawable.img_splash_ln_13,
+        R.drawable.img_splash_ln_14,
+        R.drawable.img_splash_ln_15,
+        R.drawable.img_splash_ln_16,
+        R.drawable.img_splash_ft_1,
+        R.drawable.img_splash_ft_2,
+        R.drawable.img_splash_ft_3,
+        R.drawable.img_splash_ft_4,
+        R.drawable.img_splash_ft_5,
+        R.drawable.img_splash_ft_6,
+        R.drawable.img_splash_ft_7,
+        R.drawable.img_splash_ft_8
     )
 
     val holdersCollection = ArrayList<SplashElementViewHolder>()
@@ -123,6 +112,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
         Collections.shuffle(squareImageResources)
         Collections.shuffle(fatImageResources)
         Collections.shuffle(longImageResources)
+
     }
 
     override fun getItem(position: Int) = Unit
@@ -150,9 +140,9 @@ class SplashBackgroundAdapter: BaseAdapter() {
         } ?: throw NullPointerException()
     }
 
-    *//**
+    /**
      * return new random layout id from layouts array except we don't want it to be the same as previous
-     *//*
+     */
     fun getAlmostRandomLayout(prevLayoutId: Int): Int {
         var layoutId = prevLayoutId
         while (layoutId == prevLayoutId) {
@@ -162,7 +152,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
     }
 
     fun introduceImages(viewHolder: SplashElementViewHolder) {
-      *//*  val context = viewHolder.elements[0].context
+        val context = viewHolder.elements[0].context
         Picasso.with(context).load(getNextLnRes()).into(viewHolder.elements[0])
         Picasso.with(context).load(getNextLnRes()).into(viewHolder.elements[1])
         Picasso.with(context).load(getNextSqRes()).into(viewHolder.elements[2])
@@ -180,7 +170,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
                 Picasso.with(context).load(getNextSqRes()).into(viewHolder.elements[3])
                 Picasso.with(context).load(getNextBsqRes()).into(viewHolder.elements[4])
             }
-        }*//*
+        }
     }
 
     fun introduceMagic(viewHolder: SplashElementViewHolder, startDelay: Int) {
@@ -191,28 +181,28 @@ class SplashBackgroundAdapter: BaseAdapter() {
 
             val elementDelay = startDelay + index * dimmingElementsDelta
             parent.animate()
-                    .alpha(1f)
-                    .setInterpolator(LinearOutSlowInInterpolator())
-                    .setStartDelay(elementDelay.toLong())
-                    .start()
+                .alpha(1f)
+                .setInterpolator(LinearOutSlowInInterpolator())
+                .setStartDelay(elementDelay.toLong())
+                .start()
 
         } }
     }
 
     fun dimBackground() {
         dimFlag = true
-            holdersCollection
-                .flatMap { it.elements }
-                .map { it.parent as CardView }
-                .forEach {
-                    if (getMagicPortion()) {
-                        it.animate().alpha(dimmedElementAlpha).setStartDelay(0).setDuration(elementsDimmingAnimationDuration).start()
-                        ObjectAnimator.ofFloat(it, "cardElevation", 0f)
-                    } else {
-                        it.animate().alpha(1f).setStartDelay(0).setDuration(elementsDimmingAnimationDuration).start()
-                        ObjectAnimator.ofFloat(it, "cardElevation", featuredElementElevation)
-                    }
+        holdersCollection
+            .flatMap { it.elements }
+            .map { it.parent as CardView }
+            .forEach {
+                if (getMagicPortion()) {
+                    it.animate().alpha(dimmedElementAlpha).setStartDelay(0).setDuration(elementsDimmingAnimationDuration).start()
+                    ObjectAnimator.ofFloat(it, "cardElevation", 0f)
+                } else {
+                    it.animate().alpha(1f).setStartDelay(0).setDuration(elementsDimmingAnimationDuration).start()
+                    ObjectAnimator.ofFloat(it, "cardElevation", featuredElementElevation)
                 }
+            }
     }
 
     fun stopIntroducingMagic() {
@@ -247,9 +237,9 @@ class SplashBackgroundAdapter: BaseAdapter() {
         return fatImageResources[ftCounter++]
     }
 
-    *//**
+    /**
      * returns if the element should be featured or dimmed
      * if true, the element will be featured
-     *//*
-    fun getMagicPortion() = random.nextFloat() > .3f*/
+     */
+    fun getMagicPortion() = random.nextFloat() > .3f
 }

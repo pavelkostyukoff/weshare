@@ -17,9 +17,11 @@ import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.utils.ImageUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.image_picker_fragment.*
 import me.zhanghai.android.materialedittext.MaterialEditText
 import java.io.File
@@ -27,8 +29,29 @@ import java.net.MalformedURLException
 import java.net.URL
 
 class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnGlobalLayoutListener {
+    var imageFile: File?            = null
+    private val CAMERA_REQUEST_CODE = 1
+
+
     override fun getFragmentLayout(): Int {
         return R.layout.image_picker_fragment
+    }
+
+    fun openCamera(file: File) {
+
+
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.CAMERA)
+                .subscribe { granted ->
+
+                    val intent = ImageUtils.takePhotoIntent(file)
+                    startActivityForResult(intent, CAMERA_REQUEST_CODE)
+
+                }
+        }
+        // brokenUrlMessage.visible = false
+
     }
 
     interface PickerListener {
@@ -90,7 +113,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
         view?.findViewById<EditText>(R.id.pickerUrlEditText)?.addTextChangedListener(this)
         //camera
-        view?.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { listener?.onPickerCameraClick() }
+        view?.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { onPickerCameraClick() }
         //confirm
         view?.findViewById<ImageButton>(R.id.confirm)?.setOnClickListener { confirmPressed() }
         //upload
@@ -102,6 +125,14 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
             galleryButton?.visibility = View.INVISIBLE
         }
         editImg.viewTreeObserver.addOnGlobalLayoutListener(this)
+    }
+
+
+    fun onPickerCameraClick() {
+        imageFile = ImageUtils.savePhotoFile()
+        imageFile?.let {
+            openCamera(it)
+        }
     }
 
     override fun onGlobalLayout() {

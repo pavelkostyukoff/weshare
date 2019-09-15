@@ -3,6 +3,7 @@ package com.spacesofting.weshare.ui.fragment
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,8 +13,11 @@ import com.spacesofting.weshare.presentation.view.AddGoodsView
 import com.spacesofting.weshare.presentation.presenter.AddGoodsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
+import com.pawegio.kandroid.w
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.utils.ImageUtils
+import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -116,18 +120,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView {
             goToRegister()
         }*/
     }
-    override fun openCamera(file: File) {
-        brokenUrlMessage.visible = false
-        val intent = ImageUtils.takePhotoIntent(file)
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
-    }
-    override fun openGallery() {
-        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT)
-        getContentIntent.type = "image/*"
-        getContentIntent.addCategory(Intent.CATEGORY_OPENABLE)
-        val intent = Intent.createChooser(getContentIntent, "Select image")
-        startActivityForResult(intent, GALLERY_REQUEST_CODE)
-    }
+
 
     override fun emptyPrice(isEmpty: Boolean) {
         if (isEmpty) {
@@ -198,6 +191,41 @@ return R.layout.fragment_add_goods
 
     }
 
+    override fun openCamera(file: File) {
+        brokenUrlMessage.visible = false
+        val intent = ImageUtils.takePhotoIntent(file)
+        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+    }
+
+    override fun openGallery() {
+        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT)
+        getContentIntent.type = "image/*"
+        getContentIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        val intent = Intent.createChooser(getContentIntent, "Select image")
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            CAMERA_REQUEST_CODE -> mAddGoodsPresenter.onCameraResult()
+            GALLERY_REQUEST_CODE -> consumeGalleryResult(data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    private fun consumeGalleryResult(data: Intent?) {
+        data?.let {
+            val uri = it.data as Uri
+            val path = activity?.let { it1 -> RealFilePath.getPath(it1, uri) }
+            if (path != null) {
+                val file = File(path)
+                mAddGoodsPresenter.onGalleryResult(file)
+            } else {
+                w("Could not load result from gallary")
+            }
+        }
+    }
+
     private fun showPicker() {
         activity?.hideKeyboard()
 
@@ -214,9 +242,11 @@ return R.layout.fragment_add_goods
                     picker?.galleryPermissionGranted = granted
                     fragmentManager?.beginTransaction()
                         ?.addToBackStack(null)
-                        ?.add(com.spacesofting.weshare.R.id.container, picker)
+                        ?.add(R.id.container, picker)
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
+                    ApplicationWrapper.context = this!!.context!!
+
                 }
         }
     }

@@ -22,7 +22,6 @@ import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -49,6 +48,8 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         holder?.let{
             val item = dataset[position]
             val viewHolder = it
+
+
 
     /*        if(item.state == Compilation.State.INACTIVE){
                 viewHolder.root.visible = false
@@ -88,7 +89,24 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             arrOmg.add(R.drawable.icon_model)
             arrOmg.add(R.drawable.icon_worker)
 
-            viewHolder.wishImage.setImageResource(arrOmg.get(position))
+
+            val arrImg = ArrayList<Int>()
+            arrImg.add(R.drawable.ic_big_car)
+            arrImg.add(R.drawable.ic_building)
+            arrImg.add(R.drawable.ic_car)
+            arrImg.add(R.drawable.ic_dress)
+            arrImg.add(R.drawable.ic_hobbit)
+            arrImg.add(R.drawable.ic_hollidays)
+            arrImg.add(R.drawable.ic_kids)
+            arrImg.add(R.drawable.ic_tagik)
+            arrImg.add(R.drawable.ic_tools)
+
+
+
+
+           // viewHolder.wishImage.setImageResource(arrOmg.get(position))
+
+            viewHolder.imageView.setImageResource(arrImg.get(position))
 
             w22.templateId = 0
             w22.compilationId = 0
@@ -212,6 +230,8 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val subscribe: Button           = item.subscribe
         val unsubscribe: Button         = item.unsubscribe
         val wishImage: RoundedImageView = item.wishIamge
+        val imageView: ImageView = item.imageViewmini
+
         val add: ImageButton            = item.addBtn
         val wishName: TextView          = item.wishName
         val wishCost: TextView          = item.wishCost

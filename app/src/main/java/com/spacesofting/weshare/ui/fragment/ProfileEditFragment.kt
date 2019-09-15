@@ -3,7 +3,6 @@ package com.spacesofting.weshare.ui.fragment
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -23,10 +22,7 @@ import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_profile_edit.*
-import pl.aprilapps.easyphotopicker.DefaultCallback
-import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.File
-
 
 class ProfileEditFragment : FragmentWrapper(), ProfileEditView {
 
@@ -72,7 +68,6 @@ return R.layout.fragment_profile_edit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_INDICATOR_BACK_ARROW)
-
         goNewProfile.setOnClickListener {
             //  getMyEdit()
             val updProfile = UpdateProfile()
@@ -81,16 +76,14 @@ return R.layout.fragment_profile_edit
             updProfile.lastName = lastName.text.toString()
             updProfile.birthday = birthday.text.toString()
             presenter.chengeMyProfile(updProfile)//todo класс что кладем)
-
         }
-//todo жмем на карандаж запрашиваем права - если они есть
+        //todo жмем на карандаж запрашиваем права - если они есть
         editPhoto.setOnClickListener { checkPermission() }
         refresh.setOnClickListener { refreshed() }
 
         goNewProfile2.setOnClickListener {
             presenter.savePhoto()
         }
-
       /*  editPhoto.setOnClickListener {
             mPresenter
 
@@ -135,18 +128,18 @@ return R.layout.fragment_profile_edit
     }
 
     private fun openGallery() {
-        EasyImage.openGallery(this, 0)
+       // EasyImage.openGallery(this, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback() {
+     /*   EasyImage.handleActivityResult(requestCode, resultCode, data, activity, object : DefaultCallback() {
             override fun onImagePicked(imageFile: File?, source: EasyImage.ImageSource?, type: Int) {
                 presenter.photoFile = imageFile
                 setPhoto(imageFile)
-            }
-        })
+            }*/
+      //  })
     }
    private fun setPhoto( file: File?) {
         val picasso = Picasso.with(context)

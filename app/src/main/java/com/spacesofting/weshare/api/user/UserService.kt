@@ -14,7 +14,7 @@ interface UserService {
 
     //todo  Get user profile
     @GET("users/me")
-    fun getAccount(): Observable<GuestCard>
+    fun getAccount(): Observable<Profile>
 
     //todo  Update user profile
     @PATCH("users/me")

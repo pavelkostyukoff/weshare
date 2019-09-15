@@ -1,6 +1,7 @@
 package com.spacesofting.weshare.common
 
 import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
@@ -30,7 +31,9 @@ class ApplicationWrapper : Application() {
     companion object {
         lateinit var INSTANCE: ApplicationWrapper
         lateinit var user: User
-      //  lateinit var updProfile: UpdateProfile
+        lateinit var context: Context
+
+        //  lateinit var updProfile: UpdateProfile
     }
 
     private lateinit var cicerone: Cicerone<Boomerango>

@@ -31,6 +31,9 @@ object ScreenPool {
     val GUEST_RESPONSIBLE_FRAGMENT = "guest_responsible_fragment"
     val GUEST_MANAGER_FRAGMENT = "guest_manager_fragment"
     val ADD_GOODS = "add_goods"
+    val EDIT_PROFILE = "EditProfile"
+
+
 
 
     fun getFragment(screenKey: String, data: Any? = null): Fragment? {
@@ -51,6 +54,10 @@ object ScreenPool {
             PROFILEEDIT -> {
                 ProfileEditFragment.newInstance()
             }
+            EDIT_PROFILE -> {
+                EditProfile.newInstance()
+            }
+
             MAP_FRAGMENT -> {
                 MyMapFragment.newInstance()
             }

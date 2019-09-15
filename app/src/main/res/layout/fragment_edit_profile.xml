@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="ui.fragment.EditProfile">
 
-    <com.gpbdigital.wishninja.ui.views.splashbackgroundview.SplashBackgroundView
+    <com.spacesofting.weshare.views.splashbackgroundview.SplashBackgroundView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -38,21 +38,20 @@
                         app:layout_constraintVertical_bias="0.0">
 
                     <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="46dp"
-                            android:layout_marginEnd="@dimen/margin"
                             android:layout_marginLeft="@dimen/margin"
-                            android:layout_marginRight="@dimen/margin"
-                            android:layout_marginStart="@dimen/margin"
                             android:layout_marginTop="68dp"
+                            android:layout_marginRight="@dimen/margin"
+                            android:layout_marginBottom="46dp"
                             android:background="@drawable/bg_white_rounded"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/editProfileTitle"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:layout_constraintHorizontal_bias="0.0">
+                            app:layout_constraintVertical_bias="0.0">
 
                         <android.support.constraint.ConstraintLayout
                                 android:id="@+id/content"
@@ -68,12 +67,12 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginBottom="70dp"
-                                    android:layout_marginEnd="@dimen/margin_double"
-                                    android:layout_marginLeft="@dimen/margin_double"
-                                    android:layout_marginRight="@dimen/margin_double"
                                     android:layout_marginStart="@dimen/margin_double"
+                                    android:layout_marginLeft="@dimen/margin_double"
                                     android:layout_marginTop="80dp"
+                                    android:layout_marginEnd="@dimen/margin_double"
+                                    android:layout_marginRight="@dimen/margin_double"
+                                    android:layout_marginBottom="70dp"
                                     android:orientation="horizontal"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintLeft_toLeftOf="parent"
@@ -82,22 +81,19 @@
                                     app:layout_constraintVertical_bias="0.0">
 
                                 <EditText
-                                        android:id="@+id/nick"
+                                        android:id="@+id/firstNameEdP"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_weight="1"
+                                        android:backgroundTint="@color/colorPrimary"
                                         android:gravity="center"
                                         android:hint="@string/edit_profile_enter_nickname"
                                         android:maxLength="32"
                                         android:maxLines="1"
-                                        android:minWidth="160dp"
-                                        android:paddingLeft="25dp"
-                                        android:paddingRight="25dp"
-                                        android:text="@string/edit_profile_title_nick"
+                                        android:text="Имя"
                                         android:textColor="@color/colorPrimaryDark"
-                                        android:textSize="@dimen/big"
-                                        android:backgroundTint="@color/colorPrimary" />
+                                        android:textSize="@dimen/big" />
 
                                 <ProgressBar
                                         android:id="@+id/checkNickProgress"
@@ -107,12 +103,12 @@
                                         android:visibility="gone" />
                             </FrameLayout>
 
-                            <LinearLayout
+                            <android.support.constraint.ConstraintLayout
                                     android:id="@+id/incorrectNickLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_double"
                                     android:layout_marginStart="@dimen/margin_double"
+                                    android:layout_marginLeft="@dimen/margin_double"
                                     android:gravity="center"
                                     android:orientation="horizontal"
                                     android:visibility="gone"
@@ -122,7 +118,7 @@
                                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
                                 <ImageView
-                                        android:id="@+id/imageView"
+                                        android:id="@+id/imageViewmini"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center"
@@ -139,14 +135,14 @@
                                         android:text="@string/edit_profile_profile_already_exist_name"
                                         android:textColor="@color/invalid"
                                         android:textSize="@dimen/regular" />
-                            </LinearLayout>
+                            </android.support.constraint.ConstraintLayout>
 
                             <LinearLayout
                                     android:id="@+id/correctNickLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_double"
                                     android:layout_marginStart="@dimen/margin_double"
+                                    android:layout_marginLeft="@dimen/margin_double"
                                     android:layout_weight="1"
                                     android:gravity="center"
                                     android:orientation="horizontal"
@@ -175,6 +171,74 @@
                                         android:textColor="@color/confirmed"
                                         android:textSize="@dimen/regular" />
                             </LinearLayout>
+
+                            <EditText
+                                    android:id="@+id/lastNameEdP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="center"
+                                    android:hint="Фамилия"
+                                    android:maxLength="32"
+                                    android:maxLines="1"
+                                    android:minWidth="160dp"
+                                    android:paddingLeft="25dp"
+                                    android:paddingRight="25dp"
+                                    android:text="Фамилия"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/big"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+                            <EditText
+                                    android:id="@+id/phoneEdP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="center"
+                                    android:hint="@string/edit_profile_enter_nickname"
+                                    android:maxLength="32"
+                                    android:maxLines="1"
+                                    android:minWidth="160dp"
+                                    android:paddingLeft="25dp"
+                                    android:paddingRight="25dp"
+                                    android:text="Номер вашего телефона"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/big"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/lastNameEdP" />
+
+                            <EditText
+                                    android:id="@+id/birthdayEdP"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_weight="1"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="center"
+                                    android:hint="@string/edit_profile_enter_nickname"
+                                    android:maxLength="32"
+                                    android:maxLines="1"
+                                    android:minWidth="160dp"
+                                    android:paddingLeft="25dp"
+                                    android:paddingRight="25dp"
+                                    android:text="Дата вашего рождения"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="@dimen/big"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/phoneEdP" />
+
+
                         </android.support.constraint.ConstraintLayout>
 
                         <ProgressBar
@@ -182,11 +246,10 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center"
-                                android:layout_marginEnd="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginStart="8dp"
                                 android:layout_marginTop="24dp"
+                                android:layout_marginRight="8dp"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
@@ -217,17 +280,15 @@
                                 android:id="@+id/avatar"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
                                 android:padding="10dp"
                                 android:src="@drawable/ic_avatar_placeholder"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:riv_corner_radius="50dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginLeft="8dp"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintVertical_bias="0.0" />
+                                app:riv_corner_radius="50dp" />
 
                         <ImageView
                                 android:id="@+id/actionIcon"
@@ -247,13 +308,14 @@
 
                     <ImageButton
                             android:id="@+id/save"
-                            android:layout_width="@dimen/big_button"
-                            android:layout_height="@dimen/big_button"
-                            android:src="@drawable/bg_ok_button"
+                            android:layout_width="82dp"
+                            android:layout_height="115dp"
                             android:background="@android:color/transparent"
+                            android:src="@drawable/ic_ok"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent" />
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
                 </android.support.constraint.ConstraintLayout>
             </FrameLayout>
