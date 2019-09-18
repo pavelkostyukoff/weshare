@@ -33,7 +33,7 @@
                 android:layout_gravity="top"
                 android:fontFamily="@font/roboto_bold"
                 android:includeFontPadding="false"
-                android:text="Добро пжаловать!"
+                android:text="@string/title_welcome"
                 android:textColor="@color/azure_radiance"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/logo"

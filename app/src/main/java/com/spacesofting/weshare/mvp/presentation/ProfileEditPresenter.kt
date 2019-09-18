@@ -19,6 +19,8 @@ class ProfileEditPresenter : MvpPresenter<ProfileEditView>() {
 
     @SuppressLint("CheckResult")
     fun savePhoto() {
+     //   viewState.setPhotoForPicasso(ApplicationWrapper.file)
+
         viewState.showProgress(true)
         photoFile?.let {
             Api.Users.updateAvatar(it)

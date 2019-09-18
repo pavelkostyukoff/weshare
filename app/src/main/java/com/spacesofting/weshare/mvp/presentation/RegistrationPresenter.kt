@@ -39,6 +39,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
 
             }){
                 it
+                viewState.toastError("Такой пользователь не найден")
             }
     }
     fun refreshed()
@@ -77,7 +78,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             }){
               //  it
               //  it.response().errorBody()
-                viewState.toastError(it.message.toString())
+                viewState.toastError("Пароль должен состоять из 8 симовлов , цифр и букв латинского алфавита")
 
              /*   if (it.cause.  response().errorBody() != null)
                 {

@@ -74,6 +74,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showProgress()
+        showToolbar(TOOLBAR_HIDE)
 
         //handle nick changes and validate it
         RxTextView.afterTextChangeEvents(nickName)

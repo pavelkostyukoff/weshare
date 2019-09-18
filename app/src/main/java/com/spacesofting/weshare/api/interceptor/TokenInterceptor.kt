@@ -6,8 +6,9 @@ import com.spacesofting.weshare.common.Settings
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import java.io.IOException
 
-class AuthHeaderInterceptor : Interceptor {
+class TokenInterceptor : Interceptor {
     companion object {
         val ACCESS = "Authorization"
         val VALIDATION = "X-Validation-Token"
@@ -16,17 +17,21 @@ class AuthHeaderInterceptor : Interceptor {
     var accessToken: String? = null
     var validationToken: String? = null
 
-    override fun intercept(chain: Interceptor.Chain): Response {
-        var request: Request = chain.request()
 
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
         val response = chain.proceed(request)
         if (response.code() == 403) {
             doSomething()
         }
+        return response
+    }
 
-        accessToken = "Bearer " + Settings.AccessToken
-        validationToken = "Bearer " + Settings.ValidationToken
-
+    fun doSomething ()
+    {
+        Toast.makeText(ApplicationWrapper.context, "Ваша сессия истекла и была продлена автоматически  - выполните запрос еще раз!", Toast.LENGTH_LONG).show()
+    }
+/*
         if (!accessToken.isNullOrEmpty()) {
             request = request.newBuilder().addHeader(ACCESS, accessToken).build()
         } else if (!validationToken.isNullOrEmpty()) {
@@ -34,13 +39,5 @@ class AuthHeaderInterceptor : Interceptor {
         }
 
         return chain.proceed(request)
-    }
-
-
-
-    fun doSomething ()
-    {
-        Settings.AccessToken = Settings.ValidationToken
-        Toast.makeText(ApplicationWrapper.context, "Ваша сессия истекла и была продлена автоматически  - выполните запрос еще раз!", Toast.LENGTH_LONG).show()
-    }
+    }*/
 }

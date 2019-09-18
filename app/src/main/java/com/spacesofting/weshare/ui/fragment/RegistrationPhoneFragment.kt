@@ -31,7 +31,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
 
     override fun toastError(s: String) {
-        toast("Пароль должен состоять из 8 симовлов , цифр и букв латинского алфавита")
+        toast(s)
     }
 
     val COUNT_DOWN = 1000L
@@ -60,12 +60,8 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
            // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
           //  {
                 val mail = Login()
-            mail.email = myMail.text.toString()
-            mail.password = pass.text.toString()
-                //val profile = Profile("+79776554741", login.text.toString(),"K1o2I2P412345","test","test","2010-01-01")
-                //   val profile = Login(login.text.toString(), pass.text.toString())
-
-                // presenter.autorize(mail,false)
+            mail.email = myMail.text.toString() //todo user@wau.su
+            mail.password = pass.text.toString()// todo password
                 presenter.autorize(mail,false)
           //  }
 

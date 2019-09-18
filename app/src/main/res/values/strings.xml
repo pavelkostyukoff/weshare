@@ -215,4 +215,8 @@
     <string name="base_guest_manager_i_am_interested_tab">Мне интересны</string>
     <string name="test1">test1</string>
     <string name="login_autorize">Авторизация</string>
+    <string name="title_welcome">Добро пожаловать!</string>
+    <string name="autorize_nickname">Ваш никнейм</string>
+    <string name="autorize_mail">Ваша почта</string>
+    <string name="autorize_password">Ваш пароль</string>
 </resources>

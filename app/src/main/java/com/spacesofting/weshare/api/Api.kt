@@ -4,6 +4,7 @@ import com.spacesofting.weshare.api.auth.AuthService
 import com.spacesofting.weshare.api.interceptor.AuthHeaderInterceptor
 import com.spacesofting.weshare.api.interceptor.MockInterceptor
 import com.spacesofting.weshare.api.interceptor.SMSInterceptor
+import com.spacesofting.weshare.api.interceptor.TokenInterceptor
 import com.spacesofting.weshare.api.picture.PicturesService
 import com.spacesofting.weshare.api.picture.TagsService
 import com.spacesofting.weshare.api.user.UserService
@@ -16,13 +17,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import android.R
-import android.content.Context
-import java.io.IOException
-import java.security.KeyManagementException
-import java.security.KeyStore
-import java.security.KeyStoreException
-import java.security.NoSuchAlgorithmException
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
 import javax.security.cert.CertificateException
@@ -33,11 +27,15 @@ object Api {
     val SMS = SMSInterceptor()
     val LOG = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     val AUTH = AuthHeaderInterceptor()
+    val TOKEN = TokenInterceptor()
+
+
 
     val CLIENT: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(AUTH)
           //  .addInterceptor(MOCK)
           //  .addInterceptor(SMS)
+            .addInterceptor(TOKEN)
             .addInterceptor(LOG)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

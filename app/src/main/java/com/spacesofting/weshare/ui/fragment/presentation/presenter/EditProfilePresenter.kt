@@ -9,6 +9,7 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.model.Photo
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
@@ -109,7 +110,9 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .subscribe({ img ->
                   //      profileNew.img = img
-                        updateProfile()
+                      //  updateProfile()
+                        ApplicationWrapper.file = saveImgFile
+                        profile?.let { it1 -> viewState.showProfile(it1) }
                     }, { e ->
                         viewState.saved(false)
                         viewState.showToast(R.string.error_message)
@@ -122,17 +125,19 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     private fun updateProfile(){
         //update and profile
-        val observable: Observable<Profile>
+        //todo все ясно как только ендпоинт заработает аватарка поставится
+        val observable: Observable<Photo>
         var isNew = false
-
-        if (profile != null) {
-         //   observable = Api.Users.update(profileNew)
+       // observable = Api.Users.update(profileNew)
+     //   observable = Api.Users.updateAvatar()
+     /*   if (profile != null) {
+            observable = Api.Users.update(profileNew)
         } else {
             isNew = true
-       //     observable = Api.Users.make(profileNew)
-        }
+            observable = Api.Users.make(profileNew)
+        }*/
 
-       /* observable.subscribeOn(Schedulers.io())
+        /*observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                     profile ->
@@ -239,9 +244,13 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         imageFile?.let {
             ImageUtils.send(it)
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe({ img ->
+                .subscribe({
+                        img ->
                  //   profileNew.img = img
-                    updateProfile()
+                  //
+                    //  updateProfile()
+                   ApplicationWrapper.file = imageFile as File
+                    profile?.let { it1 -> viewState.showProfile(it1) }
                 }, { e ->
                     viewState.saved(false)
                     viewState.showToast(R.string.error_message)
