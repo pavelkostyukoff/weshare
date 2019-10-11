@@ -17,6 +17,7 @@ import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.mvp.*
 import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import com.spacesofting.weshare.presentation.presenter.FeedChaosPresenter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
@@ -24,7 +25,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
 import kotlin.collections.ArrayList
 
-class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
+class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter): RecyclerView.Adapter<FeedChaosAdapter.CompilationViewHolder>(){
     private val MAX_ITEM_NUM    = 5
     private val wishItemMargin  = context.resources.getDimensionPixelSize(R.dimen.margin_half) * 2
     private var isFirstStart    = true
@@ -38,7 +39,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     override fun getItemCount() = dataset.size
 
     override fun onCreateViewHolder(p0: ViewGroup, viewType: Int): CompilationViewHolder {
-        val view = LayoutInflater.from(p0?.context).inflate(R.layout.list_item_category, p0, false)
+        val view = LayoutInflater.from(p0?.context).inflate(R.layout.list_item_category_chaos, p0, false)
         return CompilationViewHolder(view)
     }
 
@@ -115,25 +116,12 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             wishList.clear()
             wishList.add(w22)
 
-            setWishList(viewHolder, wishList, item)
-
 //todo возмодное причина тормозов
             https@ //ru.stackoverflow.com/questions/690916/тормозит-recyclerview-при-прокрутке-из-за-imageview-cardview
            //// RececlerView тормозит при пролистывании android asyncReportData
                 updateItemView(viewHolder, wishList, item)
           //  }
         }
-    }
-
-    // todo подборка категорий
-    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Datum){
-        val adapter = CompilationsWishAdapter(wishList, item, this)
-
-       // holder.wishList.recycledViewPool = viewPool
-        holder.wishList.visible = true
-        holder.wishList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        holder.wishList.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
 
 

@@ -57,12 +57,13 @@
 
             <android.support.design.widget.BottomNavigationView
                     android:id="@+id/scan"
-
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:visibility="visible"
+                    app:itemBackground="@drawable/nav_item_drawable"
                     app:itemIconTint="@drawable/bottom_nav_color"
                     app:itemTextColor="@drawable/bottom_nav_color"
+                    app:labelVisibilityMode="unlabeled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintLeft_toLeftOf="parent"

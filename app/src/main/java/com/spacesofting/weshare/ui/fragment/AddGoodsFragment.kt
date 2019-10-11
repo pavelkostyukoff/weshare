@@ -148,7 +148,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView {
     override fun showCheckUrlProgress(isShowed: Boolean) {
         checkUrlProgress.visible = isShowed
 
-        if (wishUrlEditText.text.isNotEmpty()) {
+        if (wishUrlEditText.text?.isNotEmpty()!!) {
             clearUrl.visible = !isShowed
         }
     }
@@ -243,7 +243,7 @@ return R.layout.fragment_add_goods
                     picker?.galleryPermissionGranted = granted
                     fragmentManager?.beginTransaction()
                         ?.addToBackStack(null)
-                        ?.add(R.id.container, picker)
+                        ?.add(R.id.container, picker!!)
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
                     ApplicationWrapper.context = this!!.context!!

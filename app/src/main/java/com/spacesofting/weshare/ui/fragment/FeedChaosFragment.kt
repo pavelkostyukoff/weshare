@@ -4,22 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
-import com.spacesofting.weshare.mvp.view.FeedCompilationsView
-import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import android.view.ViewGroup
+import com.spacesofting.weshare.R
+import com.spacesofting.weshare.presentation.view.FeedChaosView
+import com.spacesofting.weshare.presentation.presenter.FeedChaosPresenter
+
+import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
-import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
-import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Category
-import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import com.spacesofting.weshare.ui.adapter.FeedChaosAdapter
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -27,19 +29,19 @@ import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_feed_compilations.*
 import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 
-class FeedCompilationsFragment :
-    FragmentWrapper(),
-    FeedCompilationsView,
-    Paginate.Callbacks{
+class FeedChaosFragment : FragmentWrapper(), FeedChaosView , Paginate.Callbacks {
+
+
     override fun getFragmentLayout(): Int {
-        return R.layout.fragment_feed_compilations
+        return R.layout.fragment_feed_chaos
     }
 
-    var feedAdapter: FeedCompilationsAdapter? = null
+
+    var feedAdapter: FeedChaosAdapter? = null
     var isAuthenticated = true //Settings.isAuthenticated()
 
     @InjectPresenter
-    lateinit var mPresenter: FeedCompilationsPresenter
+    lateinit var mPresenter: FeedChaosPresenter
 
     companion object {
         fun getInstance(): FeedCompilationsFragment =
@@ -47,7 +49,7 @@ class FeedCompilationsFragment :
     }
 
     private fun initCompilationsList() {
-        feedAdapter = FeedCompilationsAdapter(activity as Context, mPresenter)
+        feedAdapter = FeedChaosAdapter(activity as Context, mPresenter)
         compilationsList.adapter = feedAdapter
         compilationsList.layoutManager = LinearLayoutManager(activity)
         Paginate.with(compilationsList, this).build()
@@ -76,20 +78,20 @@ class FeedCompilationsFragment :
         }
     }
 
- /*   override fun onResumeFragment() {
-        runDelayed(300, {
-            feedAdapter?.updateCompilationView()
+    /*   override fun onResumeFragment() {
+           runDelayed(300, {
+               feedAdapter?.updateCompilationView()
 
-            if (isAuthenticated) {
-                //todo тут при подсоединениее фрагмента после авторизации смотрим был ли подписан наш человечек к подборкам 
-                // todo и если да то метод дает список подборок после чего мы их красим что подписаны все
-                if (ApplicationWrapper.instance.isNewUserProfile()) {
-                    mPresenter.subscribeCompilations(Settings.getListInt())
-                    //reload()
-                }
-            }
-        })
-    }*/
+               if (isAuthenticated) {
+                   //todo тут при подсоединениее фрагмента после авторизации смотрим был ли подписан наш человечек к подборкам
+                   // todo и если да то метод дает список подборок после чего мы их красим что подписаны все
+                   if (ApplicationWrapper.instance.isNewUserProfile()) {
+                       mPresenter.subscribeCompilations(Settings.getListInt())
+                       //reload()
+                   }
+               }
+           })
+       }*/
 
     /**
      * view staste functions
@@ -136,27 +138,27 @@ class FeedCompilationsFragment :
     //todo после перехода нам что то понравилось мы чекнули и по возвращении говорим что да это моя категория подписаться
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-       /* data?.let {
-            if (requestCode == CompilationActivity.RESULT_OK) {
-                val compilation = it.getSerializableExtra(CompilationActivity.COMPILATION) as Compilation?
+        /* data?.let {
+             if (requestCode == CompilationActivity.RESULT_OK) {
+                 val compilation = it.getSerializableExtra(CompilationActivity.COMPILATION) as Compilation?
 
-                if (compilation!!.isFavorite) {
-                    onSubscribe(compilation.id)
-                } else {
-                    onUnsubscribe(compilation.id)
-                }
-            }
-        }*/
+                 if (compilation!!.isFavorite) {
+                     onSubscribe(compilation.id)
+                 } else {
+                     onUnsubscribe(compilation.id)
+                 }
+             }
+         }*/
     }
 
     //todo редактирования вещи
     override fun goToEditWish(wish: Wish) {
-       // startActivity(WishEditActivity.getIntent(activity, wish))
+        // startActivity(WishEditActivity.getIntent(activity, wish))
     }
 
     //todo открыть вещь
     override fun goToWish(wish: Wish, compilation: Datum) {
-       // startActivity(WishActivity.getIntent(activity, wish, compilation))
+        // startActivity(WishActivity.getIntent(activity, wish, compilation))
     }
 
     //todo подписаться на категорию она всегда висит в топе
@@ -166,11 +168,11 @@ class FeedCompilationsFragment :
         feedAdapter?.let {
             for (i in 0 until it.dataset.size) {
                 val element = it.dataset[i]
-            /*    if (element.id == compilationId && !element.isFavorite) {
-                    element.isFavorite = true
-                    it.notifyItemChanged(i)
-                    break
-                }*/
+                /*    if (element.id == compilationId && !element.isFavorite) {
+                        element.isFavorite = true
+                        it.notifyItemChanged(i)
+                        break
+                    }*/
             }
         }
     }
@@ -181,11 +183,11 @@ class FeedCompilationsFragment :
         feedAdapter?.let {
             for (i in 0 until it.dataset.size) {
                 val element = it.dataset[i]
-              /*  if (element.id == compilationId && element.isFavorite) {
-                    element.isFavorite = false
-                    it.notifyItemChanged(i)
-                    break
-                }*/
+                /*  if (element.id == compilationId && element.isFavorite) {
+                      element.isFavorite = false
+                      it.notifyItemChanged(i)
+                      break
+                  }*/
             }
         }
     }
@@ -194,16 +196,20 @@ class FeedCompilationsFragment :
 
         val mapCompilation = HashMap<String, Any>()
         mapCompilation.put("compilation_id", compilationId)
-       // ApplicationWrapper.trackEvent(activity, event, mapCompilation)
+        // ApplicationWrapper.trackEvent(activity, event, mapCompilation)
     }
 
-    override fun hideAddAnimation(wish: Wish, compilation: Datum?, adapter: FeedCompilationsAdapter?) {
+    override fun hideAddAnimation(
+        wish: Wish,
+        compilation: Datum?,
+        adapter: FeedCompilationsAdapter?
+    ) {
         if (adapter == null) {
             feedAdapter?.let {
                 for (i in 0 until it.dataset.size) {
                     val element = it.dataset[i]
-                    if (!(element.id != compilation!!.id )) {
-                      // element.setLoading(false)
+                    if (!(element.id != compilation!!.id)) {
+                        // element.setLoading(false)
                         it.notifyItemChanged(i)
                         break
                     }
@@ -223,14 +229,14 @@ class FeedCompilationsFragment :
 
     //todo добавить вещь к себе - как это может пригодитсья нам? возможно позже
     override fun onAdded(wish: Wish) {
-     /*   wishSaveSuccess(wish)
+        /*   wishSaveSuccess(wish)
 
-        ApplicationWrapper.trackEvent(activity, "wish_added", mapOf("from" to "compilations"))*/
+           ApplicationWrapper.trackEvent(activity, "wish_added", mapOf("from" to "compilations"))*/
     }
 
     //todo ошибка при добавлении
     override fun onErrorAdded(wish: Wish) {
-       // wishSaveFailure(wish)
+        // wishSaveFailure(wish)
     }
 
     override fun scrollOnTop() {
@@ -239,11 +245,11 @@ class FeedCompilationsFragment :
 
     //todo крутилка крутилочка крутиться крутит
     override fun setProgressAnimation(isEnable: Boolean) {
-      //  (activity as NavigationActivity).progressBar.visible = isEnable
+        //  (activity as NavigationActivity).progressBar.visible = isEnable
     }
+
     fun showAvatar() {
-        if (ApplicationWrapper.user.avatar != null)
-        {
+        if (ApplicationWrapper.user.avatar != null) {
             Picasso.with(activity)
                 .load(ApplicationWrapper.user.avatar)
                 .centerCrop()
@@ -253,6 +259,7 @@ class FeedCompilationsFragment :
                         override fun onSuccess() {
                             // loadImageProgress.visibility = View.GONE
                         }
+
                         override fun onError() {
                             //  loadImageProgress.visibility = View.GONE
                         }

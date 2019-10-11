@@ -94,8 +94,8 @@ return R.layout.fragment_feed
         wishesList.topPadding(0)
 
         wishesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, scrollState: Int) {
-                super.onScrollStateChanged(recyclerView, scrollState)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, scrollState: Int) {
+                recyclerView?.let { super.onScrollStateChanged(it, scrollState) }
                 if (scrollState == RecyclerView.SCROLL_STATE_IDLE) {
                     activity?.let { mainAdapter?.resumeImgDownload(it) }
                 } else {

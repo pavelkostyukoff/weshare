@@ -46,7 +46,6 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
             mCustomStartToolbarPosition = a.getDimension(R.styleable.AvatarImageBehavior_startToolbarPosition, 0f)
             mCustomStartHeight = a.getDimension(R.styleable.AvatarImageBehavior_startHeight, 0f)
             mCustomFinalHeight = a.getDimension(R.styleable.AvatarImageBehavior_finalHeight, 0f)
-
             a.recycle()*/
         }
 
@@ -54,11 +53,19 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
         mFinalLeftAvatarPadding = mContext.resources!!.getDimension(R.dimen.spacing_normal)
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, child: ImageView?, dependency: View?): Boolean {
+    override fun layoutDependsOn(
+        parent: CoordinatorLayout,
+        child: ImageView,
+        dependency: View
+    ): Boolean {
         return dependency is Toolbar
     }
 
-    override fun onDependentViewChanged(parent: CoordinatorLayout?, child: ImageView?, dependency: View?): Boolean {
+    override fun onDependentViewChanged(
+        parent: CoordinatorLayout,
+        child: ImageView,
+        dependency: View
+    ): Boolean {
         maybeInitProperties(child, dependency)
 
         val maxScrollDistance = mStartToolbarPosition.toInt()

@@ -19,7 +19,7 @@ import java.util.HashSet
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var default: WishList? = null
-        val ITEMS_PER_PAGE = 3
+        val ITEMS_PER_PAGE = 10
         val ITEMS_PER_PAGE_WISH_LIST = 5
         var page = 0
         var lastLoadedCount = 0

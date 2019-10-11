@@ -36,7 +36,7 @@ object ScreenPool {
     val EDIT_PROFILE = "EditProfile"
     val SHOW_CATEGORY = "show_category"
     val SHOW_GOOD = "show_good"
-
+    val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
 
     fun getFragment(screenKey: String, data: Any? = null): Fragment? {
         return when (screenKey) {
@@ -61,6 +61,11 @@ object ScreenPool {
                 MyMapFragment.newInstance()
             }
             FEED_FRAGMENT -> {
+                FeedCompilationsFragment.getInstance()
+                // FeedFragment.getInstance()
+            }
+
+            FEED_CHAOS_FRAGMENT -> {
                 FeedCompilationsFragment.getInstance()
                 // FeedFragment.getInstance()
             }

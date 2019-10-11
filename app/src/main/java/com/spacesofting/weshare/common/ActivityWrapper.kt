@@ -209,7 +209,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
         }
-        false
+        true
     }
 
     fun logout() {
