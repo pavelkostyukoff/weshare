@@ -13,6 +13,7 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_splash.*
+import kotlinx.android.synthetic.main.fragment_wrapper.*
 
 class SplashFragment : FragmentWrapper() {
     companion object {
@@ -29,15 +30,17 @@ class SplashFragment : FragmentWrapper() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
+        activity?.scan?.visible = false
+
         gpbLogo.startAnimation(animation)
     //    scan.visible = false
 
 
         runDelayed(DELAY){
             if (Settings.IsAuthorized) {
-                router.navigateTo(ScreenPool.REGISTRATION_FRAGMENT)
+                router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
             } else {
-                router.navigateTo(ScreenPool.REGISTRATION_FRAGMENT)
+                router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
             }
         }
     }
@@ -45,6 +48,7 @@ class SplashFragment : FragmentWrapper() {
     override fun onStop() {
         super.onStop()
       //  scan.visible = true
+        activity?.scan?.visible = true
 
         gpbLogo.clearAnimation()
 

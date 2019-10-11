@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.e
+import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Money
@@ -15,6 +16,7 @@ import com.spacesofting.weshare.mvp.view.FeedView
 import com.spacesofting.weshare.ui.adapter.ListWishElement
 import com.spacesofting.weshare.ui.fragment.FeedFragment
 import com.spacesofting.weshare.utils.ImageUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
 class FeedPresenter : MvpPresenter<FeedView>() {
@@ -170,7 +172,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     fun onNewTemplatesRequired(mode: FeedFragment.ListLoadingMode, page: Int) {
         when (mode) {
             FeedFragment.ListLoadingMode.FEED -> {
-           /*     Api.Wishes.feed(templatesPerPage, page * templatesPerPage)
+             /*   Api.Wishes.feed(templatesPerPage, page * templatesPerPage)
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { templatesList.addAll(it) }
                     .subscribe({ list -> viewState.addTemplateWishes(list) },

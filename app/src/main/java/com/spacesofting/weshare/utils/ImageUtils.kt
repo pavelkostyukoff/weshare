@@ -11,7 +11,6 @@ import android.support.v4.content.FileProvider
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.model.Photo
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -138,7 +137,7 @@ class ImageUtils {
         /**
          * Sends image to server. If image from cache then delete it
          */
-        fun send(img: File): Observable<Photo> {
+       /* fun send(img: File): Observable<PhotoNew> {
             //get extension for mimetype
             var extension = img.extension
             if( extension.trim().isEmpty()){
@@ -148,7 +147,6 @@ class ImageUtils {
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
             val body = MultipartBody.Part.createFormData("pictureFile", img.name, file)
-
             val observable = Api.Pictures.addPicture(body).default().share()
 
             //remove file on success if it stored in cache directory
@@ -156,6 +154,38 @@ class ImageUtils {
                 observable.subscribe({ img.delete() })
             }
 
+            if (img.path.contains(CACHE)) {
+                observable.subscribe({ AddPictureResponse ->
+                    img.delete()
+                },{
+                        e ->
+                    //  Log.d(e.message)
+                })
+            }
+
+            return observable
+        }*/
+
+
+
+
+        /**
+         * Sends image to server. If image from cache then delete it
+         */
+        fun send(img: File): Observable<Photo>? {
+            //get extension for mimetype
+            var extension = img.extension
+            if( extension.trim().isEmpty()){
+                extension = "*"
+            }
+            //prepare body
+            val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
+            val body = MultipartBody.Part.createFormData("file", img.name, file)
+            val observable = Api.Pictures.addPicture(body).default().share()
+            //remove file on success if it stored in cache directory
+            if (img.path != img.path) {
+                observable.subscribe({ img.delete() })
+            }
             if (img.path.contains(CACHE)) {
                 observable.subscribe({ AddPictureResponse ->
                     img.delete()

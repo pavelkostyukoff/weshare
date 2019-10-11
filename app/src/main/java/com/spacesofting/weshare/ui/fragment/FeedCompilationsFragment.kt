@@ -9,16 +9,23 @@ import com.spacesofting.weshare.mvp.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
+import com.pawegio.kandroid.runDelayed
+import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Category
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_feed_compilations.*
+import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 
 class FeedCompilationsFragment :
     FragmentWrapper(),
@@ -58,7 +65,10 @@ class FeedCompilationsFragment :
         setToolbarBackgroundDrawable(R.drawable.bg_vertical_gradient)
         setTitleColor(R.color.white)
         showToolbar(TOOLBAR_EMBEDDED, R.layout.view_toolbar_with_search_filter)
+        showAvatar()
         initCompilationsList()
+        activity?.scan?.visible = true
+        reload()
         setProgressAnimation(true)
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
@@ -73,10 +83,10 @@ class FeedCompilationsFragment :
             if (isAuthenticated) {
                 //todo тут при подсоединениее фрагмента после авторизации смотрим был ли подписан наш человечек к подборкам 
                 // todo и если да то метод дает список подборок после чего мы их красим что подписаны все
-               *//* if (ApplicationWrapper.instance.isNewUserProfile()) {
+                if (ApplicationWrapper.instance.isNewUserProfile()) {
                     mPresenter.subscribeCompilations(Settings.getListInt())
                     //reload()
-                }*//*
+                }
             }
         })
     }*/
@@ -118,6 +128,7 @@ class FeedCompilationsFragment :
 
     //todo тут мы переходим в понравившуюся нам категорию
     override fun goToCompilation(compilation: Datum) {
+        router.navigateTo(ScreenPool.SHOW_CATEGORY)
         /*val intent = CompilationActivity.getIntent(context, compilation)
         startActivityForResult(intent, CompilationActivity.RESULT_OK)*/
     }
@@ -229,5 +240,23 @@ class FeedCompilationsFragment :
     //todo крутилка крутилочка крутиться крутит
     override fun setProgressAnimation(isEnable: Boolean) {
       //  (activity as NavigationActivity).progressBar.visible = isEnable
+    }
+    fun showAvatar() {
+        if (ApplicationWrapper.user.avatar != null)
+        {
+            Picasso.with(activity)
+                .load(ApplicationWrapper.user.avatar)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(titileAvatar,
+                    object : Callback {
+                        override fun onSuccess() {
+                            // loadImageProgress.visibility = View.GONE
+                        }
+                        override fun onError() {
+                            //  loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
     }
 }

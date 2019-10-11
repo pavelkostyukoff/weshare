@@ -29,13 +29,11 @@ object Api {
     val AUTH = AuthHeaderInterceptor()
     val TOKEN = TokenInterceptor()
 
-
-
     val CLIENT: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(AUTH)
           //  .addInterceptor(MOCK)
           //  .addInterceptor(SMS)
-            .addInterceptor(TOKEN)
+        //    .addInterceptor(TOKEN)
             .addInterceptor(LOG)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -71,17 +69,16 @@ object Api {
     fun getUnsafeOkHttpClient(): OkHttpClient.Builder
 
     {
-
         try {
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
 
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
 
                 @Throws(CertificateException::class)
-                override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) = Unit
+                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) = Unit
 
                 @Throws(CertificateException::class)
-                override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) = Unit
+                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) = Unit
             })
             // Install the all-trusting trust manager
             val sslContext = SSLContext.getInstance("SSL")
@@ -91,19 +88,18 @@ object Api {
             val sslSocketFactory = sslContext.socketFactory
 
             val builder = OkHttpClient.Builder()
-            builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            builder.hostnameVerifier(object : HostnameVerifier {
+                .addInterceptor(AUTH)
+
+            .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+            .hostnameVerifier(object : HostnameVerifier {
                 override fun verify(hostname: String, session: SSLSession): Boolean {
                     return true
                 }
             })
-            builder.addInterceptor(AUTH)
-            builder.addInterceptor(LOG)
-
-            builder.connectTimeout(30, TimeUnit.SECONDS)
-            builder.readTimeout(30, TimeUnit.SECONDS)
-            builder.writeTimeout(30, TimeUnit.SECONDS)
-
+            .addInterceptor(LOG)
+                .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             return builder
         } catch (e: Exception) {
             throw RuntimeException(e)

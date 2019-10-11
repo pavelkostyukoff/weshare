@@ -15,7 +15,7 @@ interface UserService {
 
     //todo  Get user profile
     @GET("users/me")
-    fun getAccount(): Observable<Profile>
+    fun getAccount(): Observable<User>
 
     //todo  Update user profile
     @PATCH("users/me")
@@ -24,30 +24,6 @@ interface UserService {
     //todo    Update user avatar
    // @PATCH("users/me")
 
-    @PATCH("users/me/avatar")
-    fun updateAvatar(@Body filePhoto: File): Observable<Photo>
-
-
-/*    @Multipart
-    @POST("users/me/avatar")
-    fun updateAvatar(@Part image: MultipartBody.Part): Observable<Photo>*/
-
-    /*
-
-
-
-    //todo  Delete user avatar
-    @DELETE("users/me/avatar")
-    fun rejectGuestCard(@Path("id") guestCardId: Int, @Header("RowVersion") rowVersion: String?): Observable<GuestCard>
-
-    //todo  Get an users list
-    @GET("users")
-    fun getPass(): Observable<Pass>
-
-    //todo Get an user by id
-    @GET("users/{userId}")
-    fun getPass(): Observable<Pass>
-*/
 
 
    /* @GET("event/pass")

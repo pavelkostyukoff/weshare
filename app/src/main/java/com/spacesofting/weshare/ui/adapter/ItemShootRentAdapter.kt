@@ -10,7 +10,6 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_profile_edit.*
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 
 class ItemShootRentAdapter(val context: Context) : RecyclerView.Adapter<ItemShootRentAdapter.CompaniesListViewHolder>() {

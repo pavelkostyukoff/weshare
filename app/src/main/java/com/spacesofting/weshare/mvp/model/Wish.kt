@@ -114,7 +114,7 @@ class Wish(): Serializable, Cloneable, ListWishElement {
 
         val myProfile = ApplicationWrapper.INSTANCE.profile
         if(myProfile != null && profile != null){
-            isMy = profile!!.phone == myProfile.phone
+           // isMy = profile!!.phone == myProfile.phone
         }
 
         return isMy

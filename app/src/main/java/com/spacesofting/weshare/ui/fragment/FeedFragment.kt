@@ -15,6 +15,7 @@ import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.R.color.*
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.Template
 import com.spacesofting.weshare.mvp.Wish
@@ -23,7 +24,11 @@ import com.spacesofting.weshare.ui.adapter.ListWishElement
 import com.spacesofting.weshare.utils.dp
 import com.spacesofting.weshare.utils.gone
 import com.spacesofting.weshare.utils.screenWidth
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.view_bag_my_info.*
+import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 import java.util.ArrayList
 
 class FeedFragment : FragmentWrapper(), FeedView,  Paginate.Callbacks {
@@ -116,12 +121,31 @@ return R.layout.fragment_feed
        /* if(!(activity as NavigationActivity).isMyProfile()){
             return
         }*/
-
         feedPresenter.handleWishToAdd()
         currentListLoadingMode = ListLoadingMode.FEED
         wishesList.visible
         errorLayout.gone()
     }
+
+    fun showAvatar() {
+        if (ApplicationWrapper.user.avatar != null)
+        {
+            Picasso.with(activity)
+                .load(ApplicationWrapper.user.avatar)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(titileAvatar,
+                    object : Callback {
+                        override fun onSuccess() {
+                            // loadImageProgress.visibility = View.GONE
+                        }
+                        override fun onError() {
+                            //  loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
+    }
+
 
     override fun addTemplateWishes(templates: List<ListWishElement>) {
         hidePageLoadingError()

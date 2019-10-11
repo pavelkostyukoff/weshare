@@ -16,6 +16,7 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.ui.fragment.SplashFragment
+import com.spacesofting.weshare.utils.visible
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
@@ -30,10 +31,10 @@ class MainActivity  : ActivityWrapper() {
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this!!.applicationContext!!
 
-        scan.visible = false
+    ////    scan.visible = false
 
         runDelayed(4000){
-            scan.visible = true
+        //    scan.visible = true
 
         }
 
@@ -48,7 +49,16 @@ class MainActivity  : ActivityWrapper() {
         super.onPause()
         ApplicationWrapper.INSTANCE.getNavigationHolder().removeNavigator()
     }
+    fun shoBtn()
+    {
+      //  scan.visible = true
+    }
 
+    fun noshoBtn()
+    {
+      //  scan.visible = false
+
+    }
 
     var fragment: Fragment? = null
     override fun onNewIntent(intent: Intent) {
@@ -89,7 +99,7 @@ class MainActivity  : ActivityWrapper() {
         }
     }
 //todo должно помоч сделать переходы ровные без логических ошибок
-    override fun onBackPressed() {
-       router.exit()
-    }
+//    override fun onBackPressed() {
+//       router.exit()
+//    }
 }

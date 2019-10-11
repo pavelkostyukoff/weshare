@@ -4,16 +4,16 @@
     <item
             android:id="@+id/navigation_feed"
             android:icon="@drawable/ic_union"
-            android:title="Лента"/>
+            android:title=""/>
 
     <item
             android:id="@+id/navigation_map"
             android:icon="@drawable/ic_map_menu"
-            android:title="Карта"/>
+            android:title=""/>
 
     <item
             android:id="@+id/navigation_inventory"
             android:icon="@drawable/ic_bagage"
-            android:title="История"/>
+            android:title=""/>
 
 </menu>

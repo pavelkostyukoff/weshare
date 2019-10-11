@@ -5,20 +5,20 @@ import android.support.design.widget.TabLayout
 import android.view.View
 import com.spacesofting.weshare.mvp.view.InventoryView
 import com.spacesofting.weshare.mvp.presentation.InventoryPresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.ui.adapter.InventoryPagerAdapter
-import com.spacesofting.weshare.ui.fragment.ProfileEditFragment.Companion.SCANNER_REQUEST_CODE
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
-import kotlinx.android.synthetic.main.view_bag_my_info.view.*
-import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InventoryFragment : FragmentWrapper(), InventoryView {
    // val user = ApplicationWrapper.user
@@ -28,6 +28,8 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
     }
 
     companion object {
+        val SCANNER_REQUEST_CODE = 101
+
         const val TAG = "InventoryFragment"
         private const val DATA_KEY = "data"
         fun newInstance(tabPosition: Int?): InventoryFragment {
@@ -48,11 +50,12 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tabPosition = arguments?.getSerializable(DATA_KEY)
+        showToolbar(TOOLBAR_HIDE)
         //showToolbar(TOOLBAR_EMBEDDED, R.layout.view_fragment_toolbar)
-        setTitleColor(R.color.black)
-        setTitle("Bag")
-        setToolbarBackgroundDrawable(R.color.link_water)
-        setHomeAsUpIndicator(TOOLBAR_INDICATOR_BACK_ARROW)
+       // setTitleColor(R.color.black)
+      //  setTitle("Bag")
+       // setToolbarBackgroundDrawable(R.color.link_water)
+       // setHomeAsUpIndicator(TOOLBAR_INDICATOR_BACK_ARROW)
         val fragmentAdapter = InventoryPagerAdapter(childFragmentManager)
         viewpager_main.adapter = fragmentAdapter
 
@@ -86,7 +89,9 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
         }
             router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
-                setFoldInfo(result as User)            }
+                ApplicationWrapper.user = result as User
+               // nameUpdate(result as User)
+                /*setFoldInfo(result as User)   */         }
         }
     }
     fun setFoldInfo(result: User)
@@ -101,14 +106,48 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
 
     override fun onResume() {
         super.onResume()
-        nameUpdate()
+        nameUpdate(ApplicationWrapper.user)
     }
-    fun nameUpdate()
+    fun nameUpdate(result: User)
     {
-        val user = ApplicationWrapper.user
+        pHone.text = result.phone.toString()
+        firstName.text = result.firstName.toString()
+        lastName.text = result.lastName.toString()
+       // date.text = result.lastName.toString()
 
-        pHone.text = user.phone.toString()
-        firstName.text = user.firstName.toString()
-        lastName.text = user.lastName.toString()
+
+        showAvatar(result.avatar)
+    }
+    fun getStringForDate(date: String): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+ss:ss")
+        val f = SimpleDateFormat("yyyy-MM-dd")
+        var d = Date()
+        try {
+            d = formatter.parse(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return f.format(d)
+
+    }
+
+    fun showAvatar(avatar: String?)
+    {
+        if (avatar != null)
+        {
+            Picasso.with(activity)
+                .load(avatar)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(mainAvatar,
+                    object : Callback {
+                        override fun onSuccess() {
+                            // loadImageProgress.visibility = View.GONE
+                        }
+                        override fun onError() {
+                            //  loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
     }
 }

@@ -7,89 +7,114 @@
                                              android:layout_height="match_parent">
 
     <Button
+            android:id="@+id/goodAdd"
             android:layout_width="wrap_content"
-            android:padding="11dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginTop="12dp"
             android:background="@drawable/btn_rounded_sapphire"
             android:fontFamily="@font/roboto"
+            android:padding="11dp"
             android:text="Добавить вещь"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:id="@+id/goodAdd"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/pHone"
-            app:layout_constraintStart_toStartOf="@+id/pHone"/>
+            app:layout_constraintStart_toStartOf="@+id/pHone"
+            app:layout_constraintTop_toBottomOf="@+id/pHone" />
 
+
+    <!-- Елена -->
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mainAvatar"
             android:layout_width="@dimen/view_header_avatar_size"
             android:layout_height="@dimen/view_header_avatar_size"
-            android:src="@drawable/myphoto"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_avatar_placeholder"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="4dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!-- Елена -->
     <TextView
             android:id="@+id/lastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:gravity="top"
             android:text="Костромской"
             android:textAppearance="@style/HelenTxt"
-            android:gravity="top"
             app:layout_constraintStart_toEndOf="@+id/firstName"
-            android:layout_marginStart="12dp" app:layout_constraintTop_toTopOf="@+id/mainAvatar"
-            android:layout_marginTop="2dp"/>
+            app:layout_constraintTop_toTopOf="@+id/mainAvatar" />
+
     <TextView
             android:id="@+id/firstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:gravity="top"
             android:text="Павел"
             android:textAppearance="@style/HelenTxt"
-            android:gravity="top"
             app:layout_constraintStart_toEndOf="@+id/mainAvatar"
-            android:layout_marginStart="20dp" app:layout_constraintTop_toTopOf="@+id/mainAvatar"
-            android:layout_marginTop="2dp"/>
+            app:layout_constraintTop_toTopOf="@+id/mainAvatar" />
+
     <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_star"
             android:id="@+id/imageViewmini"
+            android:layout_width="26dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/mainAvatar"
-            app:layout_constraintTop_toBottomOf="@+id/mainAvatar"/>
+            app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
+            app:srcCompat="@drawable/ic_star" />
 
     <TextView
-            android:text="5.0"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2" android:textColor="@color/charade"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="5.0"
+            android:textColor="@color/charade"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@+id/mainAvatar"
-            android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/imageViewmini"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/mainAvatar"/>
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewmini"
+            app:layout_constraintEnd_toEndOf="@+id/mainAvatar"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageViewmini"
+            app:layout_constraintTop_toTopOf="@+id/imageViewmini" />
+
     <android.support.constraint.ConstraintLayout
+            android:id="@+id/showSettings"
             android:layout_width="56dp"
             android:layout_height="38dp"
-            android:id="@+id/showSettings"
-            app:layout_constraintBottom_toBottomOf="@+id/goodAdd" app:layout_constraintTop_toTopOf="@+id/goodAdd"
-            app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" app:layout_constraintStart_toEndOf="@+id/goodAdd"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.279">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/goodAdd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toEndOf="@+id/goodAdd"
+            app:layout_constraintTop_toTopOf="@+id/goodAdd"
+            app:layout_constraintVertical_bias="0.4">
+
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/ic_settings"
                 android:id="@+id/test"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_settings" />
     </android.support.constraint.ConstraintLayout>
+
     <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_marginTop="8dp"
@@ -265,11 +290,15 @@
                     app:layout_constraintTop_toTopOf="@+id/companiesIcon"/>
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
+
     <TextView
-            android:text="+7"
+            android:id="@+id/pHone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pHone"
-            app:layout_constraintTop_toBottomOf="@+id/lastName" app:layout_constraintStart_toStartOf="@+id/firstName"
-            android:textColorHint="#00000000" android:textColor="@color/black"/>
+            android:layout_marginTop="4dp"
+            android:text="+7"
+            android:textColor="@color/black"
+            android:textColorHint="#00000000"
+            app:layout_constraintStart_toStartOf="@+id/firstName"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" />
 </android.support.constraint.ConstraintLayout>

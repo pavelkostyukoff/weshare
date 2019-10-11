@@ -17,10 +17,13 @@ import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ApplicationWrapper.Companion.avatar
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.Photo
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Callback
@@ -28,20 +31,21 @@ import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
-import kotlinx.android.synthetic.main.image_picker_fragment.*
 
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
 class EditProfile : FragmentWrapper(), EditProfileView {
 
-    override fun showNewInfo(newinfo: User) {
+  /*  override fun showNewInfo(newinfo: User) {phone
         phone.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
-        nickName.setText(newinfo.firstName.toString(), TextView.BufferType.EDITABLE)
+        nickName.setText(newinfo.firstName .toString(), TextView.BufferType.EDITABLE)
         name.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
-        date.setText(newinfo.birthday.toString(), TextView.BufferType.EDITABLE)
-    }
+        date.setText(getStringForDate(newinfo.birthday.toString()), TextView.BufferType.EDITABLE)
+    }*/
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_edit_profile
@@ -49,7 +53,11 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     val CAMERA_REQUEST_CODE = 1
     val GALLERY_REQUEST_CODE = 2
+    val SCANNER_REQUEST_CODE = 101
+
+
     val REPLACEMENT = Regex("[^a-zA-Zа-яА-Я0-9-._]")
+    val updProfile = UpdateProfile()
 
 
     var picker: ImagePickerFragment by Delegates.notNull()
@@ -73,9 +81,9 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showProgress()
+       // showProgress()
         showToolbar(TOOLBAR_HIDE)
-
+        mEditProfilePresenter
         //handle nick changes and validate it
         RxTextView.afterTextChangeEvents(nickName)
             .debounce(500, TimeUnit.MILLISECONDS)
@@ -104,7 +112,19 @@ class EditProfile : FragmentWrapper(), EditProfileView {
             }
         }
 
-        avatar.setOnClickListener { showPhotoPicker() }
+        avatarO.setOnClickListener { showPhotoPicker() }
+        delPhoto.setOnClickListener { mEditProfilePresenter.deletePhoto() }
+
+        saveProfile.setOnClickListener {
+            // profile: User
+            //todo верификация
+            //todo если ок то отсылка
+            updProfile.firstName = nickName.text.toString()
+            updProfile.phone = phone.text.toString()
+            updProfile.lastName = name.text.toString()
+            //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
+            mEditProfilePresenter.chengeMyProfile(updProfile)
+        }
     }
   /*  override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -125,42 +145,72 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     override fun showToast(stringId: Int) {
         //Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
+    override fun updateAvatar(img: Photo) {
+        avatar = img.url.toString()
 
-    override fun showProfile(profile: Profile) {
+        if (img.url != null)
+        {
+            Picasso.with(activity)
+                .load(img.url.toString())
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(avatarO,
+                    object : Callback {
+                        override fun onSuccess() {
+                            // loadImageProgress.visibility = View.GONE
+                            delPhoto.visible = true
+                        }
+                        override fun onError() {
+                            //  loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
+
+    }
+
+
+    override fun showProfile(profile: User) {
         //load image todo узнать как загрузить аватарку?
-
-
-
         //load Nickname
-        nickName.setText(profile.firstName)
+        phone.setText(profile.phone.toString(), TextView.BufferType.EDITABLE)
+        nickName.setText(profile.firstName .toString(), TextView.BufferType.EDITABLE)
+        name.setText(profile.lastName.toString(), TextView.BufferType.EDITABLE)
+      //  date.setText(getStringForDate(profile.birthday.toString()), TextView.BufferType.EDITABLE)
+        val avatar = profile.avatar
+        ApplicationWrapper.avatar = avatar.toString()
+
+      //  ApplicationWrapper.file = profile.avatar as File
+        /*nickName.setText(profile.firstName)
         phone.setText(profile.phone)
         name.setText(profile.lastName)
         date.setText(profile.birthday)
-
-
-
-        profileNick = profile.firstName
+        profileNick = profile.firstName*/
         //hide progress
         showProgress(false)
-        saveProfile.setOnClickListener {
-            mEditProfilePresenter.save() }
-      //  saveProfile.isEnabled = true
 
-        if (ApplicationWrapper.file != null)
+
+      //  saveProfile.isEnabled = true
+        if (ApplicationWrapper.avatar != null)
         {
             Picasso.with(activity)
-                .load(ApplicationWrapper.file)
+                .load(ApplicationWrapper.avatar)
+                .placeholder(R.drawable.ic_avatar_placeholder)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                .into(avatar,
+                .into(avatarO,
                     object : Callback {
                         override fun onSuccess() {
-                            loadImageProgress.visibility = View.GONE
+                            progress.visibility = View.GONE
+                            delPhoto.visible = true
                         }
                         override fun onError() {
-                            loadImageProgress.visibility = View.GONE
+                            progress.visibility = View.GONE
+
                         }
                     })
+        }
+        else {
+          //  delPhoto.visible = false
         }
     }
    /* override fun showAvatar(profile: Profile) {
@@ -208,6 +258,29 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         }
     }*/
 
+    override fun deletePhotos()
+    {
+        avatar = R.drawable.ic_avatar_placeholder.toString()
+        progress.visible = true
+        Picasso.with(activity)
+            .load(avatar)
+            .placeholder(R.drawable.ic_avatar_placeholder)
+            .centerCrop()
+            .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+            .into(avatarO,
+                object : Callback {
+                    override fun onSuccess() {
+                        progress.visibility = View.GONE
+                        delPhoto.visible = false
+                    }
+                    override fun onError() {
+                        progress.visibility = View.GONE
+                        delPhoto.visible = false
+                    }
+                })
+
+    }
+
     override fun onResume() {
         super.onResume()
         //animate background
@@ -226,7 +299,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
                 .content(R.string.declarer)
                 .positiveText(R.string.save)
                 .onPositive { dialog, which ->
-                    mEditProfilePresenter.save()
+                  //  mEditProfilePresenter.save()
                 }
                 .negativeText(R.string.edit_guest_card_label_first_name)
                 .onNegative { dialog, which ->
@@ -252,7 +325,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun close() {
         if (!mEditProfilePresenter.hasProfile()) {
-            router.navigateTo(ScreenPool.FEED_FRAGMENT)
+          //  router.navigateTo(ScreenPool.FEED_FRAGMENT)
+            router.backTo(ScreenPool.INVENTORY_FRAGMENT)
         }
 
     //    finish()
@@ -294,8 +368,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun showImage(file: File) {
         //show image
-        Picasso.with(activity).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
-        Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
+        Picasso.with(activity).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
+       // Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         newAvatar = true
     }
 
@@ -370,5 +444,17 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     override fun saveButtonEnabled(isEnabled: Boolean) {
       //  saveProfile.isEnabled = isEnabled
+    }
+    fun getStringForDate(date: String): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+ss:ss")
+        val f = SimpleDateFormat("yyyy-MM-dd")
+        var d = Date()
+        try {
+            d = formatter.parse(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return f.format(d)
+
     }
 }

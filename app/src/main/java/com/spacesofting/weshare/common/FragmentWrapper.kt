@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
+import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
@@ -42,8 +43,91 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val viewContainer = view.findViewById<FrameLayout>(R.id.mainContainer)
         setLayout(getFragmentLayout(), viewContainer)
        // scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+       // scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         return view
+    }
+     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.navigation_feed -> {
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                } else {
+toast(R.string.rega)
+                }
+
+
+                //todo запрос актуальных задачь - положить их в список и открыть
+             /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                   // getMyTask()
+                } else {
+                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }*/
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_map -> {
+
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.MAP_FRAGMENT)
+                } else {
+                    toast(R.string.rega)
+                }
+
+
+              //  when(fragmnetTag) {
+
+/*
+                    "WSTFR" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenu(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    "SIMPLJOB" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                            showPopupMenuSimpleJob(scan)
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    "NO_PRESS" -> {
+                        if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                        } else {
+                            Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                        }
+                    }*/
+
+              //      else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+            //    }
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_inventory -> {
+                if (Settings.IsAuthorized) {
+                    router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+                } else {
+                    toast(R.string.rega)
+                }
+              /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                    allMyTask = TaskFragment.taskList
+                    if (allMyTask.isNotEmpty()) {
+                        router.newScreenChain(ScreenPool.BMTCWWCF)
+                    } else {
+                        Toast.makeText(
+                            this, "У Вас не текущих задач.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }*/
+/*
+                } else {
+                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                }*/
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

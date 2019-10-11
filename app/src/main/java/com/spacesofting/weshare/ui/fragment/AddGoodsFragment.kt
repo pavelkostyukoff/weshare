@@ -22,6 +22,7 @@ import com.spacesofting.weshare.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_add_goods.*
+import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 import java.io.File
 
 
@@ -186,7 +187,7 @@ return R.layout.fragment_add_goods
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        showToolbar(TOOLBAR_HIDE)
         wishEditImageBtn.setOnClickListener { showPicker() }
 
     }

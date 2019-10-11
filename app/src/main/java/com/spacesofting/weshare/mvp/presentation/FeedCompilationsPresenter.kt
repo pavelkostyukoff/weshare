@@ -19,8 +19,8 @@ import java.util.HashSet
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var default: WishList? = null
-        val ITEMS_PER_PAGE = 10
-        val ITEMS_PER_PAGE_WISH_LIST = 10
+        val ITEMS_PER_PAGE = 3
+        val ITEMS_PER_PAGE_WISH_LIST = 5
         var page = 0
         var lastLoadedCount = 0
         var paginateLoading = false
@@ -50,7 +50,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
 
         fun loadCompilationsWishes(compilation: Datum, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
             //todo а тут мы грузим все вещи по данной категории или тегу ну или имитируем
-         /*   Api.Wishes.getWishesFromCompilation(compilation.id, ITEMS_PER_PAGE_WISH_LIST, 0)
+          /*  Api.Wishes.getWishesFromCompilation(compilation.id, ITEMS_PER_PAGE_WISH_LIST, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { list -> success(list) },
@@ -100,6 +100,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         fun showCompilationDetails(compilation: Datum) {
+            //todo переход в категорию передача  id категории
             viewState.goToCompilation(compilation)
         }
 

@@ -13,7 +13,7 @@
         android:paddingTop="@dimen/padding_double">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mainAvatar"
+            android:id="@+id/titileAvatar"
             android:layout_width="@dimen/view_header_avatar_size"
             android:layout_height="@dimen/view_header_avatar_size"
             android:layout_marginStart="@dimen/margin"
@@ -33,7 +33,7 @@
             android:textColor="@android:color/background_light"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainAvatar" />
+            app:layout_constraintTop_toBottomOf="@+id/titileAvatar" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

@@ -8,14 +8,12 @@ import android.os.CountDownTimer
 import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.view.View
-import android.view.WindowManager
 import com.spacesofting.weshare.mvp.view.RegistrationView
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ApplicationWrapper.Companion.mailAutorize
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
@@ -23,9 +21,10 @@ import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.mvp.presentation.RegistrationPresenter
 import com.spacesofting.weshare.utils.TimerUtils
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_wrapper.*
+import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.fragment_registration_phone.*
-import kotlinx.android.synthetic.main.view_bag_my_info.*
+
 
 class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
@@ -52,16 +51,18 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
+        activity?.scan?.visible = false
 
         presenter.deviceInfo = getDeviceInfo()
         autorize.setOnClickListener {
             //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
-
            // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
           //  {
                 val mail = Login()
-            mail.email = myMail.text.toString() //todo user@wau.su
-            mail.password = pass.text.toString()// todo password
+            mail.email =  "user@wau.su"//myMail.text.toString() //
+            mail.password = "password" //pass.text.toString()//
+
+            mailAutorize = mail
                 presenter.autorize(mail,false)
           //  }
 
@@ -99,8 +100,9 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         showErrorMessage(!isValid, R.string.auth_incorrect_phone)
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onStop() {
+        super.onStop()
+
         countDownTimer?.cancel()
     }
 

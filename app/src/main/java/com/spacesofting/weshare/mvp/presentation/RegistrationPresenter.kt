@@ -13,6 +13,7 @@ import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.view.RegistrationView
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class RegistrationPresenter : MvpPresenter<RegistrationView>() {
@@ -22,26 +23,35 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
 
     fun autorize(mail: Login, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
-
         Api.Auth.autorize(mail)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
                 it->
-
                 Settings.AccessToken = it.token
                 Settings.ValidationToken = it.rowrefreshTokenVersion
-
-                ApplicationWrapper.user = it.user!!
-                router.navigateTo(ScreenPool.FEED_FRAGMENT)
-
+             //   ApplicationWrapper.user = it.user!!
+                getProfile()
                 //todo тут кладем токен в сохранялки Settings
-
             }){
                 it
                 viewState.toastError("Такой пользователь не найден")
             }
     }
+
+fun getProfile()
+{
+    Api.Users.getAccount()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ profile ->
+            ApplicationWrapper.user = profile
+            router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+        }, { e ->
+
+        })
+}
+    //todo ТУТТУТ
     fun refreshed()
     {
         val validationToken = Settings.ValidationToken
@@ -74,7 +84,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             .subscribe ({
                 it
                 //todo проходим в основной экран
-                router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                router.newRootScreen(ScreenPool.FEED_FRAGMENT)
             }){
               //  it
               //  it.response().errorBody()

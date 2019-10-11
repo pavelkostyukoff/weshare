@@ -4,17 +4,14 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import com.google.gson.annotations.Expose
 
-
-
 class Photo : Serializable {
     @SerializedName("id")
-    val pictureId: Int = 0
-
+    val id: String? = null
     @SerializedName("url")
-    val pictureName: String? = null
+    val url: String? = null
 
 
-    override fun equals(other: Any?): Boolean {
+    /*override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
@@ -24,18 +21,18 @@ class Photo : Serializable {
         }
 
         if (other is Photo) {
-            if (pictureId == other.pictureId &&
-                    pictureName == other.pictureName ) {
+            if (id == other.id &&
+                url == other.url ) {
                 return true
             }
         }
         return false
     }
-
-    override fun hashCode(): Int {
+*/
+/*    override fun hashCode(): Int {
         val prime = 31
         var result = pictureId
         result = prime * result + (pictureName?.hashCode() ?: 0)
         return result
-    }
+    }*/
 }

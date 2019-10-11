@@ -39,21 +39,19 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }
 
     fun openCamera(file: File) {
-
-
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.CAMERA)
                 .subscribe { granted ->
-
                     val intent = ImageUtils.takePhotoIntent(file)
                     startActivityForResult(intent, CAMERA_REQUEST_CODE)
-
                 }
         }
         // brokenUrlMessage.visible = false
-
     }
+
+
+
 
     interface PickerListener {
         fun onPickerUrlConfirm(url: URL)
@@ -78,12 +76,12 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initAvatar()
         val scrollView = view?.findViewById<ScrollView>(R.id.scrollView)
         val galleryButton = view?.findViewById<LinearLayout>(R.id.pickerGalleryButton)
         avatar = view?.findViewById(R.id.editAvatar)
-        uploadBtn = view?.findViewById(R.id.uploadBtn)
-        linkIcon = view?.findViewById(R.id.linkIcon)
+     //   uploadBtn = view?.findViewById(R.id.uploadBtn)
+     //   linkIcon = view?.findViewById(R.id.linkIcon)
 
        /* if (activity is EditProfile) {
             activity?.scroll?.visibility = View.GONE
@@ -96,29 +94,29 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
             view?.findViewById<ConstraintLayout>(R.id.rootLayout)?.setBackgroundColor(resources.getColor(R.color.profile_background))
         }
 
-        view?.findViewById<MaterialEditText>(R.id.pickerUrlEditText)?.setOnFocusChangeListener { _, isFocused ->
+   /*     view?.findViewById<MaterialEditText>(R.id.pickerUrlEditText)?.setOnFocusChangeListener { _, isFocused ->
             runDelayed(250, {
                 //scroll to the end when edit selected
                 if (isFocused) {
                     scrollView?.fullScroll(View.FOCUS_DOWN)
                 }
             })
-        }
+        }*/
 
-        view?.findViewById<MaterialEditText>(R.id.pickerUrlEditText)?.setOnClickListener({
+      /*  view?.findViewById<MaterialEditText>(R.id.pickerUrlEditText)?.setOnClickListener({
             runDelayed(250, {
                 //scroll to the end when edit clicked
                 scrollView?.fullScroll(View.FOCUS_DOWN)
             })
-        })
+        })*/
 
-        view?.findViewById<EditText>(R.id.pickerUrlEditText)?.addTextChangedListener(this)
+      //  view?.findViewById<EditText>(R.id.pickerUrlEditText)?.addTextChangedListener(this)
         //camera
-        view?.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { onPickerCameraClick() }
+        view?.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { listener?.onPickerCameraClick() }
         //confirm
         view?.findViewById<ImageButton>(R.id.confirm)?.setOnClickListener { confirmPressed() }
         //upload
-        view?.findViewById<ImageButton>(R.id.uploadBtn)?.setOnClickListener { confirmUrl() }
+      //  view?.findViewById<ImageButton>(R.id.uploadBtn)?.setOnClickListener { confirmUrl() }
 
         if (galleryPermissionGranted) {
             galleryButton?.setOnClickListener { listener?.onPickerGalleryClick() }
@@ -164,6 +162,25 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 linkIcon?.setImageDrawable(resources.getDrawable(R.drawable.ic_link_inactive, null))
             }
+        }
+    }
+    fun initAvatar()
+    {
+        if (ApplicationWrapper.avatar.isNotEmpty()) {
+            Picasso.with(activity)
+                .load(ApplicationWrapper.avatar)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(editAvatar,
+                    object : Callback {
+                        override fun onSuccess() {
+                            loadImageProgress.visibility = View.GONE
+                        }
+
+                        override fun onError() {
+                            loadImageProgress.visibility = View.GONE
+                        }
+                    })
         }
     }
 
@@ -240,20 +257,21 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }*/
 
     private fun confirmUrl() {
-        val urlString = view?.findViewById<EditText>(R.id.pickerUrlEditText)?.text.toString()
-        try {
+      //  val urlString = view?.findViewById<EditText>(R.id.pickerUrlEditText)?.text.toString()
+      /*  try {
             val url = URL(urlString)
             listener?.onPickerUrlConfirm(url)
         } catch (e: MalformedURLException) {
             Log.e("BottomSheetImagePicker", "Incorrect url: ${e.message}")
             listener?.onPickerIncorrectUrl(e)
-        }
+        }*/
       //  activity.hideKeyboard()
     }
 
     private fun confirmPressed() {
       //  activity.hideKeyboard()
         listener?.onEditPhotoConfirmClick()
+
         finish()
     }
 
@@ -261,7 +279,10 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     {
 
     }
+    fun saveAvatar()
+    {
 
+    }
 
     private fun finish() {
         activity!!.fragmentManager

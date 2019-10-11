@@ -9,15 +9,16 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Photo
+import com.spacesofting.weshare.ui.fragment.EditProfile
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
-import com.spacesofting.weshare.ui.fragment.ProfileEditFragment
+import com.spacesofting.weshare.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -26,8 +27,8 @@ import java.util.regex.Pattern
 
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
-    val router = ApplicationWrapper.INSTANCE.getRouter()
 
+    val router = ApplicationWrapper.INSTANCE.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
 
@@ -36,8 +37,8 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         IMAGE
     }
 
-    var profile: Profile? = null
-    var profileNew: Profile = Profile()
+    var profile: User? = null
+    var profileNew: User = User()
     var imageFile: File? = null
     var timeout: Timer? = Timer()
 
@@ -46,8 +47,11 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     private var isCheckAlreadyExist = false
 
     init {
+        this.profile = ApplicationWrapper.user
+        viewState.showProfile(ApplicationWrapper.user)
+
         //todo запрос оправляется как только мы хотим показать профиль после логина
-        Api.Users.getAccount()
+       /* Api.Users.getAccount()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ profile ->
@@ -58,11 +62,11 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             }, { e ->
                 viewState.showProfile(profileNew)
             //    viewState.setTitle(R.string.edit_profile_create)
-            })
+            })*/
     }
 
 
-    fun showAvatar()
+   /* fun showAvatar()
     {
         Api.Users.getAccount()
             .subscribeOn(Schedulers.io())
@@ -77,7 +81,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 viewState.showProfile(profileNew)
                 //    viewState.setTitle(R.string.edit_profile_create)
             })
-    }
+    }*/
 
     fun onBackPressed() {
         // get difference
@@ -93,11 +97,24 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         }*/
     }
 
-    fun save() {
+    fun deletePhoto()
+    {
+        Api.Pictures.delPicture()
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { viewState.showProgress(false) }
+            .subscribe ({
+                viewState.deletePhotos()
+
+            }){
+
+            }
+    }
+
+    fun saveAvatar() {
         val imageSize = imageFile?.let {
             it.length() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE)
         }
-        viewState.showProgress()
+        viewState.showProgress(true)
         //save image
         imageFile?.let {
             imageSize?.let {
@@ -106,16 +123,18 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(imageFile!!)
                 }
-                ImageUtils.send(saveImgFile)
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ img ->
-                  //      profileNew.img = img
-                      //  updateProfile()
-                        ApplicationWrapper.file = saveImgFile
-                        profile?.let { it1 -> viewState.showProfile(it1) }
+                ImageUtils.send(saveImgFile)?.subscribeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe({ img ->
+                        //profileNew.img = img
+                       // this.profile?.let { it1 -> viewState.showProfile(it1) }
+                        //this.profile
+                        viewState.updateAvatar(img)
+                        viewState.showProgress(false)
+
+                        //   updateProfile()
                     }, { e ->
                         viewState.saved(false)
-                        viewState.showToast(R.string.error_message)
+                       // viewState.showToast(R.string.error_link_image)
                     })
             }
         } ?: run {
@@ -126,18 +145,18 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     private fun updateProfile(){
         //update and profile
         //todo все ясно как только ендпоинт заработает аватарка поставится
-        val observable: Observable<Photo>
+      /*  val observable: Observable<Photo>
         var isNew = false
-       // observable = Api.Users.update(profileNew)
-     //   observable = Api.Users.updateAvatar()
-     /*   if (profile != null) {
+        observable = Api.Users.update(profileNew)
+        observable = Api.Users.updateAvatar()
+        if (profile != null) {
             observable = Api.Users.update(profileNew)
         } else {
             isNew = true
             observable = Api.Users.make(profileNew)
-        }*/
+        }
 
-        /*observable.subscribeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                     profile ->
@@ -230,7 +249,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.setPreviewPhoto(res)
                 }
             }, { e ->
-                ApplicationWrapper.INSTANCE.profile = profile
+              //  ApplicationWrapper.INSTANCE.profile = User
                 viewState.showToast(R.string.error_message)
             })
     }
@@ -241,21 +260,12 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     override fun onEditPhotoConfirmClick() {
 
-        imageFile?.let {
-            ImageUtils.send(it)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                        img ->
-                 //   profileNew.img = img
-                  //
-                    //  updateProfile()
-                   ApplicationWrapper.file = imageFile as File
-                    profile?.let { it1 -> viewState.showProfile(it1) }
-                }, { e ->
-                    viewState.saved(false)
-                    viewState.showToast(R.string.error_message)
-                })
-        }
+                        saveAvatar()
+      /*  imageFile?.let {
+            isAddedNewAvatar = true
+            viewState.showImage(it)
+            viewState.saveButtonEnabled(isNickNameValid)
+        }*/
 
         /*imageFile?.let {
             Api.Users.updateAvatar(it)
@@ -284,7 +294,10 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
 
     }
-
+   /* override fun onPickerCameraClick() {
+        imageFile = ImageUtils.savePhotoFile()
+        viewState.openCamera(imageFile!!)
+    }*/
     fun onCameraResult() {
         imageFile?.let {
             viewState.setPreviewPhoto(it)
@@ -330,10 +343,10 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             .subscribe ({
                 it
                 ApplicationWrapper.user = it
-                viewState.showNewInfo(it)
+              //  viewState.showNewInfo(it)
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
-                router.exitWithResult(ProfileEditFragment.SCANNER_REQUEST_CODE, it)
+                router.exitWithResult(SCANNER_REQUEST_CODE, it)
             }){
                 it
                 router.exit()

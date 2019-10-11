@@ -2,13 +2,13 @@ package com.spacesofting.weshare.ui.fragment.presentation.view
 
 import com.arellomobile.mvp.MvpView
 import com.spacesofting.weshare.api.NickNameStatus
-import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.Photo
 import java.io.File
 
 interface EditProfileView : MvpView {
 
-    fun showNewInfo(newinfo : User)
+ //   fun showNewInfo(newinfo : User)
 
     companion object {
         val AVAILABLE       = NickNameStatus.AVAILABLE
@@ -19,9 +19,11 @@ interface EditProfileView : MvpView {
     }
 
     fun showProgress(isInProgress: Boolean = true)
-    fun showProfile(profile: Profile)
+    fun showProfile(profile: User)
     fun saved(isSuccess: Boolean, isNew: Boolean = false)
     fun showToast(stringId: Int)
+    fun updateAvatar(img: Photo)
+    fun deletePhotos()
 
     fun save()
     fun cancel()

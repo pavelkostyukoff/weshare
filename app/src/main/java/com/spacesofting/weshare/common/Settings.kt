@@ -7,8 +7,13 @@ import com.spacesofting.weshare.BuildConfig
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import java.net.URLConnection
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
@@ -245,7 +250,14 @@ object Settings {
         return linkedHashMapLIST
     }
 
+    fun prepareFilePart( partName: String, file: File): MultipartBody.Part {
 
+        val mimeType = URLConnection.guessContentTypeFromName(file.name)
+        val requestFile = RequestBody.create(MediaType.parse(mimeType), file)
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    }
     //TODO: Why it has so abstract name instead of concrete one like compilationSubscriptions()...
     fun getListInt(): HashSet<Int> {
         //TODO: Use standart Serialization mechanism here

@@ -26,6 +26,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
     var editWishDescription: String?    = null
     var editWishAmount: String?         = null
     var editWishImage: String?          = null
+
+
     override fun onEditPhotoConfirmClick() {
         imageFile?.let {
             viewState.showWishImage(it)

@@ -78,7 +78,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
               //      onUpdate(item)
              //   }, {})
             //} else if(item.wishList.isNotEmpty()) {
-            val arrOmg = ArrayList<Int>()
+            /*val arrOmg = ArrayList<Int>()
             arrOmg.add(R.drawable.icon_closed)
             arrOmg.add(R.drawable.icon_home)
             arrOmg.add(R.drawable.img_splash_bsq_1)
@@ -87,7 +87,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             arrOmg.add(R.drawable.icon_kids)
             arrOmg.add(R.drawable.icon_uikend)
             arrOmg.add(R.drawable.icon_model)
-            arrOmg.add(R.drawable.icon_worker)
+            arrOmg.add(R.drawable.icon_worker)*/
 
 
             val arrImg = ArrayList<Int>()
@@ -100,10 +100,6 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             arrImg.add(R.drawable.ic_kids)
             arrImg.add(R.drawable.ic_tagik)
             arrImg.add(R.drawable.ic_tools)
-
-
-
-
            // viewHolder.wishImage.setImageResource(arrOmg.get(position))
 
             viewHolder.imageView.setImageResource(arrImg.get(position))
@@ -157,13 +153,15 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         (holder.wishList.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
 
         holder.add.setOnClickListener {
-           // item.setLoading(true)
+         //   item.setLoading(true)
             presenter.addWish(wishList[num], item)
             holder.setLoading(true) //todo false замена тест
             notifyItemChanged(holder.adapterPosition)
         }
 
-        holder.root.setOnClickListener { presenter.showWish(wishList[num], item) }
+        holder.root.setOnClickListener {
+
+            presenter.showWish(wishList[num], item) }
         holder.progress.visible = false
     }
 

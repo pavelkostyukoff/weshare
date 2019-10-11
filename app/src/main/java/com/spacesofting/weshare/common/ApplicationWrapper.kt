@@ -5,10 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
-import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.UpdateProfile
-import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.*
 import com.squareup.picasso.Picasso
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
@@ -20,7 +17,7 @@ class ApplicationWrapper : Application() {
 
         private var doAuthtorizedWish: Wish? = null
         private var photoPath: File? = null
-        var profile: Profile? = null
+        var profile: User? = null
         var isDesireToAuthorize: Boolean = false
         val APPSFLYER = "a7vkdKBUKnfGBnz5BahSRd"
         val ONE_LINK_ID = "vVZC"
@@ -33,6 +30,9 @@ class ApplicationWrapper : Application() {
         lateinit var user: User
         lateinit var context: Context
         lateinit var file: File
+        lateinit var avatar: String
+
+        lateinit var mailAutorize : Login
 
         //  lateinit var updProfile: UpdateProfile
     }

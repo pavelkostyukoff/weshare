@@ -19,8 +19,8 @@
     <color name="perano">#9DB4E9</color>
     <color name="cerulean_blue">#2E5CB7</color>
     <color name="azure_radiance">#057BFD</color>
-    <color name="gray5555">#F2F2F2
-    </color>
+    <color name="gray5555">#F2F2F2</color>
+    <color name="bg_bought_transparent">#50D8D8D8</color>
 
     <color name="colorPrimaryDarkTransparent">#c33e3158</color>
     <color name="orange">#FB8C83</color>
@@ -29,8 +29,33 @@
     <color name="boston_blue">#317fc0</color>
     <color name="white">#ffffff</color>
     <color name="iron">#DFE2E5</color>
+    <!--
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00
+    -->
     <color name="link_water">#D5DEF1</color>
     <color name="alto">#D7D7D7</color>
+    <color name="altoInvisible">#80D7D7D7</color>
+
     <color name="ym_background_color">#fff1ef</color>
     <color name="alto_alpha_35">#58d7d7d7</color>
     <color name="white_alpha_50">#80ffffff</color>

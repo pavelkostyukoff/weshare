@@ -31,7 +31,6 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         var soNameUser = ""
         var fragmnetTag: String? = ""
         var middleName = ""
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,12 +135,10 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_feed -> {
                 if (Settings.IsAuthorized) {
-                    router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                    router.replaceScreen(ScreenPool.FEED_FRAGMENT)
                 } else {
-toast(R.string.rega)
+                toast(R.string.rega)
                 }
-
-
                 //todo запрос актуальных задачь - положить их в список и открыть
              /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                    // getMyTask()
@@ -153,7 +150,7 @@ toast(R.string.rega)
             R.id.navigation_map -> {
 
                 if (Settings.IsAuthorized) {
-                    router.navigateTo(ScreenPool.MAP_FRAGMENT)
+                    router.replaceScreen(ScreenPool.MAP_FRAGMENT)
                 } else {
                     toast(R.string.rega)
                 }
@@ -191,7 +188,7 @@ toast(R.string.rega)
             }
             R.id.navigation_inventory -> {
                 if (Settings.IsAuthorized) {
-                    router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
+                    router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,1)
                 } else {
                     toast(R.string.rega)
                 }
@@ -229,5 +226,29 @@ toast(R.string.rega)
                 }, { e ->
                     Toast.makeText(this, R.string.error_general, Toast.LENGTH_LONG).show()
                 })*/
+    }
+    override fun  onBackPressed() {
+
+        val count = getSupportFragmentManager().getBackStackEntryCount()
+
+        if (count == 0) {
+            showLogoutDialogClosed()
+        } else {
+            getSupportFragmentManager().popBackStack()
+        }
+    }
+    fun showLogoutDialogClosed() {
+        MaterialDialog.Builder(this)
+            .title("Вы действительно хотите выйти из приложения?")
+            .cancelable(true)
+            .negativeText("Отмена")
+            .positiveText("Выйти")
+            .onPositive { _, _ ->
+                super.onBackPressed()
+            }
+            .onNegative { dialog, _ ->
+                dialog.cancel()
+            }
+            .show()
     }
 }

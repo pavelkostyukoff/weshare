@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
+import com.spacesofting.weshare.mvp.ui.fragment.ShowCategoryFragment
+import com.spacesofting.weshare.mvp.ui.fragment.ShowGoodFragment
 import com.spacesofting.weshare.ui.fragment.*
 
 object ScreenPool {
@@ -32,8 +34,8 @@ object ScreenPool {
     val GUEST_MANAGER_FRAGMENT = "guest_manager_fragment"
     val ADD_GOODS = "add_goods"
     val EDIT_PROFILE = "EditProfile"
-
-
+    val SHOW_CATEGORY = "show_category"
+    val SHOW_GOOD = "show_good"
 
 
     fun getFragment(screenKey: String, data: Any? = null): Fragment? {
@@ -51,9 +53,6 @@ object ScreenPool {
             INVENTORY_FRAGMENT -> {
                 InventoryFragment.newInstance(data as Int?)
             }
-            PROFILEEDIT -> {
-                ProfileEditFragment.newInstance()
-            }
             EDIT_PROFILE -> {
                 EditProfile.newInstance()
             }
@@ -68,6 +67,18 @@ object ScreenPool {
             ADD_GOODS -> {
                 AddGoodsFragment.getInstance()
             }
+
+            SHOW_CATEGORY -> {
+                //todo set string tag name
+                ShowCategoryFragment.newInstance(data as String?)
+            }
+
+
+            SHOW_GOOD -> {
+                //todo sent exist
+                ShowGoodFragment.newInstance(data as String?)
+            }
+
 
             /* ADD_GOODS -> {
                     AddGoodsFragment.newInstance()

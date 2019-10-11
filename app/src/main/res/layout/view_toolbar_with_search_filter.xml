@@ -114,10 +114,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mainAvatar"
+            android:id="@+id/titileAvatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/myphoto"
+            android:src="@drawable/ic_avatar_placeholder"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="4dp"

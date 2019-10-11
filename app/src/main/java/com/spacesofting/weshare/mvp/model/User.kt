@@ -1,27 +1,28 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.Expose
 
 class User {
 
     @SerializedName("id")
-    var id: String? = null
+    val id: String? = null
     @SerializedName("email")
-    var email: String? = null
+    val email: String? = null
     @SerializedName("firstName")
-    var firstName: Any? = null
+    val firstName: String? = null
     @SerializedName("lastName")
-    var lastName: Any? = null
+    var lastName: String? = null
     @SerializedName("birthday")
-    var birthday: Any? = null
+    var birthday: String? = null
     @SerializedName("phone")
-    var phone: Any? = null
+    var phone: String? = null
     @SerializedName("avatar")
-    var avatar: Any? = null
+    val avatar: String? = null
     @SerializedName("roles")
-    var roles: List<Any>? = null
+    val roles: List<String>? = null
     @SerializedName("createdAt")
-    var createdAt: Any? = null
+    val createdAt: Any? = null
     @SerializedName("updatedAt")
-    var updatedAt: Any? = null
+    val updatedAt: String? = null
 }
