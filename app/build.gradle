@@ -9,7 +9,10 @@ def API_VERSION = "1"
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://jitpack.io'
+
+        }
         maven {         url "http://maven.google.com/"
         }
 
@@ -84,6 +87,8 @@ dependencies {
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
     implementation 'com.arello-mobile:moxy:1.5.3'
+    implementation 'com.yandex.android:mapkit:3.4.0'
+
     implementation 'com.arello-mobile:moxy-android:1.5.3'
     implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
     kapt 'com.arello-mobile:moxy-compiler:1.5.3'
