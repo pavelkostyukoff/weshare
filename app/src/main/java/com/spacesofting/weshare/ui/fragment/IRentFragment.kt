@@ -22,7 +22,6 @@ class IRentFragment : FragmentWrapper(), IrentView {
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_irent
-
     }
 
     companion object {

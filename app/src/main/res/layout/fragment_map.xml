@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.fragment.MyMapFragment">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.MyMapFragment">
+
+   <com.yandex.mapkit.mapview.MapView
+           android:id="@+id/mapview"
+           android:layout_width="0dp"
+           android:layout_height="0dp"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" >
+
+      <android.support.v7.widget.RecyclerView
+              android:id="@+id/category"
+              android:layout_width="match_parent"
+              android:layout_height="92dp"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentTop="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="0dp"
+              android:scrollbars="horizontal"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              tools:ignore="MissingConstraints" />
+   </com.yandex.mapkit.mapview.MapView>
 
    <!--<com.yandex.mapkit.mapview.MapView
            android:id="@+id/mapview"
@@ -19,4 +42,4 @@
               android:layout_alignParentEnd="true"
               android:layout_marginStart="0dp" />
    </com.yandex.mapkit.mapview.MapView>-->
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
