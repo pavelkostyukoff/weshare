@@ -17,7 +17,7 @@ interface UserService {
     fun register(@Body updateProfile: Profile): Observable<ResponceProfile>
 
     //todo  Get user profile
-    @GET("users/me")
+    @GET("me")
     fun getAccount(): Observable<User>
 
     //todo  Update user profile

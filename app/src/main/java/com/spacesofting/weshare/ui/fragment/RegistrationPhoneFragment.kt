@@ -14,8 +14,8 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.mailAutorize
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.Login
-import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.mvp.presentation.RegistrationPresenter
@@ -23,6 +23,7 @@ import com.spacesofting.weshare.mvp.view.RegistrationView
 import com.spacesofting.weshare.utils.TimerUtils
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_registration_phone.*
+import kotlinx.android.synthetic.main.view_bag_my_info.*
 
 class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
@@ -56,30 +57,25 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
             //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
            // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
           //  {
-                val mail = Login()
-            mail.email =  "user@wau.su"//myMail.text.toString() //
-            mail.password = "password" //pass.text.toString()//
+                val login = Login()
+            login.login =  "Soprano61@yandex.ru"//myMail.text.toString() //
+            login.password = "password" //pass.text.toString()//
 
-            mailAutorize = mail
-                presenter.autorize(mail,false)
+            mailAutorize = login
+                presenter.autorize(login,false)
           //  }
-
         }
 
 
         toRegister.setOnClickListener {
-          //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
+            router.navigateTo(ScreenPool.EDIT_PROFILE)
+
+
+            //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
          //   if (phone.text.isNotEmpty() && login.text.isNotEmpty())
           //  {
-                val profile = Profile()
-                profile.login = "Pavel.rilisoft@gmail.com"//login.text.toString()
-                profile.password = "password"//password.text.toString()
-                profile.firstName = "John"//userName.text.toString()
-                profile.lastName = "Smith"//soname.text.toString()
-                profile.phone = "+79000000000"//phone.text.toString()
-                profile.birthday = "2000-01-01"//birthday.text.toString()
-                presenter.registration(profile,false)
+
                // presenter.refreshed()
             }
        //     else {
@@ -139,7 +135,7 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
             }
 
             login?.setTextColor(color)
-            userName?.setTextColor(color)
+            firstName?.setTextColor(color)
         }
 
         if (isBlocked) {

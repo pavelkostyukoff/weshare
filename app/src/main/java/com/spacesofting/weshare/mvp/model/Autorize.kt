@@ -5,12 +5,12 @@ import java.io.Serializable
 
 class Autorize(token: String) : Serializable {
 
-    @SerializedName("token")
-    var token: String = token
+    @SerializedName("accessToken")
+    var accessToken: String = token
 
     @SerializedName("refreshToken")
     var rowrefreshTokenVersion: String? = null
-
+/*
     @SerializedName("user")
-    var user: User? = null
+    var user: User? = null*/
 }

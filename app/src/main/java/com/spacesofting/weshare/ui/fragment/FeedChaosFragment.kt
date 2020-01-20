@@ -4,30 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.spacesofting.weshare.R
-import com.spacesofting.weshare.presentation.view.FeedChaosView
-import com.spacesofting.weshare.presentation.presenter.FeedChaosPresenter
-
-import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.visible
-import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
-import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import com.spacesofting.weshare.presentation.presenter.FeedChaosPresenter
+import com.spacesofting.weshare.presentation.view.FeedChaosView
 import com.spacesofting.weshare.ui.adapter.FeedChaosAdapter
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_feed_compilations.*
-import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 
 class FeedChaosFragment : FragmentWrapper(), FeedChaosView , Paginate.Callbacks {
 
@@ -249,7 +240,7 @@ class FeedChaosFragment : FragmentWrapper(), FeedChaosView , Paginate.Callbacks 
     }
 
     fun showAvatar() {
-        if (ApplicationWrapper.user.avatar != null) {
+       /* if (ApplicationWrapper.user.avatar != null) {
             Picasso.with(activity)
                 .load(ApplicationWrapper.user.avatar)
                 .centerCrop()
@@ -264,6 +255,6 @@ class FeedChaosFragment : FragmentWrapper(), FeedChaosView , Paginate.Callbacks 
                             //  loadImageProgress.visibility = View.GONE
                         }
                     })
-        }
+        }*/
     }
 }

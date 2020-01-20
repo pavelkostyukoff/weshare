@@ -3,18 +3,17 @@ package com.spacesofting.weshare.ui.fragment
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.view.View
-import com.spacesofting.weshare.mvp.view.InventoryView
-import com.spacesofting.weshare.mvp.presentation.InventoryPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.presentation.InventoryPresenter
+import com.spacesofting.weshare.mvp.view.InventoryView
 import com.spacesofting.weshare.ui.adapter.InventoryPagerAdapter
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 import java.text.SimpleDateFormat
@@ -116,7 +115,7 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
        // date.text = result.lastName.toString()
 
 
-        showAvatar(result.avatar)
+      //todo  showAvatar(result.avatar)
     }
     fun getStringForDate(date: String): String {
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+ss:ss")

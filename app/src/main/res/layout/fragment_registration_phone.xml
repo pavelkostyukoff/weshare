@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@android:color/background_light"
-                                             android:orientation="vertical" android:id="@+id/constraintLayout">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        android:orientation="vertical">
 
     <android.support.constraint.Guideline
             android:id="@+id/verticalGlStart"
@@ -25,8 +26,9 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="92dp"
             app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
             app:layout_constraintTop_toBottomOf="@+id/gpbemLogo">
 
@@ -40,87 +42,13 @@
                 android:backgroundTint="@color/azure_radiance"
                 android:fontFamily="@font/roboto"
                 android:gravity="center_vertical"
-                android:hint="Ваш Пароль"
+                android:hint="Введите ваш пароль"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/azure_radiance"
                 android:textColorHint="@color/colorPrimaryLight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login" />
-
-        <EditText
-                android:id="@+id/userName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/azure_radiance"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:hint="Имя"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/azure_radiance"
-                android:textColorHint="@color/colorPrimaryLight"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
-
-        <EditText
-                android:id="@+id/soname"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/azure_radiance"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:hint="Фамилия"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/azure_radiance"
-                android:textColorHint="@color/colorPrimaryLight"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userName" />
-
-        <EditText
-                android:id="@+id/phone"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/azure_radiance"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:hint="телефон"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/azure_radiance"
-                android:textColorHint="@color/colorPrimaryLight"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/soname" />
-
-        <EditText
-                android:id="@+id/birthday"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/azure_radiance"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:hint="дата рождения"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/azure_radiance"
-                android:textColorHint="@color/colorPrimaryLight"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phone" />
 
         <EditText
                 android:id="@+id/login"
@@ -132,7 +60,7 @@
                 android:backgroundTint="@color/azure_radiance"
                 android:fontFamily="@font/roboto"
                 android:gravity="center_vertical"
-                android:hint="Ваш никнейм"
+                android:hint="Введите ваш e-mail"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/azure_radiance"
                 android:textColorHint="@color/colorPrimaryLight"
@@ -169,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="76dp"
             android:background="@drawable/bg_splash_gradient"
             android:fontFamily="@font/roboto"
             android:padding="11dp"
@@ -177,10 +105,9 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/toRegister"
-            app:layout_constraintHorizontal_bias="0.507"
-            app:layout_constraintStart_toStartOf="@+id/toRegister"
-            app:layout_constraintTop_toBottomOf="@+id/toRegister" />
+            app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
+            app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/registrationLayout"
@@ -229,8 +156,9 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+            app:layout_constraintEnd_toEndOf="@+id/autorize"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="@+id/autorize"
+            app:layout_constraintTop_toBottomOf="@+id/autorize" />
 
 </android.support.constraint.ConstraintLayout>

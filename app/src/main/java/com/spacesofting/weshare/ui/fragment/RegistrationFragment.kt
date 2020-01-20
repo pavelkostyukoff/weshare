@@ -21,8 +21,9 @@ import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Photo
-import com.spacesofting.weshare.ui.fragment.presentation.presenter.EditProfilePresenter
+import com.spacesofting.weshare.ui.fragment.presentation.presenter.RegistrationPresenterTrue
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
+import com.spacesofting.weshare.ui.fragment.presentation.view.RegistrationView
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Callback
@@ -36,7 +37,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
-class EditProfile : FragmentWrapper(), EditProfileView {
+class RegistrationFragment : FragmentWrapper(), RegistrationView {
 
   /*  override fun showNewInfo(newinfo: User) {phone
         phone.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
@@ -46,7 +47,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }*/
 
     override fun getFragmentLayout(): Int {
-        return R.layout.fragment_edit_profile
+        return R.layout.fragment_registration
     }
 
     val CAMERA_REQUEST_CODE = 1
@@ -65,9 +66,9 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     companion object {
         const val TAG = "EditProfile"
 
-        fun newInstance(): EditProfile {
-            val fragment: EditProfile =
-                EditProfile()
+        fun newInstance(): RegistrationFragment {
+            val fragment: RegistrationFragment =
+                RegistrationFragment()
             val args: Bundle = Bundle()
             fragment.arguments = args
             return fragment
@@ -75,13 +76,13 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }
 
     @InjectPresenter
-    lateinit var mEditProfilePresenter: EditProfilePresenter
+    lateinit var regPresenter: RegistrationPresenterTrue
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        // showProgress()
         showToolbar(TOOLBAR_HIDE)
-        mEditProfilePresenter
+        regPresenter
         //handle nick changes and validate it
         RxTextView.afterTextChangeEvents(nickName)
             .debounce(500, TimeUnit.MILLISECONDS)
@@ -92,7 +93,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
                 if (newValue != null && newValue != nickName.text.toString()) {
                     nickName.text.replace(0, nickName.text.length, newValue)
                 }
-                mEditProfilePresenter.fieldChanged(newValue, EditProfilePresenter.Field.NICK)
+                regPresenter.fieldChanged(newValue, RegistrationPresenterTrue.Field.NICK)
             }
 
         nickName.setOnFocusChangeListener { view, isFocused ->
@@ -111,7 +112,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         }
 
         avatarO.setOnClickListener { showPhotoPicker() }
-        delPhoto.setOnClickListener { mEditProfilePresenter.deletePhoto() }
+        delPhoto.setOnClickListener { regPresenter.deletePhoto() }
 
         saveProfile.setOnClickListener {
             // profile: User
@@ -121,7 +122,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
             updProfile.phone = phone.text.toString()
             updProfile.lastName = name.text.toString()
             //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
-            mEditProfilePresenter.chengeMyProfile(updProfile)
+            regPresenter.chengeMyProfile(updProfile)
         }
     }
   /*  override fun onSupportNavigateUp(): Boolean {
@@ -174,8 +175,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         nickName.setText(profile.firstName .toString(), TextView.BufferType.EDITABLE)
         name.setText(profile.lastName.toString(), TextView.BufferType.EDITABLE)
       //  date.setText(getStringForDate(profile.birthday.toString()), TextView.BufferType.EDITABLE)
-    /*    val avatar = profile.avatar
-        ApplicationWrapper.avatar = avatar.toString()*/
+       // val avatar = profile.avatar
+     //   ApplicationWrapper.avatar = avatar.toString()
 
       //  ApplicationWrapper.file = profile.avatar as File
         /*nickName.setText(profile.firstName)
@@ -322,7 +323,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     }
 
     override fun close() {
-        if (!mEditProfilePresenter.hasProfile()) {
+        if (!regPresenter.hasProfile()) {
           //  router.navigateTo(ScreenPool.FEED_FRAGMENT)
             router.backTo(ScreenPool.INVENTORY_FRAGMENT)
         }
@@ -332,9 +333,9 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
     fun showPhotoPicker() {
         picker = ImagePickerFragment()
-        picker.listener = mEditProfilePresenter
+        picker.listener = regPresenter
         picker.pathImage = pathImg
-        picker.file = mEditProfilePresenter.imageFile
+        picker.file = regPresenter.imageFile
 
         activity?.let {
             RxPermissions(it)
@@ -381,7 +382,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         if (code == Activity.RESULT_OK) {
             when (requestCode) {
                 CAMERA_REQUEST_CODE -> {
-                    mEditProfilePresenter.onCameraResult()
+                    regPresenter.onCameraResult()
                     return
                 }
                 GALLERY_REQUEST_CODE -> {
@@ -401,7 +402,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
 
             if (path != null) {
                 val file = File(path)
-                mEditProfilePresenter.onGalleryResult(file)
+                regPresenter.onGalleryResult(file)
             } else {
                 w("Could not load path from Gallery")
             }

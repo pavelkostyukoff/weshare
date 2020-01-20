@@ -28,7 +28,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
                 it->
-                Settings.AccessToken = it.token
+                Settings.AccessToken = it.accessToken
                 Settings.ValidationToken = it.rowrefreshTokenVersion
              //   ApplicationWrapper.user = it.user!!
                 getProfile()
@@ -41,14 +41,16 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
 
 fun getProfile()
 {
+    //todo userME
     Api.Users.getAccount()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ profile ->
+        .subscribe({
+                profile ->
             ApplicationWrapper.user = profile
             router.newRootScreen(ScreenPool.FEED_FRAGMENT)
         }, { e ->
-
+e
         })
 }
     //todo ТУТТУТ
@@ -61,9 +63,9 @@ fun getProfile()
             Api.Auth.getNewToken(it)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({ it->
-                    Settings.AccessToken = it.token
+                    Settings.AccessToken = it.accessToken
                     Settings.ValidationToken = it.rowrefreshTokenVersion
-                    ApplicationWrapper.user = it.user!!
+                  //  ApplicationWrapper.user = it.user!!
                     //todo тут кладем токен в сохранялки Settings
 
                 }){

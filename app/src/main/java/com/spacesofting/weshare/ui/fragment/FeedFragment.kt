@@ -6,30 +6,24 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.spacesofting.weshare.mvp.view.FeedView
-import com.spacesofting.weshare.mvp.presentation.FeedPresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.R.color.*
-import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.R.color.gray5555
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.Template
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.presentation.FeedPresenter
+import com.spacesofting.weshare.mvp.view.FeedView
 import com.spacesofting.weshare.ui.adapter.FeedAdapter
 import com.spacesofting.weshare.ui.adapter.ListWishElement
 import com.spacesofting.weshare.utils.dp
 import com.spacesofting.weshare.utils.gone
 import com.spacesofting.weshare.utils.screenWidth
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_feed.*
-import kotlinx.android.synthetic.main.view_bag_my_info.*
-import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
-import java.util.ArrayList
+import java.util.*
 
 class FeedFragment : FragmentWrapper(), FeedView,  Paginate.Callbacks {
     override fun getFragmentLayout(): Int {
@@ -128,7 +122,7 @@ return R.layout.fragment_feed
     }
 
     fun showAvatar() {
-        if (ApplicationWrapper.user.avatar != null)
+      /*  if (ApplicationWrapper.user.avatar != null)
         {
             Picasso.with(activity)
                 .load(ApplicationWrapper.user.avatar)
@@ -143,7 +137,7 @@ return R.layout.fragment_feed
                             //  loadImageProgress.visibility = View.GONE
                         }
                     })
-        }
+        }*/
     }
 
 

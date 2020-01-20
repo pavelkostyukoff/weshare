@@ -5,27 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.spacesofting.weshare.mvp.view.FeedCompilationsView
-import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
-import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Category
-import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.presentation.FeedCompilationsPresenter
+import com.spacesofting.weshare.mvp.view.FeedCompilationsView
 import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_feed_compilations.*
-import kotlinx.android.synthetic.main.view_toolbar_with_search_filter.*
 
 class FeedCompilationsFragment :
     FragmentWrapper(),
@@ -242,7 +234,7 @@ class FeedCompilationsFragment :
       //  (activity as NavigationActivity).progressBar.visible = isEnable
     }
     fun showAvatar() {
-        if (ApplicationWrapper.user.avatar != null)
+       /* if (ApplicationWrapper.user.avatar != null)
         {
             Picasso.with(activity)
                 .load(ApplicationWrapper.user.avatar)
@@ -257,6 +249,6 @@ class FeedCompilationsFragment :
                             //  loadImageProgress.visibility = View.GONE
                         }
                     })
-        }
+        }*/
     }
 }

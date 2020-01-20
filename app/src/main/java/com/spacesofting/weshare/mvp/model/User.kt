@@ -1,7 +1,6 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.google.gson.annotations.Expose
 
 class User {
 
@@ -17,12 +16,17 @@ class User {
     var birthday: String? = null
     @SerializedName("phone")
     var phone: String? = null
-    @SerializedName("avatar")
-    val avatar: String? = null
+    @SerializedName("gender")
+    val gender: String? = null
     @SerializedName("roles")
     val roles: List<String>? = null
+    @SerializedName("emailVerified")
+    val emailVerified: String? = null
+    @SerializedName("phoneVerified")
+    val phoneVerified: String? = null
     @SerializedName("createdAt")
     val createdAt: Any? = null
     @SerializedName("updatedAt")
     val updatedAt: String? = null
+
 }
