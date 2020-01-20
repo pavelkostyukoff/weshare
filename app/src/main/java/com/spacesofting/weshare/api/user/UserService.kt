@@ -1,16 +1,19 @@
 package com.spacesofting.weshare.api.user
 
-import com.spacesofting.weshare.mvp.*
-import com.spacesofting.weshare.mvp.model.Photo
-import retrofit2.http.*
+import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.mvp.ResponceProfile
+import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.User
 import io.reactivex.Observable
-import okhttp3.MultipartBody
-import java.io.File
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
 
 
 interface UserService {
 
-    @POST("/users/register")  //todo //Подтвердить получение задачи
+    @POST("/auth/register")  //todo //Подтвердить получение задачи
     fun register(@Body updateProfile: Profile): Observable<ResponceProfile>
 
     //todo  Get user profile

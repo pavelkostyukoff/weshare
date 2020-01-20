@@ -6,8 +6,8 @@ import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Autorize
+import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.device.DeviceInfo
@@ -86,7 +86,7 @@ fun getProfile()
                 //todo проходим в основной экран
                 router.newRootScreen(ScreenPool.FEED_FRAGMENT)
             }){
-              //  it
+                it
               //  it.response().errorBody()
                 viewState.toastError("Пароль должен состоять из 8 симовлов , цифр и букв латинского алфавита")
 

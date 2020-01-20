@@ -13,6 +13,4 @@ class Autorize(token: String) : Serializable {
 
     @SerializedName("user")
     var user: User? = null
-
-
 }

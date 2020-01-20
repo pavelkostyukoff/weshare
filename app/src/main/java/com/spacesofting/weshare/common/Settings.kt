@@ -38,7 +38,7 @@ object Settings {
         IsAuthorized = AccessToken != null
     }
     var apiPathName: String
-        get() = PREFERENCES.getString(KEY_API_NAME, "PROD")
+        get() = PREFERENCES.getString(KEY_API_NAME, "PROD")!!
         set(value) {
             PREFERENCES.edit().putString(KEY_API_NAME, value).apply()
         }

@@ -1,18 +1,18 @@
 package com.spacesofting.weshare.api.auth
 
-import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Autorize
+import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Refrash
-
 import io.reactivex.Observable
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface AuthService {
 
-    @POST("users/login")  //todo //Подтвердить получение задач`и
+    @POST("auth/login")  //todo //Подтвердить получение задач`и
     fun autorize(@Body mail: Login): Observable<Autorize>
 
-    @POST("users/refresh-token")  //todo Refresh token
+    @POST("auth/refresh-token")  //todo Refresh token
     fun getNewToken(@Body refreshToken: Refrash): Observable<Autorize>
 
    /* @POST("auth/otp")

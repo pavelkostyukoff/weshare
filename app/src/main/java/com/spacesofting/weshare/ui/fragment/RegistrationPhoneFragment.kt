@@ -8,7 +8,6 @@ import android.os.CountDownTimer
 import android.provider.Settings
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.spacesofting.weshare.mvp.view.RegistrationView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
@@ -20,11 +19,10 @@ import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.device.OS
 import com.spacesofting.weshare.mvp.presentation.RegistrationPresenter
+import com.spacesofting.weshare.mvp.view.RegistrationView
 import com.spacesofting.weshare.utils.TimerUtils
 import kotlinx.android.synthetic.main.activity_wrapper.*
-import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.fragment_registration_phone.*
-
 
 class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
 
@@ -72,27 +70,24 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
         toRegister.setOnClickListener {
           //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
 
-            if (myMail.text.isNotEmpty() && pass.text.isNotEmpty())
-            {
+         //   if (phone.text.isNotEmpty() && login.text.isNotEmpty())
+          //  {
                 val profile = Profile()
-                profile.firstName = nickName.text.toString()
-                profile.password = pass.text.toString()
-                profile.email = myMail.text.toString()
+                profile.login = "Pavel.rilisoft@gmail.com"//login.text.toString()
+                profile.password = "password"//password.text.toString()
+                profile.firstName = "John"//userName.text.toString()
+                profile.lastName = "Smith"//soname.text.toString()
+                profile.phone = "+79000000000"//phone.text.toString()
+                profile.birthday = "2000-01-01"//birthday.text.toString()
                 presenter.registration(profile,false)
                // presenter.refreshed()
             }
-            else {
-                toast(R.string.auth_incorrect_all)
-            }
-
-        }
-
+       //     else {
+        //        toast(R.string.auth_incorrect_all)
+        //    }
+    //    }
      //   keyboard.attachEditText(inputNumber)
-
         //todo botton presenter.registration(Login)
-
-
-
     }
 
     override fun onCheckedPhone(isValid: Boolean) {
@@ -143,8 +138,8 @@ class RegistrationPhoneFragment : FragmentWrapper(), RegistrationView {
                 color = ContextCompat.getColor(it, R.color.colorPrimaryDark)
             }
 
-            myMail?.setTextColor(color)
-            pass?.setTextColor(color)
+            login?.setTextColor(color)
+            userName?.setTextColor(color)
         }
 
         if (isBlocked) {

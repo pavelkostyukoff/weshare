@@ -11,18 +11,11 @@ class ResponceProfile {
     val firstName : String? = null
     @SerializedName("lastName")
     val lastName : String? = null
-    @SerializedName("birthday")
-    val birthday : String? = null
-    @SerializedName("phone")
-    val phone : String? = null
-    @SerializedName("avatar")
-    val avatar : String? = null
-    @SerializedName("roles")
-    val roles: List<String>? = null
-
     @SerializedName("createdAt")
     val createdAt : String? = null
-    @SerializedName("updatedAt")
-    val updatedAt : String? = null
+    @SerializedName("birthday")
+    val birthday : String? = null
+
+
 
 }

@@ -46,8 +46,8 @@ android {
         buildConfigField "java.util.Map<String, String>", "API_PATHS",
                 "new java.util.HashMap<String, String>() " +
                         "{{ " +
-                        "put(\"PROD\", \"https://api.goods4rent.com"  + "/\"); " +
-                        "put(\"test\",  \"https://api.goods4rent.com"  + "/\"); " +
+                        "put(\"PROD\", \"https://api.boomerango.ru"  + "/\"); " +
+                        "put(\"test\",  \"https://api.boomerango.ru"  + "/\"); " +
                         "}}"
     }
 
@@ -108,6 +108,11 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.github.markomilos:paginate:0.5.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+/*
+    implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+*/
+
 
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
 }

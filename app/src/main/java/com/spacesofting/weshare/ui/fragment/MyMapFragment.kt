@@ -9,26 +9,20 @@ import com.spacesofting.weshare.mvp.presentation.MapPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.gms.location.LocationListener
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.FragmentWrapper
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.fragment_map.*
 import android.annotation.SuppressLint
 import android.location.LocationManager
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.pawegio.kandroid.toast
+import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import com.spacesofting.weshare.ui.adapter.CategoryAdapter
-import com.spacesofting.weshare.ui.adapter.FeedAdapter
-import com.spacesofting.weshare.ui.adapter.ItemThingRentAdapter
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yandex.mapkit.geometry.*
 import com.yandex.mapkit.map.*
-import kotlinx.android.synthetic.main.fragment_feed.*
-import kotlinx.android.synthetic.main.fragment_irent.*
 import java.util.*
 
 class MyMapFragment : FragmentWrapper(), MapViewMaps , LocationListener {
@@ -48,12 +42,8 @@ class MyMapFragment : FragmentWrapper(), MapViewMaps , LocationListener {
     private val ANIMATED_RECTANGLE_CENTER = Point(59.956, 30.313)
     private val DRAGGABLE_PLACEMARK_CENTER = Point(59.948, 30.323)
     var catAdapter: CategoryAdapter? = null
-    protected lateinit var mTariffsLayoutManager: org.solovyev.android.views.llm.LinearLayoutManager
-
-
     var lat = String()
     var loe = String()
-
 
     // //  private var lat = String
     private var mapObjects: MapObjectCollection? = null
@@ -141,17 +131,17 @@ fun newInstance(): MyMapFragment {
             mark?.addTapListener(YandexMapObjectTapListener())
         }
 
-      //  val mark = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()))
-      //  mark?.opacity = 2.8f
-    //    mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.img1))
-            //   mark?.isDraggable = false
-       // mark?.addTapListener(YandexMapObjectTapListener())
+        val mark = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()))
+        mark?.opacity = 2.8f
+        mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.img1))
+               mark?.isDraggable = false
+        mark?.addTapListener(YandexMapObjectTapListener())
 
-     /*   val mark2 = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()+1))
+        val mark2 = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()+1))
         mark2?.opacity = 2.8f
         mark2?.setIcon(ImageProvider.fromResource(activity, R.drawable.img12))
         //   mark?.isDraggable = false
-        mark2?.addTapListener(YandexMapObjectTapListener())*/
+        mark2?.addTapListener(YandexMapObjectTapListener())
     }
     private inner class YandexMapObjectTapListener : MapObjectTapListener {
          override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
@@ -166,10 +156,10 @@ fun newInstance(): MyMapFragment {
         /*val imageFile: File?
       imageFile = R.drawable.img12*/
 
-        val one = RentItem("9","2",3)
-        val one1 = RentItem("12","2",3)
-        val one2 = RentItem("14","2",3)
-        val one3 = RentItem("1111","2",3)
+        val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
+        val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
+        val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_kids, null))
+        val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.ic_building, null))
 
         val filterList = ArrayList<RentItem>()
 
@@ -185,16 +175,9 @@ fun newInstance(): MyMapFragment {
 
         catAdapter?.dataset?.addAll(filterList)
 
-
-      //  catAdapter = CategoryAdapter(feedPresenter, elementWidth)
-
-
         category.adapter = catAdapter
-       // mTariffsLayoutManager = org.solovyev.android.views.llm.LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-        category.layoutManager =  LinearLayoutManager(activity) //mTariffsLayoutManager //LinearLayoutManager(activity)
-
-
+        category.layoutManager =  LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false) //mTariffsLayoutManager //LinearLayoutManager(activity)
 
     }
 }

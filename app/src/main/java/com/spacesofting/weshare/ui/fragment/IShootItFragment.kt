@@ -57,10 +57,10 @@ class IShootItFragment : FragmentWrapper(), IShootItView {
         /*val imageFile: File?
         imageFile = R.drawable.img12*/
 
-        val one = RentItem("9","2",3)
-        val one1 = RentItem("12","2",3)
-        val one2 = RentItem("14","2",3)
-        val one3 = RentItem("1111","2",3)
+        val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
+        val one1 = RentItem("12","2",resources.getDrawable(R.drawable.dress, null))
+        val one2 = RentItem("14","2",resources.getDrawable(R.drawable.dress, null))
+        val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.dress, null))
 
 
         val filterList = ArrayList<RentItem>()
