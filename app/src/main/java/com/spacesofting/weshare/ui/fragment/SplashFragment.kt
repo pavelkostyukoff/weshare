@@ -1,19 +1,16 @@
 package com.spacesofting.weshare.ui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.common.ScreenPool
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_splash.*
-import kotlinx.android.synthetic.main.fragment_wrapper.*
 
 class SplashFragment : FragmentWrapper() {
     companion object {
@@ -37,11 +34,11 @@ class SplashFragment : FragmentWrapper() {
 
 
         runDelayed(DELAY){
-            if (Settings.IsAuthorized) {
-                router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
-            } else {
-                router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
-            }
+          /*  if (Settings.IsAuthorized) {
+                router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
+            } else {*/
+                router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
+          //  }
         }
     }
 

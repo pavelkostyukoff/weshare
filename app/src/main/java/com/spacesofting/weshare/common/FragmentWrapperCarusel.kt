@@ -13,11 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.pawegio.kandroid.toast
-import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
 
@@ -305,7 +303,7 @@ toast(R.string.rega)
     fun loadingDialog(isVisible: Boolean, strResId: Int = R.string.dialog_progress_please_wait) {
         if (isVisible) {
             val view = LayoutInflater.from(activity).inflate(R.layout.dialog_progress, null)
-            view.findViewById<TextView>(R.id.tvLoadingMsg)?.text = getText(strResId)
+            view.findViewById<TextView>(R.id.code)?.text = getText(strResId)
 
             dialog = activity?.let {
                 AlertDialog.Builder(it)

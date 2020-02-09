@@ -7,18 +7,13 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.model.Photo
-import com.spacesofting.weshare.ui.fragment.EditProfile
+import com.spacesofting.weshare.mvp.model.UpdateProfile
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -28,7 +23,7 @@ import java.util.regex.Pattern
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
 
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.INSTANCE?.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
 
@@ -48,7 +43,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     init {
         this.profile = ApplicationWrapper.user
-        viewState.showProfile(ApplicationWrapper.user)
+        ApplicationWrapper.user?.let { viewState.showProfile(it) }
 
         //todo запрос оправляется как только мы хотим показать профиль после логина
        /* Api.Users.getAccount()
@@ -222,7 +217,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.INSTANCE.profile != null) {
+        if(ApplicationWrapper.INSTANCE?.profile != null) {
             return true
         } else {
             Settings.logout()
@@ -346,10 +341,10 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
               //  viewState.showNewInfo(it)
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
-                router.exitWithResult(SCANNER_REQUEST_CODE, it)
+                router?.exitWithResult(SCANNER_REQUEST_CODE, it)
             }){
                 it
-                router.exit()
+                router?.exit()
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 
 class ItemShootRentAdapter(val context: Context) : RecyclerView.Adapter<ItemShootRentAdapter.CompaniesListViewHolder>() {
     val dataset = ArrayList<RentItem>()
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.INSTANCE?.getRouter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_card_view_me_shoot_rent, parent, false)

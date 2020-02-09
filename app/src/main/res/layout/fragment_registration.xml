@@ -39,19 +39,16 @@
 
                     <android.support.constraint.ConstraintLayout
                             android:id="@+id/constraintLayout5"
-                            android:layout_width="320dp"
-                            android:layout_height="360dp"
-                            android:layout_marginLeft="@dimen/margin"
-                            android:layout_marginTop="68dp"
-                            android:layout_marginRight="@dimen/margin"
-                            android:layout_marginBottom="46dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginRight="32dp"
                             android:background="@drawable/bg_white_rounded"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintHorizontal_bias="0.489"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/editProfileTitle"
-                            app:layout_constraintVertical_bias="1.0">
+                            app:layout_constraintTop_toTopOf="parent">
 
                         <android.support.constraint.ConstraintLayout
                                 android:id="@+id/contentProfile"
@@ -66,15 +63,11 @@
                                     android:id="@+id/constraintLayout2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="52dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.0"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/gpbemLogo">
+
+                                    app:layout_constraintTop_toTopOf="parent">
 
                                 <EditText
-                                        android:id="@+id/name"
+                                        android:id="@+id/password"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
@@ -83,18 +76,17 @@
                                         android:backgroundTint="@color/azure_radiance"
                                         android:fontFamily="@font/roboto"
                                         android:gravity="center_vertical"
-                                        android:hint="Ваше Имя"
+                                        android:hint="Ваш Пароль"
                                         android:inputType="textEmailAddress"
                                         android:textColor="@color/azure_radiance"
                                         android:textColorHint="@color/colorPrimaryLight"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/nickName" />
+                                        app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
                                 <EditText
                                         android:id="@+id/phone"
-                                        android:layout_width="280dp"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
                                         android:layout_marginTop="8dp"
@@ -102,49 +94,55 @@
                                         android:backgroundTint="@color/azure_radiance"
                                         android:fontFamily="@font/roboto"
                                         android:gravity="center_vertical"
-                                        android:hint="+7"
+                                        android:hint="+7 (номер телефона)"
                                         android:inputType="number"
                                         android:textColor="@color/azure_radiance"
                                         android:textColorHint="@color/colorPrimaryLight"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-                                <DatePicker
-                                        android:id="@+id/datePicker"
-                                        android:layout_width="299dp"
-                                        android:layout_height="95dp"
-                                        android:calendarViewShown="false"
-                                        android:datePickerMode="spinner"
-                                        android:spinnersShown="true"
-                                        android:visibility="gone"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/phone" />
+                                        app:layout_constraintTop_toBottomOf="@+id/password" />
 
                                 <EditText
-                                        android:id="@+id/date"
+                                        android:id="@+id/firstName"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
+                                        android:layout_marginTop="8dp"
                                         android:layout_marginEnd="8dp"
                                         android:backgroundTint="@color/azure_radiance"
                                         android:fontFamily="@font/roboto"
                                         android:gravity="center_vertical"
-                                        android:hint="1988-02-29"
-                                        android:inputType="textEmailAddress"
+                                        android:hint="Ваше имя"
+                                        android:inputType="textAutoComplete"
                                         android:textColor="@color/azure_radiance"
                                         android:textColorHint="@color/colorPrimaryLight"
-                                        android:visibility="gone"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/phone" />
 
                                 <EditText
-                                        android:id="@+id/nickName"
+                                        android:id="@+id/lasftName"
                                         android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:backgroundTint="@color/azure_radiance"
+                                        android:fontFamily="@font/roboto"
+                                        android:gravity="center_vertical"
+                                        android:hint="Фамилия"
+                                        android:inputType="textAutoComplete"
+                                        android:textColor="@color/azure_radiance"
+                                        android:textColorHint="@color/colorPrimaryLight"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+                                <TextView
+                                        android:id="@+id/dateText"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="8dp"
                                         android:layout_marginTop="16dp"
@@ -152,12 +150,105 @@
                                         android:backgroundTint="@color/azure_radiance"
                                         android:fontFamily="@font/roboto"
                                         android:gravity="center_vertical"
-                                        android:hint="Ваше Никнейм"
+                                        android:hint="Дата рождения"
+                                        android:inputType="number"
+                                        android:textColor="@color/azure_radiance"
+                                        android:textColorHint="@color/colorPrimaryLight"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/lasftName" />
+
+                                <DatePicker
+                                        android:id="@+id/datePicker"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="94dp"
+                                        android:layout_marginTop="14dp"
+                                        android:calendarViewShown="false"
+                                        android:datePickerMode="spinner"
+                                        android:spinnersShown="true"
+                                        android:visibility="visible"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+                                <TextView
+                                        android:id="@+id/nickErr3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="(Не обязательно) "
+                                        android:textColor="#00838F"
+                                        android:textSize="10sp"
+                                        app:layout_constraintEnd_toEndOf="@+id/dateText"
+                                        app:layout_constraintStart_toStartOf="@+id/dateText"
+                                        app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+                                <TextView
+                                        android:id="@+id/nickErr4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="(Не обязательно) "
+                                        android:textColor="#00838F"
+                                        android:textSize="10sp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/lasftName" />
+
+                                <TextView
+                                        android:id="@+id/errVeryMail"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="(Обязательно) "
+                                        android:textColor="@color/invalid"
+                                        android:textSize="10sp"
+                                        app:layout_constraintStart_toStartOf="@+id/loginText"
+                                        app:layout_constraintTop_toBottomOf="@+id/loginText" />
+
+                                <TextView
+                                        android:id="@+id/errVeryPass"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="(Обязательно) "
+                                        android:textColor="@color/invalid"
+                                        android:textSize="10sp"
+                                        app:layout_constraintStart_toStartOf="@+id/password"
+                                        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                                <TextView
+                                        android:id="@+id/errVeryPhone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="(Обязательно) "
+                                        android:textColor="@color/invalid"
+                                        android:textSize="10sp"
+                                        app:layout_constraintStart_toStartOf="@+id/phone"
+                                        app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+                                <TextView
+                                        android:id="@+id/errVeryName"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="(Обязательно) "
+                                        android:textColor="@color/invalid"
+                                        android:textSize="10sp"
+                                        app:layout_constraintStart_toStartOf="@+id/firstName"
+                                        app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+                                <EditText
+                                        android:id="@+id/loginText"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:backgroundTint="@color/azure_radiance"
+                                        android:fontFamily="@font/roboto"
+                                        android:gravity="center_vertical"
+                                        android:hint="Ваш e-mail (почта)"
                                         android:inputType="textEmailAddress"
                                         android:textColor="@color/azure_radiance"
                                         android:textColorHint="@color/colorPrimaryLight"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -187,15 +278,6 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/registrationLayout" />
 
-                                <ProgressBar
-                                        android:id="@+id/progressBar"
-                                        style="?android:attr/progressBarStyle"
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:visibility="gone"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
-
                                 <TextView
                                         android:id="@+id/nickErr2"
                                         android:layout_width="wrap_content"
@@ -210,7 +292,6 @@
                                         app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
                             </android.support.constraint.ConstraintLayout>
-
                             <FrameLayout
                                     android:id="@+id/frameLayout"
                                     android:layout_width="0dp"
@@ -236,12 +317,10 @@
                                         android:layout_gravity="right|center_vertical"
                                         android:visibility="gone" />
                             </FrameLayout>
-
                             <android.support.constraint.ConstraintLayout
                                     android:id="@+id/incorrectNickLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/margin_double"
                                     android:layout_marginLeft="@dimen/margin_double"
                                     android:gravity="center"
                                     android:orientation="horizontal"
@@ -249,7 +328,7 @@
                                     app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+                                    tools:layout_editor_absoluteY="80dp">
 
                                 <ImageView
                                         android:id="@+id/imageViewmini"
@@ -326,19 +405,23 @@
 
                         <Button
                                 android:id="@+id/saveProfile"
-                                android:layout_width="268dp"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
+                                android:layout_margin="22dp"
                                 android:background="@drawable/bg_splash_gradient"
                                 android:fontFamily="@font/roboto"
                                 android:padding="11dp"
                                 android:text="Сохранить"
                                 android:textAllCaps="false"
-                                android:textColor="@color/white"
+                                android:textColor="@color/azure_radiance"
                                 android:textSize="18sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.363"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/contentProfile" />
+                                app:layout_constraintTop_toBottomOf="@+id/contentProfile"
+                                app:layout_constraintVertical_bias="0.133" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -355,12 +438,12 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/editProfileTitle">
+                            app:layout_constraintTop_toTopOf="parent">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/avatarO"
@@ -402,7 +485,7 @@
                                 android:layout_marginRight="95dp"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_error"
-                                android:visibility="invisible"
+                                android:visibility="gone"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="@+id/avatarO"
                                 app:layout_constraintRight_toRightOf="parent"
@@ -418,7 +501,7 @@
                 android:id="@+id/container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

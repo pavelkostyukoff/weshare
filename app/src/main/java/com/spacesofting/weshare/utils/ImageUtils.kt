@@ -28,7 +28,7 @@ import java.net.URL
 class ImageUtils {
 
     companion object {
-        val CACHE = ApplicationWrapper.INSTANCE.cacheDir.path
+        val CACHE = ApplicationWrapper.INSTANCE?.cacheDir?.path
 
         fun convertToGrayscale(drawable: Drawable): Drawable {
             val matrix = ColorMatrix()
@@ -77,11 +77,11 @@ class ImageUtils {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
-            if (takePictureIntent.resolveActivity(ApplicationWrapper.INSTANCE.getPackageManager()) != null) {
+            if (takePictureIntent.resolveActivity(ApplicationWrapper.INSTANCE?.getPackageManager()) != null) {
                 // Continue only if the File was successfully created
                 //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.INSTANCE, ApplicationWrapper.INSTANCE.packageName, file)
                 val photoURI =
-                    FileProvider.getUriForFile(ApplicationWrapper.context, "com.spacesofting.weshare", file)
+                    ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             }
 
@@ -186,7 +186,7 @@ class ImageUtils {
             if (img.path != img.path) {
                 observable.subscribe({ img.delete() })
             }
-            if (img.path.contains(CACHE)) {
+            if (CACHE?.let { img.path.contains(it) }!!) {
                 observable.subscribe({ AddPictureResponse ->
                     img.delete()
                 },{

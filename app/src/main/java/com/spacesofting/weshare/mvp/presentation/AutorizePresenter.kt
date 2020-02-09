@@ -11,12 +11,15 @@ import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.device.DeviceInfo
-import com.spacesofting.weshare.mvp.view.RegistrationView
+import com.spacesofting.weshare.mvp.model.Mail
+import com.spacesofting.weshare.mvp.model.MailComfirm
+import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
+import com.spacesofting.weshare.mvp.view.AutorizeView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class RegistrationPresenter : MvpPresenter<RegistrationView>() {
+class AutorizePresenter : MvpPresenter<AutorizeView>() {
     lateinit var deviceInfo: DeviceInfo
     val router = ApplicationWrapper.INSTANCE.getRouter()
 
@@ -39,19 +42,62 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>() {
             }
     }
 
+    fun loginMailRequest(mail: Mail) {
+        Api.Users.reqestMeil(mail)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                    profile ->
+                viewState.showComfiermRequstMailDialog()
+              //  router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+            }, { e ->
+                e
+            })
+    }
+
+    fun comfirmRequest(mailComf: MailComfirm) {
+        Api.Users.reqestMailCHeck(mailComf)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                    profile ->
+                viewState.shownewPasswordCreate()
+            }, { e ->
+                e
+            })
+    }
+
+    fun passCOmfirm(passComf: PasswordResetComfirm) {
+        Api.Users.reqestMailComfirm(passComf)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                    profile ->
+              //  viewState.showComfiermRequstMailDialog()
+             //   router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+            }, { e ->
+                e
+            })
+    }
+
+
+
+
+
+
 fun getProfile()
 {
-    //todo userME
-    Api.Users.getAccount()
+  /*  //todo userME
+    Api.Users.verifyMailRequest()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
                 profile ->
-            ApplicationWrapper.user = profile
+          //  ApplicationWrapper.user = profile
             router.newRootScreen(ScreenPool.FEED_FRAGMENT)
         }, { e ->
 e
-        })
+        })*/
 }
     //todo ТУТТУТ
     fun refreshed()

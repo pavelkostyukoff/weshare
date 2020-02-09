@@ -26,9 +26,9 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="128dp"
             app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
             app:layout_constraintTop_toBottomOf="@+id/gpbemLogo">
 
@@ -48,10 +48,10 @@
                 android:textColorHint="@color/colorPrimaryLight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login" />
+                app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
         <EditText
-                android:id="@+id/login"
+                android:id="@+id/loginText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -76,9 +76,9 @@
                 android:text="(Не обязательно) для авторизации"
                 android:textColor="#00838F"
                 android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="@+id/login"
-                app:layout_constraintStart_toStartOf="@+id/login"
-                app:layout_constraintTop_toBottomOf="@+id/login" />
+                app:layout_constraintEnd_toEndOf="@+id/loginText"
+                app:layout_constraintStart_toStartOf="@+id/loginText"
+                app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -97,13 +97,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="86dp"
             android:background="@drawable/bg_splash_gradient"
             android:fontFamily="@font/roboto"
             android:padding="11dp"
             android:text="@string/login_autorize"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/azure_radiance"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
             app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
@@ -148,17 +148,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/bg_splash_gradient"
             android:fontFamily="@font/roboto"
             android:padding="11dp"
             android:text="@string/auth_to_register"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/azure_radiance"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/autorize"
-            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="@+id/autorize"
             app:layout_constraintTop_toBottomOf="@+id/autorize" />
+
+    <TextView
+            android:id="@+id/restorePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-condensed-light"
+            android:text="Восстановить пароль"
+            android:textColor="@color/orange"
+            app:layout_constraintEnd_toEndOf="@+id/toRegister"
+            app:layout_constraintStart_toStartOf="@+id/toRegister"
+            app:layout_constraintTop_toBottomOf="@+id/toRegister" />
 
 </android.support.constraint.ConstraintLayout>

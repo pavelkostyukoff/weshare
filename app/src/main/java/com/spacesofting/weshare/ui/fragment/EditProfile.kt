@@ -1,10 +1,10 @@
 package com.spacesofting.weshare.ui.fragment
 
 import android.app.Activity
-import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.FragmentTransaction
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -18,9 +18,9 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.avatar
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.UpdateProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Photo
+import com.spacesofting.weshare.mvp.model.UpdateProfile
 import com.spacesofting.weshare.ui.fragment.presentation.presenter.EditProfilePresenter
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
@@ -144,7 +144,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         //Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
     override fun updateAvatar(img: Photo) {
-        avatar = img.url.toString()
+     //   avatar = img.url.toString()
 
         if (img.url != null)
         {
@@ -174,8 +174,8 @@ class EditProfile : FragmentWrapper(), EditProfileView {
         nickName.setText(profile.firstName .toString(), TextView.BufferType.EDITABLE)
         name.setText(profile.lastName.toString(), TextView.BufferType.EDITABLE)
       //  date.setText(getStringForDate(profile.birthday.toString()), TextView.BufferType.EDITABLE)
-    /*    val avatar = profile.avatar
-        ApplicationWrapper.avatar = avatar.toString()*/
+       // val avatar = profile.avatar
+      //  ApplicationWrapper.avatar = avatar.toString()
 
       //  ApplicationWrapper.file = profile.avatar as File
         /*nickName.setText(profile.firstName)
@@ -231,7 +231,7 @@ class EditProfile : FragmentWrapper(), EditProfileView {
     override fun saved(isSuccess: Boolean, isNew: Boolean) {
         if (isSuccess) {
             if (isNew) {
-                ApplicationWrapper.INSTANCE.setNewUserFlag(true)
+                ApplicationWrapper.INSTANCE?.setNewUserFlag(true)
                // logEvent("profile_created")
             }
 

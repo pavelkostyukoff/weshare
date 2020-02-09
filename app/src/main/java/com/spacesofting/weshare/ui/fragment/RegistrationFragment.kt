@@ -5,12 +5,15 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.runDelayed
+import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
@@ -18,10 +21,11 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.avatar
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.MailComfirm
 import com.spacesofting.weshare.mvp.model.Photo
-import com.spacesofting.weshare.ui.fragment.presentation.presenter.RegistrationPresenterTrue
+import com.spacesofting.weshare.ui.fragment.presentation.presenter.RegistrationPresenter
 import com.spacesofting.weshare.ui.fragment.presentation.view.EditProfileView
 import com.spacesofting.weshare.ui.fragment.presentation.view.RegistrationView
 import com.spacesofting.weshare.utils.ImageUtils
@@ -29,22 +33,44 @@ import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_edit_profile.*
+import kotlinx.android.synthetic.main.fragment_registration.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
 class RegistrationFragment : FragmentWrapper(), RegistrationView {
+    private var comfirmDlg: AlertDialog? = null
 
-  /*  override fun showNewInfo(newinfo: User) {phone
-        phone.setText(newinfo.phone.toString(), TextView.BufferType.EDITABLE)
-        nickName.setText(newinfo.firstName .toString(), TextView.BufferType.EDITABLE)
-        name.setText(newinfo.lastName.toString(), TextView.BufferType.EDITABLE)
-        date.setText(getStringForDate(newinfo.birthday.toString()), TextView.BufferType.EDITABLE)
-    }*/
+    override fun showEmailComfirmDialog(login: String?) {
+        //todo show dialog get text and send presenter comfirm
+        comfirmDlg(true,login)
+    }
+    override fun toastError(s: String) {
+        toast(s)
+    }
+    fun comfirmDlg(isVisible: Boolean, login: String?) {
+        if (isVisible) {
+            val view = LayoutInflater.from(activity).inflate(R.layout.confirm_dialog, null)
+
+            view.findViewById<Button>(R.id.ok).setOnClickListener {
+                val mailComfirm = MailComfirm()
+                mailComfirm.code = view.findViewById<EditText>(R.id.code)?.text.toString()
+                mailComfirm.login = login
+                regPresenter.comfirmMail(mailComfirm)
+                comfirmDlg?.dismiss()
+            }
+
+            comfirmDlg = activity?.let {
+                AlertDialog.Builder(it)
+                    .setView(view)
+                    .setCancelable(false)
+                    .show()
+            }
+        } else {
+            comfirmDlg?.dismiss()
+        }
+    }
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_registration
@@ -53,10 +79,11 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
     val CAMERA_REQUEST_CODE = 1
     val GALLERY_REQUEST_CODE = 2
     val SCANNER_REQUEST_CODE = 101
+    var firstStart = true
 
 
     val REPLACEMENT = Regex("[^a-zA-Zа-яА-Я0-9-._]")
-    val updProfile = UpdateProfile()
+    val profile = Profile()
 
 
     var picker: ImagePickerFragment by Delegates.notNull()
@@ -76,7 +103,7 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
     }
 
     @InjectPresenter
-    lateinit var regPresenter: RegistrationPresenterTrue
+    lateinit var regPresenter: RegistrationPresenter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,30 +111,32 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
         showToolbar(TOOLBAR_HIDE)
         regPresenter
         //handle nick changes and validate it
-        RxTextView.afterTextChangeEvents(nickName)
-            .debounce(500, TimeUnit.MILLISECONDS)
+       /* RxTextView.afterTextChangeEvents(loginText)
+            .debounce(1000, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { tvChangeEvent ->
-                //remove unacceptable symbols
-                val newValue = nickName.text.toString()?.replace(REPLACEMENT, "")
-                if (newValue != null && newValue != nickName.text.toString()) {
-                    nickName.text.replace(0, nickName.text.length, newValue)
-                }
-                regPresenter.fieldChanged(newValue, RegistrationPresenterTrue.Field.NICK)
-            }
 
-        nickName.setOnFocusChangeListener { view, isFocused ->
+                //remove unacceptable symbols{
+                val newValue = loginText.text.toString()?.replace(REPLACEMENT, "")
+                if (newValue != null && newValue != loginText.text.toString()) {
+                    loginText.text.replace(0, loginText.text.length, newValue)
+                }
+
+                regPresenter.fieldChanged(newValue, RegistrationPresenter.Field.NICK)
+            }*/
+
+      /*  loginText.setOnFocusChangeListener { view, isFocused ->
             runDelayed(250) {
                 //scroll to the end when edit selected
                 if (isFocused) {
-                 //   scroll.fullScroll(View.FOCUS_DOWN)
+                    scroll.fullScroll(View.FOCUS_DOWN)
                 }
             }
-        }
-        nickName.setOnClickListener { view ->
+        }*/
+        loginText.setOnClickListener { view ->
             runDelayed(250) {
                 //scroll to the end when edit clicked
-             //   scroll.fullScroll(View.FOCUS_DOWN)
+               // scroll.fullScroll(View.FOCUS_DOWN)
             }
         }
 
@@ -117,13 +146,33 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
         saveProfile.setOnClickListener {
             // profile: User
             //todo верификация
-            //todo если ок то отсылка
-            updProfile.firstName = nickName.text.toString()
-            updProfile.phone = phone.text.toString()
-            updProfile.lastName = name.text.toString()
+            //profile если ок то отсылка
+            //todo валидация паттерн для почты
+            profile.login = "Soprano61+" + loginText.text.toString() + "@yandex.ru"
+            //todo валидация паттерн для почты
+            profile.password = "password"//password.text.toString()
+            //todo валидация bvtyb
+            profile.firstName = "POUL"//firstName.text.toString()
+            profile.lastName = "KOSTEN"// lasftName.text.toString()
+            //todo валидация телефона и изменения 8 на +7
+            profile.phone = "+79515250250"//phone.text.toString()
+            //todo привидение к виду -> 1988-01-01
+            profile.birthday = "1988-01-01"//getUserDate()
+
             //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
-            regPresenter.chengeMyProfile(updProfile)
+            //todo отправляем на регу и открываем диалог для ввода кода 4 символа
+            regPresenter.setRegistration(profile)
         }
+    }
+    fun getUserDate(): String {
+        var strDate = ""
+        val day = datePicker.dayOfMonth
+        val month = datePicker.month
+        val year = datePicker.year
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
+        val d = Date(year, month, day)
+         strDate = dateFormatter.format(d)
+        return strDate
     }
   /*  override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -141,12 +190,14 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
         progress.visible = isInProgress
     }
 
+    override fun showProfile(profile: User) {
+    }
+
     override fun showToast(stringId: Int) {
         //Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
     override fun updateAvatar(img: Photo) {
         avatar = img.url.toString()
-
         if (img.url != null)
         {
             Picasso.with(activity)
@@ -167,51 +218,6 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
 
     }
 
-
-    override fun showProfile(profile: User) {
-        //load image todo узнать как загрузить аватарку?
-        //load Nickname
-        phone.setText(profile.phone.toString(), TextView.BufferType.EDITABLE)
-        nickName.setText(profile.firstName .toString(), TextView.BufferType.EDITABLE)
-        name.setText(profile.lastName.toString(), TextView.BufferType.EDITABLE)
-      //  date.setText(getStringForDate(profile.birthday.toString()), TextView.BufferType.EDITABLE)
-       // val avatar = profile.avatar
-     //   ApplicationWrapper.avatar = avatar.toString()
-
-      //  ApplicationWrapper.file = profile.avatar as File
-        /*nickName.setText(profile.firstName)
-        phone.setText(profile.phone)
-        name.setText(profile.lastName)
-        date.setText(profile.birthday)
-        profileNick = profile.firstName*/
-        //hide progress
-        showProgress(false)
-
-
-      //  saveProfile.isEnabled = true
-        if (ApplicationWrapper.avatar != null)
-        {
-            Picasso.with(activity)
-                .load(ApplicationWrapper.avatar)
-                .placeholder(R.drawable.ic_avatar_placeholder)
-                .centerCrop()
-                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                .into(avatarO,
-                    object : Callback {
-                        override fun onSuccess() {
-                            progress.visibility = View.GONE
-                            delPhoto.visible = true
-                        }
-                        override fun onError() {
-                            progress.visibility = View.GONE
-
-                        }
-                    })
-        }
-        else {
-          //  delPhoto.visible = false
-        }
-    }
    /* override fun showAvatar(profile: Profile) {
         if (profile.img != null && (profile.img as Image).name != null) {
             val path = ImageUtils.resolveImagePath(profile.img!!.name!!)
@@ -223,10 +229,8 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
         }
     }*/
 
-
-
     override fun setTitle(resString: Int) {
-        editProfileTitle.text = getString(resString)
+    //    editProfileTitle.text = getString(resString)
     }
 
     override fun saved(isSuccess: Boolean, isNew: Boolean) {
@@ -280,11 +284,11 @@ class RegistrationFragment : FragmentWrapper(), RegistrationView {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        //animate background
-        background.startScrollingAnimation(false)
-        background.startDimmingAnimation()
+    override fun onStart() {
+        super.onStart()
+        background.startScrollingAnimation(firstStart)
+        firstStart = false
+        runDelayed(2000, { background.startDimmingAnimation() })
     }
 
     override fun onPause() {

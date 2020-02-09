@@ -24,10 +24,12 @@ interface RegistrationView : MvpView {
     fun showToast(stringId: Int)
     fun updateAvatar(img: Photo)
     fun deletePhotos()
+    fun showEmailComfirmDialog(login: String?)
 
     fun save()
     fun cancel()
     fun close()
+    fun toastError (s : String)
 
     fun openGallery()
     fun openCamera(file : File)

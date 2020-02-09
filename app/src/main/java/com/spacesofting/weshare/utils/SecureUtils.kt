@@ -104,17 +104,17 @@ object SecureUtils {
     }
 
     private fun getAES(): Key {
-        val pref = ApplicationWrapper.INSTANCE.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE)
-        var encryptedKeyB64 = pref.getString(KEY_AES, null)
+        val pref = ApplicationWrapper.INSTANCE?.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE)
+        var encryptedKeyB64 = pref?.getString(KEY_AES, null)
         var key: ByteArray = ByteArray(16)
         if (encryptedKeyB64 == null) {
             val secureRandom = SecureRandom()
             secureRandom.nextBytes(key)
             val encryptedKey = rsaEncrypt(key)
             encryptedKeyB64 = Base64.encodeToString(encryptedKey, Base64.DEFAULT)
-            val edit = pref.edit()
-            edit.putString(KEY_AES, encryptedKeyB64)
-            edit.commit()
+            val edit = pref?.edit()
+            edit?.putString(KEY_AES, encryptedKeyB64)
+            edit?.commit()
         } else {
             key = rsaDecrypt(Base64.decode(encryptedKeyB64, Base64.DEFAULT))
         }

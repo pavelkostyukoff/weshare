@@ -6,11 +6,12 @@ import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.UpdateProfile
+import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.MailComfirm
 import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
-import com.spacesofting.weshare.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
 import com.spacesofting.weshare.ui.fragment.presentation.view.RegistrationView
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +22,7 @@ import java.util.*
 import java.util.regex.Pattern
 
 @InjectViewState
-class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerFragment.PickerListener {
+class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragment.PickerListener {
 
     val router = ApplicationWrapper.INSTANCE.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
@@ -32,7 +33,7 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
         IMAGE
     }
 
-    var profile: User? = null
+    var profile: Profile? = null
     var profileNew: User = User()
     var imageFile: File? = null
     var timeout: Timer? = Timer()
@@ -42,8 +43,8 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
     private var isCheckAlreadyExist = false
 
     init {
-        this.profile = ApplicationWrapper.user
-        viewState.showProfile(ApplicationWrapper.user)
+     //   this.profile = ApplicationWrapper.user
+      //  ApplicationWrapper.user?.let { viewState.showProfile(it) }
 
         //todo запрос оправляется как только мы хотим показать профиль после логина
        /* Api.Users.getAccount()
@@ -91,6 +92,9 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
             viewState.cancel()
         }*/
     }
+/*    fun showComfirmEmailDialog () {
+        viewState.showEmailComfirmDialog(profile.login)
+    }*/
 
     fun deletePhoto()
     {
@@ -138,30 +142,6 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
     }
 
     private fun updateProfile(){
-        //update and profile
-        //todo все ясно как только ендпоинт заработает аватарка поставится
-      /*  val observable: Observable<Photo>
-        var isNew = false
-        observable = Api.Users.update(profileNew)
-        observable = Api.Users.updateAvatar()
-        if (profile != null) {
-            observable = Api.Users.update(profileNew)
-        } else {
-            isNew = true
-            observable = Api.Users.make(profileNew)
-        }
-
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                    profile ->
-                ApplicationWrapper.instance.profile = profile
-                viewState.saved(true, isNew)
-            }, {
-                    e ->
-                ApplicationWrapper.instance.profile = profile
-                viewState.saved(false)
-            })*/
     }
 
     fun fieldChanged(value: String?, field: Field) {
@@ -217,7 +197,7 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.INSTANCE.profile != null) {
+        if(ApplicationWrapper.INSTANCE?.profile != null) {
             return true
         } else {
             Settings.logout()
@@ -329,25 +309,46 @@ class RegistrationPresenterTrue : MvpPresenter<RegistrationView>(), ImagePickerF
             })*/
     }
 //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
-    fun chengeMyProfile(updProfile: UpdateProfile) {
+    fun setRegistration(profile: Profile) {
         viewState.showProgress(true)
 
-        Api.Users.updateProfile(updProfile)
+        Api.Users.register(profile)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
-                it
-                ApplicationWrapper.user = it
-              //  viewState.showNewInfo(it)
-                //todo проходим в основной экран
-                //todo тут может отправить во вью и показать тост
-                router.exitWithResult(SCANNER_REQUEST_CODE, it)
+                viewState.showEmailComfirmDialog(profile.login)
+
             }){
                 it
-                router.exit()
+                router?.exit()
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                viewState.toastError("Такой уже зарегистрирован или что-то иное надо настроить ошибки от сервера")
+
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }
+
+    }
+
+    fun comfirmMail(text: MailComfirm?) {
+        Api.Users.comfirmMeil(text)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { viewState.showProgress(false) }
+            .subscribe ({
+               // viewState.showEmailComfirmDialog(profile?.login)
+                router.navigateTo(ScreenPool.AUTORIZE_FRAGMENT)
+                viewState.showToast(R.string.reg_succesfull)
+
+                //todo проходим в основной экран
+                //todo тут может отправить во вью и показать тост
+                //        router?.exitWithResult(SCANNER_REQUEST_CODE, it)
+            }){
+                router?.exit()
+                //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                //router.navigateTo(ScreenPool.BASE_FRAGMENT)
+                viewState.showToast(R.string.reg_filed)
+
+            }
+
 
     }
 }

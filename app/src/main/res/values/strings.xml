@@ -34,6 +34,7 @@
     <string name="auth_user_blocked">Пользователь заблокирован на %1$s</string>
     <string name="auth_incorrect_phone">Неверный номер телефона</string>
     <string name="auth_incorrect_all">Пропущены поля авторизации</string>
+    <string name="password_error">Поля пропущенны или пароль не сопадает</string>
 
     <string name="auth_wrong_sms_code">Введен неверный код</string>
     <string name="auth_send_again">Не пришел код? &lt;u>Отправить снова&lt;/u></string>
@@ -137,6 +138,8 @@
 
     <!-- ERROR MESSAGE -->
     <string name="error_message">Сообщение об ошибке :</string>
+    <string name="reg_succesfull">Регистрация успешно пройдена!</string>
+    <string name="reg_filed">Регистрация провалена!</string>
 
     <!-- CUSTOM TOAST -->
     <string name="toast_agreed">Согласовано:</string>

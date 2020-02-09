@@ -1,6 +1,4 @@
-package com.spacesofting.weshare.mvp
-
-import com.google.gson.annotations.Expose
+package com.spacesofting.weshare.mvp.model
 import com.google.gson.annotations.SerializedName
 
 

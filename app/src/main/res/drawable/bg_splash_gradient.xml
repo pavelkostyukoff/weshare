@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:bottomLeftRadius="20dp"
-            android:bottomRightRadius="20dp"
-            android:topLeftRadius="20dp"
-            android:topRightRadius="20dp"/>
-    <solid android:color="#00bfff"/>
-    <gradient
-            android:type="linear"
-            android:startColor="#00bfff"
-            android:endColor="#115ede" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:bottomLeftRadius="20dp"
+                    android:bottomRightRadius="20dp"
+                    android:topLeftRadius="20dp"
+                    android:topRightRadius="20dp"/>
+            <solid
+                    android:color="@color/bg_bought_transparent" />
+            <stroke
+                    android:width="1dp"
+                    android:color="#00bfff" />
+            <solid android:color="@color/bg_bought_transparent"/>
+            <gradient
+                    android:type="linear"
+                    android:startColor="@color/boomeranGo"
+                    android:endColor="@color/sapphire"
+                    android:centerColor="@color/azure_radiance"/>
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape>
+            <corners android:bottomLeftRadius="20dp"
+                    android:bottomRightRadius="20dp"
+                    android:topLeftRadius="20dp"
+                    android:topRightRadius="20dp"/>
+            <solid
+                    android:color="@color/white" />
+            <stroke
+                    android:width="1dp"
+                    android:color="#00bfff" />
+            <solid android:color="@color/white_alpha_50"/>
+        </shape>
+    </item>
+</selector>

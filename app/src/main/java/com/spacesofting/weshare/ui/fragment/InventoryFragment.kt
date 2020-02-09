@@ -105,7 +105,7 @@ class InventoryFragment : FragmentWrapper(), InventoryView {
 
     override fun onResume() {
         super.onResume()
-        nameUpdate(ApplicationWrapper.user)
+        ApplicationWrapper.user?.let { nameUpdate(it) }
     }
     fun nameUpdate(result: User)
     {

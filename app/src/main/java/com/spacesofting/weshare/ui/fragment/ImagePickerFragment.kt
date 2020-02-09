@@ -9,11 +9,9 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
-import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -24,7 +22,6 @@ import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.image_picker_fragment.*
-import me.zhanghai.android.materialedittext.MaterialEditText
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -166,7 +163,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }
     fun initAvatar()
     {
-        if (ApplicationWrapper.avatar.isNotEmpty()) {
+        if (ApplicationWrapper.avatar?.isNotEmpty()!!) {
             Picasso.with(activity)
                 .load(ApplicationWrapper.avatar)
                 .centerCrop()

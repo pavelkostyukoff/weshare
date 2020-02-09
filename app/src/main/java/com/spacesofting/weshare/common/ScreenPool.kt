@@ -18,7 +18,7 @@ object ScreenPool {
     val INVENTORY_FRAGMENT = "inventory_fragment"
     val PROFILEEDIT = "profile_edit_fragment"
     val SPLASH_FRAGMENT = "splash_fragment"
-    val REGISTRATION_FRAGMENT = "registration_fragment"
+    val AUTORIZE_FRAGMENT = "autorize_fragment"
     val SMS_CONFIRMATION_FRAGMENT = "sms_confirmation_fragment"
     val TICKET_FRAGMENT = "ticket_fragment"
     val SECURITY_FRAGMENT = "security_fragment"
@@ -34,6 +34,7 @@ object ScreenPool {
     val GUEST_MANAGER_FRAGMENT = "guest_manager_fragment"
     val ADD_GOODS = "add_goods"
     val EDIT_PROFILE = "EditProfile"
+    val REGISTRATION_FRAGMENT = "registration_fragment"
     val SHOW_CATEGORY = "show_category"
     val SHOW_GOOD = "show_good"
     val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
@@ -44,8 +45,8 @@ object ScreenPool {
             SPLASH_FRAGMENT -> {
                 SplashFragment.getInstance()
             }
-            REGISTRATION_FRAGMENT -> {
-                RegistrationPhoneFragment.getInstance()
+            AUTORIZE_FRAGMENT -> {
+                AuthorizationFragment.getInstance()
             }
             BASE_FRAGMENT -> {
                 BaseFragment.newInstance(data as String?)
@@ -77,7 +78,10 @@ object ScreenPool {
                 //todo set string tag name
                 ShowCategoryFragment.newInstance(data as String?)
             }
-
+            REGISTRATION_FRAGMENT -> {
+                //todo set string tag name
+                RegistrationFragment.newInstance()
+            }
 
             SHOW_GOOD -> {
                 //todo sent exist
@@ -92,7 +96,7 @@ object ScreenPool {
 
 
             /*  REGISTRATION_FRAGMENT -> {
-                      RegistrationPhoneFragment.getInstance()
+                      AuthorizationFragment.getInstance()
                   }
                   SMS_CONFIRMATION_FRAGMENT -> {
                       SMSConfirmFragment.getInstance(data as? SmsRegistration)

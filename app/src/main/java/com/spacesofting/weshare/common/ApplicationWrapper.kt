@@ -5,7 +5,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
-import com.spacesofting.weshare.mvp.*
+import com.spacesofting.weshare.mvp.Login
+import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.Wish
 import com.squareup.picasso.Picasso
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
@@ -30,7 +32,7 @@ class ApplicationWrapper : Application() {
         lateinit var user: User
         lateinit var context: Context
         lateinit var file: File
-        lateinit var avatar: String
+         var avatar: String? = null
 
         lateinit var mailAutorize : Login
 
