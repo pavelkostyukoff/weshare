@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_feed_compilations.*
 class FeedCompilationsFragment :
     FragmentWrapper(),
     FeedCompilationsView,
-    Paginate.Callbacks{
+    Paginate.Callbacks {
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_feed_compilations
     }

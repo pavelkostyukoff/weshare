@@ -128,7 +128,7 @@ class AuthorizationFragment : FragmentWrapper(), AutorizeView {
 
                 req.password = view.findViewById<EditText>(R.id.code4)?.text.toString()
 
-                presenter.passCOmfirm(req)
+                presenter.passComfirm(req)
                 comfirmDlg?.dismiss()
 
             }

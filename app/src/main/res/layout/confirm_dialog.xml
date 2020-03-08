@@ -5,7 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_splash_gradient">
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout7"
@@ -13,7 +14,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
 
-            android:background="@drawable/bg_splash_gradient"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/test1"
+                android:hint="@string/email"
                 android:textColor="@color/manatee"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -55,6 +55,7 @@
                 android:textColor="@color/azure_radiance"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

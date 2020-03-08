@@ -67,7 +67,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             })
     }
 
-    fun passCOmfirm(passComf: PasswordResetComfirm) {
+    fun passComfirm(passComf: PasswordResetComfirm) {
         Api.Users.reqestMailComfirm(passComf)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

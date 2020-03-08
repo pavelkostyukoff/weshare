@@ -37,7 +37,8 @@ class SplashFragment : FragmentWrapper() {
           /*  if (Settings.IsAuthorized) {
                 router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
             } else {*/
-                router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
+               //todo конкретно тут мы стартуем router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
+            router.newRootScreen(ScreenPool.FEED_FRAGMENT)
           //  }
         }
     }
