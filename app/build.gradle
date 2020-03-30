@@ -109,6 +109,14 @@ dependencies {
     implementation 'com.github.markomilos:paginate:0.5.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
+    implementation 'com.google.dagger:dagger:2.9'
+    kapt 'com.google.dagger:dagger-compiler:2.9'
+ /*   def daggerVer = 2.12 // or latest version
+
+    implementation "com.google.dagger:dagger:$daggerVer"
+    implementation "com.google.dagger:dagger-android-support:$daggerVer"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"*/
 /*
     implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
 */

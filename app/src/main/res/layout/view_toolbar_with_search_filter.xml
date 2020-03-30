@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_search" app:layout_constraintVertical_bias="0.0"/>
 
-        <com.spacesofting.weshare.views.SearchView
+        <com.spacesofting.weshare.mvp.presentation.views.SearchView
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -104,7 +104,7 @@
                 app:layout_constraintVertical_bias="0.5"/>
     </android.support.constraint.ConstraintLayout>
 
-    <com.spacesofting.weshare.views.FilterView
+    <com.spacesofting.weshare.mvp.presentation.views.FilterView
         android:id="@+id/fvFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

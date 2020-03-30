@@ -308,7 +308,7 @@ toast(R.string.rega)
             dialog = activity?.let {
                 AlertDialog.Builder(it)
                     .setView(view)
-                    .setCancelable(false)
+                //    .setCancelable(false)
                     .show()
             }
         } else {

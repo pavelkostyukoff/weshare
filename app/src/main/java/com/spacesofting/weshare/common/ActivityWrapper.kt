@@ -5,14 +5,12 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
-import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.pawegio.kandroid.toast
-import com.spacesofting.weshare.utils.inflate
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.utils.inflate
 import kotlinx.android.synthetic.main.activity_wrapper.*
-import java.util.ArrayList
 
 open class ActivityWrapper : MvpAppCompatActivity() {
     enum class HomeAsUpIndicatorType {
@@ -20,7 +18,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         BACK_ARROW,
         NONE
     }
-    lateinit var router: Boomerango
+    lateinit var router: BoomerangoRouter
 
     companion object {
         var serverNumber = ""

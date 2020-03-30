@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
+import com.spacesofting.weshare.di.AppComponent
+import com.spacesofting.weshare.di.DaggerAppComponent
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
@@ -15,9 +17,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import ru.terrakok.cicerone.Cicerone
 import java.io.File
 
-class ApplicationWrapper : Application() {
 
-        private var doAuthtorizedWish: Wish? = null
+class ApplicationWrapper : Application() {
+    private var component: AppComponent? = null
+
+    private var doAuthtorizedWish: Wish? = null
         private var photoPath: File? = null
         var profile: User? = null
         var isDesireToAuthorize: Boolean = false
@@ -39,7 +43,11 @@ class ApplicationWrapper : Application() {
         //  lateinit var updProfile: UpdateProfile
     }
 
-    private lateinit var cicerone: Cicerone<Boomerango>
+    fun getComponent(): AppComponent? {
+        return component
+    }
+
+    private lateinit var cicerone: Cicerone<BoomerangoRouter>
     fun getAuthorityWish(): Wish {
         return this.doAuthtorizedWish!!
     }
@@ -58,6 +66,7 @@ class ApplicationWrapper : Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        component = DaggerAppComponent.create()
         user = User()
         initCicerone()
 
@@ -74,7 +83,7 @@ class ApplicationWrapper : Application() {
     }
 
     private fun initCicerone() {
-        cicerone = Cicerone.create(Boomerango())
+        cicerone = Cicerone.create(BoomerangoRouter())
     }
 
     fun getNavigationHolder() = cicerone.navigatorHolder

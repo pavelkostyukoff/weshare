@@ -3,9 +3,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="ui.fragment.EditProfile">
+        tools:context=".mvp.ui.fragment.EditProfile">
 
-    <com.spacesofting.weshare.views.splashbackgroundview.SplashBackgroundView
+    <com.spacesofting.weshare.mvp.presentation.views.splashbackgroundview.SplashBackgroundView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

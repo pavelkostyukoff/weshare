@@ -1,10 +1,10 @@
 package com.spacesofting.weshare.common
 
-import android.support.v7.app.AlertDialog
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.pawegio.kandroid.toast
-import com.spacesofting.weshare.utils.inflate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.utils.inflate
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
 
@@ -308,7 +308,7 @@ toast(R.string.rega)
             dialog = activity?.let {
                 AlertDialog.Builder(it)
                     .setView(view)
-                    .setCancelable(false)
+                 //   .setCancelable(false)
                     .show()
             }
         } else {

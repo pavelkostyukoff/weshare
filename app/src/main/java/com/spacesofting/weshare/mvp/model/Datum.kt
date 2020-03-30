@@ -1,8 +1,6 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.BaseListItem
-import java.io.Serializable
 import com.google.gson.annotations.Expose
 
 

@@ -1,11 +1,12 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.BaseListItem
+import com.spacesofting.weshare.mvp.ui.adapter.BaseListItem
 import java.io.Serializable
 
 
-class Compilation(): Serializable, BaseListItem {
+class Compilation(): Serializable,
+    BaseListItem {
 
     enum class State() {
         @SerializedName("active")

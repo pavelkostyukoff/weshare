@@ -17,7 +17,7 @@
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
 
-            <com.spacesofting.weshare.views.LongImageView
+            <com.spacesofting.weshare.mvp.presentation.views.LongImageView
                 android:id="@+id/image1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -30,7 +30,7 @@
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
 
-            <com.spacesofting.weshare.views.LongImageView
+            <com.spacesofting.weshare.mvp.presentation.views.LongImageView
                 android:id="@+id/image2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
-            <com.spacesofting.weshare.views.SquareImageView
+            <com.spacesofting.weshare.mvp.presentation.views.SquareImageView
                 android:id="@+id/image3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -60,7 +60,7 @@
             android:layout_weight="1"
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
-            <com.spacesofting.weshare.views.SquareImageView
+            <com.spacesofting.weshare.mvp.presentation.views.SquareImageView
                 android:id="@+id/image4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -73,7 +73,7 @@
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
 
-            <com.spacesofting.weshare.views.LongImageView
+            <com.spacesofting.weshare.mvp.presentation.views.LongImageView
                 android:id="@+id/image5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -86,7 +86,7 @@
             app:cardCornerRadius="@dimen/splash_card_corner_radius"
             android:layout_margin="4dp">
 
-            <com.spacesofting.weshare.views.LongImageView
+            <com.spacesofting.weshare.mvp.presentation.views.LongImageView
                 android:id="@+id/image6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
