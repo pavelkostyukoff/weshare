@@ -7,13 +7,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
-import com.spacesofting.weshare.mvp.presentation.view.IrentView
-import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
-
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
+import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
+import com.spacesofting.weshare.mvp.presentation.view.IrentView
 import com.spacesofting.weshare.mvp.ui.adapter.ItemThingRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
 
@@ -110,7 +109,7 @@ class IRentFragment : FragmentWrapper(),
 
         val filterList = ArrayList<RentItem>()
 
-        filterList.add(one)
+       /* filterList.add(one)
         filterList.add(one1)
         filterList.add(one2)
         filterList.add(one3)
@@ -118,7 +117,7 @@ class IRentFragment : FragmentWrapper(),
         filterList.add(one3)
         filterList.add(one3)
         filterList.add(one2)
-        filterList.add(one3)
+        filterList.add(one3)*/
 
         adapter?.dataset?.addAll(filterList)
 

@@ -28,6 +28,7 @@ interface RegistrationView : MvpView {
 
     fun save()
     fun cancel()
+    fun errorDlg(message: String)
     fun close()
     fun toastError (s : String)
 

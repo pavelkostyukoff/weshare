@@ -9,9 +9,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedCompilationsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
@@ -101,7 +101,7 @@ class FeedCompilationsFragment :
     }
 
     //todo подборка категорий с сервера
-    override fun onLoadCompilations(list: List<Datum>) {
+    override fun onLoadCompilations(list: List<Entity>) {
         mPresenter.paginateLoading = false
         mPresenter.page++
         mPresenter.lastLoadedCount = list.size
@@ -119,7 +119,7 @@ class FeedCompilationsFragment :
     }
 
     //todo тут мы переходим в понравившуюся нам категорию
-    override fun goToCompilation(compilation: Datum) {
+    override fun goToCompilation(compilation: Entity) {
         router.navigateTo(ScreenPool.SHOW_CATEGORY)
         /*val intent = CompilationActivity.getIntent(context, compilation)
         startActivityForResult(intent, CompilationActivity.RESULT_OK)*/
@@ -147,7 +147,7 @@ class FeedCompilationsFragment :
     }
 
     //todo открыть вещь
-    override fun goToWish(wish: Wish, compilation: Datum) {
+    override fun goToWish(wish: Wish, compilation: Entity) {
        // startActivity(WishActivity.getIntent(activity, wish, compilation))
     }
 
@@ -189,7 +189,7 @@ class FeedCompilationsFragment :
        // ApplicationWrapper.trackEvent(activity, event, mapCompilation)
     }
 
-    override fun hideAddAnimation(wish: Wish, compilation: Datum?, adapter: FeedCompilationsAdapter?) {
+    override fun hideAddAnimation(wish: Wish, compilation: Entity?, adapter: FeedCompilationsAdapter?) {
         if (adapter == null) {
             feedAdapter?.let {
                 for (i in 0 until it.dataset.size) {

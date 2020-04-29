@@ -1,13 +1,7 @@
 package com.spacesofting.weshare.api.interceptor
 
 
-import android.widget.Toast
-import com.spacesofting.weshare.api.Api
-import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
-import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
-import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -18,8 +12,8 @@ class AuthHeaderInterceptor : Interceptor {
         val VALIDATION = "X-Validation-Token"
     }
 
-    var accessToken: String? = null
-    var validationToken: String? = null
+    private var accessToken: String? = null
+    private var validationToken: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()

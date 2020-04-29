@@ -165,14 +165,10 @@ class ImageUtils {
 
             return observable
         }*/
-
-
-
-
         /**
          * Sends image to server. If image from cache then delete it
          */
-        fun send(img: File): Observable<Photo>? {
+        fun send(img: File, goodId: String?): Observable<Photo>? {
             //get extension for mimetype
             var extension = img.extension
             if( extension.trim().isEmpty()){
@@ -181,20 +177,19 @@ class ImageUtils {
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
             val body = MultipartBody.Part.createFormData("file", img.name, file)
-            val observable = Api.Pictures.addPicture(body).default().share()
+            val observable = goodId?.let { Api.Pictures.addPictureMyGood(it,body).default().share() }
             //remove file on success if it stored in cache directory
             if (img.path != img.path) {
-                observable.subscribe({ img.delete() })
+                observable?.subscribe({ img.delete() })
             }
             if (CACHE?.let { img.path.contains(it) }!!) {
-                observable.subscribe({ AddPictureResponse ->
+                observable?.subscribe({ AddPictureResponse ->
                     img.delete()
                 },{
                         e ->
                     //  Log.d(e.message)
                 })
             }
-
             return observable
         }
     }

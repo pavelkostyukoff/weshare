@@ -7,6 +7,7 @@ interface AutorizeView : MvpView {
     fun showCheckPhoneProgress(isVisible: Boolean)
     fun showComfiermRequstMailDialog()
     fun shownewPasswordCreate()
+    fun errorDlg(message: String)
 
     fun showErrorMessage(isVisible: Boolean, msg: Int = -1, countDown: Long = 0, isBlocked: Boolean = false)
     fun onCheckedPhone(isValid: Boolean)

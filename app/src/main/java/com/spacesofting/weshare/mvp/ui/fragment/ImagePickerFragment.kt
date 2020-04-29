@@ -163,7 +163,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }
     fun initAvatar()
     {
-        if (ApplicationWrapper.avatar?.isNotEmpty()!!) {
+        if (ApplicationWrapper.avatar.isNotEmpty()) {
             Picasso.with(activity)
                 .load(ApplicationWrapper.avatar)
                 .centerCrop()

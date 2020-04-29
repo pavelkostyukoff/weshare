@@ -12,7 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
@@ -28,13 +30,18 @@ import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
 import com.spacesofting.weshare.mvp.presentation.presenter.AutorizePresenter
 import com.spacesofting.weshare.mvp.presentation.view.AutorizeView
 import com.spacesofting.weshare.utils.TimerUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_authorization.*
+import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 class AuthorizationFragment : FragmentWrapper(),
     AutorizeView {
     val mail = Mail()
     val mailComfirm = MailComfirm()
+   // val REPLACEMENT = Regex("[^a-zA-Zа-яА-Я0-9-._]")
+    val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
 
 
     private var comfirmDlg: AlertDialog? = null
@@ -166,19 +173,50 @@ class AuthorizationFragment : FragmentWrapper(),
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         activity?.scan?.visible = false
+
+        RxTextView.afterTextChangeEvents(loginText)
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { tvChangeEvent ->
+                //remove unacceptable symbols
+               /* val newValue = loginText.text.toString()?.replace(REPLACEMENT, "")
+                if (newValue != null && newValue != loginText.text.toString()) {*/
+                 //   loginText.text.replace(0, loginText.text.length, newValue)
+             //   }
+            }
+
+        RxTextView.afterTextChangeEvents(password)
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { tvChangeEvent ->
+                //remove unacceptable symbols
+              //  val newValue = password.text.toString()?.replace(REPLACEMENT, "")
+             //   if (newValue != null && newValue != password.text.toString()) {
+                //    password.text.replace(0, password.text.length, newValue)
+             //   }
+            }
+
         password.setText("password") //=  "password"
 
         presenter.deviceInfo = getDeviceInfo()
+        //todo тут происхо
         autorize.setOnClickListener {
             //  presenter.onPhoneConfirm(countryCodePicker.fullNumberWithPlus)
            // if (login.text.isNotEmpty() && pass.text.isNotEmpty())
           //  {
+            if (loginText.text.isEmpty() || password.text.isEmpty())
+            {
+                toast("Введите логин и пароль")
+            }
+            else {
                 val login = Login()
-            login.login = /* "Soprano61" +*/ loginText.text.toString() //+"@yandex.ru"//myMail.text.toString() //
-            login.password = password.text.toString()//
+                login.login = /* "Soprano61" +*/ loginText.text.toString() //+"@yandex.ru"//myMail.text.toString() //
+                login.password = password.text.toString()//
 
-            mailAutorize = login
+                mailAutorize = login
                 presenter.autorize(login,false)
+            }
+
           //  }
         }
         restorePassword.setOnClickListener {
@@ -214,6 +252,20 @@ class AuthorizationFragment : FragmentWrapper(),
     override fun onCheckedPhone(isValid: Boolean) {
         toRegister.isEnabled = isValid
         showErrorMessage(!isValid, R.string.auth_incorrect_phone)
+    }
+
+    override fun errorDlg(message: String) {
+        activity?.let {
+            MaterialDialog.Builder(it)
+                .title(R.string.error_general)
+                .content(message)
+                .positiveText(R.string.ok)
+                .onPositive { dialog, which ->
+                 //   close()
+                }
+                .neutralText(R.string.edit)
+                .show()
+        }
     }
 
     override fun onStop() {
@@ -306,5 +358,14 @@ class AuthorizationFragment : FragmentWrapper(),
         }
 
         return deviceInfo
+    }
+
+    fun isValid(): Boolean {
+        /*    if(profileNew.firstName != null) {
+            return PATTERN.matcher(profileNew.firstName).matches()
+        }else{
+            return false
+        }*/
+        return false
     }
 }

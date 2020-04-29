@@ -82,19 +82,24 @@ class InventoryFragment : FragmentWrapper(),
 
 
         goodAdd.setOnClickListener {
-            router.navigateTo(ScreenPool.ADD_GOODS)
+            mInventoryPresenter.creatNewAdvert()
         }
 
         showSettings.setOnClickListener {
             router.navigateTo(ScreenPool.EDIT_PROFILE)
         }
-            router.setResultListener(SCANNER_REQUEST_CODE) { result ->
+        router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
                 ApplicationWrapper.user = result as User
                // nameUpdate(result as User)
                 /*setFoldInfo(result as User)   */         }
         }
     }
+
+    override fun openCreateFragment(newId: String) {
+        router.navigateTo(ScreenPool.ADD_GOODS, newId)
+    }
+
     fun setFoldInfo(result: User)
     {
         ApplicationWrapper.user = result
@@ -107,16 +112,22 @@ class InventoryFragment : FragmentWrapper(),
 
     override fun onResume() {
         super.onResume()
-        ApplicationWrapper.user?.let { nameUpdate(it) }
+        nameUpdate()
     }
-    fun nameUpdate(result: User)
+    private fun nameUpdate()
     {
-        pHone.text = result.phone.toString()
-        firstName.text = result.firstName.toString()
-        lastName.text = result.lastName.toString()
-       // date.text = result.lastName.toString()
+        val result  = ApplicationWrapper.INSTANCE.profile
 
-
+        /*if (result == null)
+        {
+            mInventoryPresenter.getProfile()
+        }
+        else {*/
+            pHone.text = result?.phone.toString()
+            firstName.text = result?.firstName.toString()
+            lastName.text = result?.lastName.toString()
+            // date.text = result.lastName.toString()
+     //   }
       //todo  showAvatar(result.avatar)
     }
     fun getStringForDate(date: String): String {

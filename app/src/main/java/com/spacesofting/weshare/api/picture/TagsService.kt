@@ -1,17 +1,14 @@
 package com.spacesofting.weshare.api.picture
 
-import com.spacesofting.weshare.mvp.Category
-import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Image
-import com.spacesofting.weshare.mvp.model.Photo
+import com.spacesofting.weshare.api.Entitys
 import io.reactivex.Observable
-import okhttp3.MultipartBody
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface TagsService {
 
-    @GET("categories")
-    fun getListCompilations(@Query("limit") limit : Int, @Query("offset") offset: Int): Observable<Category>
+    @GET("advert-categories")
+    fun getListCompilations(/*@Query("id") id : String?,*/ @Query("parentId") parentId : String?,/* @Query("search") search : String?,*/ /*@Query("searchByCode") searchByCode : String?,*/ @Query("limit") limit : Int, @Query("offset") offset: Int): Observable<Entitys>
     //todo туту я должен получить список кол-во категорий
 
 }

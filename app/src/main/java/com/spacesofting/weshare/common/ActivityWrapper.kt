@@ -7,9 +7,9 @@ import android.view.Gravity
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.utils.inflate
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_wrapper.*
 
 open class ActivityWrapper : MvpAppCompatActivity() {
@@ -132,11 +132,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_feed -> {
-                if (Settings.IsAuthorized) {
+             //   if (Settings.IsAuthorized) {
                     router.replaceScreen(ScreenPool.FEED_FRAGMENT)
-                } else {
+            /*    } else {
                 toast(R.string.rega)
-                }
+                }*/
                 //todo запрос актуальных задачь - положить их в список и открыть
              /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                    // getMyTask()
@@ -146,12 +146,17 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
-
-                if (Settings.IsAuthorized) {
-                    router.replaceScreen(ScreenPool.MAP_FRAGMENT)
-                } else {
-                    toast(R.string.rega)
+                this.let {
+                    RxPermissions(it)
+                        .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        .subscribe { granted ->
+                            router.replaceScreen(ScreenPool.MAP_FRAGMENT)
+                        }
                 }
+              //  if (Settings.IsAuthorized) {
+             /*   } else {
+                    toast(R.string.rega)
+                }*/
 
 
               //  when(fragmnetTag) {
@@ -185,11 +190,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_inventory -> {
-                if (Settings.IsAuthorized) {
+             //   if (Settings.IsAuthorized) {
                     router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,1)
-                } else {
+              /*  } else {
                     toast(R.string.rega)
-                }
+                }*/
               /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                     allMyTask = TaskFragment.taskList
                     if (allMyTask.isNotEmpty()) {

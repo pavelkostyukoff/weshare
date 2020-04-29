@@ -185,6 +185,14 @@
                                 android:scaleType="fitCenter"
                                 android:visibility="gone"
                                 app:srcCompat="@drawable/bg_pen_big_button" />
+
+                        <ImageView
+                                android:id="@+id/dellImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/ic_error" />
                     </FrameLayout>
                 </android.support.v7.widget.CardView>
 
@@ -369,7 +377,7 @@
         <Button
                 android:id="@+id/save"
                 style="@style/button.bottom"
-                android:background="@drawable/bg_orange_gradient_rect_button"
+                android:background="@drawable/bg_navigation_gradient"
                 android:enabled="false"
                 android:text="Сохранить" />
     </LinearLayout>

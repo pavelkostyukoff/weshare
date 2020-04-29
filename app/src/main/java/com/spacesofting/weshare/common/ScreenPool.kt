@@ -65,11 +65,11 @@ object ScreenPool {
             }
 
             FEED_CHAOS_FRAGMENT -> {
-                FeedCompilationsFragment.getInstance()
+                FeedChaosFragment.getInstance()
                 // FeedFragment.getInstance()
             }
             ADD_GOODS -> {
-                AddGoodsFragment.getInstance()
+                AddGoodsFragment.getInstance(data as String?)
             }
 
             SHOW_CATEGORY -> {
@@ -127,9 +127,9 @@ object ScreenPool {
 
     fun getActivity(context: Context, screenKey: String, data: Any? = null): Intent? {
         return when (screenKey) {
-           /* SCANNER_ACTIVITY -> {
-               // ScannerActivity.getIntent(context)
-            }*/
+            /* SCANNER_ACTIVITY -> {
+                // ScannerActivity.getIntent(context)
+             }*/
             CALL_PHONE_ACTIVITY -> {
                 Intent(Intent.ACTION_CALL, Uri.parse("tel: ${data as String}"))
             }
@@ -174,9 +174,9 @@ object ScreenPool {
             RoleEnum.SECURITY -> {
                 TODO()//get guest card for Security
             }
-          /*  RoleEnum.STRUCTURE_UNIT_OFFICER -> {
-             //   EditGuestCardForSUOFragment.getInstance(data as GuestCard)
-            }*/
+            /*  RoleEnum.STRUCTURE_UNIT_OFFICER -> {
+               //   EditGuestCardForSUOFragment.getInstance(data as GuestCard)
+              }*/
             RoleEnum.GUEST -> {
                 TODO()//get guest card for Guest
             }

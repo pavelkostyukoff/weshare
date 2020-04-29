@@ -26,7 +26,6 @@ object Settings {
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
-    private var isAuthenticated = false
 
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 5
@@ -66,10 +65,6 @@ object Settings {
                 return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
             }
         }*/
-    fun isAuthenticated() = isAuthenticated
-
-
-
 
 
     private fun decrypt(key: String): String? {
@@ -82,8 +77,8 @@ object Settings {
     var AccessToken: String?
         get() = decrypt(KEY_ACCESS_TOKEN)
         set(value) {
-            isAuthenticated = true
             encrypt(KEY_ACCESS_TOKEN, value)
+            IsAuthorized = true
         }
 
     var ValidationToken: String?

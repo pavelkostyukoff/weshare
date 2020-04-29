@@ -2,7 +2,6 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Compilation
 import com.spacesofting.weshare.mvp.Datum
@@ -10,9 +9,7 @@ import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedChaosView
 import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import java.util.ArrayList
-import java.util.HashSet
+import java.util.*
 
 @InjectViewState
 class FeedChaosPresenter : MvpPresenter<FeedChaosView>() {
@@ -35,7 +32,7 @@ class FeedChaosPresenter : MvpPresenter<FeedChaosView>() {
     }
 
     fun loadCompilations() {
-        Api.Tags.getListCompilations(ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
+    /*    Api.Tags.getListCompilations(ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list ->
                 list.data?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
@@ -43,7 +40,7 @@ class FeedChaosPresenter : MvpPresenter<FeedChaosView>() {
             }, { error ->
                 viewState.onLoadCompilations(ArrayList())
                 viewState.setProgressAnimation(false)
-            })
+            })*/
     }
 
     fun loadCompilationsWishes(compilation: Datum, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {

@@ -3,16 +3,17 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.spacesofting.weshare.api.Api
+import com.spacesofting.weshare.api.Entity
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import java.util.ArrayList
-import java.util.HashSet
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
@@ -23,7 +24,20 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var lastLoadedCount = 0
         var paginateLoading = false
 
-        fun addWish(wish: Wish, compilation: Datum?, adapter: FeedCompilationsAdapter? = null) {
+    init {
+        if (ApplicationWrapper.INSTANCE.profile == null)
+        {
+            Api.Users.getAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profile ->
+                    ApplicationWrapper.INSTANCE.profile = profile
+                }, { e ->
+                })
+        }
+    }
+
+        fun addWish(wish: Wish, compilation: Entity?, adapter: FeedCompilationsAdapter? = null) {
          /*   Api.Wishes.wishAdd(wish)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ wishNew ->
@@ -35,10 +49,12 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         fun loadCompilations() {
-            Api.Tags.getListCompilations(ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
+            Api.Tags.getListCompilations("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ list ->
-                    list.data?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
+                .subscribe({ ent ->
+                    ent
+                  //  ent.entities?.let { checkFavoritCompilations(it) }
+                    ent.entities?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
                     viewState.setProgressAnimation(false)
                 }, { error ->
                     viewState.onLoadCompilations(ArrayList())
@@ -46,7 +62,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                 })
         }
 
-        fun loadCompilationsWishes(compilation: Datum, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
+        fun loadCompilationsWishes(compilation: Entity, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
             //todo а тут мы грузим все вещи по данной категории или тегу ну или имитируем
           /*  Api.Wishes.getWishesFromCompilation(compilation.id, ITEMS_PER_PAGE_WISH_LIST, 0)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -97,17 +113,17 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
             }*/
         }
 
-        fun showCompilationDetails(compilation: Datum) {
+        fun showCompilationDetails(compilation: Entity) {
             //todo переход в категорию передача  id категории
             viewState.goToCompilation(compilation)
         }
 
-        fun showWish(wish: Wish, compilation: Datum) {
+        fun showWish(wish: Wish, compilation: Entity) {
             viewState.goToWish(wish, compilation)
         }
 
         //todo refactoring
-        private fun checkFavoritCompilations(list: List<Datum>): List<Datum> {
+        private fun checkFavoritCompilations(list: List<Entity>): List<Entity> {
             val compilationList = list
             val idsList = Settings.getListInt()
 

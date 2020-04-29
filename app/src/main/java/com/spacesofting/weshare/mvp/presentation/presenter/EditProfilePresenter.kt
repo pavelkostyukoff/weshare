@@ -9,9 +9,9 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.UpdateProfile
+import com.spacesofting.weshare.mvp.presentation.view.EditProfileView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
-import com.spacesofting.weshare.mvp.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.File
@@ -94,7 +94,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     fun deletePhoto()
     {
-        Api.Pictures.delPicture()
+       /* Api.Pictures.delPicture()
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
@@ -102,7 +102,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
             }){
 
-            }
+            }*/
     }
 
     fun saveAvatar() {
@@ -118,7 +118,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(imageFile!!)
                 }
-                ImageUtils.send(saveImgFile)?.subscribeOn(AndroidSchedulers.mainThread())
+              /*  ImageUtils.send(saveImgFile, goodId)?.subscribeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({ img ->
                         //profileNew.img = img
                        // this.profile?.let { it1 -> viewState.showProfile(it1) }
@@ -130,7 +130,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     }, { e ->
                         viewState.saved(false)
                        // viewState.showToast(R.string.error_link_image)
-                    })
+                    })*/
             }
         } ?: run {
             updateProfile()

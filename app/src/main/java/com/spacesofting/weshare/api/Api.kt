@@ -7,6 +7,7 @@ import com.spacesofting.weshare.api.interceptor.SMSInterceptor
 import com.spacesofting.weshare.api.interceptor.TokenInterceptor
 import com.spacesofting.weshare.api.picture.PicturesService
 import com.spacesofting.weshare.api.picture.TagsService
+import com.spacesofting.weshare.api.user.AdvertsService
 import com.spacesofting.weshare.api.user.UserService
 import com.spacesofting.weshare.common.Settings
 import io.reactivex.schedulers.Schedulers
@@ -15,9 +16,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.cert.X509Certificate
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import java.security.cert.X509Certificate
 import javax.net.ssl.*
 import javax.security.cert.CertificateException
 
@@ -35,9 +36,9 @@ object Api {
           //  .addInterceptor(SMS)
         //    .addInterceptor(TOKEN)
             .addInterceptor(LOG)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
 
 
@@ -64,6 +65,9 @@ object Api {
 
     val Tags: TagsService
         get() = RETROFIT.create(TagsService::class.java)
+
+    val Adverts: AdvertsService
+        get() = RETROFIT.create(AdvertsService::class.java)
 
 
     fun getUnsafeOkHttpClient(): OkHttpClient.Builder

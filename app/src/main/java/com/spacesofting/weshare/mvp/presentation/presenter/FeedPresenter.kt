@@ -1,9 +1,9 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.e
+import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Template
@@ -12,7 +12,8 @@ import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedView
 import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
 import com.spacesofting.weshare.mvp.ui.fragment.FeedFragment
-import com.spacesofting.weshare.utils.ImageUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class FeedPresenter : MvpPresenter<FeedView>() {
@@ -43,7 +44,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
 
 
     init {
-        if (ApplicationWrapper.INSTANCE.isDesireToAuthorize == true) {
+        if (ApplicationWrapper.INSTANCE.isDesireToAuthorize) {
 
             imageChanged = true
             ApplicationWrapper.INSTANCE.isDesireToAuthorize = false
@@ -155,6 +156,16 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     }
 
     fun handleWishToAdd() {
+        if (ApplicationWrapper.INSTANCE.profile == null)
+        {
+            Api.Users.getAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profile ->
+                    ApplicationWrapper.INSTANCE.profile = profile
+                }, { e ->
+                })
+        }
         wishToAdd?.let {
             if (it is Wish) {
                 viewState.editWish(it)
@@ -208,13 +219,12 @@ class FeedPresenter : MvpPresenter<FeedView>() {
         viewState.reload()
     }
 
-    @SuppressLint("CheckResult")
     fun saveWish() {
-        ImageUtils.send(this?.imageFile!!)?.subscribe({ img ->
+     /*   ImageUtils.send(this?.imageFile!!, goodId)?.subscribe({ img ->
            // save(img)
             imageChanged = false
         }, { error ->
-        })
+        })*/
     }
 
     private fun save(img: Image) {

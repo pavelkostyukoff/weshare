@@ -2,7 +2,9 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.pawegio.kandroid.d
 import com.spacesofting.weshare.api.Api
+import com.spacesofting.weshare.api.EnumErrorType
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
@@ -15,6 +17,8 @@ import com.spacesofting.weshare.mvp.model.Mail
 import com.spacesofting.weshare.mvp.model.MailComfirm
 import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
 import com.spacesofting.weshare.mvp.presentation.view.AutorizeView
+import com.spacesofting.weshare.utils.ErrorUtils
+import com.spacesofting.weshare.utils.ServerException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -30,15 +34,15 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
-                it->
                 Settings.AccessToken = it.accessToken
                 Settings.ValidationToken = it.rowrefreshTokenVersion
              //   ApplicationWrapper.user = it.user!!
                 getProfile()
                 //todo тут кладем токен в сохранялки Settings
             }){
-                it
-                viewState.toastError("Такой пользователь не найден")
+              //  it.message?.let { it1 -> viewState.toastError(it1) }
+                val error = ErrorUtils.parseError(it)
+                parseError(error)
             }
     }
 
@@ -79,26 +83,20 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
                 e
             })
     }
-
-
-
-
-
-
-fun getProfile()
-{
-  /*  //todo userME
-    Api.Users.verifyMailRequest()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({
-                profile ->
-          //  ApplicationWrapper.user = profile
-            router.newRootScreen(ScreenPool.FEED_FRAGMENT)
-        }, { e ->
-e
-        })*/
-}
+    private fun getProfile()
+        {
+            //todo userME
+            Api.Users.getAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                        profile ->
+                    ApplicationWrapper.INSTANCE.profile = profile
+                    router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+                }, { e ->
+                    e.message?.let { viewState.toastError(it) }
+                })
+        }
     //todo ТУТТУТ
     fun refreshed()
     {
@@ -224,4 +222,44 @@ e
             }
         }
     }*/
+   private fun parseError(error: ServerException) {
+       when (error.type) {
+           EnumErrorType.REQUIRED_CONFIRMATION -> {
+               //  val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
+               Settings.ValidationToken = error.extraFields?.validationToken
+               //  router.navigateTo(ScreenPool.SMS_CONFIRMATION_FRAGMENT, SmsRegistration(registration, timeout))
+           }
+           EnumErrorType.MODEL_VALIDATION -> {
+               d("ERROR_TYPE", "validation model")
+           }
+           EnumErrorType.TIMEOUT -> {
+               //   val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
+               //   viewState.showErrorMessage(true, R.string.auth_user_blocked, timeout, true)
+           }
+           EnumErrorType.ERRORS -> {
+               val reasons = error.extraFields?.errors?.get(0)?.reasons?.get(0)
+               viewState.toastError(error.message)
+               when(error.message)
+               {
+                   "Too many request to verify email. Try again later."->{
+                       viewState.errorDlg("Слишком много запросов проверки mail, попробуйте позже")
+                   }
+                   "User already exists"-> {
+                     //  verifyMailRequest(mail)
+                   }
+                   "Invalid credentials" -> {
+                       viewState.errorDlg("Не верные учетные данные")
+                   }
+               }
+               /*      when(reasons) {
+                //   EnumReasons.WRONG_SMS_CODE -> {
+               //        viewState.showErrorMessage(true, R.string.auth_wrong_sms_code)
+                   }
+
+                   else -> {
+                 //      viewState.showErrorMessage(true, R.string.error_general)
+                   }*/
+           }
+       }
+   }
 }

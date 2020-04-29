@@ -4,7 +4,7 @@
     <string name="app_name">BoomeranGO</string>
 
     <!-- SPLASH -->
-    <string name="splash_copyright">© 2019. ОАО «SpaceSofting» </string>
+    <string name="splash_copyright">© 2020. ОАО «SpaceSofting» </string>
     <plurals name="add_wish_exist_plurals">
         <item quantity="one">%1$d такое желание</item>
         <item quantity="two">%1$d таких желания</item>
@@ -72,7 +72,13 @@
     <string name="security_you_entered_as_security">Вы вошли в приложение как\nсотрудник охраны</string>
 
     <!-- COMMON ERRORS -->
-    <string name="error_general">Произошла ошибка, попробуйте повторить позже</string>
+    <string name="error_general">Произошла ошибка, попробуйте повторить позже или еще раз</string>
+    <!-- IMAGE -->
+
+    <string name="error_load_image">Произошла ошибка загрузки фото, попробуйте повторить позже или еще раз</string>
+    <string name="imag_load_ok_save">Изображение успешно сохранено</string>
+    <string name="imag_load_ok_delete">Изображение успешно удалено</string>
+    <string name="error_load_ok_delete">Произошла ошибка при удалении фото, попробуйте повторить позже или еще раз</string>
 
     <!--HAMBURGER MENU-->
     <string name="hamburger_open">open</string>
@@ -222,4 +228,5 @@
     <string name="autorize_nickname">Ваш никнейм</string>
     <string name="autorize_mail">Ваша почта</string>
     <string name="autorize_password">Ваш пароль</string>
+    <string name="invent_ad_goods">Добавить вещь</string>
 </resources>

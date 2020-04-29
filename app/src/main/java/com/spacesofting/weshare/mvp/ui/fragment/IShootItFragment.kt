@@ -7,12 +7,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
-import com.spacesofting.weshare.mvp.presentation.view.IShootItView
-import com.spacesofting.weshare.mvp.presentation.presenter.IShootItPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
+import com.spacesofting.weshare.mvp.presentation.presenter.IShootItPresenter
+import com.spacesofting.weshare.mvp.presentation.view.IShootItView
 import com.spacesofting.weshare.mvp.ui.adapter.ItemShootRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
 
@@ -67,7 +67,7 @@ class IShootItFragment : FragmentWrapper(),
         val filterList = ArrayList<RentItem>()
 
 
-        filterList.add(one)
+      /*  filterList.add(one)
         filterList.add(one1)
         filterList.add(one2)
         filterList.add(one3)
@@ -75,7 +75,9 @@ class IShootItFragment : FragmentWrapper(),
         filterList.add(one3)
         filterList.add(one3)
         filterList.add(one2)
-        filterList.add(one3)
+        filterList.add(one3)*/
+
+        mIShootItPresenter.loadMyGoods()
 
         adapter?.dataset?.addAll(filterList)
 

@@ -7,6 +7,7 @@ interface AddGoodsView : MvpView {
     fun showWishImage(file: File)
     fun showToast(stringId: Int)
     fun showMaterialDialog(stringId: Int)
+    fun wishImageDelete ()
   /*  fun setLoadedWish(wish: Wish)
     fun share(shareLink: ShareLink)*/
 

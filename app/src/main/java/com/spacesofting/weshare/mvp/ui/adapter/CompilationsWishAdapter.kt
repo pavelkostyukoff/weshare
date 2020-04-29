@@ -10,11 +10,11 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.mvp.Datum
+import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.mvp.Wish
 import kotlinx.android.synthetic.main.list_item_compilations_wish.view.*
 
-class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Datum, val parentAdapter: FeedCompilationsAdapter): RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
+class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val parentAdapter: FeedCompilationsAdapter): RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
     var dataset =  ArrayList<Wish>()
 
 

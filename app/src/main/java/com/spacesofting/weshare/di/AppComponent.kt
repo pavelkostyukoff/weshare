@@ -1,11 +1,10 @@
 package com.spacesofting.weshare.di
 
-import com.spacesofting.weshare.common.DatabaseHelper
-import com.spacesofting.weshare.common.NetworkUtils
+import com.spacesofting.weshare.mvp.ui.activity.MainActivity
 import dagger.Component
+
 
 @Component(modules = [StorageModule::class, NetworkModule::class])
 interface AppComponent {
-    val networkUtils: NetworkUtils?
-    val databaseHelper: DatabaseHelper?
+    fun injectsMainActivity(mainActivity: MainActivity?)
 }

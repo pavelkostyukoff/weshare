@@ -2,28 +2,30 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
-import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.gms.location.LocationListener
-import com.spacesofting.weshare.R
-import com.yandex.mapkit.Animation
-import com.yandex.mapkit.MapKitFactory
-import com.yandex.runtime.image.ImageProvider
-import kotlinx.android.synthetic.main.fragment_map.*
-import android.annotation.SuppressLint
-import android.location.LocationManager
-import android.support.v7.widget.LinearLayoutManager
 import com.pawegio.kandroid.toast
+import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
+import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
+import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
 import com.spacesofting.weshare.mvp.ui.adapter.CategoryAdapter
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.yandex.mapkit.geometry.*
-import com.yandex.mapkit.map.*
-import java.util.*
+import com.yandex.mapkit.Animation
+import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.MapObject
+import com.yandex.mapkit.map.MapObjectCollection
+import com.yandex.mapkit.map.MapObjectTapListener
+import com.yandex.runtime.image.ImageProvider
+import kotlinx.android.synthetic.main.fragment_map.*
+
 
 class MyMapFragment : FragmentWrapper(),
     MapViewMaps, LocationListener {
@@ -76,7 +78,6 @@ fun newInstance(): MyMapFragment {
     }
 
 
-    @SuppressLint("ServiceCast", "MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
@@ -85,20 +86,28 @@ fun newInstance(): MyMapFragment {
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                .subscribe { granted ->
+                .subscribe {
                     val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-                    val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    val one = location?.latitude
-                    val two = location?.longitude
+                    try {
+                      val  location =
+                          locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                        val one = location?.latitude
+                        val two = location?.longitude
+                        lat = one.toString()
+                        loe = two.toString()
+                        // Укажите имя activity вместо map.
+                        mapview?.map?.move(
+                            CameraPosition(Point(one!!,two!!), 10.0f, 0.0f, 0.0f),
+                            Animation(Animation.Type.LINEAR, 1f),
+                            null
+                        )
+                    } catch (e: SecurityException) {
+                      //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                    }
+                 //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
-                    lat = one.toString()
-                    loe = two.toString()
-                    // Укажите имя activity вместо map.
-                    mapview?.getMap()?.move(
-                        CameraPosition(Point(one!!,two!!), 10.0f, 0.0f, 0.0f),
-                        Animation(Animation.Type.LINEAR, 1f),
-                        null
-                    )
+
+
                 }
         }
         createMapObjects()

@@ -2,10 +2,8 @@ package com.spacesofting.weshare.mvp.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.widget.Toast
@@ -13,8 +11,6 @@ import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.common.DatabaseHelper
-import com.spacesofting.weshare.common.NetworkUtils
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.ui.fragment.SplashFragment
 import ru.terrakok.cicerone.Navigator
@@ -23,17 +19,20 @@ import ru.terrakok.cicerone.commands.Command
 
 
 class MainActivity  : ActivityWrapper() {
-    @RequiresApi(Build.VERSION_CODES.O)
+   /* @RequiresApi(Build.VERSION_CODES.O)
+    @Inject
     var databaseHelper: DatabaseHelper? = null
-    var networkUtils: NetworkUtils? = null
+
+    @Inject
+    var networkUtils: NetworkUtils? = null*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         lockDrawerMenu(false)
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this.applicationContext
-        databaseHelper = ApplicationWrapper.INSTANCE.getComponent()?.databaseHelper
-        networkUtils = ApplicationWrapper.INSTANCE.getComponent()?.networkUtils
+        ApplicationWrapper.INSTANCE.getComponent()?.injectsMainActivity(this)
 
     ////    scan.visible = false
 

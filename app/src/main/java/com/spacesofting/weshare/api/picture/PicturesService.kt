@@ -2,23 +2,18 @@ package com.spacesofting.weshare.api.picture
 
 import com.spacesofting.weshare.mvp.model.Photo
 import io.reactivex.Observable
-import okhttp3.RequestBody
-import retrofit2.http.*
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.POST
-import retrofit2.http.Multipart
+import retrofit2.http.*
 
 interface PicturesService {
 
     @Multipart
-    @PATCH("users/me/avatar")
-    fun addPicture(@Part file: MultipartBody.Part): Observable<Photo> //MultipartBody.Part
+    @POST("me/adverts/{advertId}/images")
+    fun addPictureMyGood(@Path("advertId") advertId: String, @Part file: MultipartBody.Part): Observable<Photo> //MultipartBody.Part
 
-    @DELETE("users/me/avatar")  //todo //
-    fun delPicture():  Observable<Response<Void>>
+    @DELETE("me/adverts/{advertId}/images/{imageId}")  //todo //
+    fun delPictureMyGood(@Path("advertId") advertId: String, @Path("imageId") imageId: String):  Observable<Response<Void>>
 
     //fun getAccount(): Observable<User>
  /*   @Multipart

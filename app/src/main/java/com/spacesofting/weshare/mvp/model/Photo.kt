@@ -2,11 +2,12 @@ package com.spacesofting.weshare.mvp.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import com.google.gson.annotations.Expose
 
 class Photo : Serializable {
     @SerializedName("id")
     val id: String? = null
+    @SerializedName("sort")
+    val sort: Int? = null
     @SerializedName("url")
     val url: String? = null
 

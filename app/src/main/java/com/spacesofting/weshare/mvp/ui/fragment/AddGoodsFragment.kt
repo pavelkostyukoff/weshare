@@ -8,14 +8,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
-import com.spacesofting.weshare.R
-import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
-import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
+import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
+import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.hideKeyboard
@@ -31,12 +31,26 @@ class AddGoodsFragment : FragmentWrapper(),
     private val GALLERY_REQUEST_CODE = 2
 
     override fun showWishImage(file: File) {
-        Picasso.with(context).load(file).resize(0, 0).into(wishEditImageView)
+        Picasso.with(context)
+            .load(file)
+            .centerCrop()
+            .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+            .into(wishEditImageView)
         mAddGoodsPresenter.imageChanged = true
         mAddGoodsPresenter.imageFile = file
        // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         addImgLayout.visibility = View.GONE
         wishChangeImgBtn.visibility = View.VISIBLE
+        dellImage.visibility = View.VISIBLE
+    }
+
+    override fun wishImageDelete() {
+        Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
+        mAddGoodsPresenter.imageChanged = true
+        // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
+        addImgLayout.visibility = View.VISIBLE
+        wishChangeImgBtn.visibility = View.GONE
+        dellImage.visibility = View.GONE
     }
 
     override fun showToast(stringId: Int) {
@@ -170,12 +184,17 @@ return R.layout.fragment_add_goods
 
     companion object {
         const val TAG = "AddGoodsFragment"
+        private const val DATA_KEY = "data_key"
 
-        fun getInstance(): AddGoodsFragment {
-            val fragment: AddGoodsFragment =
+        fun getInstance(goodId: String?): AddGoodsFragment {
+            val fragment =
                 AddGoodsFragment()
-            val args: Bundle = Bundle()
-            fragment.arguments = args
+
+            goodId?.let {
+                val argument = Bundle()
+                argument.putSerializable(DATA_KEY, it)
+                fragment.arguments = argument
+            }
             return fragment
         }
     }
@@ -189,14 +208,36 @@ return R.layout.fragment_add_goods
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        wishEditImageBtn.setOnClickListener { showPicker() }
+        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()//todo GuestCard
 
+        wishEditImageBtn.setOnClickListener { showPicker() }
+        dellImage.setOnClickListener {
+            //todo презентер удаляет фото и говоит отобразить пикассо заглушку
+            mAddGoodsPresenter.delPictureMyGood()
+         //после успешного удаления скрываем   dellImage.visibility = View.GONE
+        }
     }
 
+    //todo showZaglushka
+
     override fun openCamera(file: File) {
-        brokenUrlMessage.visible = false
-        val intent = ImageUtils.takePhotoIntent(file)
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.CAMERA)
+                .subscribe {
+                    try {
+                        brokenUrlMessage.visible = false
+                        val intent = ImageUtils.takePhotoIntent(file)
+                        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+                    } catch (e: SecurityException) {
+                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                    }
+                    //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+
+
+                }
+        }
     }
 
     override fun openGallery() {
@@ -247,10 +288,16 @@ return R.layout.fragment_add_goods
                         ?.add(R.id.container, picker!!)
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
-                    ApplicationWrapper.context = this!!.context!!
+                    ApplicationWrapper.context = this.context!!
 
                 }
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        //todo если пользователь жмет отменить создаие вещи -
+        // presenter.deletNewGoods
     }
 
 

@@ -1,27 +1,49 @@
 package com.spacesofting.weshare.api.user
 
-import com.spacesofting.weshare.mvp.Profile
+import com.spacesofting.weshare.api.ResponceAddImege
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.model.Mail
-import com.spacesofting.weshare.mvp.model.MailComfirm
-import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
 import com.spacesofting.weshare.mvp.model.UpdateProfile
 import io.reactivex.Observable
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
-interface UserService {
+interface AdvertsService {
 
-    @POST("/auth/register")  //todo //Подтвердить получение задачи Observable<Response<Void>>
-    fun register(@Body updateProfile: Profile): Observable<ResponceProfile>
+    //todo  Get user profile
+    @GET("adverts")
+    fun getMyAdverts(): Observable<User>
 
-    @POST("/auth/verify-email/request")  //todo //Запрос пароля напочту повторно
-    fun verifyMailRequest(@Body mail: Mail?): Observable<Response<Void>>
+    //todo  Get user profile
+    @GET("adverts/{advertId}")
+    fun showAdvertDetail(): Observable<User>
+
+    @POST("me/adverts")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+    fun creatNewAdvert(): Observable<ResponceProfile>
+
+    //todo  Get user profile
+    @GET("me/adverts/{advertId}")
+    fun getMyAdvertById(): Observable<User>
+
+    //todo  Update user profile
+    @PATCH("me/adverts/{advertId}")
+    fun updateMyAdvertById(@Body updProfile: UpdateProfile): Observable<User>
+
+    @DELETE("me/adverts/{advertId}")  //todo //
+    fun delMyAdvertById():  Observable<Void>
+
+    //todo  Update user profile
+    @PATCH("me/adverts/{advertId}/publish")
+    fun publishMyAdvert(@Body updProfile: UpdateProfile): Observable<User>
+
+    @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+    fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>
+
+    @DELETE("me/adverts/{advertId}/images/{imageId}")  //todo //
+    fun delImageToMyAdvert():  Observable<Void>
+
+  /*  @POST("/auth/verify-email/request")  //todo //Запрос пароля напочту повторно
+    fun verifyMailRequest(@Body mail: Mail?): Observable<Void>
 
     @POST("/auth/verify-email") //todo //Запрос пароля напочту
     fun comfirmMeil(@Body mailComfirm: MailComfirm?): Observable<Response<Void>>
@@ -37,13 +59,11 @@ interface UserService {
 
 
 
-    //todo  Get user profile
-    @GET("me")
-    fun getAccount(): Observable<User>
+
 
     //todo  Update user profile
     @PATCH("users/me")
-    fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>
+    fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>*/
 
     //todo    Update user avatar
    // @PATCH("users/me")

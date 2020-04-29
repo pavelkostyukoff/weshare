@@ -52,271 +52,228 @@
 
                         <android.support.constraint.ConstraintLayout
                                 android:id="@+id/contentProfile"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="32dp"
+                                android:layout_marginRight="32dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
-                                    android:id="@+id/constraintLayout2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
 
-                                    app:layout_constraintTop_toTopOf="parent">
-
-                                <EditText
-                                        android:id="@+id/password"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="Ваш Пароль"
-                                        android:inputType="textEmailAddress"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/loginText" />
-
-                                <EditText
-                                        android:id="@+id/phone"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="+7 (номер телефона)"
-                                        android:inputType="number"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-                                <EditText
-                                        android:id="@+id/firstName"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="Ваше имя"
-                                        android:inputType="textAutoComplete"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/phone" />
-
-                                <EditText
-                                        android:id="@+id/lasftName"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="Фамилия"
-                                        android:inputType="textAutoComplete"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/firstName" />
-
-                                <TextView
-                                        android:id="@+id/dateText"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="16dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="Дата рождения"
-                                        android:inputType="number"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/lasftName" />
-
-                                <DatePicker
-                                        android:id="@+id/datePicker"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="94dp"
-                                        android:layout_marginTop="14dp"
-                                        android:calendarViewShown="false"
-                                        android:datePickerMode="spinner"
-                                        android:spinnersShown="true"
-                                        android:visibility="visible"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/dateText" />
-
-                                <TextView
-                                        android:id="@+id/nickErr3"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Не обязательно) "
-                                        android:textColor="#00838F"
-                                        android:textSize="10sp"
-                                        app:layout_constraintEnd_toEndOf="@+id/dateText"
-                                        app:layout_constraintStart_toStartOf="@+id/dateText"
-                                        app:layout_constraintTop_toBottomOf="@+id/dateText" />
-
-                                <TextView
-                                        android:id="@+id/nickErr4"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:text="(Не обязательно) "
-                                        android:textColor="#00838F"
-                                        android:textSize="10sp"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/lasftName" />
-
-                                <TextView
-                                        android:id="@+id/errVeryMail"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Обязательно) "
-                                        android:textColor="@color/invalid"
-                                        android:textSize="10sp"
-                                        app:layout_constraintStart_toStartOf="@+id/loginText"
-                                        app:layout_constraintTop_toBottomOf="@+id/loginText" />
-
-                                <TextView
-                                        android:id="@+id/errVeryPass"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Обязательно) "
-                                        android:textColor="@color/invalid"
-                                        android:textSize="10sp"
-                                        app:layout_constraintStart_toStartOf="@+id/password"
-                                        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-                                <TextView
-                                        android:id="@+id/errVeryPhone"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Обязательно) "
-                                        android:textColor="@color/invalid"
-                                        android:textSize="10sp"
-                                        app:layout_constraintStart_toStartOf="@+id/phone"
-                                        app:layout_constraintTop_toBottomOf="@+id/phone" />
-
-                                <TextView
-                                        android:id="@+id/errVeryName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="(Обязательно) "
-                                        android:textColor="@color/invalid"
-                                        android:textSize="10sp"
-                                        app:layout_constraintStart_toStartOf="@+id/firstName"
-                                        app:layout_constraintTop_toBottomOf="@+id/firstName" />
-
-                                <EditText
-                                        android:id="@+id/loginText"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="8dp"
-                                        android:layout_marginTop="8dp"
-                                        android:layout_marginEnd="8dp"
-                                        android:backgroundTint="@color/azure_radiance"
-                                        android:fontFamily="@font/roboto"
-                                        android:gravity="center_vertical"
-                                        android:hint="Ваш e-mail (почта)"
-                                        android:inputType="textEmailAddress"
-                                        android:textColor="@color/azure_radiance"
-                                        android:textColorHint="@color/colorPrimaryLight"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
-
-                                <android.support.constraint.ConstraintLayout
-                                        android:id="@+id/registrationLayout"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="gone"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent">
-
-                                </android.support.constraint.ConstraintLayout>
-
-                                <TextView
-                                        android:id="@+id/errorMsg"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/margin_half"
-                                        android:fontFamily="@font/roboto"
-                                        android:text="@string/auth_incorrect_phone"
-                                        android:textColor="@color/monza"
-                                        android:textSize="13sp"
-                                        android:visibility="gone"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/registrationLayout" />
-
-                                <TextView
-                                        android:id="@+id/nickErr2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-
-                                        android:layout_marginStart="8dp"
-                                        android:text="(Не обязательно)"
-                                        android:textColor="#00838F"
-                                        android:textSize="10sp"
-                                        android:visibility="gone"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
-
-                            </android.support.constraint.ConstraintLayout>
-                            <FrameLayout
-                                    android:id="@+id/frameLayout"
+                            <EditText
+                                    android:id="@+id/password"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="@dimen/margin_double"
-                                    android:layout_marginLeft="@dimen/margin_double"
-                                    android:layout_marginTop="80dp"
-                                    android:layout_marginEnd="@dimen/margin_double"
-                                    android:layout_marginRight="@dimen/margin_double"
-                                    android:layout_marginBottom="70dp"
-                                    android:orientation="horizontal"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.0">
+                                    android:layout_marginTop="8dp"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="Ваш Пароль"
+                                    android:inputType="textEmailAddress"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
-                                <ProgressBar
-                                        android:id="@+id/checkNickProgress"
-                                        android:layout_width="24dp"
-                                        android:layout_height="24dp"
-                                        android:layout_gravity="right|center_vertical"
-                                        android:visibility="gone" />
-                            </FrameLayout>
+                            <EditText
+                                    android:id="@+id/phone"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="+7 (номер телефона)"
+                                    android:inputType="number"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                            <EditText
+                                    android:id="@+id/firstName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="Ваше имя"
+                                    android:inputType="textAutoComplete"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+                            <EditText
+                                    android:id="@+id/lasftName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="Никнейм"
+                                    android:inputType="textAutoComplete"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+                            <TextView
+                                    android:id="@+id/dateText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="Дата рождения"
+                                    android:inputType="number"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    android:visibility="gone"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/lasftName" />
+
+                            <DatePicker
+                                    android:id="@+id/datePicker"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="94dp"
+                                    android:layout_marginTop="14dp"
+                                    android:calendarViewShown="false"
+                                    android:datePickerMode="spinner"
+                                    android:spinnersShown="true"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+                            <TextView
+                                    android:id="@+id/errVeryMail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(Обязательно) "
+                                    android:textColor="@color/invalid"
+                                    android:textSize="10sp"
+                                    app:layout_constraintStart_toStartOf="@+id/loginText"
+                                    app:layout_constraintTop_toBottomOf="@+id/loginText" />
+
+                            <TextView
+                                    android:id="@+id/errVeryPass"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(Обязательно) "
+                                    android:textColor="@color/invalid"
+                                    android:textSize="10sp"
+                                    app:layout_constraintStart_toStartOf="@+id/password"
+                                    app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                            <TextView
+                                    android:id="@+id/errVeryPhone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(Обязательно) "
+                                    android:textColor="@color/invalid"
+                                    android:textSize="10sp"
+                                    app:layout_constraintStart_toStartOf="@+id/phone"
+                                    app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+                            <TextView
+                                    android:id="@+id/errVeryName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(Обязательно) "
+                                    android:textColor="@color/invalid"
+                                    android:textSize="10sp"
+                                    app:layout_constraintStart_toStartOf="@+id/firstName"
+                                    app:layout_constraintTop_toBottomOf="@+id/firstName" />
+
+                            <EditText
+                                    android:id="@+id/loginText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/azure_radiance"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center_vertical"
+                                    android:hint="Ваш e-mail (почта)"
+                                    android:inputType="textEmailAddress"
+                                    android:textColor="@color/azure_radiance"
+                                    android:textColorHint="@color/colorPrimaryLight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                    android:id="@+id/errorMsg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto"
+                                    android:text="@string/auth_incorrect_phone"
+                                    android:textColor="@color/monza"
+                                    android:textSize="13sp"
+                                    android:visibility="gone"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    tools:layout_editor_absoluteY="15dp" />
+
+                            <TextView
+                                    android:id="@+id/correctNickText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.54"
+                                    android:gravity="center"
+                                    android:text="@string/edit_profile_profile_free_name"
+                                    android:textColor="@color/confirmed"
+                                    android:textSize="@dimen/regular"
+                                    android:visibility="gone"
+                                    app:layout_constraintStart_toStartOf="@+id/lasftName"
+                                    app:layout_constraintTop_toBottomOf="@+id/lasftName" />
+
+                            <ImageView
+                                    android:id="@+id/imageView1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.11"
+                                    android:src="@drawable/ic_check_green_12dp"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="@+id/correctNickText"
+                                    app:layout_constraintStart_toEndOf="@+id/correctNickText"
+                                    app:layout_constraintTop_toBottomOf="@+id/lasftName" />
+
+                            <ImageView
+                                    android:id="@+id/imageViewmini"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.11"
+                                    android:src="@drawable/ic_invalid_red_14dp"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="@+id/correctNickText"
+                                    app:layout_constraintTop_toBottomOf="@+id/lasftName"
+                                    tools:layout_editor_absoluteX="190dp" />
+
+                            <Switch
+                                    android:id="@+id/switch1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Мне есть 18 лет"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/lasftName"
+                                    app:layout_constraintTop_toTopOf="@+id/datePicker" />
+
+
                             <android.support.constraint.ConstraintLayout
                                     android:id="@+id/incorrectNickLayout"
                                     android:layout_width="wrap_content"
@@ -330,19 +287,10 @@
                                     app:layout_constraintRight_toRightOf="parent"
                                     tools:layout_editor_absoluteY="80dp">
 
-                                <ImageView
-                                        android:id="@+id/imageViewmini"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center"
-                                        android:layout_weight="0.11"
-                                        android:src="@drawable/ic_invalid_red_14dp"
-                                        android:visibility="gone" />
-
                                 <TextView
                                         android:id="@+id/incorrectNickText"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
                                         android:layout_weight="0.54"
                                         android:gravity="center"
                                         android:text="@string/edit_profile_profile_already_exist_name"
@@ -360,30 +308,12 @@
                                     android:layout_weight="1"
                                     android:gravity="center"
                                     android:orientation="horizontal"
-                                    android:visibility="gone"
+                                    android:visibility="visible"
                                     app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/incorrectNickLayout">
 
-                                <ImageView
-                                        android:id="@+id/imageView1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center"
-                                        android:layout_weight="0.11"
-                                        android:src="@drawable/ic_check_green_12dp" />
-
-                                <TextView
-                                        android:id="@+id/correctNickText"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="2dp"
-                                        android:layout_weight="0.54"
-                                        android:gravity="center"
-                                        android:text="@string/edit_profile_profile_free_name"
-                                        android:textColor="@color/confirmed"
-                                        android:textSize="@dimen/regular" />
                             </LinearLayout>
 
 
@@ -497,14 +427,14 @@
             </FrameLayout>
         </ScrollView>
 
-        <FrameLayout
+    <!--    <FrameLayout
                 android:id="@+id/container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />-->
     </android.support.constraint.ConstraintLayout>
 </RelativeLayout>

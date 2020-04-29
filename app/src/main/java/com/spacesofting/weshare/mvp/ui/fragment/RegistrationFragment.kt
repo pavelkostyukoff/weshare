@@ -33,7 +33,19 @@ import com.spacesofting.weshare.utils.RealFilePath
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.android.synthetic.main.fragment_registration.avatarO
+import kotlinx.android.synthetic.main.fragment_registration.background
+import kotlinx.android.synthetic.main.fragment_registration.contentProfile
+import kotlinx.android.synthetic.main.fragment_registration.correctNickLayout
+import kotlinx.android.synthetic.main.fragment_registration.correctNickText
+import kotlinx.android.synthetic.main.fragment_registration.datePicker
+import kotlinx.android.synthetic.main.fragment_registration.delPhoto
+import kotlinx.android.synthetic.main.fragment_registration.incorrectNickLayout
+import kotlinx.android.synthetic.main.fragment_registration.incorrectNickText
+import kotlinx.android.synthetic.main.fragment_registration.progress
+import kotlinx.android.synthetic.main.fragment_registration.saveProfile
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,6 +58,7 @@ class RegistrationFragment : FragmentWrapper(),
     override fun showEmailComfirmDialog(login: String?) {
         //todo show dialog get text and send presenter comfirm
         comfirmDlg(true,login)
+        //TODO берем почту и автоматом отправляем юзеру
     }
     override fun toastError(s: String) {
         toast(s)
@@ -65,7 +78,7 @@ class RegistrationFragment : FragmentWrapper(),
             comfirmDlg = activity?.let {
                 AlertDialog.Builder(it)
                     .setView(view)
-                   // .setCancelable(false)
+                    .setCancelable(false)
                     .show()
             }
         } else {
@@ -149,7 +162,9 @@ class RegistrationFragment : FragmentWrapper(),
             //todo верификация
             //profile если ок то отсылка
             //todo валидация паттерн для почты
-            profile.login = "Soprano61+" + loginText.text.toString() + "@yandex.ru"
+            profile.login = "pavel.rilisoft+" + loginText.text.toString() + "@gmail.com"
+
+            //  profile.login = "Soprano61+" + loginText.text.toString() + "@yandex.ru"
             //todo валидация паттерн для почты
             profile.password = "password"//password.text.toString()
             //todo валидация bvtyb
@@ -289,7 +304,7 @@ class RegistrationFragment : FragmentWrapper(),
         super.onStart()
         background.startScrollingAnimation(firstStart)
         firstStart = false
-        runDelayed(2000, { background.startDimmingAnimation() })
+      //  runDelayed(2000) { background.startDimmingAnimation() }
     }
 
     override fun onPause() {
@@ -319,6 +334,20 @@ class RegistrationFragment : FragmentWrapper(),
                 .title(R.string.search_hint)
                 .content(R.string.dialog_chose_action)
                 .positiveText(R.string.guest_card_state_send_for_approval)
+                .onPositive { dialog, which ->
+                    close()
+                }
+                .neutralText(R.string.edit)
+                .show()
+        }
+    }
+
+    override fun errorDlg(message: String) {
+        activity?.let {
+            MaterialDialog.Builder(it)
+                .title(R.string.error_general)
+                .content(message)
+                .positiveText(R.string.ok)
                 .onPositive { dialog, which ->
                     close()
                 }

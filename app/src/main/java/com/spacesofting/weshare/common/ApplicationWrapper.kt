@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.common
 
-import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
+import android.support.multidex.MultiDexApplication
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.di.AppComponent
@@ -18,7 +18,7 @@ import ru.terrakok.cicerone.Cicerone
 import java.io.File
 
 
-class ApplicationWrapper : Application() {
+class ApplicationWrapper : MultiDexApplication() {
     private var component: AppComponent? = null
 
     private var doAuthtorizedWish: Wish? = null
@@ -36,7 +36,7 @@ class ApplicationWrapper : Application() {
         lateinit var user: User
         lateinit var context: Context
         lateinit var file: File
-         var avatar: String? = null
+        var avatar: String = ""
 
         lateinit var mailAutorize : Login
 

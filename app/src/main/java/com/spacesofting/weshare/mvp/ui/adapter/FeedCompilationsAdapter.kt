@@ -11,18 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
-import com.spacesofting.weshare.R
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
-import com.spacesofting.weshare.mvp.*
+import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.Entity
+import com.spacesofting.weshare.mvp.Datum
+import com.spacesofting.weshare.mvp.Image
+import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedCompilationsPresenter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
-import kotlin.collections.ArrayList
 
 class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
     private val MAX_ITEM_NUM    = 5
@@ -30,15 +32,15 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     private var isFirstStart    = true
     private var itemNum         = 0
     private var viewPool        = RecyclerView.RecycledViewPool()
-    val dataset                 = ArrayList<Datum>()
-    val wishList = ArrayList<Wish>()
-    val w22 = Wish()
+    val dataset                 = ArrayList<Entity>()
+    private val wishList = ArrayList<Wish>()
+    private val w22 = Wish()
 
 
     override fun getItemCount() = dataset.size
 
     override fun onCreateViewHolder(p0: ViewGroup, viewType: Int): CompilationViewHolder {
-        val view = LayoutInflater.from(p0?.context).inflate(R.layout.list_item_category, p0, false)
+        val view = LayoutInflater.from(p0.context).inflate(R.layout.list_item_category, p0, false)
         return CompilationViewHolder(view)
     }
 
@@ -76,7 +78,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
               //      onUpdate(item)
              //   }, {})
             //} else if(item.wishList.isNotEmpty()) {
-            /*val arrOmg = ArrayList<Int>()
+        /*    val arrOmg = ArrayList<Int>()
             arrOmg.add(R.drawable.icon_closed)
             arrOmg.add(R.drawable.icon_home)
             arrOmg.add(R.drawable.img_splash_bsq_1)
@@ -100,18 +102,18 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             arrImg.add(R.drawable.ic_tools)
            // viewHolder.wishImage.setImageResource(arrOmg.get(position))
 
-            viewHolder.imageView.setImageResource(arrImg.get(position))
+            viewHolder.imageView.setImageResource(arrImg[position])
 
             w22.templateId = 0
             w22.compilationId = 0
             w22.description = "Wow it's worked"
             w22.name = item.name
            // w22.images() wishIamge
-            if (item.tags?.isNotEmpty()!!)
+            /* todo new if (item.tags?.isNotEmpty()!!)
             {
                 w22.description = item.tags?.get(0)
 
-            }
+            }*/
             wishList.clear()
             wishList.add(w22)
 
@@ -126,7 +128,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     }
 
     // todo подборка категорий
-    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Datum){
+    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Entity){
         val adapter = CompilationsWishAdapter(wishList, item, this)
 
        // holder.wishList.recycledViewPool = viewPool
@@ -138,7 +140,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
 
     // todo подборка вещей вот тут могут быть лаги всязи с расчетом
-    private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Datum){
+    private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Entity){
         val size = wishList.size
         val num = if (itemNum <= size - 1) itemNum else (size - 1)
         val scrollPosition = if(itemNum > size) (itemNum - size) else itemNum

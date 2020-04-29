@@ -3,9 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
-        android:layout_margin="16dp"
         android:background="@drawable/bg_splash_gradient">
 
     <android.support.constraint.ConstraintLayout
@@ -36,9 +35,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/email"
+                android:hint="Проверте почту и введите код"
                 android:textColor="@color/manatee"
-                android:textSize="12sp"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ok"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,12 +49,11 @@
 
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_splash_gradient"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="Отправить"
                 android:textColor="@color/azure_radiance"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,7 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.common.Settings
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_splash.*
 
@@ -35,12 +36,12 @@ class SplashFragment : FragmentWrapper() {
 
 
         runDelayed(DELAY){
-          /*  if (Settings.IsAuthorized) {
-                router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
-            } else {*/
+            if (Settings.IsAuthorized) {
+                router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+            } else {
                //todo конкретно тут мы стартуем router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)
             router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT) //AUTORIZE_FRAGMENT FEED_FRAGMENT
-          //  }
+            }
         }
     }
 

@@ -2,18 +2,25 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.pawegio.kandroid.d
 import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
+import com.spacesofting.weshare.api.EnumErrorType
+import com.spacesofting.weshare.api.HttpStatusCode
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.Mail
 import com.spacesofting.weshare.mvp.model.MailComfirm
 import com.spacesofting.weshare.mvp.presentation.view.RegistrationView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
+import com.spacesofting.weshare.utils.ErrorUtils
 import com.spacesofting.weshare.utils.ImageUtils
+import com.spacesofting.weshare.utils.ServerException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.File
 import java.net.MalformedURLException
@@ -27,6 +34,9 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
     val router = ApplicationWrapper.INSTANCE.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
+
+    val login = Login()
+    private val mail = Mail()
 
     enum class Field {
         NICK,
@@ -43,11 +53,10 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
     private var isCheckAlreadyExist = false
 
     init {
-     //   this.profile = ApplicationWrapper.user
-      //  ApplicationWrapper.user?.let { viewState.showProfile(it) }
-
+        //   this.profile = ApplicationWrapper.user
+        //  ApplicationWrapper.user?.let { viewState.showProfile(it) }
         //todo запрос оправляется как только мы хотим показать профиль после логина
-       /* Api.Users.getAccount()
+        /* Api.Users.getAccount()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ profile ->
@@ -62,7 +71,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
     }
 
 
-   /* fun showAvatar()
+    /* fun showAvatar()
     {
         Api.Users.getAccount()
             .subscribeOn(Schedulers.io())
@@ -81,10 +90,10 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
 
     fun onBackPressed() {
         // get difference
-      //  val equals = profile?.equals(profileNew)
+        //  val equals = profile?.equals(profileNew)
 
         //choose dialog to show
-       /* if (equals != null && equals) {
+        /* if (equals != null && equals) {
             viewState.close()
         } else if (isValid()) {
             viewState.save()
@@ -96,17 +105,16 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
         viewState.showEmailComfirmDialog(profile.login)
     }*/
 
-    fun deletePhoto()
-    {
-        Api.Pictures.delPicture()
+    fun deletePhoto() {
+      /*  Api.Pictures.delPicture()
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
-            .subscribe ({
+            .subscribe({
                 viewState.deletePhotos()
 
-            }){
+            }) {
 
-            }
+            }*/
     }
 
     fun saveAvatar() {
@@ -122,10 +130,10 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                 if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(imageFile!!)
                 }
-                ImageUtils.send(saveImgFile)?.subscribeOn(AndroidSchedulers.mainThread())
+              /*  ImageUtils.send(saveImgFile, goodId)?.subscribeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({ img ->
                         //profileNew.img = img
-                       // this.profile?.let { it1 -> viewState.showProfile(it1) }
+                        // this.profile?.let { it1 -> viewState.showProfile(it1) }
                         //this.profile
                         viewState.updateAvatar(img)
                         viewState.showProgress(false)
@@ -133,15 +141,15 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                         //   updateProfile()
                     }, { e ->
                         viewState.saved(false)
-                       // viewState.showToast(R.string.error_link_image)
-                    })
+                        // viewState.showToast(R.string.error_link_image)
+                    })*/
             }
         } ?: run {
             updateProfile()
         }
     }
 
-    private fun updateProfile(){
+    private fun updateProfile() {
     }
 
     fun fieldChanged(value: String?, field: Field) {
@@ -149,7 +157,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
             isCheckAlreadyExist = false
 
             value?.let {
-                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.firstName) || (it.isNotEmpty() && it.length >= 3 && profile == null)){
+                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.firstName) || (it.isNotEmpty() && it.length >= 3 && profile == null)) {
                     isCheckAlreadyExist = true
                     timeout?.cancel()
                     timeout = Timer()
@@ -157,7 +165,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                         override fun run() {
                             runOnUiThread {
                                 checkExistNick(it)
-                             //   profileNew.firstName = it
+                                //   profileNew.firstName = it
                             }
                         }
                     }, 500)
@@ -165,30 +173,30 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                     timeout?.cancel()
                     viewState.saveButtonEnabled(false)
                     isNickNameValid = false
-               //     profileNew.firstName = it
+                    //     profileNew.firstName = it
 
-                    if(it.isEmpty()){
+                    if (it.isEmpty()) {
                         viewState.onCheckNick(RegistrationView.NONE)
-                    } else if(it == profile?.firstName){
+                    } else if (it == profile?.firstName) {
                         isNickNameValid = true
                         viewState.onCheckNick(RegistrationView.NONE)
                         viewState.saveButtonEnabled(isAddedNewAvatar)
-                    } else if(it.length < 3 && it.isNotEmpty()) {
+                    } else if (it.length < 3 && it.isNotEmpty()) {
                         viewState.onCheckNick(RegistrationView.SHORT_NICK)
-                    } else if(it.length > MAX_NICK_LINGTH){
+                    } else if (it.length > MAX_NICK_LINGTH) {
                         viewState.onCheckNick(RegistrationView.LONG_NICK)
                     }
                     return@let
                 }
             }
         } else if (field == Field.IMAGE) {
-          //  profileNew.img = Image(value)
+            //  profileNew.img = Image(value)
             viewState.saveButtonEnabled(isValid())
         }
     }
 
     fun isValid(): Boolean {
-    /*    if(profileNew.firstName != null) {
+        /*    if(profileNew.firstName != null) {
             return PATTERN.matcher(profileNew.firstName).matches()
         }else{
             return false
@@ -197,7 +205,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.INSTANCE?.profile != null) {
+        if (ApplicationWrapper.INSTANCE?.profile != null) {
             return true
         } else {
             Settings.logout()
@@ -224,7 +232,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                     viewState.setPreviewPhoto(res)
                 }
             }, { e ->
-              //  ApplicationWrapper.INSTANCE.profile = User
+                //  ApplicationWrapper.INSTANCE.profile = User
                 viewState.showToast(R.string.error_message)
             })
     }
@@ -235,8 +243,8 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
 
     override fun onEditPhotoConfirmClick() {
 
-                        saveAvatar()
-      /*  imageFile?.let {
+        saveAvatar()
+        /*  imageFile?.let {
             isAddedNewAvatar = true
             viewState.showImage(it)
             viewState.saveButtonEnabled(isNickNameValid)
@@ -269,7 +277,8 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
 
 
     }
-   /* override fun onPickerCameraClick() {
+
+    /* override fun onPickerCameraClick() {
         imageFile = ImageUtils.savePhotoFile()
         viewState.openCamera(imageFile!!)
     }*/
@@ -308,47 +317,155 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                 }
             })*/
     }
-//todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
+
+    //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
     fun setRegistration(profile: Profile) {
         viewState.showProgress(true)
-
+        mail.login = profile.login
+        login.login = profile.login
+        login.password = profile.password
         Api.Users.register(profile)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
-            .subscribe ({
+            .subscribe({
+
                 viewState.showEmailComfirmDialog(profile.login)
+                /*    when (it.code()) {
+                    HttpStatusCode.NO_CONTENT,
+                    HttpStatusCode.OK -> {
 
-            }){
-                it
-                router?.exit()
-                //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
-                viewState.toastError("Такой уже зарегистрирован или что-то иное надо настроить ошибки от сервера")
+                    }
+                    HttpStatusCode.NOT_FOUND -> {
 
+                    }
+                }*/
+
+            }) {
+                val error = ErrorUtils.parseError(it)
+                parseError(error)
+                /*//todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                if (it.message.equals("User already exists"))
+                {
+                    //повторный запрос
+
+                }
+                else {
+                    it.message?.let { it1 -> viewState.toastError(it1) }
+                    router.exit()
+                }*/
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }
-
     }
 
-    fun comfirmMail(text: MailComfirm?) {
-        Api.Users.comfirmMeil(text)
+    private fun parseError(error: ServerException) {
+        when (error.type) {
+            EnumErrorType.REQUIRED_CONFIRMATION -> {
+                //  val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
+                Settings.ValidationToken = error.extraFields?.validationToken
+                //  router.navigateTo(ScreenPool.SMS_CONFIRMATION_FRAGMENT, SmsRegistration(registration, timeout))
+            }
+            EnumErrorType.MODEL_VALIDATION -> {
+                d("ERROR_TYPE", "validation model")
+            }
+            EnumErrorType.TIMEOUT -> {
+                //   val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
+                //   viewState.showErrorMessage(true, R.string.auth_user_blocked, timeout, true)
+            }
+            EnumErrorType.ERRORS -> {
+                val reasons = error.extraFields?.errors?.get(0)?.reasons?.get(0)
+                viewState.toastError(error.message)
+                when(error.message)
+                {
+                    "Too many request to verify email. Try again later."->{
+                        viewState.errorDlg("Слишком много запросов проверки mail, попробуйте позже")
+                    }
+                    "User already exists"-> {
+
+                        verifyMailRequest(mail)
+                    }
+                    "User not found or alerady verified" -> {
+                        viewState.errorDlg("Пользователь с такой почтой уже был зарегистрирован")
+                    }
+                }
+                /*      when(reasons) {
+                 //   EnumReasons.WRONG_SMS_CODE -> {
+                //        viewState.showErrorMessage(true, R.string.auth_wrong_sms_code)
+                    }
+
+                    else -> {
+                  //      viewState.showErrorMessage(true, R.string.error_general)
+                    }*/
+            }
+        }
+    }
+
+    private fun verifyMailRequest(mail: Mail) {
+        Api.Users.verifyMailRequest(mail)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
-            .subscribe ({
-               // viewState.showEmailComfirmDialog(profile?.login)
-                router.navigateTo(ScreenPool.AUTORIZE_FRAGMENT)
-                viewState.showToast(R.string.reg_succesfull)
+            .subscribe({
 
+                when (it.code()) {
+                    HttpStatusCode.NO_CONTENT,
+                    HttpStatusCode.CREATED,
+                    HttpStatusCode.OK -> {
+                        viewState.showEmailComfirmDialog(mail.login)
+                    }
+                    HttpStatusCode.NOT_FOUND -> {
+                        viewState.errorDlg("Такой пользователь уже зарегестирован или не найден в системе")
+                       // viewState.toastError("Такой пользователь уже зарегестирован или не найден в системе")
+                    }
+                }
+                //todo проходим в основной экран
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
                 //        router?.exitWithResult(SCANNER_REQUEST_CODE, it)
-            }){
-                router?.exit()
+            }) {
+                val error = ErrorUtils.parseError(it)
+                parseError(error)
+             //   router?.exit()
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
-                viewState.showToast(R.string.reg_filed)
-
+               // viewState.showToast(R.string.reg_filed)
             }
+    }
 
+
+    fun comfirmMail(text: MailComfirm?) {
+            Api.Users.comfirmMeil(text)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { viewState.showProgress(false) }
+                .subscribe({
+                //   viewState.showEmailComfirmDialog(profile?.login)
+
+                    autorize()
+                    //todo проходим в основной экран
+                    //todo тут может отправить во вью и показать тост
+                    //        router?.exitWithResult(SCANNER_REQUEST_CODE, it)
+                }) {
+                    router?.exit()
+                    //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
+                    //router.navigateTo(ScreenPool.BASE_FRAGMENT)
+                    viewState.showToast(R.string.reg_filed)
+                }
+        }
+
+         fun autorize() {
+            if (login != null) {
+                viewState.showProgress(true)
+                Api.Auth.autorize(login)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally { viewState.showProgress(false) }
+                    .subscribe({ autorize ->
+                        Settings.AccessToken = autorize.accessToken
+                        Settings.ValidationToken = autorize.rowrefreshTokenVersion
+                        router.navigateTo(ScreenPool.FEED_FRAGMENT)
+                        viewState.showToast(R.string.reg_succesfull)
+                        //todo тут кладем токен в сохранялки Settings
+                    }) {
+                        it.message?.let { it1 -> viewState.toastError(it1) }
+                    }
+            }
+        }
 
     }
-}

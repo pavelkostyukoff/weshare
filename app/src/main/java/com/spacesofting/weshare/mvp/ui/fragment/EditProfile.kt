@@ -89,6 +89,7 @@ class EditProfile : FragmentWrapper(),
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { tvChangeEvent ->
                 //remove unacceptable symbols
+                tvChangeEvent
                 val newValue = nickName.text.toString()?.replace(REPLACEMENT, "")
                 if (newValue != null && newValue != nickName.text.toString()) {
                     nickName.text.replace(0, nickName.text.length, newValue)
