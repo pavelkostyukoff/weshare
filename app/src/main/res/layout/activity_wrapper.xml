@@ -5,17 +5,17 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                     android:id="@+id/mainAppbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -24,14 +24,14 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:elevation="0dp">
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                         android:id="@+id/mainToolbar"
                         android:layout_width="match_parent"
                         android:layout_height="28dp"
                         android:background="@color/link_water"/>
-            </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/mainContainer"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -53,9 +53,9 @@
                         android:layout_marginTop="120dp"
                         android:layout_marginStart="39dp" android:layout_marginEnd="8dp"
                         app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>-->
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.design.widget.BottomNavigationView
+            <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/scan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:menu="@menu/navigation">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/countFold"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
@@ -94,13 +94,13 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.428" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </android.support.design.widget.BottomNavigationView>
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <android.support.design.widget.NavigationView
+        <com.google.android.material.navigation.NavigationView
                 android:id="@+id/navigationView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -110,7 +110,7 @@
                     layout="@layout/view_drawer_menu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-        </android.support.design.widget.NavigationView>
-    </android.support.v4.widget.DrawerLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </FrameLayout>

@@ -3,12 +3,11 @@ package com.spacesofting.weshare.mvp.ui.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.spacesofting.weshare.mvp.presentation.view.BaseView
-import com.spacesofting.weshare.mvp.presentation.presenter.BasePresenter
-
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.mvp.presentation.presenter.BasePresenter
+import com.spacesofting.weshare.mvp.presentation.view.BaseView
 
 class BaseFragment : FragmentWrapper(),
     BaseView {
@@ -16,7 +15,7 @@ class BaseFragment : FragmentWrapper(),
         return R.layout.fragment_base
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         setHamburgerForRole()
     }

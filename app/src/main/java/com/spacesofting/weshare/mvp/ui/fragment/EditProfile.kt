@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.FragmentTransaction
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
@@ -347,7 +347,7 @@ class EditProfile : FragmentWrapper(),
                         ?.beginTransaction()
                         ?.addToBackStack(null)
                         ?.add(R.id.container, picker)
-                        ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        ?.setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
                 }
         }

@@ -1,7 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -14,6 +12,8 @@ import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
 import com.spacesofting.weshare.mvp.ui.fragment.FeedFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class FeedPresenter : MvpPresenter<FeedView>() {

@@ -1,11 +1,11 @@
 package com.spacesofting.weshare.mvp.presentation.views
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
 
-class StaggeredRecyclerView: RecyclerView {
+class StaggeredRecyclerView: androidx.recyclerview.widget.RecyclerView {
 
     constructor(context: Context) : super(context) {
         init()
@@ -17,8 +17,9 @@ class StaggeredRecyclerView: RecyclerView {
         init()
     }
     fun init() {
-        layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
-        (layoutManager as StaggeredGridLayoutManager).gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        layoutManager =
+            androidx.recyclerview.widget.StaggeredGridLayoutManager(2, VERTICAL)
+        (layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager).gapStrategy = androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 
       /*  if(getItemDecorationAt(0) == null) {
             addItemDecoration(SpacesItemDecoration())

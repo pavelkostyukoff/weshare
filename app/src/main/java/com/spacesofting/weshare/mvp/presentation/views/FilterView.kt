@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.presentation.views
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
 import android.widget.TextView

@@ -5,7 +5,7 @@ import android.view.View
 import com.spacesofting.weshare.mvp.presentation.view.ShowGoodView
 import com.spacesofting.weshare.mvp.presentation.presenter.ShowGoodPresenter
 
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 

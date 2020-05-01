@@ -2,12 +2,12 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
@@ -50,16 +50,18 @@ class IRentFragment : FragmentWrapper(),
 
     }
     private fun listShow() {
-        val mLayoutManager = GridLayoutManager(activity, 2)
+        val mLayoutManager =
+            androidx.recyclerview.widget.GridLayoutManager(activity, 2)
         recyclerView.layoutManager = mLayoutManager
             recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()
         recyclerView.adapter = adapter
     }
 
-    inner class GridSpacingItemDecoration(private val spanCount: Int, private val spacing: Int, private val includeEdge: Boolean) : RecyclerView.ItemDecoration() {
+    inner class GridSpacingItemDecoration(private val spanCount: Int, private val spacing: Int, private val includeEdge: Boolean) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
             val position = parent.getChildAdapterPosition(view) // item position
             val column = position % spanCount // item column
 
@@ -95,9 +97,11 @@ class IRentFragment : FragmentWrapper(),
         }
         adapter?.dataset?.clear()
 
-        val mLayoutManager = GridLayoutManager(activity, 2)
+        val mLayoutManager =
+            androidx.recyclerview.widget.GridLayoutManager(activity, 2)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()
 
         /*val imageFile: File?
         imageFile = R.drawable.img12*/

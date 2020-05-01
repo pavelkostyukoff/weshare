@@ -1,7 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.pawegio.kandroid.d
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.EnumErrorType
@@ -21,6 +19,8 @@ import com.spacesofting.weshare.utils.ErrorUtils
 import com.spacesofting.weshare.utils.ServerException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 
 @InjectViewState
 class AutorizePresenter : MvpPresenter<AutorizeView>() {

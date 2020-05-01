@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import com.pawegio.kandroid.d
 import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R

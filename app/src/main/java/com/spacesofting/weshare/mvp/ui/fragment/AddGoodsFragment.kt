@@ -8,11 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView

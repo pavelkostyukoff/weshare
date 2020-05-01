@@ -2,7 +2,7 @@ package com.spacesofting.weshare.mvp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 
-class ItemThingRentAdapter(val context: Context) : RecyclerView.Adapter<ItemThingRentAdapter.CompaniesListViewHolder>() {
+class ItemThingRentAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemThingRentAdapter.CompaniesListViewHolder>() {
     val dataset = ArrayList<RentItem>()
     val router = ApplicationWrapper.INSTANCE.getRouter()
 
@@ -35,7 +35,7 @@ class ItemThingRentAdapter(val context: Context) : RecyclerView.Adapter<ItemThin
         }*/
     }
 
-    class CompaniesListViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    class CompaniesListViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
         var person_photo = item.porterShapeImageView
        // var person_name = item.person_name
       //  var person_age = item.person_age

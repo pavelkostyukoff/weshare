@@ -2,16 +2,16 @@ package com.spacesofting.weshare.common
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.arellomobile.mvp.MvpAppCompatFragment
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import moxy.MvpAppCompatFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R

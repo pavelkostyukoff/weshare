@@ -3,9 +3,9 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,12 +26,12 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
 
-class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
+class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilationsPresenter): androidx.recyclerview.widget.RecyclerView.Adapter<FeedCompilationsAdapter.CompilationViewHolder>(){
     private val MAX_ITEM_NUM    = 5
     private val wishItemMargin  = context.resources.getDimensionPixelSize(R.dimen.margin_half) * 2
     private var isFirstStart    = true
     private var itemNum         = 0
-    private var viewPool        = RecyclerView.RecycledViewPool()
+    private var viewPool        = androidx.recyclerview.widget.RecyclerView.RecycledViewPool()
     val dataset                 = ArrayList<Entity>()
     private val wishList = ArrayList<Wish>()
     private val w22 = Wish()
@@ -133,7 +133,12 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
        // holder.wishList.recycledViewPool = viewPool
         holder.wishList.visible = true
-        holder.wishList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        holder.wishList.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(
+                context,
+                androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
+                false
+            )
         holder.wishList.adapter = adapter
         adapter.notifyDataSetChanged()
     }
@@ -150,7 +155,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
        loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
         holder.wishName.text = wishList[num].name
      //   holder.wishCost.text = wishList[num].price?.toString()
-        (holder.wishList.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
+        (holder.wishList.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
 
         holder.add.setOnClickListener {
          //   item.setLoading(true)
@@ -221,8 +226,8 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         notifyDataSetChanged()
     }
 
-    class CompilationViewHolder(item: View): RecyclerView.ViewHolder(item){
-        val root: ConstraintLayout      = item.rootLayout
+    class CompilationViewHolder(item: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(item){
+        val root: ConstraintLayout = item.rootLayout
         val title: TextView             = item.title
         val showMore: LinearLayout      = item.showMore
         val subscribe: Button           = item.subscribe
@@ -233,7 +238,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val add: ImageButton            = item.addBtn
         val wishName: TextView          = item.wishName
         val wishCost: TextView          = item.wishCost
-        val wishList: RecyclerView      = item.wishList
+        val wishList: androidx.recyclerview.widget.RecyclerView = item.wishList
         val progress: FrameLayout       = item.progress
 
         fun setLoading(isLoading: Boolean){

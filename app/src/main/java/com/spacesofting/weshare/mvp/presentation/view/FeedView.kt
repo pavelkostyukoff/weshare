@@ -1,9 +1,13 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
-import com.arellomobile.mvp.MvpView
 import com.spacesofting.weshare.mvp.Template
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
+
+@StateStrategyType(value = AddToEndSingleStrategy::class, tag = "")
 
 interface FeedView : MvpView {
     fun setLoadingProgressVisibility(visible: Boolean)

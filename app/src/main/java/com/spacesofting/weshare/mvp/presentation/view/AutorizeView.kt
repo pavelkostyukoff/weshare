@@ -1,6 +1,10 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
-import com.arellomobile.mvp.MvpView
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
+
+@StateStrategyType(value = AddToEndSingleStrategy::class, tag = "")
 
 interface AutorizeView : MvpView {
     fun showProgress(isVisible: Boolean)

@@ -1,128 +1,145 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+    apply plugin: 'com.android.application'
+    apply plugin: 'kotlin-android-extensions'
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-kapt'
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
 
-def SUPPORT_VERSION = '28.0.0'
-def API_VERSION = "1"
+    def SUPPORT_VERSION = '28.0.0'
+    def API_VERSION = "1"
+    def moxyVersion = "2.1.2"
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://jitpack.io'
-
-        }
-        maven {         url "http://maven.google.com/"
-        }
-
-    }
-}
-android {
-    lintOptions {
-        checkReleaseBuilds false
-    }
-    compileSdkVersion 28
-    defaultConfig {
-        applicationId "com.spacesofting.weshare"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-    }
-    defaultConfig {
-        applicationId "com.spacesofting.weshare"
-        minSdkVersion 21
-        targetSdkVersion 28
-
-        versionCode System.env.BUILD_NUMBER as Integer ?: 1
-        versionName "0.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "int", "API_VERSION", API_VERSION
-
-        buildConfigField "java.util.Map<String, String>", "API_PATHS",
-                "new java.util.HashMap<String, String>() " +
-                        "{{ " +
-                        "put(\"PROD\", \"https://api.boomerango.ru"  + "/\"); " +
-                        "put(\"test\",  \"https://api.boomerango.ru"  + "/\"); " +
-                        "}}"
-    }
-
-    applicationVariants.all { variant ->
-        variant.resValue "string", "versionName", variant.versionName
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    allprojects {
+        repositories {
+            jcenter()
+            maven {
+                url 'https://jitpack.io'
+            }
+            maven {         url "http://maven.google.com/"
+            }
         }
     }
-    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/common'] } }
-    configurations.all {
-        resolutionStrategy {
-            force 'com.android.support:support-v4:27.1.0'
+    kapt {
+        generateStubs = true
+    }
+
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+        lintOptions {
+            checkReleaseBuilds false
+        }
+        compileSdkVersion 28
+        defaultConfig {
+            applicationId "com.spacesofting.weshare"
+            minSdkVersion 21
+            targetSdkVersion 28
+
+            versionCode System.env.BUILD_NUMBER as Integer ?: 1
+            versionName "1.0"
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+            buildConfigField "int", "API_VERSION", API_VERSION
+
+            buildConfigField "java.util.Map<String, String>", "API_PATHS",
+                    "new java.util.HashMap<String, String>() " +
+                            "{{ " +
+                            "put(\"PROD\", \"https://api.boomerango.ru"  + "/\"); " +
+                            "put(\"test\",  \"https://api.boomerango.ru"  + "/\"); " +
+                            "}}"
+        }
+
+        applicationVariants.all { variant ->
+            variant.resValue "string", "versionName", variant.versionName
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
+        sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/common'] } }
+        configurations.all {
+            resolutionStrategy {
+                force 'com.android.support:support-v4:$SUPPORT_VERSION'
+            }
         }
     }
-}
 
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
-    implementation "com.android.support:design:$SUPPORT_VERSION"
+    dependencies {
+        //todo kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        //todo Dagger 2
+     /*   implementation 'com.google.dagger:dagger:2.27'
+        kapt 'com.google.dagger:dagger-compiler:2.9'*/
+        /* implementation "com.google.dagger:dagger:$daggerVer"
+        implementation "com.google.dagger:dagger-android-support:$daggerVer"
+        kapt "com.google.dagger:dagger-android-processor:$daggerVer"
+        kapt "com.google.dagger:dagger-compiler:$daggerVer"*/
+        //todo Retrofit
+        implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+        implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.12.2'
+        //todo Rx2
+        implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+        implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+        implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+        implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+        //todo moxy х
+        // annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.5'
+        implementation "com.github.moxy-community:moxy:$moxyVersion"
+        kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+        implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
+
+
+        // annotationProcessor "com.github.moxy-community:moxy-compiler:2.1.2"
+       // implementation "com.github.moxy-community:moxy-androidx:2.1.2"
 /*
-    testImplementation 'junit:junit:4.12'
+        kapt "com.github.moxy-community:moxy-compiler:2.1.2"
 */
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-    implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
-    implementation 'com.arello-mobile:moxy:1.5.3'
-    implementation 'com.yandex.android:mapkit:3.4.0'
-    implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
-    implementation 'com.arello-mobile:moxy-android:1.5.3'
-    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
-    kapt 'com.arello-mobile:moxy-compiler:1.5.3'
-    implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
-    implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.hbb20:ccp:2.2.2'
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'org.apmem.tools:layouts:1.10@aar'
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.github.markomilos:paginate:0.5.1'
-    implementation 'com.android.support:multidex:1.0.1'
-
-    implementation 'org.greenrobot:eventbus:3.1.1'
-
-    implementation 'com.google.dagger:dagger:2.9'
-    kapt 'com.google.dagger:dagger-compiler:2.9'
- /*   def daggerVer = 2.12 // or latest version
-
-    implementation "com.google.dagger:dagger:$daggerVer"
-    implementation "com.google.dagger:dagger-android-support:$daggerVer"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
-    kapt "com.google.dagger:dagger-compiler:$daggerVer"*/
-/*
-    implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
-*/
-
-
-    implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
-}
+        /*  implementation 'com.arello-mobile:moxy:1.5.3'
+          implementation 'com.arello-mobile:moxy-android:1.5.3'
+          implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
+          kapt 'com.arello-mobile:moxy-compiler:1.5.3'*/
+        //todo ui
+        implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+        implementation 'com.google.android.material:material:1.1.0'
+        implementation "androidx.viewpager2:viewpager2:1.0.0"
+        implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+        implementation 'androidx.cardview:cardview:1.0.0'
+        implementation 'androidx.recyclerview:recyclerview:1.1.0'
+        implementation 'com.github.markomilos:paginate:0.5.1'
+        implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        implementation 'com.hbb20:ccp:2.2.2'
+        implementation 'com.makeramen:roundedimageview:2.3.0'
+        implementation 'org.apmem.tools:layouts:1.10@aar'
+        implementation 'de.hdodenhof:circleimageview:2.2.0'
+        implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+        implementation 'com.squareup.picasso:picasso:2.5.2'
+        //implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+        //todo test
+        androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+        //todo other
+        implementation 'org.greenrobot:eventbus:3.1.1'
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation 'com.google.firebase:firebase-analytics:17.4.0'
+        implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+        implementation 'com.android.support:support-v13:28.0.0'
+        implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
+        //maps
+        implementation 'com.yandex.android:mapkit:3.4.0'
+        // navigation
+        implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
+        implementation 'androidx.multidex:multidex:2.0.1'
+        //todo end
+    }

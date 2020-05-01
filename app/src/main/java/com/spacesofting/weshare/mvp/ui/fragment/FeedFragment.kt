@@ -2,11 +2,11 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
@@ -90,10 +90,10 @@ return R.layout.fragment_feed
         reload()
         wishesList.topPadding(0)
 
-        wishesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, scrollState: Int) {
+        wishesList.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, scrollState: Int) {
                 recyclerView?.let { super.onScrollStateChanged(it, scrollState) }
-                if (scrollState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (scrollState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
                     activity?.let { mainAdapter?.resumeImgDownload(it) }
                 } else {
                     activity?.let { mainAdapter?.pauseImgDownload(it) }

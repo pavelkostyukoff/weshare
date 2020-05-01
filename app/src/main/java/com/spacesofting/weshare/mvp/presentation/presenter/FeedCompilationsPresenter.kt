@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper

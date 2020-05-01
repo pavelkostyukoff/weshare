@@ -6,14 +6,13 @@ import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
@@ -33,6 +32,7 @@ import com.spacesofting.weshare.utils.TimerUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_authorization.*
+import moxy.presenter.InjectPresenter
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -274,7 +274,7 @@ class AuthorizationFragment : FragmentWrapper(),
         countDownTimer?.cancel()
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         countDownTimer?.cancel()
 

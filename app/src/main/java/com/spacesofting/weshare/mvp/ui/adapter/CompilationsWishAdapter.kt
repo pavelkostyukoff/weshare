@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.mvp.Wish
 import kotlinx.android.synthetic.main.list_item_compilations_wish.view.*
 
-class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val parentAdapter: FeedCompilationsAdapter): RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
+class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val parentAdapter: FeedCompilationsAdapter): androidx.recyclerview.widget.RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
     var dataset =  ArrayList<Wish>()
 
 
@@ -87,9 +87,9 @@ class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val
         }
     }
 
-    class CompilationsWishViewHolder(item: View): RecyclerView.ViewHolder(item){
-        val rootWish: ConstraintLayout  = item.wishRootLayout
-        val rootMore: ConstraintLayout  = item.rootMoreLayout
+    class CompilationsWishViewHolder(item: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(item){
+        val rootWish: ConstraintLayout = item.wishRootLayout
+        val rootMore: ConstraintLayout = item.rootMoreLayout
         val wishImg: RoundedImageView   = item.wishImage
         val wishName: TextView          = item.wishName
         val wishCost: TextView          = item.wishCost

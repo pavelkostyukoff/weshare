@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.mvp.presentation.views.splashbackgroundview
 
 import android.animation.ObjectAnimator
-import android.support.v4.view.animation.LinearOutSlowInInterpolator
-import android.support.v7.widget.CardView
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
+import androidx.cardview.widget.CardView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -176,7 +176,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
     fun introduceMagic(viewHolder: SplashElementViewHolder, startDelay: Int) {
         if (!shouldIntroduceMagic) return
         viewHolder.elements.forEachIndexed { index, imageView -> run {
-            val parent = imageView.parent as CardView
+            val parent = imageView.parent as androidx.cardview.widget.CardView
             parent.alpha = 0f
 
             val elementDelay = startDelay + index * dimmingElementsDelta
@@ -193,7 +193,7 @@ class SplashBackgroundAdapter: BaseAdapter() {
         dimFlag = true
         holdersCollection
             .flatMap { it.elements }
-            .map { it.parent as CardView }
+            .map { it.parent as androidx.cardview.widget.CardView }
             .forEach {
                 if (getMagicPortion()) {
                     it.animate().alpha(dimmedElementAlpha).setStartDelay(0).setDuration(elementsDimmingAnimationDuration).start()

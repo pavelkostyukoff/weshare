@@ -3,7 +3,7 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ class FeedAdapter(
     val presenter: FeedPresenter,
     val elementWidth: Int,
     t: ArrayList<ListWishElement>
-): RecyclerView.Adapter<TemplateViewHolder>() {
+): androidx.recyclerview.widget.RecyclerView.Adapter<TemplateViewHolder>() {
 
     companion object {
         const val PICASSO_TAG = "picassoTag"

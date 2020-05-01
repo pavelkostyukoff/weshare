@@ -17,7 +17,7 @@ class ErrorUtils {
             var result = ServerException()
 
             if (error is HttpException) {
-                val responseString = error.response().errorBody()?.string()
+                val responseString = error.response()?.errorBody()?.string()
                 if (!responseString.isNullOrEmpty()) {
                     try {
                         val parsedError = GsonBuilder().create().fromJson(responseString, ServerException::class.java)

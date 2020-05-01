@@ -3,9 +3,9 @@ package com.spacesofting.weshare.mvp.ui.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
@@ -43,7 +43,8 @@ class FeedChaosFragment : FragmentWrapper(),
     private fun initCompilationsList() {
         feedAdapter = FeedChaosAdapter(activity as Context, mPresenter)
         compilationsList.adapter = feedAdapter
-        compilationsList.layoutManager = LinearLayoutManager(activity)
+        compilationsList.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(activity)
         Paginate.with(compilationsList, this).build()
     }
 

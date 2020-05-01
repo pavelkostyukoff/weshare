@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/profile_background">
@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/wrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/constraintLayout5"
                             android:layout_width="320dp"
                             android:layout_height="360dp"
@@ -53,7 +53,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/editProfileTitle"
                             app:layout_constraintVertical_bias="1.0">
 
-                        <android.support.constraint.ConstraintLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/contentProfile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/constraintLayout2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
-                                <android.support.constraint.ConstraintLayout
+                                <androidx.constraintlayout.widget.ConstraintLayout
                                         android:id="@+id/registrationLayout"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent">
 
-                                </android.support.constraint.ConstraintLayout>
+                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <TextView
                                         android:id="@+id/errorMsg"
@@ -209,7 +209,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
-                            </android.support.constraint.ConstraintLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <FrameLayout
                                     android:id="@+id/frameLayout"
@@ -237,7 +237,7 @@
                                         android:visibility="gone" />
                             </FrameLayout>
 
-                            <android.support.constraint.ConstraintLayout
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                     android:id="@+id/incorrectNickLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                                         android:textColor="@color/invalid"
                                         android:textSize="@dimen/regular"
                                         android:visibility="gone" />
-                            </android.support.constraint.ConstraintLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <LinearLayout
                                     android:id="@+id/correctNickLayout"
@@ -308,7 +308,7 @@
                             </LinearLayout>
 
 
-                        </android.support.constraint.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <ProgressBar
                                 android:id="@+id/progress"
@@ -340,7 +340,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/contentProfile" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                             android:id="@+id/editProfileTitle"
@@ -354,7 +354,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -408,9 +408,9 @@
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </FrameLayout>
         </ScrollView>
 
@@ -423,5 +423,5 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

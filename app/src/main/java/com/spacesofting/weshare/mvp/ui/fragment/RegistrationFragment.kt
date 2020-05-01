@@ -5,13 +5,13 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible

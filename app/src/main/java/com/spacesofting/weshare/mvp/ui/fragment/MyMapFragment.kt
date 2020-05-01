@@ -4,9 +4,9 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.arellomobile.mvp.presenter.InjectPresenter
+import androidx.recyclerview.widget.LinearLayoutManager
+import moxy.presenter.InjectPresenter
 import com.google.android.gms.location.LocationListener
 import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.R
@@ -71,7 +71,7 @@ fun newInstance(): MyMapFragment {
     @InjectPresenter
     lateinit var mMapPresenter: MapPresenter
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
        MapKitFactory.setApiKey(MAPKIT_API_KEY)
         MapKitFactory.initialize(context)
         super.onAttach(context)
@@ -187,7 +187,12 @@ fun newInstance(): MyMapFragment {
 
         category.adapter = catAdapter
 
-        category.layoutManager =  LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false) //mTariffsLayoutManager //LinearLayoutManager(activity)
+        category.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(
+                activity,
+                androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
+                false
+            ) //mTariffsLayoutManager //LinearLayoutManager(activity)
 
     }
 }

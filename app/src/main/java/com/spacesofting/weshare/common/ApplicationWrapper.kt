@@ -2,11 +2,13 @@ package com.spacesofting.weshare.common
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.support.multidex.MultiDexApplication
+import androidx.multidex.MultiDexApplication
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.di.AppComponent
+/*
 import com.spacesofting.weshare.di.DaggerAppComponent
+*/
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
@@ -66,7 +68,9 @@ class ApplicationWrapper : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+/*
         component = DaggerAppComponent.create()
+*/
         user = User()
         initCicerone()
 

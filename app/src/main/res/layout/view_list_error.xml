@@ -29,7 +29,7 @@
             fontPath="fonts/rob-Medium.ttf"/>
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -53,14 +53,14 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
                         app:cardBackgroundColor="#BDDEEB"
                         app:cardCornerRadius="@dimen/cardview_default_elevation"
                         android:layout_margin="4dp"/>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         app:cardBackgroundColor="#F7E6AA"
@@ -78,14 +78,14 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="340dp"
                         app:cardBackgroundColor="#F2F2F2"
                         app:cardCornerRadius="@dimen/cardview_default_elevation"
                         android:layout_margin="4dp"/>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
                         app:cardBackgroundColor="#D8E6F3"
@@ -99,5 +99,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

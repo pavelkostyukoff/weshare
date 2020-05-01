@@ -1,10 +1,13 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
-import com.arellomobile.mvp.MvpView
 import com.spacesofting.weshare.api.NickNameStatus
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Photo
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
 import java.io.File
+@StateStrategyType(value = AddToEndSingleStrategy::class, tag = "")
 
 interface EditProfileView : MvpView {
 

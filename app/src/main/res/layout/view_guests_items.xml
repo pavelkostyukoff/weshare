@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navItemGuests"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/guestsIcon"
             app:layout_constraintStart_toEndOf="@+id/guestsIcon"
             app:layout_constraintTop_toTopOf="@+id/guestsIcon" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/line"
@@ -44,21 +44,21 @@
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
         app:layout_constraintTop_toBottomOf="@id/navItemGuests" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="50dp" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/margin_double" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navItemApprove"
         android:layout_width="0dp"
         android:layout_height="@dimen/item_height"
@@ -88,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/approveIcon"
             app:layout_constraintTop_toTopOf="@+id/approveIcon" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/lineTwo"
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
         app:layout_constraintTop_toBottomOf="@id/navItemApprove" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navItemInvited"
         android:layout_width="0dp"
         android:layout_height="@dimen/item_height"
@@ -129,7 +129,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/invitedIcon"
             app:layout_constraintTop_toTopOf="@+id/invitedIcon" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/lineThree"
@@ -140,7 +140,7 @@
         app:layout_constraintStart_toStartOf="@id/guideLineStart"
         app:layout_constraintTop_toBottomOf="@id/navItemInvited" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navItemCompanies"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
@@ -170,5 +170,5 @@
             app:layout_constraintBottom_toBottomOf="@+id/companiesIcon"
             app:layout_constraintStart_toEndOf="@+id/companiesIcon"
             app:layout_constraintTop_toTopOf="@+id/companiesIcon" />
-    </android.support.constraint.ConstraintLayout>
-</android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

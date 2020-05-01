@@ -1,13 +1,13 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.spacesofting.weshare.mvp.presentation.view.CompilationView
 import com.spacesofting.weshare.mvp.presentation.presenter.CompilationPresenter
 
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import com.paginate.Paginate
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
@@ -225,7 +225,8 @@ return R.layout.fragment_compilation   }
     private fun initWishList(){
         adapter = context?.let { CompilationAdapter(it, mPresenter) }
         wishesList.adapter = adapter
-        wishesList.layoutManager = LinearLayoutManager(context)
+        wishesList.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(context)
         Paginate.with(wishesList, this).build()
     }
 

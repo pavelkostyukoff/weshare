@@ -3,7 +3,7 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_compilation_wish.view.*
 import java.util.*
 
-class CompilationAdapter(val context: Context, val presenter: CompilationPresenter): RecyclerView.Adapter<CompilationAdapter.CompilationViewHolder>() {
+class CompilationAdapter(val context: Context, val presenter: CompilationPresenter): androidx.recyclerview.widget.RecyclerView.Adapter<CompilationAdapter.CompilationViewHolder>() {
     var dataset = ArrayList<Wish>()
     var marginW: Int = (16 * 2).dp
     var elementSize: Int = context.displayWidth - marginW
@@ -91,7 +91,7 @@ class CompilationAdapter(val context: Context, val presenter: CompilationPresent
 
     fun indexOf(wish: ListWishElement): Int = dataset.indexOf(wish)
 
-    class CompilationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CompilationViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val wishImage: ImageView = itemView.wishImage
         val wishName: TextView = itemView.wishName
         val wishPrice: TextView = itemView.wishPrice

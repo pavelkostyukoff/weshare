@@ -1,9 +1,9 @@
 package com.spacesofting.weshare.mvp.presentation.views
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.transition.TransitionManager
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.TransitionManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ArrayAdapter

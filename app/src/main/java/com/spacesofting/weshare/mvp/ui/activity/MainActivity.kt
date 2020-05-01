@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import android.widget.Toast
 import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
@@ -62,7 +62,7 @@ class MainActivity  : ActivityWrapper() {
 
     }
 
-    var fragment: Fragment? = null
+    var fragment: androidx.fragment.app.Fragment? = null
     override fun onNewIntent(intent: Intent) {
 
         // Check if the fragment is an instance of the right fragment
@@ -88,7 +88,7 @@ class MainActivity  : ActivityWrapper() {
             return ScreenPool.getActivity(context, screenKey, data)
         }
 
-        override fun createFragment(screenKey: String, data: Any?): Fragment? {
+        override fun createFragment(screenKey: String, data: Any?): androidx.fragment.app.Fragment? {
             return ScreenPool.getFragment(screenKey, data)
         }
 
@@ -96,7 +96,7 @@ class MainActivity  : ActivityWrapper() {
             Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
         }
 
-        override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?, nextFragment: Fragment?, fragmentTransaction: FragmentTransaction?) {
+        override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: androidx.fragment.app.Fragment?, nextFragment: androidx.fragment.app.Fragment?, fragmentTransaction: androidx.fragment.app.FragmentTransaction?) {
             fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.slide_to_left)
         }
     }

@@ -3,7 +3,7 @@ package com.spacesofting.weshare.common
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
@@ -37,7 +37,7 @@ object ScreenPool {
     val SHOW_GOOD = "show_good"
     val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
 
-    fun getFragment(screenKey: String, data: Any? = null): Fragment? {
+    fun getFragment(screenKey: String, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (screenKey) {
 
             SPLASH_FRAGMENT -> {
@@ -122,7 +122,7 @@ object ScreenPool {
                     GuestResponsibleFragment.getInstance()
                 }*/
             else -> null
-        } as Fragment?
+        } as androidx.fragment.app.Fragment?
     }
 
     fun getActivity(context: Context, screenKey: String, data: Any? = null): Intent? {
@@ -137,7 +137,7 @@ object ScreenPool {
         }
     }
 
-    private fun getMainFragment(role: RoleEnum, data: Any? = null): Fragment? {
+    private fun getMainFragment(role: RoleEnum, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (role) {
             RoleEnum.ADMINISTRATOR -> StubRolesFragment.getInstance()//not implemented
             RoleEnum.GUEST -> getFragment(TICKET_FRAGMENT)
@@ -150,7 +150,7 @@ object ScreenPool {
         }
     }
 
-    private fun getGuestCardFragment(role: RoleEnum, data: Any? = null): Fragment? {
+    private fun getGuestCardFragment(role: RoleEnum, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (role) {
             /*RoleEnum.SECURITY -> {
                 GuestCardForSecurityFragment.getInstance(data as Bundle)
@@ -169,7 +169,7 @@ object ScreenPool {
         }
     }
 
-    private fun getEditGuestCardFragment(role: RoleEnum, data: Any? = null): Fragment? {
+    private fun getEditGuestCardFragment(role: RoleEnum, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (role) {
             RoleEnum.SECURITY -> {
                 TODO()//get guest card for Security

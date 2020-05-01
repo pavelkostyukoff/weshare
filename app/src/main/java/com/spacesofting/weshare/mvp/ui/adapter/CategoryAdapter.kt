@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_tariff.view.*
 
 class CategoryAdapter(
     val presenter: MapPresenter
-): RecyclerView.Adapter<CategoryAdapter.CatViewHolder>() {
+): androidx.recyclerview.widget.RecyclerView.Adapter<CategoryAdapter.CatViewHolder>() {
     val dataset = ArrayList<RentItem>()
 
     companion object {
@@ -44,7 +44,7 @@ class CategoryAdapter(
         Picasso.with(context)
                 .resumeTag(PICASSO_TAG)
     }
-    class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CatViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val carImageView: View = itemView.carImageView
       /*  val item: View = itemView.item
         val templateImage: ImageView = itemView.templateImage

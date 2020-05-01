@@ -3,15 +3,15 @@ package com.spacesofting.weshare.utils
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import com.pawegio.kandroid.d
 import com.spacesofting.weshare.R
 
 
-class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorLayout.Behavior<ImageView>(context, attrs) {
+class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<ImageView>(context, attrs) {
 
 
     private val MIN_AVATAR_PERCENTAGE_SIZE = 0.3f
@@ -54,7 +54,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
     }
 
     override fun layoutDependsOn(
-        parent: CoordinatorLayout,
+        parent: androidx.coordinatorlayout.widget.CoordinatorLayout,
         child: ImageView,
         dependency: View
     ): Boolean {
@@ -62,7 +62,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
     }
 
     override fun onDependentViewChanged(
-        parent: CoordinatorLayout,
+        parent: androidx.coordinatorlayout.widget.CoordinatorLayout,
         child: ImageView,
         dependency: View
     ): Boolean {
@@ -84,7 +84,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
 
             val heightToSubtract: Float = (mStartHeight - mCustomFinalHeight) * heightFactor
 
-            val lp: CoordinatorLayout.LayoutParams = child.layoutParams as CoordinatorLayout.LayoutParams
+            val lp: androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams = child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
             lp.width = (mStartHeight - heightToSubtract).toInt()
             lp.height = (mStartHeight - heightToSubtract).toInt()
             child.layoutParams = lp
@@ -94,7 +94,7 @@ class AvatarImageBehavior(context: Context, attrs: AttributeSet?) : CoordinatorL
             child!!.x = (mStartXPosition - child.width / 2).toFloat()
             child.y = mStartYPosition - distanceYToSubtract
 
-            val lp: CoordinatorLayout.LayoutParams = child.layoutParams as CoordinatorLayout.LayoutParams
+            val lp: androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams = child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
             lp.width = mStartHeight
             lp.height = mStartHeight
             child.layoutParams = lp

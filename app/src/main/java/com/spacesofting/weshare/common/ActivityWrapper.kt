@@ -1,12 +1,12 @@
 package com.spacesofting.weshare.common
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.widget.DrawerLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.drawerlayout.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
-import com.arellomobile.mvp.MvpAppCompatActivity
+import moxy.MvpAppCompatActivity
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.utils.inflate
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -61,11 +61,11 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     }
 
     fun setHomeAsUpIndicator(indicatorType: HomeAsUpIndicatorType) {
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         when (indicatorType) {
             HomeAsUpIndicatorType.HAMBURGER -> {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
                 supportActionBar?.apply {
                     setDisplayHomeAsUpEnabled(true)
                     setHomeAsUpIndicator(R.drawable.ic_hamburger)
@@ -93,9 +93,9 @@ open class ActivityWrapper : MvpAppCompatActivity() {
 
     fun lockDrawerMenu(isLocked: Boolean) {
         if (isLocked) {
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         } else {
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
         }
     }
 

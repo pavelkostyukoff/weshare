@@ -1,6 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.views.splashbackgroundview
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.spacesofting.weshare.R
@@ -8,7 +8,7 @@ import com.spacesofting.weshare.R
 /**
  * Created by bender on 06/06/2017.
  */
-class SplashElementViewHolder(itemView: View, val layoutId: Int) : RecyclerView.ViewHolder(itemView) {
+class SplashElementViewHolder(itemView: View, val layoutId: Int) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     val elements = ArrayList<ImageView>()
 
