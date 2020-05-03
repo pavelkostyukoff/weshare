@@ -96,10 +96,6 @@ class InventoryFragment : FragmentWrapper(),
         }
     }
 
-    override fun openCreateFragment(newId: String) {
-        router.navigateTo(ScreenPool.ADD_GOODS, newId)
-    }
-
     fun setFoldInfo(result: User)
     {
         ApplicationWrapper.user = result

@@ -1,10 +1,10 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.mvp.RentItem
 import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_tariff.view.*
 
 class CategoryAdapter(
     val presenter: MapPresenter
-): androidx.recyclerview.widget.RecyclerView.Adapter<CategoryAdapter.CatViewHolder>() {
+): RecyclerView.Adapter<CategoryAdapter.CatViewHolder>() {
     val dataset = ArrayList<RentItem>()
 
     companion object {

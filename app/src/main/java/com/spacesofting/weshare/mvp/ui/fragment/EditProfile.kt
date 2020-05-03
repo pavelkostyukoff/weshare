@@ -4,11 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
-import moxy.presenter.InjectPresenter
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.runDelayed
 import com.pawegio.kandroid.visible
@@ -30,6 +28,7 @@ import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
+import moxy.presenter.InjectPresenter
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -190,10 +189,10 @@ class EditProfile : FragmentWrapper(),
 
 
       //  saveProfile.isEnabled = true
-        if (ApplicationWrapper.avatar != null)
+        if (avatar != null)
         {
             Picasso.with(activity)
-                .load(ApplicationWrapper.avatar)
+                .load(avatar)
                 .placeholder(R.drawable.ic_avatar_placeholder)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)

@@ -38,7 +38,7 @@ class ApplicationWrapper : MultiDexApplication() {
         lateinit var user: User
         lateinit var context: Context
         lateinit var file: File
-        var avatar: String = ""
+        var avatar: String? = null
 
         lateinit var mailAutorize : Login
 

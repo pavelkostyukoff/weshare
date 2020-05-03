@@ -158,6 +158,7 @@
                         android:layout_height="1dp"
                         android:background="@color/gray5555"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -192,8 +193,9 @@
 
             <ImageButton
                     android:id="@+id/confirm"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/ic_confirm"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

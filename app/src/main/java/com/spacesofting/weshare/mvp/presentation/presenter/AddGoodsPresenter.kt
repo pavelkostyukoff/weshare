@@ -1,7 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import moxy.InjectViewState
-import moxy.MvpPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
@@ -9,6 +7,8 @@ import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -31,13 +31,12 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
     var editWishAmount: String?         = null
     var editWishImage: String?          = null
 
-
+//todo тут ответ из пикер - ок поехали дальше закрываем пикер и показываем
     override fun onEditPhotoConfirmClick() {
         imageFile?.let {
             //  viewState.showWishImage(it)
                 viewState.showWishImage(it)
             savePhoto()
-
         }
     }
     enum class Field {
@@ -71,6 +70,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
         viewState.openGallery()
     }
 
+    //todo после получения с камеры или с галереи есть колбек в котором мы обновляем переменную с рисунком фалом и далее ее юзаем
     fun onCameraResult() {
         imageFile?.let {
 

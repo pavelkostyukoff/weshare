@@ -4,18 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.pawegio.kandroid.runDelayed
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.ui.fragment.SplashFragment
+import com.spacesofting.weshare.utils.RefreshTokenWorker
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity  : ActivityWrapper() {
@@ -25,6 +30,8 @@ class MainActivity  : ActivityWrapper() {
 
     @Inject
     var networkUtils: NetworkUtils? = null*/
+   val KEY_TASK_DESC: String? = "key_task_desc"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -34,11 +41,38 @@ class MainActivity  : ActivityWrapper() {
         ApplicationWrapper.context = this.applicationContext
         ApplicationWrapper.INSTANCE.getComponent()?.injectsMainActivity(this)
 
+        startWorkM()
     ////    scan.visible = false
 
         runDelayed(4000){
         //    scan.visible = true
         }
+    }
+
+    private fun startWorkM() {
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(true)
+            .build()
+        /*val request = OneTimeWorkRequest.Builder(MyWorker::class.java)
+           // .setInputData(data)
+            .setConstraints(constraints)
+            .build()*/
+        val myWorkRequest = PeriodicWorkRequest.Builder(
+            RefreshTokenWorker::class.java,
+            30,
+            TimeUnit.MINUTES,
+            25,
+            TimeUnit.MINUTES
+        )
+            .build()
+
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(myWorkRequest.id)
+            .observe(this, Observer<WorkInfo?> { workInfo ->
+                if (workInfo != null) {
+                    workInfo
+                }
+            })
     }
 
     override fun onResume() {

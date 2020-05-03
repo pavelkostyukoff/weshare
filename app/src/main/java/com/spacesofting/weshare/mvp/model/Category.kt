@@ -1,19 +1,17 @@
-package com.spacesofting.weshare.mvp
+package com.spacesofting.weshare.mvp.model
 
 import com.google.gson.annotations.SerializedName
-import com.google.gson.annotations.Expose
+import com.spacesofting.weshare.mvp.Datum
+import com.spacesofting.weshare.mvp.Pagination
 
 
 class Category {
 
     @SerializedName("status")
-    @Expose
     var status: Int? = null
     @SerializedName("data")
-    @Expose
     var data: List<Datum>? = null
     @SerializedName("pagination")
-    @Expose
     var pagination: Pagination? = null
 
 }

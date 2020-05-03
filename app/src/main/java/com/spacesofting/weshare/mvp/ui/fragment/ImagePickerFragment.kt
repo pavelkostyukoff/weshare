@@ -6,12 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -47,9 +47,6 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         // brokenUrlMessage.visible = false
     }
 
-
-
-
     interface PickerListener {
         fun onPickerUrlConfirm(url: URL)
         fun onPickerIncorrectUrl(exception: MalformedURLException)
@@ -62,11 +59,10 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     var pathImage: String? = null
     var file: File? = null
     var avatar: ImageView? = null
-    var uploadBtn: ImageButton? = null
-    var linkIcon: ImageView? = null
+    private var uploadBtn: ImageButton? = null
+    private var linkIcon: ImageView? = null
     var galleryPermissionGranted: Boolean = false
     var isAvatarForm: Boolean = true
-    var contentLayout: ConstraintLayout? = null
     //For fix displayed image for some models phones
     val LIMIT_IMAGE_PIXEL = 2500
 
@@ -74,9 +70,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAvatar()
-        val scrollView = view?.findViewById<ScrollView>(R.id.scrollView)
-        val galleryButton = view?.findViewById<LinearLayout>(R.id.pickerGalleryButton)
-        avatar = view?.findViewById(R.id.editAvatar)
+        val scrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        val galleryButton = view.findViewById<LinearLayout>(R.id.pickerGalleryButton)
+        avatar = view.findViewById(R.id.editAvatar)
      //   uploadBtn = view?.findViewById(R.id.uploadBtn)
      //   linkIcon = view?.findViewById(R.id.linkIcon)
 
@@ -85,10 +81,10 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         }*/
 
         if (!isAvatarForm) {
-            view?.findViewById<TextView>(R.id.pickerTitle)?.visibility = View.GONE
+            view.findViewById<TextView>(R.id.pickerTitle)?.visibility = View.GONE
             editAvatar.visibility = View.GONE
             editImg.visibility = View.VISIBLE
-            view?.findViewById<ConstraintLayout>(R.id.rootLayout)?.setBackgroundColor(resources.getColor(R.color.profile_background))
+            view.findViewById<ConstraintLayout>(R.id.rootLayout)?.setBackgroundColor(resources.getColor(R.color.profile_background))
         }
 
    /*     view?.findViewById<MaterialEditText>(R.id.pickerUrlEditText)?.setOnFocusChangeListener { _, isFocused ->
@@ -109,9 +105,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
       //  view?.findViewById<EditText>(R.id.pickerUrlEditText)?.addTextChangedListener(this)
         //camera
-        view?.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { listener?.onPickerCameraClick() }
+        view.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { listener?.onPickerCameraClick() }
         //confirm
-        view?.findViewById<ImageButton>(R.id.confirm)?.setOnClickListener { confirmPressed() }
+        view.findViewById<ImageButton>(R.id.confirm)?.setOnClickListener { confirmPressed() }
         //upload
       //  view?.findViewById<ImageButton>(R.id.uploadBtn)?.setOnClickListener { confirmUrl() }
 
@@ -163,7 +159,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }
     fun initAvatar()
     {
-        if (ApplicationWrapper.avatar.isNotEmpty()) {
+        if (ApplicationWrapper.avatar != null) {
             Picasso.with(activity)
                 .load(ApplicationWrapper.avatar)
                 .centerCrop()
@@ -267,8 +263,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
     private fun confirmPressed() {
       //  activity.hideKeyboard()
+        Picasso.with(context).load(R.drawable.wish_default_img).into(editImg)
+       // file = null
         listener?.onEditPhotoConfirmClick()
-
         finish()
     }
 

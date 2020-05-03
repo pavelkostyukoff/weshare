@@ -99,6 +99,7 @@
         kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
         implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
 
+        implementation "android.arch.work:work-runtime:1.0.0-alpha11"
 
         // annotationProcessor "com.github.moxy-community:moxy-compiler:2.1.2"
        // implementation "com.github.moxy-community:moxy-androidx:2.1.2"
@@ -113,6 +114,7 @@
         implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
         implementation 'com.google.android.material:material:1.1.0'
         implementation "androidx.viewpager2:viewpager2:1.0.0"
+        implementation 'com.github.wangpeiyuan:CycleViewPager2:v1.0.7'
         implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
         implementation 'androidx.cardview:cardview:1.0.0'
         implementation 'androidx.recyclerview:recyclerview:1.1.0'

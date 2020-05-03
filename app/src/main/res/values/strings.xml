@@ -25,6 +25,12 @@
     <string name="wish_edit_picker_url">Ссылка на фото</string>
     <string name="wish_edit_picker_camera">Сделать фото</string>
 
+    <string-array name="wish_edit_privacy">
+        <item>Видно всем</item>
+        <item>Видно только друзьям</item>
+        <item>Видно только мне</item>
+    </string-array>
+
     <string name="wish_edit_picker_gallery">Добавить из библиотеки</string>
     <string name="profile_set_photo_title">Добавь фото</string>
     <string name="edit_profile_profile_already_exist_name">Никнейм пользователя уже существует</string>
@@ -46,6 +52,8 @@
     <string name="wish_edit_add_img">Добавить изображение</string>
     <string name="wish_edit_add_img_obligatorily">Обязательно. Не более 5 мб.</string>
     <string name="privacy">Приватность</string>
+    <string name="period_choice">Выберите срок аренды</string>
+    <string name="currency_choice">Установите Валюту</string>
     <string name="wish_edit_loader_text">Заполняю остальные поля...</string>
     <string name="wish_edit_url_on_wish">Ссылка в интернет-магазин</string>
     <string name="wish_edit_name_hint">Название (обязательное)</string>
@@ -55,6 +63,24 @@
     <string name="add_card_dialog_not_connected_bank_card">Чтобы получать подарки необходимо подключить банковскую карту</string>
     <string name="add_card_connect_bank_card">Подключить карту</string>
     <string name="wish_edit_field_required">Поле обязательно для заполнения</string>
+
+    <!--CURRENCY-->
+
+    <string-array name="wish_edit_cyrrency">
+        <item>EURO</item>
+        <item>USD</item>
+        <item>RUB</item>
+    </string-array>
+
+    <!--PERIOD-->
+    <string-array name="wish_edit_period">
+        <item>HOUR</item>
+        <item>DAY</item>
+        <item>MONTH</item>
+    </string-array>
+   <!-- <string name="period_hour">HOUR</string>
+    <string name="period_day">DAY</string>
+    <string name="period_month">MONTH</string>-->
 
 
     <!-- TICKET -->

@@ -1,5 +1,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
@@ -29,10 +30,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/margin_half"
+                        android:layout_marginRight="@dimen/margin"
                         android:background="@null"
                         android:textColorHint="@color/colorPrimary"
+                        android:visibility="gone"
                         app:counterOverflowTextAppearance="@style/TextAppearance.Design.Error"
                         app:errorTextAppearance="@style/TextAppearance.AppCompat"
                         app:hintTextAppearance="@style/small">
@@ -42,10 +44,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_marginRight="6dp"
                             android:layout_marginTop="-40dp"
+                            android:layout_marginRight="6dp"
                             android:background="@android:color/transparent"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:srcCompat="@drawable/ic_browser" />
 
                     <ImageButton
@@ -53,10 +55,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_marginRight="6dp"
                             android:layout_marginTop="-35dp"
+                            android:layout_marginRight="6dp"
                             android:background="@android:color/transparent"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:srcCompat="@drawable/ic_reset_search" />
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
@@ -66,19 +68,19 @@
                             android:hint="@string/wish_edit_url_on_wish"
                             android:imeOptions="actionNext"
                             android:inputType="textUri"
-                            android:visibility="gone"
                             android:lines="2"
                             android:maxLines="3"
-                            android:paddingEnd="30dp" />
+                            android:paddingEnd="30dp"
+                            android:visibility="visible" />
 
                     <LinearLayout
                             android:id="@+id/brokenUrlMessage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="4dp"
                             android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
                             android:orientation="horizontal"
-                            android:visibility="invisible">
+                            android:visibility="visible">
 
                         <ImageView
                                 android:id="@+id/imageView5"
@@ -100,101 +102,49 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="right|center_vertical"
-                            android:layout_marginRight="6dp"
                             android:layout_marginTop="-35dp"
+                            android:layout_marginRight="6dp"
                             android:visibility="gone" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <androidx.cardview.widget.CardView
+                <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
+                        android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:layout_marginTop="@dimen/margin"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="12dp"
-                        app:cardPreventCornerOverlap="true">
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <FrameLayout
-                            android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                    <Button
+                            android:id="@+id/btn_add"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:minHeight="180dp"
-                            android:minWidth="120dp">
+                            android:layout_marginRight="@dimen/margin"
+                            android:background="@drawable/bg_navigation_gradient"
+                            android:text="add"
+                            android:textColor="@color/oxford_blue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                                android:id="@+id/wishEditImageView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/wish_default_img" />
+                    <Button
+                            android:id="@+id/btn_remove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin"
+                            android:background="@drawable/bg_navigation_gradient"
+                            android:text="remove"
+                            android:textColor="@color/oxford_blue"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <LinearLayout
-                                android:id="@+id/addImgLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:orientation="vertical"
-                                android:paddingTop="20dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <ImageButton
-                                    android:id="@+id/wishEditImageBtn"
-                                    android:layout_width="90dp"
-                                    android:layout_height="90dp"
-                                    android:layout_gravity="center"
-                                    android:background="@android:color/transparent"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/bg_upload_big_button" />
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="@dimen/margin_half"
-                                    android:layout_marginRight="@dimen/margin_half"
-                                    android:gravity="center_horizontal"
-                                    android:text="@string/wish_edit_add_img"
-                                    android:textColor="#b0afcc"
-                                    android:textSize="19sp"
-                                    android:textStyle="bold"
-                                    android:visibility="visible" />
-
-                            <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="@dimen/margin_half"
-                                    android:layout_marginRight="@dimen/margin_half"
-                                    android:layout_marginTop="@dimen/margin_half"
-                                    android:gravity="center_horizontal"
-                                    android:text="@string/wish_edit_add_img_obligatorily"
-                                    android:textColor="#b0afcc"
-                                    android:textSize="14sp"
-                                    android:textStyle="italic"
-                                    android:visibility="visible" />
-                        </LinearLayout>
-
-                        <ImageButton
-                                android:id="@+id/wishChangeImgBtn"
-                                android:layout_width="@dimen/avatar_size_profile_half"
-                                android:layout_height="@dimen/avatar_size_profile_half"
-                                android:layout_gravity="bottom|right"
-                                android:background="@android:color/transparent"
-                                android:scaleType="fitCenter"
-                                android:visibility="gone"
-                                app:srcCompat="@drawable/bg_pen_big_button" />
-
-                        <ImageView
-                                android:id="@+id/dellImage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="8dp"
-                                android:visibility="gone"
-                                app:srcCompat="@drawable/ic_error" />
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:id="@+id/wishEditNameLayout"
@@ -227,17 +177,17 @@
                         android:textColorHint="@color/colorPrimaryDarkTransparent"
                         app:hintTextAppearance="@style/small">
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                            android:id="@+id/wishEditAmountEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin"
-                            android:layout_marginRight="@dimen/margin"
-                            android:hint="@string/wish_edit_price_hint"
-                            android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
-                            android:maxLength="8"
-                            android:text="0" />
+                        <me.zhanghai.android.materialedittext.MaterialEditText
+                                android:id="@+id/currency"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin"
+                                android:layout_marginRight="@dimen/margin"
+                                android:hint="@string/wish_edit_price_hint"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberDecimal"
+                                android:maxLength="8"
+                                android:text="0" />
 
                     <FrameLayout
                             android:layout_width="match_parent"
@@ -303,6 +253,95 @@
                             android:visibility="gone" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_half"
+                            android:layout_marginLeft="4dp"
+                            android:text="@string/currency_choice"
+                            android:textAppearance="@style/small" />
+
+                    <RelativeLayout
+                            android:id="@+id/privacyOptionsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <Spinner
+                                android:id="@+id/privacyOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:dropDownWidth="match_parent"
+                                android:theme="@style/AppTheme.Light" />
+
+                        <ImageView
+                                android:layout_width="11dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_drop" />
+                    </RelativeLayout>
+
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_double" />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin_half"
+                        android:layout_marginRight="@dimen/margin"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginBottom="@dimen/margin_half"
+                            android:text="@string/period_choice"
+                            android:textAppearance="@style/small" />
+
+                    <RelativeLayout
+                            android:id="@+id/priceOptionsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <Spinner
+                                android:id="@+id/priceOptions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:dropDownWidth="match_parent"
+                                android:theme="@style/AppTheme.Light" />
+
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_drop" />
+                    </RelativeLayout>
+
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/margin_double" />
+                </LinearLayout>
+
+
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                         android:id="@+id/wishEditDescriptionLayout"
                         android:layout_width="match_parent"
@@ -327,59 +366,77 @@
                             android:minLines="6" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/country"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
                         android:layout_marginRight="@dimen/margin"
-                        android:layout_marginTop="@dimen/margin_half"
-                        android:orientation="vertical">
+                        android:background="@null"
+                        android:textColorHint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-                    <TextView
+                    <ImageView
+                            android:id="@+id/locationImg"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_placeholder" />
+
+                    <Switch
+                            android:id="@+id/switch2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_half"
-                            android:layout_marginLeft="4dp"
-                            android:text="@string/privacy"
-                            android:textAppearance="@style/small" />
+                            android:layout_marginTop="12dp"
+                            android:layout_weight="1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView3"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <RelativeLayout
-                            android:id="@+id/privacyOptionsLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                    <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:text="Ваше объявление появится на карте"
+                            app:layout_constraintEnd_toEndOf="@+id/textView6"
+                            app:layout_constraintHorizontal_bias="0.285"
+                            app:layout_constraintStart_toStartOf="@+id/textView6"
+                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                        <Spinner
-                                android:id="@+id/privacyOptions"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:background="@android:color/transparent"
-                                android:dropDownWidth="match_parent"
-                                android:theme="@style/AppTheme.Light" />
+                    <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="32dp"
+                            android:layout_weight="1"
+                            android:text="Установите геолокацию"
+                            app:layout_constraintBottom_toBottomOf="@+id/locationImg"
+                            app:layout_constraintStart_toEndOf="@+id/locationImg"
+                            app:layout_constraintTop_toTopOf="@+id/locationImg"
+                            app:layout_constraintVertical_bias="0.0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageView
-                                android:id="@+id/spinnerIcon"
-                                android:layout_width="11dp"
-                                android:layout_height="7dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="4dp"
-                                android:src="@drawable/ic_drop" />
-                    </RelativeLayout>
 
-                    <View
-                            android:layout_width="1dp"
-                            android:layout_height="@dimen/margin_double" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
         <Button
                 android:id="@+id/save"
                 style="@style/button.bottom"
-                android:background="@drawable/bg_navigation_gradient"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/bg_super"
                 android:enabled="false"
-                android:text="Сохранить" />
+                android:padding="5dp"
+                android:text="Сохранить"
+                android:textColor="@color/oxford_blue" />
     </LinearLayout>
 
     <FrameLayout
@@ -407,7 +464,7 @@
                     android:layout_marginBottom="@dimen/margin"
                     android:layout_marginTop="@dimen/margin_double"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_shuriken_primary" />
+                    app:srcCompat="@drawable/ic_launcher" />
 
             <TextView
                     android:id="@+id/textView7"

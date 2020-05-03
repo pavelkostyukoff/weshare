@@ -98,28 +98,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
                 })
         }
     //todo ТУТТУТ
-    fun refreshed()
-    {
-        val validationToken = Settings.ValidationToken
-        //todo autorize
-        val token = validationToken?.let { Refrash(it) }
-        token?.let {
-            Api.Auth.getNewToken(it)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({ it->
-                    Settings.AccessToken = it.accessToken
-                    Settings.ValidationToken = it.rowrefreshTokenVersion
-                  //  ApplicationWrapper.user = it.user!!
-                    //todo тут кладем токен в сохранялки Settings
 
-                }){
-                    it
-                    //todo 403
-
-                  //  autorize(mail)
-                }
-        }
-    }
 
 
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
