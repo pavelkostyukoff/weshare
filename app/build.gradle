@@ -112,7 +112,6 @@
           kapt 'com.arello-mobile:moxy-compiler:1.5.3'*/
         //todo ui
         implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
-        implementation 'com.google.android.material:material:1.1.0'
         implementation "androidx.viewpager2:viewpager2:1.0.0"
         implementation 'com.github.wangpeiyuan:CycleViewPager2:v1.0.7'
         implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
@@ -127,9 +126,21 @@
         implementation 'de.hdodenhof:circleimageview:2.2.0'
         implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
         implementation 'com.squareup.picasso:picasso:2.5.2'
-        //implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+        implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
+        // Carusel
+        implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.0.2'
+
+
+        // Material Components
+        implementation 'com.google.android.material:material:1.1.0'
+
+        // Circle Indicator
+        implementation 'me.relex:circleindicator:2.1.4'
+
         //todo test
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+        implementation 'com.makeramen:roundedimageview:2.3.0'
+
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
         //todo other
         implementation 'org.greenrobot:eventbus:3.1.1'

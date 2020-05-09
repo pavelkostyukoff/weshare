@@ -20,6 +20,9 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
     var imageFile: File?            = null
     var imageChanged                = false
     var timeout: Timer?             = null
+    val ITEMS_PER_PAGE = 10
+    val ITEMS_PER_PAGE_WISH_LIST = 5
+    var page = 0
 
     var isSharingController: Boolean    = false
     var isWishImageEdit: Boolean        = false
@@ -106,6 +109,22 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
             viewState.openCamera(it)
         }
     }
+
+    fun getSubCategory(id: String?) {
+        with(Api) {
+            Tags.getListCompilations(id ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+
+                    viewState.setNewSubCategory(it)
+
+                })  {
+                    viewState.showToast(R.string.error_load_ok_delete)
+                }
+        }
+    }
+
 
     fun savePhoto() {
         viewState.showProgress(true)

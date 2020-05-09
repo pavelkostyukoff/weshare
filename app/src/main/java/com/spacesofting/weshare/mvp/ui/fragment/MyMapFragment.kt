@@ -6,7 +6,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import moxy.presenter.InjectPresenter
 import com.google.android.gms.location.LocationListener
 import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.R
@@ -25,6 +24,7 @@ import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.map.MapObjectTapListener
 import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.fragment_map.*
+import moxy.presenter.InjectPresenter
 
 
 class MyMapFragment : FragmentWrapper(),
@@ -169,19 +169,18 @@ fun newInstance(): MyMapFragment {
         val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
         val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
         val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_kids, null))
-        val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.ic_building, null))
 
         val filterList = ArrayList<RentItem>()
 
         filterList.add(one)
         filterList.add(one1)
         filterList.add(one2)
-        filterList.add(one3)
+       // filterList.add(one3)
         filterList.add(one2)
-        filterList.add(one3)
-        filterList.add(one3)
+     //   filterList.add(one3)
+     //   filterList.add(one3)
         filterList.add(one2)
-        filterList.add(one3)
+       // filterList.add(one3)
 
         catAdapter?.dataset?.addAll(filterList)
 

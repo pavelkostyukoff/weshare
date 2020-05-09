@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
+import com.spacesofting.weshare.api.Entitys
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -11,6 +12,7 @@ interface AddGoodsView : MvpView {
     fun showToast(stringId: Int)
     fun showMaterialDialog(stringId: Int)
     fun wishImageDelete ()
+    fun setNewSubCategory(it: Entitys)
   /*  fun setLoadedWish(wish: Wish)
     fun share(shareLink: ShareLink)*/
 

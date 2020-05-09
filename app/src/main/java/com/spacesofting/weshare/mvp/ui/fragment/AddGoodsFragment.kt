@@ -10,16 +10,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.Entity
+import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
+import com.spacesofting.weshare.mvp.ui.adapter.CategoryRollAdapter
+import com.spacesofting.weshare.mvp.ui.adapter.MyCyclePagerAdapter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.hideKeyboard
@@ -31,16 +39,64 @@ import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import kotlinx.android.synthetic.main.list_item_add_image.*
 import moxy.presenter.InjectPresenter
+import org.imaginativeworld.whynotimagecarousel.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.io.File
 
 
-class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener{
+class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener ,
+    MyCyclePagerAdapter.OnCardClickListener {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
-    val adapter = MyCyclePagerAdapter()
 
-    // private val resList = listOf(R.drawable.wish_default_img, R.drawable.flag_chile, R.drawable.wish_default_img, R.drawable.wish_default_img)
+    private var adapterBaner :MyCyclePagerAdapter? = null
+    val category = ApplicationWrapper.category
 
+    @InjectPresenter
+    lateinit var mAddGoodsPresenter: AddGoodsPresenter
+    private var picker: ImagePickerFragment? = null
+    private var pathImg: String? = null
+    private var progressDialog: ProgressDialog? = null
+    private var bannerItems = ArrayList<Int>()
+    private var categoryItems: ArrayList<Entity>? = null
+    private var subCategoryItems = ArrayList<Entity>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showToolbar(TOOLBAR_HIDE)
+        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()
+        setBannerData()
+
+        view.viewTreeObserver.addOnWindowFocusChangeListener {
+            }
+
+
+        val adapter = ArrayAdapter.createFromResource(
+            activity,
+            R.array.wish_edit_cyrrency,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        privacyOptions.adapter = adapter
+        privacyOptions.onItemSelectedListener = this
+
+        val adpaterPeriod = ArrayAdapter.createFromResource(
+            activity,
+            R.array.wish_edit_period,
+            android.R.layout.simple_spinner_item
+        )
+        adpaterPeriod.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        priceOptions.adapter = adpaterPeriod
+        priceOptions.onItemSelectedListener = this
+
+        banner.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.e("Selected_Page", position.toString())
+            }
+        })
+
+    }
     override fun showWishImage(file: File) {
         //todo  сюда складываем фото для адаптера - воти все вот и все
         Picasso.with(context)
@@ -50,19 +106,18 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             .into(wishEditImageView)
         mAddGoodsPresenter.imageChanged = true
         mAddGoodsPresenter.imageFile = file
-       // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
-      //  addImgLayout.visibility = View.GONE
-       // wishChangeImgBtn.visibility = View.VISIBLE
-       // dellImage.visibility = View.VISIBLE
+        // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
+        //  addImgLayout.visibility = View.GONE
+        // wishChangeImgBtn.visibility = View.VISIBLE
+        // dellImage.visibility = View.VISIBLE
     }
 
-    override fun wishImageDelete() {
-        Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
-        mAddGoodsPresenter.imageChanged = true
-        // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
-     //   addImgLayout.visibility = View.VISIBLE
-     //   wishChangeImgBtn.visibility = View.GONE
-     //   dellImage.visibility = View.GONE
+    override fun setNewSubCategory(it: Entitys) {
+        initAdapterCategory(" sub",it)
+    }
+
+    fun showSubCategory(id: String?) {
+        mAddGoodsPresenter.getSubCategory(id)
     }
 
     override fun showToast(stringId: Int) {
@@ -78,6 +133,15 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 .build()
                 .show()
         }
+    }
+
+    override fun wishImageDelete() {
+        Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
+        mAddGoodsPresenter.imageChanged = true
+        // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
+        //   addImgLayout.visibility = View.VISIBLE
+        //   wishChangeImgBtn.visibility = View.GONE
+        //   dellImage.visibility = View.GONE
     }
 
     override fun save() {
@@ -117,10 +181,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun showProgress(isShowed: Boolean) {
         progressDialog?.let {
-            if(isShowed) {
+            if (isShowed) {
                 it.setMessage(getString(R.string.wish_edit_progress))
                 it.show()
-            } else if (it.isShowing){
+            } else if (it.isShowing) {
                 it.dismiss()
             }
         }
@@ -131,21 +195,20 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun saved(isSuccess: Boolean) {
-       /* if (isSuccess) {
-            val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
-            mAddGoodsPresenter.wish?.isNew().let {
-                //   logEvent("wish_created")
-            }
+        /* if (isSuccess) {
+             val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
+             mAddGoodsPresenter.wish?.isNew().let {
+                 //   logEvent("wish_created")
+             }
 
-            wishSaveSuccess(wish)
-            returnWish()
-            goToAddCardFragment()
-        }
-        if (!Settings.isAuthenticated()) {
-            goToRegister()
-        }*/
+             wishSaveSuccess(wish)
+             returnWish()
+             goToAddCardFragment()
+         }
+         if (!Settings.isAuthenticated()) {
+             goToRegister()
+         }*/
     }
-
 
     override fun emptyPrice(isEmpty: Boolean) {
         if (isEmpty) {
@@ -162,7 +225,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun goToRegistration() {
-      //  goToRegister()
+        //  goToRegister()
     }
 
     override fun showBrokenUrlMessage(isShowed: Boolean) {
@@ -170,11 +233,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun showCheckUrlProgress(isShowed: Boolean) {
-       /* checkUrlProgress.visible = isShowed
+        /* checkUrlProgress.visible = isShowed
 
-        if (wishUrlEditText.text?.isNotEmpty()!!) {
-            clearUrl.visible = !isShowed
-        }*/
+         if (wishUrlEditText.text?.isNotEmpty()!!) {
+             clearUrl.visible = !isShowed
+         }*/
     }
 
     override fun showClearUrlBtn(isShowed: Boolean) {
@@ -183,13 +246,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             getUrl.visible = !isShowed
         }*/
     }
-//todo задний фон экрана
+
+    //todo задний фон экрана
     override fun showAutoCompleteProgress(isShowed: Boolean) {
         autoCompleteProgress.visible = isShowed
     }
 
     override fun getFragmentLayout(): Int {
-return R.layout.fragment_add_goods
+        return R.layout.fragment_add_goods
     }
 
     companion object {
@@ -209,71 +273,25 @@ return R.layout.fragment_add_goods
         }
     }
 
-    @InjectPresenter
-    lateinit var mAddGoodsPresenter: AddGoodsPresenter
-    var picker: ImagePickerFragment? = null
-    var pathImg: String? = null
-    var progressDialog: ProgressDialog? = null
-    private var bannerItems = mutableListOf<Int>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        showToolbar(TOOLBAR_HIDE)
-        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()//todo GuestCard
-      //  initListItems()
-        setBannerData()
-
-        //TODO: Use levels from enum
-        //prepare adapter
-        val adapter = ArrayAdapter.createFromResource(activity, R.array.wish_edit_cyrrency, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        privacyOptions.adapter = adapter
-        privacyOptions.onItemSelectedListener = this
-
-        val adpaterPeriod = ArrayAdapter.createFromResource(activity, R.array.wish_edit_period, android.R.layout.simple_spinner_item)
-        adpaterPeriod.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        priceOptions.adapter = adpaterPeriod
-        priceOptions.onItemSelectedListener = this
-
-      //  val test = privacyOptions.setS
-
-      //  privacyOptions.getItemAtPosition()
-
-        //todo а это мы получили вещь на редактирование и выставляем спинер
-        //load wish to presenter -
-        /*     val wish = activity.intent.getSerializableExtra(WishEditActivity.ARG_WISH) as Wish?
-
-         wish?.let {
-               presenter.wish = wish
-               // title = getString(R.string.wish_edit_wish_title)
-               setLoadedWish(it)
-               it.privacy?.let {
-                   privacyOptions.setSelection(it.ordinal)
-               }
-           }*/
-
-
-      //  wishEditImageBtn.setOnClickListener { showPicker() }
-    /*    dellImage.setOnClickListener {
-            //todo презентер удаляет фото и говоит отобразить пикассо заглушку
-            mAddGoodsPresenter.delPictureMyGood()
-         //после успешного удаления скрываем   dellImage.visibility = View.GONE
-        }*/
-    }
     private fun setBannerData() {
         initData()
-
-
+       // initDataCategory()
+        initAdapterCategory("sub", null)
         btn_add.setOnClickListener {
+        /*    bannerItems.add(R.drawable.electronix)   //todo случайный элемент(resList.random())
             bannerItems.add(R.drawable.wish_default_img)   //todo случайный элемент(resList.random())
-            adapter.notifyDataSetChanged()
+            bannerItems.add(R.drawable.wish_default_img)   //todo случайный элемент(resList.random())
+
+            adapterBaner.notifyDataSetChanged()*/
+
+
         }
         btn_remove.setOnClickListener {
             if (bannerItems.isNotEmpty()) {
                 val index = bannerItems.size - 1
                 bannerItems.removeAt(index)
-                adapter.notifyDataSetChanged()
-
+                adapterBaner?.notifyDataSetChanged()
             }
         }
 
@@ -285,7 +303,7 @@ return R.layout.fragment_add_goods
         val dotsBottomMargin = resources.getDimension(R.dimen.rect_corner_radius)
 
         CycleViewPager2Helper(banner)
-            .setAdapter(adapter)
+            .setAdapter(adapterBaner)
             .setMultiplePagerScaleInTransformer(
                 nextItemVisiblePx.toInt(),
                 currentItemHorizontalMarginPx.toInt(),
@@ -301,14 +319,140 @@ return R.layout.fragment_add_goods
                 0,
                 DotsIndicator.Direction.CENTER
             )
-           // .setAutoTurning(3000L)
+            // .setAutoTurning(3000L)
             .build()
+        //todo category
+
     }
 
-    private fun initData() {
-        bannerItems.add(R.drawable.wish_default_img)
+    private fun initAdapterCategory(s: String, it: Entitys?) {
+        if (s == "cat") {
+
+            /*category?.entities?.let {
+                adapterCategory?.dataset?.addAll(category.entities)
+                adapterCategory!!.notifyDataSetChanged()
+            }*/
+        }
+        else {
+            setPhotoAdapter(it)
+
+        }
     }
-    //todo showZaglushka
+
+    private fun setPhotoAdapter(it: Entitys?) {
+        var resourceId: Int? = null
+
+
+
+        if (it == null) {
+            category?.entities?.map {
+                when (it.code) {
+                    "kids" -> {
+                        resourceId = R.drawable.kids
+                    }
+                    "realty" -> {
+                        resourceId = R.drawable.nedviga
+
+                    }
+                    "equipment" -> {
+                        resourceId = R.drawable.oborudovanie_stroyka
+
+                    }
+                    "clothes" -> {
+                        resourceId = R.drawable.clouse
+
+                    }
+                    "relaxation" -> {
+                        resourceId = R.drawable.rest_otdih
+
+                    }
+                    "other" -> {
+                        resourceId = R.drawable.sports
+
+                    }
+                    "transport" -> {
+                        resourceId = R.drawable.transport
+
+                    }
+                    "hobby" -> {
+                        resourceId = R.drawable.sports
+
+                    }
+                    "electronics" -> {
+                        resourceId = R.drawable.electronix
+                    }
+                }
+                val uri: Uri =
+                    Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + resourceId)
+                it.categoryImg = uri.toString()
+            }
+        }
+        else {
+
+        }
+    }
+
+
+    private fun initData() {
+        // подписываем нашу активити на события колбэка
+        initBanners()
+        initNewList()
+
+    }
+
+    private fun initBanners() {
+        adapterBaner = MyCyclePagerAdapter()
+        adapterBaner?.setOnCardClickListener(this)
+
+        bannerItems.add(R.drawable.wish_default_img)
+        bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
+        bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
+        bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
+        adapterBaner?.dataset = bannerItems
+        adapterBaner?.notifyDataSetChanged()
+    }
+
+    fun initNewList() {
+        val listFour = mutableListOf<CarouselItem>()
+        categoryCycleView.captionTextSize = 0
+
+        category?.entities?.map {
+            it.categoryImg?.let { it1 ->
+                CarouselItem(
+                    imageUrl = it1,
+                    caption = it.name
+                )
+            }?.let { it2 ->
+                listFour.add(
+                    it2
+                )
+                categoryCycleView.addData(listFour)
+            }
+        }
+
+        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    carouselItem?.apply {
+                        custom_caption.text = caption
+                    }
+                }
+
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // ...
+            }
+        }
+        categoryCycleView.setIndicator(custom_indicator)
+    }
 
     override fun openCamera(file: File) {
         activity?.let {
@@ -316,7 +460,7 @@ return R.layout.fragment_add_goods
                 .request(android.Manifest.permission.CAMERA)
                 .subscribe {
                     try {
-                       // brokenUrlMessage.visible = false
+                        // brokenUrlMessage.visible = false
                         val intent = ImageUtils.takePhotoIntent(file)
                         startActivityForResult(intent, CAMERA_REQUEST_CODE)
                     } catch (e: SecurityException) {
@@ -383,85 +527,23 @@ return R.layout.fragment_add_goods
 
     override fun onDetach() {
         super.onDetach()
+        categoryItems?.clear()
+        subCategoryItems.clear()
         //todo если пользователь жмет отменить создаие вещи -
         // presenter.deletNewGoods
     }
-
-
-/*    fun onBackPressed() {
-        val fragment = fragmentManager!!.findFragmentByTag("name")
-        if (fragment != null && fragment.isVisible) {
-            //  do something
-        } else {
-            super.onBackPressed()
-        }
-    }*/
-private fun initListItems() {
-/*    if (catAdapter == null) {
-        catAdapter = activity?.let { context?.let { it1 -> ImageAddAdapter() } }
-    }*/
-    /*val imageFile: File?
-  imageFile = R.drawable.img12*/
-/*
-    val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
-    val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
-    val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_kids, null))
-    val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.ic_building, null))
-
-    val filterList = ArrayList<RentItem>()
-
-    filterList.add(one)
-    filterList.add(one1)
-    filterList.add(one2)
-
-
-    viewPager2.adapter = ImageAddAdapter()
-    catAdapter?.setItem(filterList)*/
-
-/*    category.layoutManager =
-        androidx.recyclerview.widget.LinearLayoutManager(
-            activity,
-            androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
-            false
-        ) //mTariffsLayoutManager //LinearLayoutManager(activity)*/
-
-}
-
-    inner class MyCyclePagerAdapter :
-        CyclePagerAdapter<PagerViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-            Log.d(TAG, "onCreateViewHolder")
-            return PagerViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_pager, parent, false)
-            )
-        }
-
-        override fun getRealItemCount(): Int = bannerItems.size
-
-        override fun onBindRealViewHolder(holder: PagerViewHolder, position: Int) {
-            Log.d(TAG, "onBindRealViewHolder $position")
-            holder. wishEditImageBtn.setOnClickListener { showPicker() }
-            holder.dellImage.setOnClickListener {
-                    //todo презентер удаляет фото и говоит отобразить пикассо заглушку
-                  //  mAddGoodsPresenter.delPictureMyGood()
-
-                privacyOptions
-                 //после успешного удаления скрываем   dellImage.visibility = View.GONE
-                }
-        }
-    }
-
-    inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var wishEditImageBtn: ImageButton = itemView.findViewById(R.id.wishEditImageBtn)
-        var dellImage: ImageView = itemView.findViewById(R.id.dellImage)
-    }
+    /*    fun onBackPressed() {
+            val fragment = fragmentManager!!.findFragmentByTag("name")
+            if (fragment != null && fragment.isVisible) {
+                //  do something
+            } else {
+                super.onBackPressed()
+            }
+        }*/
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-       // presenter.fieldChanged(null, WishEditPresenter.Field.PRIVACY, Wish.PrivacyLevel.values()[p2])
-        val iid: Int = parent!!.id
-
-        when (iid) {
+        // presenter.fieldChanged(null, WishEditPresenter.Field.PRIVACY, Wish.PrivacyLevel.values()[p2])
+        when (parent!!.id) {
             R.id.priceOptions -> Toast.makeText(
                 activity,
                 "hello,spinner1",
@@ -473,14 +555,18 @@ private fun initListItems() {
                 Toast.LENGTH_SHORT
             ).show()
             else -> {
-                Toast.makeText(  activity,
-                "hello,spinner3",
-                Toast.LENGTH_SHORT
+                Toast.makeText(
+                    activity,
+                    "hello,spinner3",
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {}
+    override fun onCardClick() {
+        showPicker()
+    }
 
 }

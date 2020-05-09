@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 class Entitys {
 	@SerializedName("entities")
-	val entities: List<Entity>? = null
+	val entities: ArrayList<Entity>? = null
 
 	@SerializedName("limit")
 	val limit: Int? = null

@@ -11,5 +11,6 @@ class Entity {
 	@SerializedName("code")
 	val code: String? = null
 	@SerializedName("parentId")
-	val parentId: String? = null
+	var parentId: String? = null
+	var categoryImg: String? = null
 }

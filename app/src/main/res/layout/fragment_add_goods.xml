@@ -1,8 +1,8 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
@@ -111,6 +111,7 @@
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingTop="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +119,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_marginTop="10dp">
 
                     <Button
@@ -265,10 +267,11 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_half"
                             android:layout_marginLeft="4dp"
+                            android:layout_marginBottom="@dimen/margin_half"
                             android:text="@string/currency_choice"
-                            android:textAppearance="@style/small" />
+                            android:textAppearance="@style/small"
+                            android:textColor="@color/apple" />
 
                     <RelativeLayout
                             android:id="@+id/privacyOptionsLayout"
@@ -311,7 +314,8 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginBottom="@dimen/margin_half"
                             android:text="@string/period_choice"
-                            android:textAppearance="@style/small" />
+                            android:textAppearance="@style/small"
+                            android:textColor="@color/apple" />
 
                     <RelativeLayout
                             android:id="@+id/priceOptionsLayout"
@@ -366,8 +370,69 @@
                             android:minLines="6" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
+
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                        android:id="@+id/categoryCycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="92dp"
+                        app:carouselBackground="@color/white"
+                        app:carouselType="SHOWCASE"
+                        app:imageScaleType="centerCrop"
+                        app:imageViewId="@id/image_view"
+                        app:itemLayout="@layout/custom_fixed_size_item_layout"
+                        app:nextButtonId="@id/custom_btn_next"
+                        app:nextButtonLayout="@layout/custom_next_button_layout"
+                        app:nextButtonMargin="8dp"
+                        app:previousButtonId="@id/custom_btn_previous"
+                        app:previousButtonLayout="@layout/custom_previous_button_layout"
+                        app:previousButtonMargin="8dp"
+                        app:scaleOnScroll="true"
+                        app:scalingFactor=".25"
+                        app:showBottomShadow="false"
+                        app:showCaption="true"
+                        app:showIndicator="true"
+                        app:showNavigationButtons="false"
+                        app:showTopShadow="false"
+                       />
+
+                <TextView
+                        android:id="@+id/custom_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="1dp"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:textColor="@color/flat_green_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Caption" />
+
+                <me.relex.circleindicator.CircleIndicator2
+                        android:id="@+id/custom_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ci_animator="@animator/scale_with_alpha"
+                        app:ci_drawable="@drawable/dot"
+                        android:visibility="gone"
+                        app:ci_drawable_unselected="@drawable/dot" />
+
+<!--                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#ccc" />-->
+                    <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
+                            android:id="@+id/subCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin"
@@ -387,7 +452,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_placeholder" />
+                            app:srcCompat="@drawable/ic_geolocalization" />
 
                     <Switch
                             android:id="@+id/switch2"
