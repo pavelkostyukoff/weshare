@@ -1,9 +1,8 @@
 package com.spacesofting.weshare.mvp.model
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-class UpdateAdvert {
+class Advert {
 
     @SerializedName("title")
     var title: String? = null
