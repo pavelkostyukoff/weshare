@@ -7,14 +7,12 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.pawegio.kandroid.visible
@@ -26,7 +24,6 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
-import com.spacesofting.weshare.mvp.ui.adapter.CategoryRollAdapter
 import com.spacesofting.weshare.mvp.ui.adapter.MyCyclePagerAdapter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
@@ -34,7 +31,6 @@ import com.spacesofting.weshare.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
-import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import kotlinx.android.synthetic.main.list_item_add_image.*
@@ -50,14 +46,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val GALLERY_REQUEST_CODE = 2
 
     private var adapterBaner :MyCyclePagerAdapter? = null
-    val category = ApplicationWrapper.category
+    private val category = ApplicationWrapper.category
 
     @InjectPresenter
     lateinit var mAddGoodsPresenter: AddGoodsPresenter
     private var picker: ImagePickerFragment? = null
     private var pathImg: String? = null
     private var progressDialog: ProgressDialog? = null
-    private var bannerItems = ArrayList<Int>()
+    private var bannerItems = ArrayList<File>()
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
 
@@ -65,6 +61,16 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()
+        banner.viewPager2.apply {
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
+      /*  banner.viewPager2.apply {
+            // adapter = adapterBaner
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            // registerOnPageChangeCallback(pageChangeCallback)
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }*/
         setBannerData()
 
         view.viewTreeObserver.addOnWindowFocusChangeListener {
@@ -89,31 +95,48 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         priceOptions.adapter = adpaterPeriod
         priceOptions.onItemSelectedListener = this
 
+
+          /*          val child = banner.viewPager2.getChildAt(0)
+            if (child is RecyclerView) {
+                child.setOverScrollMode(View.OVER_SCROLL_NEVER)
+            }*/
+
+      //  banner.viewPager2.overScrollMode = 2
+        banner.viewPager2.apply {
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
         banner.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 Log.e("Selected_Page", position.toString())
+
+
+
             }
         })
+
 
     }
     override fun showWishImage(file: File) {
         //todo  сюда складываем фото для адаптера - воти все вот и все
-        Picasso.with(context)
+   /*     Picasso.with(context)
             .load(file)
             .centerCrop()
             .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-            .into(wishEditImageView)
+            .into(wishEditImageView)*/
         mAddGoodsPresenter.imageChanged = true
         mAddGoodsPresenter.imageFile = file
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //  addImgLayout.visibility = View.GONE
         // wishChangeImgBtn.visibility = View.VISIBLE
         // dellImage.visibility = View.VISIBLE
+        //todo
+        refrashAdapterBaner(file)
     }
 
     override fun setNewSubCategory(it: Entitys) {
-        initAdapterCategory(" sub",it)
+        initAdapterCategory(it)
     }
 
     fun showSubCategory(id: String?) {
@@ -136,7 +159,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun wishImageDelete() {
-        Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
+      //  Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
         mAddGoodsPresenter.imageChanged = true
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //   addImgLayout.visibility = View.VISIBLE
@@ -275,15 +298,17 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
 
     private fun setBannerData() {
+        initAdapterCategory (null)
         initData()
        // initDataCategory()
-        initAdapterCategory("sub", null)
         btn_add.setOnClickListener {
-        /*    bannerItems.add(R.drawable.electronix)   //todo случайный элемент(resList.random())
+            showPicker()
+            //todo я вызываю пикер потом жду возврата фото и потом обновляю адаптер
+           /* bannerItems.add(R.drawable.electronix)   //todo случайный элемент(resList.random())
             bannerItems.add(R.drawable.wish_default_img)   //todo случайный элемент(resList.random())
-            bannerItems.add(R.drawable.wish_default_img)   //todo случайный элемент(resList.random())
+            bannerItems.add(R.drawable.wish_default_img)   //todo случайный элемент(resList.random())*/
 
-            adapterBaner.notifyDataSetChanged()*/
+        //    adapterBaner.notifyDataSetChanged()
 
 
         }
@@ -292,6 +317,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 val index = bannerItems.size - 1
                 bannerItems.removeAt(index)
                 adapterBaner?.notifyDataSetChanged()
+
+                if (bannerItems.isEmpty()){
+                    btn_remove.visible = false
+
+                }
             }
         }
 
@@ -301,6 +331,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         val dotsRadius = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsPadding = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsBottomMargin = resources.getDimension(R.dimen.rect_corner_radius)
+
+        banner.viewPager2.overScrollMode = 2
+
+        banner.viewPager2.apply {
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
 
         CycleViewPager2Helper(banner)
             .setAdapter(adapterBaner)
@@ -321,29 +358,22 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             )
             // .setAutoTurning(3000L)
             .build()
+       val test =  banner.viewPager2.overScrollMode
+
+        banner.viewPager2.apply {
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        }
         //todo category
 
     }
 
-    private fun initAdapterCategory(s: String, it: Entitys?) {
-        if (s == "cat") {
-
-            /*category?.entities?.let {
-                adapterCategory?.dataset?.addAll(category.entities)
-                adapterCategory!!.notifyDataSetChanged()
-            }*/
-        }
-        else {
+    private fun initAdapterCategory(it: Entitys?) {
             setPhotoAdapter(it)
-
-        }
     }
 
     private fun setPhotoAdapter(it: Entitys?) {
         var resourceId: Int? = null
-
-
-
         if (it == null) {
             category?.entities?.map {
                 when (it.code) {
@@ -396,7 +426,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private fun initData() {
         // подписываем нашу активити на события колбэка
         initBanners()
-        initNewList()
+        initCategoryList()
 
     }
 
@@ -404,15 +434,32 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapterBaner = MyCyclePagerAdapter()
         adapterBaner?.setOnCardClickListener(this)
 
-        bannerItems.add(R.drawable.wish_default_img)
+
+        if(bannerItems.isEmpty()) {
+         //   bannerItems.add(f)   //todo случайный элемент(resList.random())
+            adapterBaner?.dataset = bannerItems
+            adapterBaner?.notifyDataSetChanged()
+        }
+
+     /*   bannerItems.add(R.drawable.wish_default_img)
         bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
         bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
         bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
         adapterBaner?.dataset = bannerItems
+        adapterBaner?.notifyDataSetChanged()*/
+
+
+    }
+
+    private fun refrashAdapterBaner(file: File) {
+       // bannerItems.clear()
+        bannerItems.add(file)
+        adapterBaner?.dataset = bannerItems
+        btn_remove.visible = bannerItems.isNotEmpty()
         adapterBaner?.notifyDataSetChanged()
     }
 
-    fun initNewList() {
+    private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
         categoryCycleView.captionTextSize = 0
 
@@ -448,7 +495,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                // ...
+                // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
+                // todo презентер отображает initSabCategoryList ()
             }
         }
         categoryCycleView.setIndicator(custom_indicator)

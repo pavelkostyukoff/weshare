@@ -3,26 +3,26 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
-import com.spacesofting.weshare.R
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
-import com.spacesofting.weshare.mvp.*
+import com.spacesofting.weshare.R
+import com.spacesofting.weshare.mvp.Datum
+import com.spacesofting.weshare.mvp.Image
+import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedChaosPresenter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_category.view.*
-import kotlin.collections.ArrayList
 
 class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter): androidx.recyclerview.widget.RecyclerView.Adapter<FeedChaosAdapter.CompilationViewHolder>(){
     private val MAX_ITEM_NUM    = 5
@@ -90,7 +90,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
 
             val arrImg = ArrayList<Int>()
             arrImg.add(R.drawable.ic_big_car)
-            arrImg.add(R.drawable.ic_building)
+          //  arrImg.add(R.drawable.ic_building)
             arrImg.add(R.drawable.ic_car)
             arrImg.add(R.drawable.ic_dress)
             arrImg.add(R.drawable.ic_hobbit)

@@ -20,7 +20,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>() , ImagePickerFragment.Pic
     var imageFile: File?            = null
     var imageChanged                = false
     var timeout: Timer?             = null
-    val ITEMS_PER_PAGE = 10
+    val ITEMS_PER_PAGE = 15
     val ITEMS_PER_PAGE_WISH_LIST = 5
     var page = 0
 

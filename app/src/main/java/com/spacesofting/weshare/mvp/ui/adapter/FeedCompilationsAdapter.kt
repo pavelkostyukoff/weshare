@@ -3,14 +3,14 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.pawegio.kandroid.displayWidth
 import com.pawegio.kandroid.visible
@@ -92,7 +92,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
             val arrImg = ArrayList<Int>()
             arrImg.add(R.drawable.ic_big_car)
-            arrImg.add(R.drawable.ic_building)
+         //   arrImg.add(R.drawable.ic_building)
             arrImg.add(R.drawable.ic_car)
             arrImg.add(R.drawable.ic_dress)
             arrImg.add(R.drawable.ic_hobbit)

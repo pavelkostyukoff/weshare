@@ -255,4 +255,5 @@
     <string name="autorize_mail">Ваша почта</string>
     <string name="autorize_password">Ваш пароль</string>
     <string name="invent_ad_goods">Добавить вещь</string>
+    <string name="save_create_advert_button">Сохранить</string>
 </resources>

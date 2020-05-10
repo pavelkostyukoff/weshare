@@ -47,7 +47,7 @@
                             android:layout_marginTop="-40dp"
                             android:layout_marginRight="6dp"
                             android:background="@android:color/transparent"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:srcCompat="@drawable/ic_browser" />
 
                     <ImageButton
@@ -58,7 +58,7 @@
                             android:layout_marginTop="-35dp"
                             android:layout_marginRight="6dp"
                             android:background="@android:color/transparent"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:srcCompat="@drawable/ic_reset_search" />
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
@@ -107,6 +107,21 @@
                             android:visibility="gone" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
+       <!--         <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/wishEditImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/wish_default_img"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="30dip" />
+
+-->
                 <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
@@ -119,17 +134,21 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="5dp"
+                        android:visibility="visible">
 
                     <Button
                             android:id="@+id/btn_add"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
                             android:background="@drawable/bg_navigation_gradient"
-                            android:text="add"
+                            android:drawableEnd="@drawable/ic_plus"
+                            android:padding="5dp"
+                            android:text="add photo "
                             android:textColor="@color/oxford_blue"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,10 +156,13 @@
                             android:id="@+id/btn_remove"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin"
+                            android:layout_marginStart="@dimen/margin"
                             android:background="@drawable/bg_navigation_gradient"
-                            android:text="remove"
+                            android:drawableEnd="@drawable/ic_minus"
+                            android:padding="5dp"
+                            android:text="remove "
                             android:textColor="@color/oxford_blue"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -458,8 +480,8 @@
                             android:id="@+id/switch2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
                             android:layout_weight="1"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/textView3"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -495,12 +517,13 @@
 
         <Button
                 android:id="@+id/save"
+                android:layout_marginTop="10dp"
                 style="@style/button.bottom"
                 android:layout_marginBottom="@dimen/margin"
                 android:background="@drawable/bg_super"
                 android:enabled="false"
                 android:padding="5dp"
-                android:text="Сохранить"
+                android:text="@string/save_create_advert_button"
                 android:textColor="@color/oxford_blue" />
     </LinearLayout>
 

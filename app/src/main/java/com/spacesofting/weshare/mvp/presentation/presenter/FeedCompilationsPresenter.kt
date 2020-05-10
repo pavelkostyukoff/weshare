@@ -1,7 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import moxy.InjectViewState
-import moxy.MvpPresenter
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -13,12 +11,14 @@ import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import java.util.*
 
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var default: WishList? = null
-        val ITEMS_PER_PAGE = 10
+        val ITEMS_PER_PAGE = 20
         val ITEMS_PER_PAGE_WISH_LIST = 5
         var page = 0
         var lastLoadedCount = 0
@@ -52,7 +52,8 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
             Api.Tags.getListCompilations("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ ent ->
-                    ent
+                    ApplicationWrapper.category?.entities?.clear()
+                    ApplicationWrapper.category = ent
                   //  ent.entities?.let { checkFavoritCompilations(it) }
                     ent.entities?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
                     viewState.setProgressAnimation(false)

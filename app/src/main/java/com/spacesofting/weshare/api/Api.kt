@@ -19,40 +19,40 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.security.cert.X509Certificate
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 import javax.security.cert.CertificateException
 
 
 object Api {
     val MOCK = MockInterceptor()
     val SMS = SMSInterceptor()
-    val LOG = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    val AUTH = AuthHeaderInterceptor()
-    val TOKEN = TokenInterceptor()
+    private val LOG: HttpLoggingInterceptor =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    private val AUTH = AuthHeaderInterceptor()
+    private val TOKEN = TokenInterceptor()
 
-    val CLIENT: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AUTH)
-          //  .addInterceptor(MOCK)
-          //  .addInterceptor(SMS)
-        //    .addInterceptor(TOKEN)
-            .addInterceptor(LOG)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .build()
+    private val CLIENT: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(AUTH)
+        //  .addInterceptor(MOCK)
+        //  .addInterceptor(SMS)
+        .addInterceptor(TOKEN)
+        .addInterceptor(LOG)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .build()
 
 
-    val RETROFIT: Retrofit = Retrofit.Builder()
-            .baseUrl(Settings.ApiPath)
-            //.client(CLIENT)
-
+    private val RETROFIT: Retrofit = Retrofit.Builder()
+        .baseUrl(Settings.ApiPath)
+        .client(CLIENT)
         .client(getUnsafeOkHttpClient().build())
-
         .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .addConverterFactory(GsonConverterFactory.create())
-
-            .callbackExecutor(Executors.newSingleThreadExecutor())
-            .build()
+        .addConverterFactory(GsonConverterFactory.create())
+        .callbackExecutor(Executors.newSingleThreadExecutor())
+        .build()
 
     val Auth: AuthService
         get() = RETROFIT.create(AuthService::class.java)
@@ -70,19 +70,19 @@ object Api {
         get() = RETROFIT.create(AdvertsService::class.java)
 
 
-    fun getUnsafeOkHttpClient(): OkHttpClient.Builder
-
-    {
+    private fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
         try {
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
 
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
 
                 @Throws(CertificateException::class)
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) = Unit
+                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) =
+                    Unit
 
                 @Throws(CertificateException::class)
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) = Unit
+                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) =
+                    Unit
             })
             // Install the all-trusting trust manager
             val sslContext = SSLContext.getInstance("SSL")
@@ -91,24 +91,17 @@ object Api {
             // Create an ssl socket factory with our all-trusting manager
             val sslSocketFactory = sslContext.socketFactory
 
-            val builder = OkHttpClient.Builder()
+            return OkHttpClient.Builder()
                 .addInterceptor(AUTH)
 
-            .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            .hostnameVerifier(object : HostnameVerifier {
-                override fun verify(hostname: String, session: SSLSession): Boolean {
-                    return true
-                }
-            })
-            .addInterceptor(LOG)
-                .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            return builder
+                .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+                .hostnameVerifier { _, _ -> true }
+                .addInterceptor(LOG)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
-
 }
