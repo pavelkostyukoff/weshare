@@ -116,8 +116,11 @@
     <dimen name="big_button">80dp</dimen>
 
     <dimen name="margin_invait_vertical">12dp</dimen>
+    <dimen name="list_item_text_size">15sp</dimen>
 
     <dimen name="compilations_wish_image_size">140dp</dimen>
+    <dimen name="header_list_item_text_size">20sp</dimen>
+    <dimen name="class_text_size">13sp</dimen>
 
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_final_width">32dp</dimen>
@@ -125,4 +128,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="compilation_main_img_height">220dp</dimen>
+
+    <dimen name="edit_text_horizontal_padding">40dp</dimen>
+
 </resources>

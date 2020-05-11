@@ -3,7 +3,6 @@ package com.spacesofting.weshare.common
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.Fragment
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
@@ -36,6 +35,7 @@ object ScreenPool {
     val SHOW_CATEGORY = "show_category"
     val SHOW_GOOD = "show_good"
     val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
+    val ADDRESS_SEARCH = "address_search"
 
     fun getFragment(screenKey: String, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (screenKey) {
@@ -84,6 +84,11 @@ object ScreenPool {
             SHOW_GOOD -> {
                 //todo sent exist
                 ShowGoodFragment.newInstance(data as String?)
+            }
+
+            ADDRESS_SEARCH -> {
+                //todo sent exist
+                AddressSearchFragment.newInstance(data as String?)
             }
 
 

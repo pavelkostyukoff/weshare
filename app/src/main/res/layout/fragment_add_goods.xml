@@ -458,12 +458,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:layout_marginTop="@dimen/margin"
                         android:layout_marginRight="@dimen/margin"
                         android:background="@null"
                         android:textColorHint="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="@+id/textView3"
                         app:layout_constraintTop_toBottomOf="@+id/textView3">
+
 
                     <ImageView
                             android:id="@+id/locationImg"
@@ -483,34 +486,31 @@
                             android:layout_weight="1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView3"
+                            app:layout_constraintStart_toEndOf="@+id/textView6"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_weight="1"
-                            android:text="Ваше объявление появится на карте"
-                            app:layout_constraintEnd_toEndOf="@+id/textView6"
-                            app:layout_constraintHorizontal_bias="0.285"
-                            app:layout_constraintStart_toStartOf="@+id/textView6"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                     <TextView
                             android:id="@+id/textView6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
+                            android:layout_marginStart="5dp"
                             android:layout_weight="1"
-                            android:text="Установите геолокацию"
+                            android:fontFamily="monospace"
+                            android:text="Местоположение автомтически"
+                            android:textColor="@color/app_gray"
+                            android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="@+id/locationImg"
                             app:layout_constraintStart_toEndOf="@+id/locationImg"
-                            app:layout_constraintTop_toTopOf="@+id/locationImg"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintTop_toTopOf="@+id/locationImg" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <!--    здесь мы встровляем окно поиска-->
+                <EditText
+                        android:id="@+id/searchEditText"
+                        android:padding="5dp"
+                        style="@style/EditTextGreyBorder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/edit_advert_address_search" />
 
             </LinearLayout>
         </ScrollView>

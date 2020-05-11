@@ -7,7 +7,9 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -23,6 +25,7 @@ import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
@@ -31,7 +34,6 @@ import com.spacesofting.weshare.mvp.ui.adapter.MyCyclePagerAdapter
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.hideKeyboard
-import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
@@ -40,7 +42,6 @@ import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.io.File
-import java.net.URL
 
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
@@ -126,6 +127,33 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         })
         save.setOnClickListener { mAddGoodsPresenter.checkEditFieldsOrImage() }
 
+        searchEditText.setOnTouchListener(
+            object : OnTouchListener {
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        router.navigateTo(ScreenPool.ADDRESS_SEARCH)
+                        /*val i = Intent(activity, AddressSearchActivity::class.java)
+                        i.putExtra(MainActivity.ORDER_PARAM, getOrderParam().ordinal())
+                        if (getOrderParam() === Order.OrderParam.From) i.putExtra(
+                            AddressSearchActivity.ADDRESS_TEXT,
+                            NexiApplication.getActiveProfile().getCurrentOrder().getFrom().getAddress()
+                        ) else i.putExtra(
+                            AddressSearchActivity.ADDRESS_TEXT,
+                            NexiApplication.getActiveProfile().getCurrentOrder().getTo().getAddress()
+                        )
+                        i.putExtra(
+                            MainActivity.REQUEST_CODE,
+                            ru.ddg.nexi.nexitaxi.fragments.PlaceFragment.ACTIVITY_SEARCH_CODE
+                        )
+                        startActivityForResult(
+                            i,
+                            ru.ddg.nexi.nexitaxi.fragments.PlaceFragment.ACTIVITY_SEARCH_CODE
+                        )*/
+                        return true
+                    }
+                    return false
+                }
+            })
     }
 
     private fun setLoadedWish(wish: Advert) {

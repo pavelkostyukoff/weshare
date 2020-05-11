@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+   <!-- android.support.design.widget.AppBarLayout-->
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:theme="@style/Widget.Design.AppBarLayout"
+            app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:id="@+id/fakeImageView"
+                        android:background="@color/white"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/close"
+                        android:layout_alignParentRight="true"
+                        android:padding="16dp"
+                        android:visibility="visible" />
+
+                <LinearLayout
+                        android:id="@+id/contentLinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@id/fakeImageView"
+                        android:orientation="vertical">
+
+                    <ImageView
+                            android:id="@+id/titleImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"            android:background="@color/white"
+
+                            android:paddingTop="16dp"
+                            android:src="@drawable/from_whence_blue" />
+
+                    <TextView
+                            android:id="@+id/titleTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            style="@style/TextView.Class"
+                            android:paddingBottom="16dp"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+    <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            android:hint="@string/edit_advert_address_search_inside"
+            style="@style/EditText"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/list"
+                android:name="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:context="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
+                tools:listitem="@layout/item_address_place"
+                android:layout_marginStart="@dimen/edit_text_horizontal_padding"
+                android:layout_marginEnd="@dimen/edit_text_horizontal_padding"/>
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,70 +1,45 @@
 package com.spacesofting.weshare.utils
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
-import android.util.Log
-import androidx.annotation.NonNull
+import android.os.Build
+import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Refrash
-import com.spacesofting.weshare.mvp.ui.fragment.AddGoodsFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 
-class RefreshTokenWorker(@NonNull context: Context?, @NonNull workerParams: WorkerParameters?) :
-    Worker(context!!, workerParams!!) {
-    @NonNull
-    override fun doWork(): Result {
-        Log.d(AddGoodsFragment.TAG, "onCreateViewHolder_1")
+class RefreshTokenWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+    private val TAG: String = RefreshTokenWorker::class.java.simpleName
 
-        refreshed()
-    /*    val data = inputData
-        val desc = data.getString(MainActivity.KEY_TASK_DESC)
-        //displayNotification("Hey I am your work", desc)
-        refrashTiken()
-        val data1 = Data.Builder()
-            .putString(KEY_TASK_OUTPUT, "Task Finished Successfully")
-            .build()
-        setOutputData(data1)*/
+    override fun doWork(): Result {
+
+        sendNotification("Title", "Details")
         return Result.success()
+
     }
 
-    /*private fun displayNotification(task: String, desc: String?) {
-        val manager =
-            applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    private fun sendNotification(title: String, message: String) {
+        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        //If on Oreo then notification required a notification channel.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "simplifiedcoding",
-                "simplifiedcoding",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            manager.createNotificationChannel(channel)
+            val channel = NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT)
+            notificationManager.createNotificationChannel(channel)
         }
-        val builder: NotificationCompat.Builder =
-            Builder(applicationContext, "simplifiedcoding")
-                .setContentTitle(task)
-                .setContentText(desc)
-                .setSmallIcon(R.mipmap.ic_launcher)
-        manager.notify(1, builder.build())
-    }*/
 
-   /* private fun refrashTiken() {
-        Api.Users.getAccount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it
-                Log.d(AddGoodsFragment.TAG, "onCreateViewHolder_2")
-            })
-            {
-                Log.d(AddGoodsFragment.TAG, "onCreateViewHolder_3")
-            }
+        val notification = NotificationCompat.Builder(applicationContext, "default")
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.ic_launcher)
 
-    }*/
-
-    companion object {
-        const val KEY_TASK_OUTPUT = "key_task_output"
+        notificationManager.notify(1, notification.build())
     }
 
     fun refreshed()

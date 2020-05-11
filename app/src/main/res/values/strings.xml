@@ -256,4 +256,6 @@
     <string name="autorize_password">Ваш пароль</string>
     <string name="invent_ad_goods">Добавить вещь</string>
     <string name="save_create_advert_button">Сохранить</string>
+    <string name="edit_advert_address_search">Введите ваш адрес</string>
+    <string name="edit_advert_address_search_inside">Поиск Адреса</string>
 </resources>

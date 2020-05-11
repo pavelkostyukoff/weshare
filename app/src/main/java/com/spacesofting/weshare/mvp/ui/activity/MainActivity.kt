@@ -5,12 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.work.Constraints
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
-import com.pawegio.kandroid.runDelayed
+import androidx.work.*
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -31,6 +26,9 @@ class MainActivity  : ActivityWrapper() {
     @Inject
     var networkUtils: NetworkUtils? = null*/
    val KEY_TASK_DESC: String? = "key_task_desc"
+    private lateinit var workManager: WorkManager
+    private lateinit var timeWorkRequest: OneTimeWorkRequest
+    private lateinit var periodicWorkRequest: PeriodicWorkRequest
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,39 +38,21 @@ class MainActivity  : ActivityWrapper() {
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this.applicationContext
         ApplicationWrapper.INSTANCE.getComponent()?.injectsMainActivity(this)
+        workManager = WorkManager.getInstance()
 
         startWorkM()
     ////    scan.visible = false
 
-        runDelayed(4000){
+      /*  runDelayed(4000){
         //    scan.visible = true
-        }
+        }*/
     }
 
     private fun startWorkM() {
-        val constraints = Constraints.Builder()
-            .setRequiresCharging(true)
-            .build()
-        /*val request = OneTimeWorkRequest.Builder(MyWorker::class.java)
-           // .setInputData(data)
-            .setConstraints(constraints)
-            .build()*/
-        val myWorkRequest = PeriodicWorkRequest.Builder(
-            RefreshTokenWorker::class.java,
-            30,
-            TimeUnit.MINUTES,
-            25,
-            TimeUnit.MINUTES
-        )
-            .build()
+        val work = PeriodicWorkRequest.Builder(RefreshTokenWorker::class.java, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MINUTES, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MINUTES)
+        periodicWorkRequest = work.build()
 
-
-        WorkManager.getInstance().getWorkInfoByIdLiveData(myWorkRequest.id)
-            .observe(this, Observer<WorkInfo?> { workInfo ->
-                if (workInfo != null) {
-                    workInfo
-                }
-            })
+        workManager.enqueue(periodicWorkRequest)
     }
 
     override fun onResume() {
@@ -83,17 +63,6 @@ class MainActivity  : ActivityWrapper() {
     override fun onPause() {
         super.onPause()
         ApplicationWrapper.INSTANCE.getNavigationHolder().removeNavigator()
-    }
-
-    fun shoBtn()
-    {
-      //  scan.visible = true
-    }
-
-    fun noshoBtn()
-    {
-      //  scan.visible = false
-
     }
 
     var fragment: androidx.fragment.app.Fragment? = null
