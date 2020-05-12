@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
 import androidx.work.*
-import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -15,21 +14,11 @@ import com.spacesofting.weshare.utils.RefreshTokenWorker
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
+import sun.jvm.hotspot.utilities.IntArray
 import java.util.concurrent.TimeUnit
 
 
 class MainActivity  : ActivityWrapper() {
-   /* @RequiresApi(Build.VERSION_CODES.O)
-    @Inject
-    var databaseHelper: DatabaseHelper? = null
-
-    @Inject
-    var networkUtils: NetworkUtils? = null*/
-   val KEY_TASK_DESC: String? = "key_task_desc"
-    private lateinit var workManager: WorkManager
-    private lateinit var timeWorkRequest: OneTimeWorkRequest
-    private lateinit var periodicWorkRequest: PeriodicWorkRequest
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -38,21 +27,26 @@ class MainActivity  : ActivityWrapper() {
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this.applicationContext
         ApplicationWrapper.INSTANCE.getComponent()?.injectsMainActivity(this)
-        workManager = WorkManager.getInstance()
 
-        startWorkM()
-    ////    scan.visible = false
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(true)
+            .build()
 
-      /*  runDelayed(4000){
-        //    scan.visible = true
-        }*/
-    }
+        var request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(15, TimeUnit.MINUTES)
 
-    private fun startWorkM() {
-        val work = PeriodicWorkRequest.Builder(RefreshTokenWorker::class.java, PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MINUTES, PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS, TimeUnit.MINUTES)
-        periodicWorkRequest = work.build()
+            .setConstraints(constraints)
+            .build()
+/*
+        WorkManager.getInstance()
+            .enqueueUniquePeriodicWork("jobTag", ExistingPeriodicWorkPolicy.KEEP, request)*/
+        WorkManager.getInstance(this).enqueue(request)
 
-        workManager.enqueue(periodicWorkRequest)
+       /* WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.id)
+            .observe(this, Observer {
+
+                val status: String = it.state.name
+                Toast.makeText(this,status, Toast.LENGTH_SHORT).show()
+            })*/
     }
 
     override fun onResume() {

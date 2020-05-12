@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:shadowColor="@color/design_default_color_primary"
+            android:shadowRadius="2"
             android:text="@string/splash_copyright"
             android:textColor="@color/app_gray"
             app:layout_constraintBottom_toTopOf="@+id/footerGuidline"

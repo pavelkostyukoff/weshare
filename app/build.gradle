@@ -99,7 +99,7 @@
         kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
         implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
 
-        implementation "android.arch.work:work-runtime:1.0.0-alpha11"
+        implementation "androidx.work:work-runtime-ktx:2.3.4"
 
         // annotationProcessor "com.github.moxy-community:moxy-compiler:2.1.2"
        // implementation "com.github.moxy-community:moxy-androidx:2.1.2"
