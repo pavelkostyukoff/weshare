@@ -66,28 +66,42 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         showToolbar(TOOLBAR_HIDE)
 
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
-       /* val advert = activity?.intent?.getSerializableExtra(WishEditActivity.ARG_WISH) as Advert?
+        /* val advert = activity?.intent?.getSerializableExtra(WishEditActivity.ARG_WISH) as Advert?
 
-        advert?.let {
-            //todo //presenter.wish = wish
-            // title = getString(R.string.wish_edit_wish_title)
-            //todo в случае если мы получили вещь и она пошла грузитсья в поля
-            setLoadedWish(it)
-        }
-*/
-
-
-        wishEditNameEditText.addTextChangedListener(WishNameToDescriptionWatcher(mAddGoodsPresenter.nameMaxLength
+         advert?.let {
+             //todo //presenter.wish = wish
+             // title = getString(R.string.wish_edit_wish_title)
+             //todo в случае если мы получили вещь и она пошла грузитсья в поля
+             setLoadedWish(it)
+         }
+ */
+        wishEditNameEditText.addTextChangedListener(WishNameToDescriptionWatcher(
+            mAddGoodsPresenter.nameMaxLength
         ) { s ->
             wishEditDescriptionEditText.text?.clear()
             wishEditDescriptionEditText.text?.append(s)
             wishEditDescriptionEditText.requestFocus()
         })
 
-        wishEditNameEditText.addTextChangedListener(WishEditPresenterReporterWatcher(mAddGoodsPresenter, AddGoodsPresenter.Field.NAME))
-        wishEditDescriptionEditText.addTextChangedListener(WishEditPresenterReporterWatcher(mAddGoodsPresenter, AddGoodsPresenter.Field.DESCRIPTION))
-      //  wishUrlEditText.addTextChangedListener(WishEditPresenterReporterWatcher(presenter = presenter, field = WishEditPresenter.Field.WISH_URL))
-        wishEditAmountEditText.addTextChangedListener(WishEditPresenterReporterWatcher(mAddGoodsPresenter, AddGoodsPresenter.Field.PRICE))
+        wishEditNameEditText.addTextChangedListener(
+            WishEditPresenterReporterWatcher(
+                mAddGoodsPresenter,
+                AddGoodsPresenter.Field.NAME
+            )
+        )
+        wishEditDescriptionEditText.addTextChangedListener(
+            WishEditPresenterReporterWatcher(
+                mAddGoodsPresenter,
+                AddGoodsPresenter.Field.DESCRIPTION
+            )
+        )
+        //  wishUrlEditText.addTextChangedListener(WishEditPresenterReporterWatcher(presenter = presenter, field = WishEditPresenter.Field.WISH_URL))
+        wishEditAmountEditText.addTextChangedListener(
+            WishEditPresenterReporterWatcher(
+                mAddGoodsPresenter,
+                AddGoodsPresenter.Field.PRICE
+            )
+        )
 
         mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()
         banner.viewPager2.apply {
@@ -97,7 +111,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         setBannerData()
         view.viewTreeObserver.addOnWindowFocusChangeListener {
         }
-
+//todo выбор валюты
         val adapter = ArrayAdapter.createFromResource(
             activity,
             R.array.wish_edit_cyrrency,
@@ -106,7 +120,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         privacyOptions.adapter = adapter
         privacyOptions.onItemSelectedListener = this
-
+//todo выбор промежутка времени
         val adpaterPeriod = ArrayAdapter.createFromResource(
             activity,
             R.array.wish_edit_period,
@@ -119,6 +133,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
+        //todo слушатель даптера фотографий для ввода
         banner.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -126,7 +141,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         })
         save.setOnClickListener { mAddGoodsPresenter.checkEditFieldsOrImage() }
-
+        //todo слушаем ввод текста - открываем фрагмент с поиском адреса
         searchEditText.setOnTouchListener(
             object : OnTouchListener {
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
@@ -156,10 +171,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             })
     }
 
+    //todo размещаем поля - если мы зашли в режим редактрования объявления
     private fun setLoadedWish(wish: Advert) {
         setConfirmButtonState(mAddGoodsPresenter.isValid(wish))
-     //   wishUrlEditText.setText(wish.url)
-       // presenter.newWish.images = wish.images
+        //   wishUrlEditText.setText(wish.url)
+        // presenter.newWish.images = wish.images
         wishEditNameEditText.setText(wish.title)
         wishEditDescriptionEditText.setText(wish.description)
 
@@ -186,9 +202,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             }
         }*/
-
+        //todo установка полей
         wish.rentPeriods?.let {
-
             wishEditAmountEditText.setText(it[0].amount.toString())
             //for check edit fields
             mAddGoodsPresenter.editWishAmount = it[0].amount.toString()
@@ -251,6 +266,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //   dellImage.visibility = View.GONE
     }
 
+    //todo тут нажимает на кнопку сохранить внизу - если прошли валидацию - она становится активна
     override fun save() {
         /*if (!mAddGoodsPresenter.isWishEdit()) {
             activity?.finish()
@@ -297,6 +313,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo валидация - ок - кнопка активна
     override fun setConfirmButtonState(isEnabled: Boolean) {
         save.isEnabled = isEnabled
     }
@@ -327,14 +344,17 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo отображение фото на пикере перед подтверждением
     override fun setPreviewImg(file: File) {
         picker?.setImage(file)
     }
 
+    //todo на экран регистрации - если хотим разместить вещь
     override fun goToRegistration() {
         //  goToRegister()
     }
 
+    //todo  не используется пока что - ссылка парсить объвление из сети через сервер
     override fun showBrokenUrlMessage(isShowed: Boolean) {
         //brokenUrlMessage.visible = isShowed
     }
@@ -380,11 +400,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
-
+    //todo инициализация банеров / категорий и прочее
     private fun setBannerData() {
         initAdapterCategory(null)
         initData()
         // initDataCategory()
+        //todo добавляем фото
         btn_add.setOnClickListener {
             showPicker()
             //todo я вызываю пикер потом жду возврата фото и потом обновляю адаптер
@@ -396,6 +417,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
 
         }
+        //todo удаляем фото
         btn_remove.setOnClickListener {
             if (bannerItems.isNotEmpty()) {
                 val index = bannerItems.size - 1
@@ -415,13 +437,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         val dotsRadius = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsPadding = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsBottomMargin = resources.getDimension(R.dimen.rect_corner_radius)
+        //todo попытка сделать пейджер бзе прокруток
+        /*     banner.viewPager2.overScrollMode = 2
 
-        banner.viewPager2.overScrollMode = 2
-
-        banner.viewPager2.apply {
-            orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        }
+             banner.viewPager2.apply {
+                 orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                 (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER*/
+        // }
 
         CycleViewPager2Helper(banner)
             .setAdapter(adapterBaner)
@@ -442,20 +464,19 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             )
             // .setAutoTurning(3000L)
             .build()
-        val test = banner.viewPager2.overScrollMode
 
         banner.viewPager2.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
         //todo category
-
     }
 
     private fun initAdapterCategory(it: Entitys?) {
         setPhotoAdapter(it)
     }
 
+    //todo добавление фото по соответсвию наименованию к категориям
     private fun setPhotoAdapter(it: Entitys?) {
         var resourceId: Int? = null
         if (it == null) {
@@ -510,28 +531,17 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         // подписываем нашу активити на события колбэка
         initBanners()
         initCategoryList()
-
     }
 
     private fun initBanners() {
         adapterBaner = MyCyclePagerAdapter()
         adapterBaner?.setOnCardClickListener(this)
 
-
         if (bannerItems.isEmpty()) {
             //   bannerItems.add(f)   //todo случайный элемент(resList.random())
             adapterBaner?.dataset = bannerItems
             adapterBaner?.notifyDataSetChanged()
         }
-
-        /*   bannerItems.add(R.drawable.wish_default_img)
-           bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
-           bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
-           bannerItems.add(R.drawable.clouse)   //todo случайный элемент(resList.random())
-           adapterBaner?.dataset = bannerItems
-           adapterBaner?.notifyDataSetChanged()*/
-
-
     }
 
     private fun refrashAdapterBaner(file: File) {

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--
+         Подключаем API карт
+         Если вы используете API локально, то в URL ресурса необходимо указывать протокол в стандартном виде (http://...)
+         https://tech.yandex.ru/maps/jsbox/2.1/mapparams
+         -->
+        <meta name="viewport" content="width=device-width,height=device-height" />
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+        <script type="text/javascript">
+            var myMap;
+            var yOffset = 0;
+            var multiRoute;
+            var myPolygon;
+            var carImage = 'file:///android_res/drawable/car';
+            var onActionend = function (e) {
+                //TODO: анимация движения http://ymapsapi.ya.ru/replies.xml?item_no=537
+                var action = e.get('action'), moveByHand = true;
+                if (action instanceof ymaps.map.action.Single) {
+                    for (var k in action) {
+                        if (action.hasOwnProperty(k)) {
+                            // Тут можно вместо проверки !!action[k].timingFunction
+                            // поискать наш специфичный action[k].duration
+                            if (!!action[k] && !!action[k].timingFunction) {
+                                moveByHand = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (moveByHand) {
+                    // Карта перемещена руками
+                    // myMap = undefined; //тест для проверки удаления карты
+                } else {
+                    // Карта перемещена программно
+                }
+                window.location = "mousemovescheme://onmousemove?panto="+!moveByHand;
+            };
+        
+            Object.prototype.getName = function() {
+                var funcNameRegex = /function (.{1,})\(/;
+                                                       var results = (funcNameRegex).exec((this).constructor.toString());
+                                                       return (results && results.length > 1) ? results[1] : "";
+                                                       };
+            
+            // Дождёмся загрузки API и готовности DOM.
+            try {
+                ymaps.ready(init);
+            } catch(e) {
+                Nexi.Log("exception on init: " + e);
+                Nexi.onMapInitialized(false);
+            }
+
+            function init () {
+                // Создание экземпляра карты и его привязка к контейнеру с
+                // заданным id ("map").
+                myMap = new ymaps.Map('map', {
+                                      // При инициализации карты обязательно нужно указать
+                                      // её центр и коэффициент масштабирования.
+                                      center: [55.752377, 37.619588], // Москва
+                                      zoom: 16,
+                                      controls: [] //не добавляем никаких элементов управления на карту - https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/controls-docpage/
+                                      },
+                                      {suppressMapOpenBlock: true });
+                                                       
+                var projection = myMap.options.get('projection');
+                var pc = projection.toGlobalPixels([55.752377, 37.619588], myMap.getZoom());
+                pc[1] = pc[1] - yOffset;
+                var nc = projection.fromGlobalPixels(pc, myMap.getZoom());
+                                      
+                // Создаем геообъект с типом геометрии "Точка".
+                myGeoObject = new ymaps.GeoObject({
+                   // Описание геометрии.
+                    geometry: {
+                        type: "Point",
+                        coordinates: nc
+                    },
+                    // Свойства.
+                        properties: {
+                            // Контент метки.
+                            iconContent: 'Я здесь'
+                        }
+                    }, {
+                        // Опции.
+                        // Необходимо указать данный тип макета.
+                        iconLayout: 'default#image',
+                        // Своё изображение иконки метки.
+                        iconImageHref: carImage,
+                        visible: false
+                        // Размеры метки.
+                        //iconImageSize: [30, 42],
+                        // Смещение левого верхнего угла иконки относительно
+                        // её "ножки" (точки привязки).
+                        //iconImageOffset: [-3, -42]
+                });
+
+                Nexi.Log("Map init ok.");
+                Nexi.onMapInitialized(true);
+
+                myMap.geoObjects.add(myGeoObject);
+                                                       
+                ymaps.geocode(nc).then(
+                    function (res) {
+                        //https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/GeoObjectCollection-docpage/
+                        var count = res.geoObjects.getLength();
+                        Nexi.Log("init(): address found (count): " + count);
+                        if (count > 0) {
+                            var firstGeoObject = res.geoObjects.get(0);
+                            Nexi.Log("init(): address found (name): " + firstGeoObject.properties.get('name'));
+                            window.location = "mapinitscheme://onmapinit?name=" + firstGeoObject.properties.get('name') + "&lat=" + firstGeoObject.geometry.getCoordinates()[0] + "&long=" + firstGeoObject.geometry.getCoordinates()[1];
+
+                        }
+                        else {
+                            window.location = "mapinitscheme://onmapinit";
+                        }
+                    },
+                    function (e) {
+                        window.location = "mapinitscheme://onmapinit";
+                });
+                                            
+                                      
+                                      // Создадим провайдер пробок "Сейчас" с включенным слоем инфоточек.
+                                      //var actualProvider = new ymaps.traffic.provider.Actual({}, { infoLayerShown: true });
+                                      // И затем добавим его на карту.
+                                      //actualProvider.setMap(myMap);
+                                      
+                                      // Обработка события, возникающего при щелчке
+                                      // левой кнопкой мыши в любой точке карты.
+                                      // При возникновении такого события откроем балун.
+                                      //myMap.events.add('click', function (e) {
+                                      //                 var coords = e.get('coords');
+                                      //                 var param1 = coords[0].toPrecision(6);
+                                      //                 var param2 = coords[1].toPrecision(6);
+                                      //                 window.location = "clickscheme://onclick?lat=" + param1 + "&long=" + param2;
+                                      //});
+                                      //mousemove - не четко позиционируется, при перемещении карты пользователем
+                                      //actionend - не работает перемещение карты вслед за локацией, так как срабатывает даже при автоматическом перемещении карты, что считается будто юзер двинул карту
+                                                       
+                    myMap.events.add('actionend', onActionend);
+                                                       
+                    myMap.events.add('dblclick', function (e) {
+                        var position = e.get('domEvent').get('position');
+
+                        var projection = myMap.options.get('projection');
+                        var nc = projection.fromGlobalPixels(myMap.converter.pageToGlobal(position), myMap.getZoom());
+                                     
+                        myMap.setZoom(myMap.getZoom() + 1, {checkZoomRange: true});
+                        updateMapPosition(nc[0], nc[1], true);
+                                     
+                        //myGeoObject.geometry.setCoordinates(nc);
+                                     
+                        e.preventDefault();
+                        //window.location = "mousemovescheme://onmousemove?panto=false";
+                    });
+  
+                    myMap.events.add('mouseenter', function (e) {
+                                window.location = "mouseenterscheme://onmouseenter"; });
+                    myMap.events.add('mouseleave', function (e) {
+                                window.location = "mouseleavescheme://onmouseleave"; });
+
+                    // Создаем многоугольник, описывающий зону вызова такси (50 км от МКАД)
+                    myPolygon = new ymaps.Polygon([
+                        // Указываем координаты вершин многоугольника.
+                        // Координаты вершин внешнего контура.
+                        [
+                            [56.130696, 38.449246],
+                            [55.778599, 38.686825],
+                            [55.572953, 38.598935],
+                            [55.349791, 38.42178],
+                            [55.122452, 37.952932],
+                            [55.144482, 37.451681],
+                            [55.346118, 36.705984],
+                            [55.575526, 36.671651],
+                            [55.889356, 36.534322],
+                            [56.22859, 36.895498],
+                            [56.364513, 37.513479],
+                            [56.301957, 38.125967]
+                        ],
+                        ], {
+                            // Описываем свойства геообъекта.
+                            // Содержимое балуна.
+                            hintContent: "Многоугольник"
+                        }, {
+                            visible: false
+                        });
+                        // Добавляем многоугольник на карту.
+                        myMap.geoObjects.add(myPolygon);
+                                                                            
+            }
+
+            function isPointAvailable(latitude, longitude) {
+                var available = myPolygon.geometry.contains([latitude, longitude]);
+
+                window.location = "pointavailablescheme://onPointAvailable?availablePoint=" + available;
+                return available;
+            }
+                                                       
+            function offsetY(latitude, longitude) {
+                var projection = myMap.options.get('projection');
+                var zoom = myMap.getZoom();
+                var pc = projection.toGlobalPixels([latitude, longitude], zoom);
+                pc[1] = pc[1] - yOffset;
+                return projection.fromGlobalPixels(pc, zoom);
+            }
+
+            function setOffsetY(offset) {
+                yOffset = offset;
+                //console.log(yOffset);
+            }
+                                                       
+            function updateMapPosition(latitude, longitude, skipUpdateMoves) {
+                var nc = offsetY(latitude, longitude);
+
+                if (skipUpdateMoves) {
+                    myMap.events.remove('actionend', onActionend);
+                }
+                
+                myMap.panTo(nc, {flying: false}).then(
+                    function () {
+
+                        if (skipUpdateMoves) {
+                            myMap.events.add('actionend', onActionend);
+                                     
+                            window.location = "mousemovescheme://onmousemove?panto=false";
+                        }
+                    },
+                    function (err) {
+
+                        if (skipUpdateMoves) {
+                            myMap.events.add('actionend', onActionend);
+                                     
+                            window.location = "mousemovescheme://onmousemove?panto=false";
+                        }
+                        window.location = "addressscheme://onaddress?name=";
+                    },
+                this);
+            }
+                
+            function updateMapToPin(x, y) {
+
+                var projection = myMap.options.get('projection');
+                var nc = projection.fromGlobalPixels(myMap.converter.pageToGlobal([x, y]), myMap.getZoom());
+
+                //myGeoObject.geometry.setCoordinates(nc);
+                                                       
+                ymaps.geocode(nc, { kind: 'house'}).then(
+                    function (res) {
+                        var count = res.geoObjects.getLength();
+                        Nexi.Log("updateMapToPin(): address found (count): " + count);
+                        if (count > 0) {
+                            var firstGeoObject = res.geoObjects.get(0);
+                            var locality = firstGeoObject.properties._data.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality;
+                            var thor = locality.Thoroughfare;
+                            var prem = thor.Premise.PremiseNumber;
+                            thor = thor.ThoroughfareName;
+                            locality = locality.LocalityName;
+
+                            window.location = "addressscheme://onaddress?name="
+                                + firstGeoObject.properties.get('name')
+                                + "&lat="
+                                + firstGeoObject.geometry.getCoordinates()[0]
+                                + "&long="
+                                + firstGeoObject.geometry.getCoordinates()[1]
+                                + "&loc="
+                                + locality
+                                + "&thor="
+                                + thor
+                                + "&prem="
+                                + prem
+                                + "&end=1";
+                        }
+                        else {
+                            window.location = "addressscheme://onaddress";
+                        }
+                    },
+                    function (e) {
+                        Nexi.Log("no address found");
+                        window.location = "addressscheme://onaddress";
+                    }
+                );
+            }
+        
+            function updateUserPosition(latitude, longitude) {
+                //var nc = offsetY(latitude, longitude);
+                //myGeoObject.options.set('visible', true);
+                myGeoObject.geometry.setCoordinates([latitude, longitude]);
+            }
+
+            function showUserPosition() {
+                myGeoObject.options.set('visible', true);
+            }
+
+            function hideUserPosition() {
+                myGeoObject.options.set('visible', false);
+            }
+                                                       
+            function buildRoute (from_latitude, from_longitude, to_latitude, to_longitude) {
+                //if (myMap.geoObjects.indexOf(multiRoute) != -1)
+                  //  myMap.geoObjects.remove(multiRoute);
+                var oldRoute = multiRoute;
+                multiRoute = new ymaps.multiRouter.MultiRoute(
+                {
+                    referencePoints: [[from_latitude, from_longitude], [to_latitude, to_longitude]],
+                    params: { results: 1 }
+                },
+                {
+                    wayPointStartIconLayout: "default#image",
+                    wayPointStartIconImageHref: 'file:///android_res/drawable/dot',
+                    wayPointFinishIconLayout: "default#image",
+                    wayPointFinishIconImageHref: 'file:///android_res/drawable/dot',
+                    routeStrokeColor: "#46ACF4",
+                    routeActiveStrokeColor: "#46ACF4",
+                    // Внешний вид путевых точек.
+                    wayPointStartIconColor: "#46ACF4",
+                    // Внешний вид транзитных точек.
+                    viaPointIconFillColor: "#46ACF4",
+                    viaPointActiveIconFillColor: "#46ACF4",
+                    pinActiveIconFillColor: "#46ACF4",
+                    pinIconFillColor: "#46ACF4",
+                    // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+                    boundsAutoApply: false
+                });
+                multiRoute.model.events.once("requestsuccess",
+                    function () {
+                        if (myMap.geoObjects.indexOf(oldRoute) != -1)
+                            myMap.geoObjects.remove(oldRoute);
+                                             
+                        window.location = "routescheme://onroute?distance="
+                            +  Math.round(multiRoute.getActiveRoute().properties.get("distance").value / 1000)
+                            + "&time="
+                            +  Math.round(multiRoute.getActiveRoute().properties.get("duration").value / 60)
+                    });
+                myMap.geoObjects.add(multiRoute);
+            }
+              
+            function removeRoute() {
+                if (myMap.geoObjects.indexOf(multiRoute) != -1)
+                    myMap.geoObjects.remove(multiRoute);
+            }
+                                                       
+            function preventMapClick() {
+                myMap.events.add('click',
+                    function (e) {
+                        e.preventDefault();
+                    }
+                );
+            }
+                                                       
+            function positionMapToCity(city) {
+                    //позиционируем карты на городе //'Россия, Москва'
+                    ymaps.geocode(city, {
+                        results: 1
+                    }).then(function (res) {
+                        // Выбираем первый результат геокодирования.
+                        var firstGeoObject = res.geoObjects.get(0),
+                        // Координаты геообъекта.
+                        coords = firstGeoObject.geometry.getCoordinates(),
+                        // Область видимости геообъекта.
+                        bounds = firstGeoObject.properties.get('boundedBy');
+                                                                             
+                        // Добавляем первый найденный геообъект на карту.
+                        myMap.geoObjects.add(firstGeoObject);
+                        // Масштабируем карту на область видимости геообъекта.
+                        myMap.setBounds(bounds, {
+                            // Проверяем наличие тайлов на данном масштабе.
+                            checkZoomRange: true
+                        });
+                    });
+                }
+           
+            //надо сначала выполнить positionMapToCity, чтоб ограничить поиск
+            function searchForAddress(address) {
+                //поиск вхождения
+                ymaps.suggest(address, {boundedBy:myMap.getBounds() }).then(function (items) {
+                    items = JSON.stringify(items);
+                                                                            
+                    window.location = "searchscheme://onsearch?address=" + address + "&addresses=" + items;
+                },
+                function (e) {
+                    window.location = "searchscheme://onsearch?address=" + address + "&addresses=";
+                });
+            }
+
+            function destroyMap() {
+                myMap.destroy();
+                Nexi.onMapDeinit();
+            }
+
+            function isMapInitialized() {
+                var init = typeof myMap != "undefined";
+                Nexi.onMapInitialized(init);
+            }
+        
+        </script>
+        
+        <style>
+            body, html {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        </style>
+    </head>
+    
+    <body>
+        <div id="map"></div>
+    </body>
+    
+</html>

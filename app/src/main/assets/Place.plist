@@ -1,0 +1,2117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Airport</key>
+	<array>
+		<dict>
+			<key>base</key>
+			<string>Внуково</string>
+			<key>latitude</key>
+			<real>55.605354</real>
+			<key>longitude</key>
+			<real>37.287322</real>
+			<key>title</key>
+			<string>Внуково</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Внуково</string>
+			<key>latitude</key>
+			<real>55.593389</real>
+			<key>longitude</key>
+			<real>37.244395</real>
+			<key>title</key>
+			<string>Внуково-3</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Домодедово</string>
+			<key>latitude</key>
+			<real>55.414572</real>
+			<key>longitude</key>
+			<real>37.900286</real>
+			<key>title</key>
+			<string>Домодедово</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Шереметьево</string>
+			<key>latitude</key>
+			<real>55.982799</real>
+			<key>longitude</key>
+			<real>37.441981</real>
+			<key>title</key>
+			<string>Шереметьево Терминал A</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Шереметьево</string>
+			<key>latitude</key>
+			<real>55.980923</real>
+			<key>longitude</key>
+			<real>37.416612</real>
+			<key>title</key>
+			<string>Шереметьево Терминал B</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Шереметьево</string>
+			<key>latitude</key>
+			<real>55.980526</real>
+			<key>longitude</key>
+			<real>37.410389</real>
+			<key>title</key>
+			<string>Шереметьево Терминал C</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Шереметьево</string>
+			<key>latitude</key>
+			<real>55.962783</real>
+			<key>longitude</key>
+			<real>37.406114</real>
+			<key>title</key>
+			<string>Шереметьево Терминал D</string>
+		</dict>
+		<dict>
+			<key>base</key>
+			<string>Шереметьево</string>
+			<key>latitude</key>
+			<real>55.964515</real>
+			<key>longitude</key>
+			<real>37.413703</real>
+			<key>title</key>
+			<string>Шереметьево Терминал E</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.96673</real>
+			<key>longitude</key>
+			<real>37.416836</real>
+			<key>title</key>
+			<string>Шереметьево Терминал F</string>
+			<key>base</key>
+			<string>Шереметьево</string>
+		</dict>
+	</array>
+	<key>Metro</key>
+	<array>
+		<dict>
+			<key>latitude</key>
+			<real>55.814527</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.734261</real>
+			<key>title</key>
+			<string>Бульвар Рокоссовского</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.803943</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.744764</real>
+			<key>title</key>
+			<string>Черкизовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.79624</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.715474</real>
+			<key>title</key>
+			<string>Преображенская площадь</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.78925</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.679683</real>
+			<key>title</key>
+			<string>Сокольники</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.779997</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.666079</real>
+			<key>title</key>
+			<string>Красносельская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.776241</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.65587</real>
+			<key>title</key>
+			<string>Комсомольская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.76908</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.649106</real>
+			<key>title</key>
+			<string>Красные ворота</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.764928</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.638436</real>
+			<key>title</key>
+			<string>Чистые пруды</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.75966</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.626581</real>
+			<key>title</key>
+			<string>Лубянка</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.757879</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.616635</real>
+			<key>title</key>
+			<string>Охотный ряд</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.752252</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.610493</real>
+			<key>title</key>
+			<string>Библиотека имени Ленина</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.745155</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.603031</real>
+			<key>title</key>
+			<string>Кропоткинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.735204</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.593074</real>
+			<key>title</key>
+			<string>Парк культуры</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.727474</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.580683</real>
+			<key>title</key>
+			<string>Фрунзенская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.723338</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.564069</real>
+			<key>title</key>
+			<string>Спортивная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.710409</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.559423</real>
+			<key>title</key>
+			<string>Воробьёвы горы</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.692551</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.534592</real>
+			<key>title</key>
+			<string>Университет</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.676978</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.50631</real>
+			<key>title</key>
+			<string>Проспект Вернадского</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.66375</real>
+			<key>line</key>
+			<string>Сокольническая линия</string>
+			<key>longitude</key>
+			<real>37.483152</real>
+			<key>title</key>
+			<string>Юго-Западная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.855055</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.476109</real>
+			<key>title</key>
+			<string>Речной вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.840005</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.48663</real>
+			<key>title</key>
+			<string>Водный стадион</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.819087</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.497888</real>
+			<key>title</key>
+			<string>Войковская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.805258</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.515228</real>
+			<key>title</key>
+			<string>Сокол</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.800365</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.532628</real>
+			<key>title</key>
+			<string>Аэропорт</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.789711</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.558184</real>
+			<key>title</key>
+			<string>Динамо</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.777094</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.581847</real>
+			<key>title</key>
+			<string>Белорусская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.770126</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.595934</real>
+			<key>title</key>
+			<string>Маяковская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.764847</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.60486</real>
+			<key>title</key>
+			<string>Тверская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.7576</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.618738</real>
+			<key>title</key>
+			<string>Театральная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.742424</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.629263</real>
+			<key>title</key>
+			<string>Новокузнецкая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.731266</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.636263</real>
+			<key>title</key>
+			<string>Павелецкая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.707394</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.657297</real>
+			<key>title</key>
+			<string>Автозаводская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.678271</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.663842</real>
+			<key>title</key>
+			<string>Коломенская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.655134</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.648843</real>
+			<key>title</key>
+			<string>Каширская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.635715</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.6566</real>
+			<key>title</key>
+			<string>Кантемировская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.621456</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.669453</real>
+			<key>title</key>
+			<string>Царицыно</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.613195</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.694966</real>
+			<key>title</key>
+			<string>Орехово</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.610953</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.71909</real>
+			<key>title</key>
+			<string>Домодедовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.613866</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.744544</real>
+			<key>title</key>
+			<string>Красногвардейская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.632813</real>
+			<key>line</key>
+			<string>Замоскворецкая линия</string>
+			<key>longitude</key>
+			<real>37.766061</real>
+			<key>title</key>
+			<string>Алма-Атинская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.855876</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.354181</real>
+			<key>title</key>
+			<string>Пятницкое шоссе</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.846006</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.361364</real>
+			<key>title</key>
+			<string>Митино </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.835749</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.38199</real>
+			<key>title</key>
+			<string>Волоколамская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.825476</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.38537</real>
+			<key>title</key>
+			<string>Мякинино</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.803723</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.403083</real>
+			<key>title</key>
+			<string>Строгино </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.756838</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.408013</real>
+			<key>title</key>
+			<string>Крылатское </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.740611</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.416918</real>
+			<key>title</key>
+			<string>Молодёжная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.730757</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.445928</real>
+			<key>title</key>
+			<string>Кунцевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.729576</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.470717</real>
+			<key>title</key>
+			<string>Славянский бульвар </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.736217</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.516835</real>
+			<key>title</key>
+			<string>Парк Победы</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.743631</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.566488</real>
+			<key>title</key>
+			<string>Киевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.74773</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.583848</real>
+			<key>title</key>
+			<string>Смоленская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.752161</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.601518</real>
+			<key>title</key>
+			<string>Арбатская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.75657</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.621656</real>
+			<key>title</key>
+			<string>Площадь Революции</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.758727</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.659577</real>
+			<key>title</key>
+			<string>Курская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.772481</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.679163</real>
+			<key>title</key>
+			<string>Бауманская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.782409</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.706657</real>
+			<key>title</key>
+			<string>Электрозаводская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.78306</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.719423</real>
+			<key>title</key>
+			<string>Семёновская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.788451</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.749619</real>
+			<key>title</key>
+			<string>Партизанская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.787775</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.781435</real>
+			<key>title</key>
+			<string>Измайловская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.794507</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.799363</real>
+			<key>title</key>
+			<string>Первомайская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.809286</real>
+			<key>line</key>
+			<string>Арбатско-Покровская линия</string>
+			<key>longitude</key>
+			<real>37.798628</real>
+			<key>title</key>
+			<string>Щёлковская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.730757</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.445928</real>
+			<key>title</key>
+			<string>Кунцевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.73604</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.46707</real>
+			<key>title</key>
+			<string>Пионерская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.73957</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.483302</real>
+			<key>title</key>
+			<string>Филёвский парк</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.743792</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.497743</real>
+			<key>title</key>
+			<string>Багратионовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.746915</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.514391</real>
+			<key>title</key>
+			<string>Фили</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.740005</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.534377</real>
+			<key>title</key>
+			<string>Кутузовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.738878</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.548341</real>
+			<key>title</key>
+			<string>Студенческая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.74781</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.533181</real>
+			<key>title</key>
+			<string>Международная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.750015</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.542048</real>
+			<key>title</key>
+			<string>Выставочная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.743631</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.566488</real>
+			<key>title</key>
+			<string>Киевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.74773</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.583848</real>
+			<key>title</key>
+			<string>Смоленская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.752161</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.601518</real>
+			<key>title</key>
+			<string>Арбатская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.752289</real>
+			<key>line</key>
+			<string>Филёвская линия</string>
+			<key>longitude</key>
+			<real>37.608663</real>
+			<key>title</key>
+			<string>Александровский сад</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.735204</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.593074</real>
+			<key>title</key>
+			<string>Парк культуры</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.729254</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.611313</real>
+			<key>title</key>
+			<string>Октябрьская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.728986</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.622777</real>
+			<key>title</key>
+			<string>Добрынинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.731266</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.636263</real>
+			<key>title</key>
+			<string>Павелецкая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.739458</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.653242</real>
+			<key>title</key>
+			<string>Таганская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.758727</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.659577</real>
+			<key>title</key>
+			<string>Курская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.776241</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.65587</real>
+			<key>title</key>
+			<string>Комсомольская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.779653</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.633619</real>
+			<key>title</key>
+			<string>Проспект Мира</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.779514</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.601062</real>
+			<key>title</key>
+			<string>Новослободская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.777094</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.581847</real>
+			<key>title</key>
+			<string>Белорусская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.760325</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.577223</real>
+			<key>title</key>
+			<string>Краснопресненская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.743631</real>
+			<key>line</key>
+			<string>Кольцевая линия</string>
+			<key>longitude</key>
+			<real>37.566488</real>
+			<key>title</key>
+			<string>Киевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.887204</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.661471</real>
+			<key>title</key>
+			<string>Медведково</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.869534</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.664207</real>
+			<key>title</key>
+			<string>Бабушкинская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.855265</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.653065</real>
+			<key>title</key>
+			<string>Свиблово</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.845341</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.63871</real>
+			<key>title</key>
+			<string>Ботанический сад</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.821061</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.641478</real>
+			<key>title</key>
+			<string>ВДНХ</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.807779</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.638693</real>
+			<key>title</key>
+			<string>Алексеевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.792496</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.636151</real>
+			<key>title</key>
+			<string>Рижская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.779653</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.633619</real>
+			<key>title</key>
+			<string>Проспект Мира</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.772293</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.632444</real>
+			<key>title</key>
+			<string>Сухаревская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.76584</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.636773</real>
+			<key>title</key>
+			<string>Тургеневская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.756951</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.630937</real>
+			<key>title</key>
+			<string>Китай-город</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.740729</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.625588</real>
+			<key>title</key>
+			<string>Третьяковская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.729254</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.611313</real>
+			<key>title</key>
+			<string>Октябрьская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.718815</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.608138</real>
+			<key>title</key>
+			<string>Шаболовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.707593</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.586465</real>
+			<key>title</key>
+			<string>Ленинский проспект</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.687911</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.573532</real>
+			<key>title</key>
+			<string>Академическая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.677987</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.562873</real>
+			<key>title</key>
+			<string>Профсоюзная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.670385</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.554719</real>
+			<key>title</key>
+			<string>Новые Черёмушки</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.657167</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.540428</real>
+			<key>title</key>
+			<string>Калужская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.642603</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.526448</real>
+			<key>title</key>
+			<string>Беляево</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.633312</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.519265</real>
+			<key>title</key>
+			<string>Коньково </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.618528</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.507383</real>
+			<key>title</key>
+			<string>Тёплый Стан</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.606168</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.53361</real>
+			<key>title</key>
+			<string>Ясенево</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.601903</real>
+			<key>line</key>
+			<string>Калужско-Рижская линия</string>
+			<key>longitude</key>
+			<real>37.552857</real>
+			<key>title</key>
+			<string>Новоясеневская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.860731</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.43646</real>
+			<key>title</key>
+			<string>Планерная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.850657</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.43984</real>
+			<key>title</key>
+			<string>Сходненская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.826506</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.437056</real>
+			<key>title</key>
+			<string>Тушинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.808519</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.464393</real>
+			<key>title</key>
+			<string>Щукинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.79352</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.493538</real>
+			<key>title</key>
+			<string>Октябрьское поле</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.777524</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.519501</real>
+			<key>title</key>
+			<string>Полежаевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.773661</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.546758</real>
+			<key>title</key>
+			<string>Беговая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.764703</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.561451</real>
+			<key>title</key>
+			<string>Улица 1905 года</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.760706</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.581251</real>
+			<key>title</key>
+			<string>Баррикадная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.764955</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.605906</real>
+			<key>title</key>
+			<string>Пушкинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.761548</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.624413</real>
+			<key>title</key>
+			<string>Кузнецкий мост</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.756951</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.630937</real>
+			<key>title</key>
+			<string>Китай-город</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.739458</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.653242</real>
+			<key>title</key>
+			<string>Таганская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.731711</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.666369</real>
+			<key>title</key>
+			<string>Пролетарская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.725</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.68693</real>
+			<key>title</key>
+			<string>Волгоградский проспект</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.708956</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.731283</real>
+			<key>title</key>
+			<string>Текстильщики</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.705474</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.765664</real>
+			<key>title</key>
+			<string>Кузьминки</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.716922</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.79328</real>
+			<key>title</key>
+			<string>Рязанский проспект</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.71565</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.817908</real>
+			<key>title</key>
+			<string>Выхино</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.701193</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.852712</real>
+			<key>title</key>
+			<string>Лермонтовский проспект </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.68539</real>
+			<key>line</key>
+			<string>Таганско-Краснопресненская линия</string>
+			<key>longitude</key>
+			<real>37.85629</real>
+			<key>title</key>
+			<string>Жулебино</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.736217</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.516835</real>
+			<key>title</key>
+			<string>Парк Победы</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.749553</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.540621</real>
+			<key>title</key>
+			<string>Деловой центр</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.740729</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.625588</real>
+			<key>title</key>
+			<string>Третьяковская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.740879</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.656519</real>
+			<key>title</key>
+			<string>Марксистская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.746823</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.680965</real>
+			<key>title</key>
+			<string>Площадь Ильича</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.751619</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.717218</real>
+			<key>title</key>
+			<string>Авиамоторная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.758303</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.751523</real>
+			<key>title</key>
+			<string>Шоссе Энтузиастов</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.75119</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.786649</real>
+			<key>title</key>
+			<string>Перово </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.751699</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.816642</real>
+			<key>title</key>
+			<string>Новогиреево</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.745106</real>
+			<key>line</key>
+			<string>Калининско-Солнцевская линия</string>
+			<key>longitude</key>
+			<real>37.864015</real>
+			<key>title</key>
+			<string>Новокосино </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.897864</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.587082</real>
+			<key>title</key>
+			<string>Алтуфьево </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.883991</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.603605</real>
+			<key>title</key>
+			<string>Бибирево</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.863397</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.604619</real>
+			<key>title</key>
+			<string>Отрадное </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.84725</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.58985</real>
+			<key>title</key>
+			<string>Владыкино</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.836661</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.57535</real>
+			<key>title</key>
+			<string>Петровско-Разумовская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.819012</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.578891</real>
+			<key>title</key>
+			<string>Тимирязевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.807993</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.581176</real>
+			<key>title</key>
+			<string>Дмитровская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.794083</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.588144</real>
+			<key>title</key>
+			<string>Савёловская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.78174</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.598943</real>
+			<key>title</key>
+			<string>Менделеевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.771682</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.620685</real>
+			<key>title</key>
+			<string>Цветной бульвар</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.765893</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.608304</real>
+			<key>title</key>
+			<string>Чеховская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.750508</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.609152</real>
+			<key>title</key>
+			<string>Боровицкая</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.736802</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.618577</real>
+			<key>title</key>
+			<string>Полянка</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.726798</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.625282</real>
+			<key>title</key>
+			<string>Серпуховская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.708677</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.622423</real>
+			<key>title</key>
+			<string>Тульская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.683002</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.621758</real>
+			<key>title</key>
+			<string>Нагатинская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.672998</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.610836</real>
+			<key>title</key>
+			<string>Нагорная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.662596</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.605321</real>
+			<key>title</key>
+			<string>Нахимовский проспект </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.651315</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.598337</real>
+			<key>title</key>
+			<string>Севастопольская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.640833</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.606228</real>
+			<key>title</key>
+			<string>Чертановская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.622449</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.608706</real>
+			<key>title</key>
+			<string>Южная </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.612321</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.604173</real>
+			<key>title</key>
+			<string>Пражская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.595155</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.601373</real>
+			<key>title</key>
+			<string>Улица академика Янгеля </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.583643</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.596829</real>
+			<key>title</key>
+			<string>Аннино </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.569497</real>
+			<key>line</key>
+			<string>Серпуховско-Тимирязевская линия</string>
+			<key>longitude</key>
+			<real>37.576439</real>
+			<key>title</key>
+			<string>Бульвар Дмитрия Донского</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.793574</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.616329</real>
+			<key>title</key>
+			<string>Марьина роща</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.781316</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.613786</real>
+			<key>title</key>
+			<string>Достоевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.767798</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.621908</real>
+			<key>title</key>
+			<string>Трубная</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.765802</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.639251</real>
+			<key>title</key>
+			<string>Сретенский бульвар</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.756028</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.659395</real>
+			<key>title</key>
+			<string>Чкаловская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.746689</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.679506</real>
+			<key>title</key>
+			<string>Римская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.732275</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.665521</real>
+			<key>title</key>
+			<string>Крестьянская застава</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.717828</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.676631</real>
+			<key>title</key>
+			<string>Дубровка</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.706289</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.685595</real>
+			<key>title</key>
+			<string>Кожуховская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.693163</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.726901</real>
+			<key>title</key>
+			<string>Печатники</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.690904</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.75332</real>
+			<key>title</key>
+			<string>Волжская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.67568</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.761759</real>
+			<key>title</key>
+			<string>Люблино </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.659528</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.750611</real>
+			<key>title</key>
+			<string>Братиславская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.650167</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.743734</real>
+			<key>title</key>
+			<string>Марьино</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.633462</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.744072</real>
+			<key>title</key>
+			<string>Борисово </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.621006</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.7436</real>
+			<key>title</key>
+			<string>Шипиловская </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.612031</real>
+			<key>line</key>
+			<string>Люблинско-Дмитровская линия</string>
+			<key>longitude</key>
+			<real>37.744946</real>
+			<key>title</key>
+			<string>Зябликово</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.655134</real>
+			<key>line</key>
+			<string>Каховская линия</string>
+			<key>longitude</key>
+			<real>37.648843</real>
+			<key>title</key>
+			<string>Каширская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.653343</real>
+			<key>line</key>
+			<string>Каховская линия</string>
+			<key>longitude</key>
+			<real>37.619966</real>
+			<key>title</key>
+			<string>Варшавская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.653074</real>
+			<key>line</key>
+			<string>Каховская линия</string>
+			<key>longitude</key>
+			<real>37.598476</real>
+			<key>title</key>
+			<string>Каховская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.600761</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.555577</real>
+			<key>title</key>
+			<string>Битцевский парк</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.581433</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.579106</real>
+			<key>title</key>
+			<string>Лесопарковая </string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.569341</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.576515</real>
+			<key>title</key>
+			<string>Улица Старокачаловская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.548141</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.55466</real>
+			<key>title</key>
+			<string>Улица Скобелевская</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.545169</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.54229</real>
+			<key>title</key>
+			<string>Бульвар адмирала Ушакова</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.542106</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.531716</real>
+			<key>title</key>
+			<string>Улица Горчакова</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.537949</real>
+			<key>line</key>
+			<string>Бутовская линия</string>
+			<key>longitude</key>
+			<real>37.515382</real>
+			<key>title</key>
+			<string>Бунинская аллея</string>
+		</dict>
+	</array>
+	<key>Train</key>
+	<array>
+		<dict>
+			<key>latitude</key>
+			<real>55.776389</real>
+			<key>longitude</key>
+			<real>37.580278</real>
+			<key>title</key>
+			<string>Белорусский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.773333</real>
+			<key>longitude</key>
+			<real>37.656389</real>
+			<key>title</key>
+			<string>Казанский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.7425</real>
+			<key>longitude</key>
+			<real>37.565556</real>
+			<key>title</key>
+			<string>Киевский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.7575</real>
+			<key>longitude</key>
+			<real>37.660556</real>
+			<key>title</key>
+			<string>Курский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.776261</real>
+			<key>longitude</key>
+			<real>37.655328</real>
+			<key>title</key>
+			<string>Ленинградский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.729444</real>
+			<key>longitude</key>
+			<real>37.639167</real>
+			<key>title</key>
+			<string>Павелецкий вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.792778</real>
+			<key>longitude</key>
+			<real>37.6325</real>
+			<key>title</key>
+			<string>Рижский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.794167</real>
+			<key>longitude</key>
+			<real>37.588056</real>
+			<key>title</key>
+			<string>Савёловский вокзал</string>
+		</dict>
+		<dict>
+			<key>latitude</key>
+			<real>55.776389</real>
+			<key>longitude</key>
+			<real>37.657222</real>
+			<key>title</key>
+			<string>Ярославский вокзал</string>
+		</dict>
+	</array>
+</dict>
+</plist>

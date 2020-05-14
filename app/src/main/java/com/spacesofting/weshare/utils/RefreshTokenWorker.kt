@@ -21,15 +21,16 @@ class RefreshTokenWorker(context: Context, workerParams: WorkerParameters) : Wor
         return Result.success()
     }
 
-     fun createNotification(title: String, description: String) {
+     private fun createNotification(title: String, description: String) {
 
-        var notificationManager =
+        val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel =
                 NotificationChannel("101", "channel", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(notificationChannel)
+            refreshed()
         }
 
         val notificationBuilder = NotificationCompat.Builder(applicationContext, "101")

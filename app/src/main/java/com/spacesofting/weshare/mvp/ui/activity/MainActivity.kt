@@ -5,7 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -14,7 +17,6 @@ import com.spacesofting.weshare.utils.RefreshTokenWorker
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
-import sun.jvm.hotspot.utilities.IntArray
 import java.util.concurrent.TimeUnit
 
 
@@ -32,7 +34,7 @@ class MainActivity  : ActivityWrapper() {
             .setRequiresCharging(true)
             .build()
 
-        var request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(15, TimeUnit.MINUTES)
+        val request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(30, TimeUnit.MINUTES)
 
             .setConstraints(constraints)
             .build()

@@ -28,7 +28,6 @@
                 <ImageView
                         android:id="@+id/fakeImageView"
                         android:background="@color/white"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/close"
@@ -41,7 +40,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-
                         android:layout_centerInParent="true"
                         android:layout_toLeftOf="@id/fakeImageView"
                         android:orientation="vertical">
@@ -50,8 +48,8 @@
                             android:id="@+id/titleImageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"            android:background="@color/white"
-
+                            android:layout_gravity="center"
+                            android:background="@color/white"
                             android:paddingTop="16dp"
                             android:src="@drawable/from_whence_blue" />
 
@@ -92,10 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/list"
+        <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/addresList"
                 android:name="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -103,7 +99,7 @@
                 android:layout_marginRight="16dp"
                 app:layoutManager="LinearLayoutManager"
                 tools:context="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
-                tools:listitem="@layout/item_address_place"
+                tools:lisd="@layout/item_address_place"
                 android:layout_marginStart="@dimen/edit_text_horizontal_padding"
                 android:layout_marginEnd="@dimen/edit_text_horizontal_padding"/>
 
