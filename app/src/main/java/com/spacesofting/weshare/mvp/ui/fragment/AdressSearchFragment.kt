@@ -28,8 +28,10 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.model.place.Place
+import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.presentation.presenter.AddressSearchPresenter
@@ -40,13 +42,17 @@ import com.spacesofting.weshare.utils.Consts
 import com.spacesofting.weshare.utils.LogUtil
 import com.spacesofting.weshare.utils.WebAppInterface
 import com.spacesofting.weshare.yandex.*
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_address_search.*
+import kotlinx.android.synthetic.main.fragment_address_search.progressBar
+import kotlinx.android.synthetic.main.fragment_authorization.*
 import moxy.presenter.InjectPresenter
 import org.apache.commons.collections4.IterableUtils
 import org.apache.commons.collections4.Predicate
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 open class AddressSearchFragment : FragmentWrapper(),
     AddressSearchView, SelectableAdapter.OnItemClickListener, YandexMapsListener, MapListener,
@@ -236,31 +242,46 @@ open class AddressSearchFragment : FragmentWrapper(),
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         mAdapter = AddressSearchAdapter(this)
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if (s.isNotEmpty()) { // position the text type in the left top corner
-                    searchEditText.setGravity(Gravity.LEFT or Gravity.TOP)
-                } else { // no text entered. Center the hint text.
-                    searchEditText.setGravity(Gravity.CENTER)
-                }
+        RxTextView.afterTextChangeEvents(searchEditText)
+            .debounce(1000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                /*searchEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        if (s.isNotEmpty()) { // position the text type in the left top corner
+                            searchEditText.gravity = Gravity.LEFT or Gravity.TOP
+                        } else { // no text entered. Center the hint text.
+                            searchEditText.gravity = Gravity.CENTER
+                        }
+                    }
+
+                    override fun afterTextChanged(s: Editable) {*/
+
+                        searchForAddress(searchEditText.text.toString())
+                //    }
+            //    })
             }
 
-            override fun afterTextChanged(s: Editable) {
-                searchForAddress(s.toString())
-            }
-        })
+        /*  RxTextView.afterTextChangeEvents(searchEditText)
+                   .debounce(500, TimeUnit.MILLISECONDS)
+                   .observeOn(AndroidSchedulers.mainThread())
+                   .subscribe {
+                       searchForAddress(it.toString())
+                   }*/
+
+
         searchEditText.gravity = Gravity.CENTER
         searchEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -301,10 +322,10 @@ open class AddressSearchFragment : FragmentWrapper(),
 //        map = map.replace("mydot://dot.png", path.toString());
 //        webView.loadDataWithBaseURL(null, map, "text/html", "utf-8", null);
         webView.loadUrl("file:///android_asset/map.html")
-
+/*
         fakeImageView.setOnClickListener {
-            router.exit()
-        }
+            router.backTo(ScreenPool.ADD_GOODS)
+        }*/
     }
     private fun positionMapToCity(name: String) {
         val mapCommand = String.format(
@@ -372,33 +393,34 @@ open class AddressSearchFragment : FragmentWrapper(),
     override fun onListItemLongClick(position: Int) {}
     // сюда возвращается из яндекс-карт адрес с координатами
     override fun onSuccessResponse(place: Place) {
-        titleImageView.post(Runnable {
+        titleImageView.post {
             progressBar.visibility = View.GONE
-            hideKeyboard(context)
+         //   hideKeyboard(context)
             val airport: Boolean =
                 isInAirportRange(place.location)
             place.setIsAirport(airport)
-         //   val res = Intent()
+            //   val res = Intent()
             /*when (orderParam) {
-                From -> {
-                  //  mTitleImageView.setImageResource(R.drawable.from_whence_blue)
-                 //   setTitleText(getString(R.string.FROM), place.address)
-                    res.putExtra(ADDRESS_FROM, place)
-                }
-                To -> {
-                 //   titleImageView.setImageResource(R.drawable.where_blue)
-                   // text(getString(R.string.TO), place.address)
-                    res.putExtra(ADDRESS_TO, place)
-                }
-            }*/
-        //    res.putExtra(REQUEST_CODE, getRequestCode())
-           /* val a: FragmentActivity? = activity
-            if (a != null) {
-                a.setResult(Activity.RESULT_OK, res)
-                a.finish()
-            }*/
+                    From -> {
+                      //  mTitleImageView.setImageResource(R.drawable.from_whence_blue)
+                     //   setTitleText(getString(R.string.FROM), place.address)
+                        res.putExtra(ADDRESS_FROM, place)
+                    }
+                    To -> {
+                     //   titleImageView.setImageResource(R.drawable.where_blue)
+                       // text(getString(R.string.TO), place.address)
+                        res.putExtra(ADDRESS_TO, place)
+                    }
+                }*/
+            //    res.putExtra(REQUEST_CODE, getRequestCode())
+            /* val a: FragmentActivity? = activity
+                if (a != null) {
+                    a.setResult(Activity.RESULT_OK, res)
+                    a.finish()
+                }*/
+            ApplicationWrapper.place = place
             router.navigateTo(ScreenPool.ADD_GOODS)
-        })
+        }
     }
 
     override fun onFailure(statusCode: Int) {

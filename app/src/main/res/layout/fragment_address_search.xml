@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,30 +19,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:visibility="gone"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:layout_height="wrap_content">
+                    tools:visibility="gone">
 
                 <ImageView
                         android:id="@+id/fakeImageView"
-                        android:background="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/close"
                         android:layout_alignParentRight="true"
+                        android:background="@color/white"
                         android:padding="16dp"
+                        android:src="@drawable/close"
                         android:visibility="visible" />
 
                 <LinearLayout
                         android:id="@+id/contentLinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:layout_centerInParent="true"
                         android:layout_toLeftOf="@id/fakeImageView"
+                        android:background="@color/white"
                         android:orientation="vertical">
 
                     <ImageView
@@ -55,12 +58,12 @@
 
                     <TextView
                             android:id="@+id/titleTextView"
+                            style="@style/TextView.Class"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            style="@style/TextView.Class"
-                            android:paddingBottom="16dp"/>
+                            android:paddingBottom="16dp" />
 
                 </LinearLayout>
 
@@ -79,29 +82,31 @@
 
     <EditText
             android:id="@+id/searchEditText"
+            style="@style/EditText"
             android:layout_width="match_parent"
-            android:paddingTop="5dp"
             android:layout_height="wrap_content"
-            android:imeOptions="actionSearch"
+            android:layout_marginTop="64dp"
             android:hint="@string/edit_advert_address_search_inside"
-            style="@style/EditText"/>
+            android:imeOptions="actionSearch"
+            android:paddingTop="5dp" />
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/addresList"
                 android:name="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/edit_text_horizontal_padding"
                 android:layout_marginLeft="16dp"
+                android:layout_marginEnd="@dimen/edit_text_horizontal_padding"
                 android:layout_marginRight="16dp"
+                android:paddingTop="10dp"
                 app:layoutManager="LinearLayoutManager"
                 tools:context="com.spacesofting.weshare.mvp.ui.fragment.AddressSearchFragment"
-                tools:lisd="@layout/item_address_place"
-                android:layout_marginStart="@dimen/edit_text_horizontal_padding"
-                android:layout_marginEnd="@dimen/edit_text_horizontal_padding"/>
+                tools:lisd="@layout/item_address_place" />
 
         <ProgressBar
                 android:id="@+id/progressBar"

@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
@@ -18,7 +19,6 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
-import com.pawegio.kandroid.i
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
@@ -63,17 +63,45 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
 
+    companion object {
+        private const val DATA_KEY = "data"
+        private const val DATA_KEY_STR = "string"
+        fun getInstance(id: String?): AddGoodsFragment {
+            val fragment = AddGoodsFragment()
+
+         /*   smsRegistration?.let {
+                val argument = Bundle()
+                argument.putSerializable(DATA_KEY, it)
+                fragment.arguments = argument
+            }*/
+            id.let {
+                val argument = Bundle()
+                argument.putSerializable(DATA_KEY_STR, it)
+                fragment.arguments = argument
+            }
+            return fragment
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        if(ApplicationWrapper.place != null) {
-            ApplicationWrapper.
+       val place = ApplicationWrapper.place
+        place.let {
+            it.city.let { it ->
+                if (it!= null)
+                {
+                    searchEditText.setText(place.city + place.address)
+                }
             }
+        }
 
+        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
-     /*    val advert = activity?.intent?.getSerializableExtra(WishEditActivity.ARG_WISH) as Advert?
+    //    val advert = arguments?.getSerializable(DATA_KEY) as? Advert
 
-         advert?.let {
+        /* advert?.let {
              //todo //presenter.wish = wish
              // title = getString(R.string.wish_edit_wish_title)
              //todo в случае если мы получили вещь и она пошла грузитсья в поля
@@ -109,7 +137,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             )
         )
 
-        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY).toString()
         banner.viewPager2.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
@@ -389,23 +416,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         return R.layout.fragment_add_goods
     }
 
-    companion object {
-        const val TAG = "AddGoodsFragment"
-        private const val DATA_KEY = "data_key"
-
-        fun getInstance(goodId: Place?): AddGoodsFragment {
-            val fragment =
-                AddGoodsFragment()
-
-            goodId?.let {
-                val argument = Bundle()
-                argument.putSerializable(DATA_KEY, it)
-                fragment.arguments = argument
-            }
-            return fragment
-        }
-    }
-
     //todo инициализация банеров / категорий и прочее
     private fun setBannerData() {
         initAdapterCategory(null)
@@ -676,6 +686,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         super.onDetach()
         categoryItems?.clear()
         subCategoryItems.clear()
+        //ApplicationWrapper.place
         //todo если пользователь жмет отменить создаие вещи -
         // presenter.deletNewGoods
     }

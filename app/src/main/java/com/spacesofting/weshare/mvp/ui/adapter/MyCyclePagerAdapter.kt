@@ -21,7 +21,7 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
     // создаем поле объекта-колбэка
     private var mListener: OnCardClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        Log.d(AddGoodsFragment.TAG, "onCreateViewHolder")
+       // Log.d(AddGoodsFragment.TAG, "onCreateViewHolder")
         return PagerViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.fragment_pager, parent, false)
@@ -42,7 +42,7 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
 /*
         val item = dataset[position]
         holder.carImageView.background = item.photoId*/
-        Log.d(AddGoodsFragment.TAG, "onBindRealViewHolder $position")
+       // Log.d(AddGoodsFragment.TAG, "onBindRealViewHolder $position")
         Picasso.with(context)
             .load(dataset[position])
             .into(holder.wishEditImageView)

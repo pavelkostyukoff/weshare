@@ -446,24 +446,67 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#ccc" />-->
-                    <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
-                            android:id="@+id/subCategory"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                        android:id="@+id/subCategoryCycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="92dp"
+                        app:carouselBackground="@color/white"
+                        app:carouselType="SHOWCASE"
+                        app:imageScaleType="centerCrop"
+                        app:imageViewId="@id/image_view"
+                        app:itemLayout="@layout/custom_fixed_size_item_layout"
+                        app:nextButtonId="@id/custom_btn_next"
+                        app:nextButtonLayout="@layout/custom_next_button_layout"
+                        app:nextButtonMargin="8dp"
+                        app:previousButtonId="@id/custom_btn_previous"
+                        app:previousButtonLayout="@layout/custom_previous_button_layout"
+                        app:previousButtonMargin="8dp"
+                        app:scaleOnScroll="true"
+                        app:scalingFactor=".25"
+                        app:showBottomShadow="false"
+                        app:showCaption="true"
+                        app:showIndicator="true"
+                        app:showNavigationButtons="false"
+                        app:showTopShadow="false"
+                        />
+
+                <TextView
+                        android:id="@+id/custom_sub_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="1dp"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:textColor="@color/flat_green_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Caption" />
+
+                <me.relex.circleindicator.CircleIndicator2
+                        android:id="@+id/custom_indicator_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ci_animator="@animator/scale_with_alpha"
+                        app:ci_drawable="@drawable/dot"
+                        android:visibility="gone"
+                        app:ci_drawable_unselected="@drawable/dot" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
                         android:layout_marginTop="@dimen/margin"
                         android:layout_marginRight="@dimen/margin"
                         android:background="@null"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:textColorHint="@color/colorPrimary"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/textView3"
                         app:layout_constraintTop_toBottomOf="@+id/textView3">
 

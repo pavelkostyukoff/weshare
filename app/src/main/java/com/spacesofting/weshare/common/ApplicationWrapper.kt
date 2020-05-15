@@ -38,10 +38,11 @@ class ApplicationWrapper : MultiDexApplication() {
     companion object {
         lateinit var INSTANCE: ApplicationWrapper
         lateinit var user: User
-        lateinit var place: Place
+        var place = Place()
         lateinit var context: Context
         lateinit var file: File
         var avatar: String? = null
+        var isAddress: Boolean? = null
         var category: Entitys? = null
 
         lateinit var mailAutorize : Login

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.mvp.RoleEnum
+import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
 object ScreenPool {
@@ -70,7 +71,7 @@ object ScreenPool {
                 // FeedFragment.getInstance()
             }
             ADD_GOODS -> {
-                AddGoodsFragment.getInstance(data as Place?)
+                AddGoodsFragment.getInstance(data as String?)
             }
 
             SHOW_CATEGORY -> {
