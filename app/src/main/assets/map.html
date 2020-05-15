@@ -377,7 +377,7 @@
                 ymaps.suggest(address, {boundedBy:myMap.getBounds() }).then(function (items) {
                     items = JSON.stringify(items);
                                                                             
-                    window.location = "searchscheme://onsearch?address=" + address + "&addresses=" + items;
+                    window.location = "searchscheme://onsearch?address=" + address + "&addresses=" + items ;
                 },
                 function (e) {
                     window.location = "searchscheme://onsearch?address=" + address + "&addresses=";

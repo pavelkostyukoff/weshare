@@ -6,6 +6,7 @@ import androidx.multidex.MultiDexApplication
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.di.AppComponent
 /*
 import com.spacesofting.weshare.di.DaggerAppComponent
@@ -37,6 +38,7 @@ class ApplicationWrapper : MultiDexApplication() {
     companion object {
         lateinit var INSTANCE: ApplicationWrapper
         lateinit var user: User
+        lateinit var place: Place
         lateinit var context: Context
         lateinit var file: File
         var avatar: String? = null

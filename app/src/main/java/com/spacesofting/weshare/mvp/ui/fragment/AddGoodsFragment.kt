@@ -18,11 +18,13 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
+import com.pawegio.kandroid.i
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -64,17 +66,20 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
+        if(ApplicationWrapper.place != null) {
+            ApplicationWrapper.
+            }
 
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
-        /* val advert = activity?.intent?.getSerializableExtra(WishEditActivity.ARG_WISH) as Advert?
+     /*    val advert = activity?.intent?.getSerializableExtra(WishEditActivity.ARG_WISH) as Advert?
 
          advert?.let {
              //todo //presenter.wish = wish
              // title = getString(R.string.wish_edit_wish_title)
              //todo в случае если мы получили вещь и она пошла грузитсья в поля
              setLoadedWish(it)
-         }
- */
+         }*/
+
         wishEditNameEditText.addTextChangedListener(WishNameToDescriptionWatcher(
             mAddGoodsPresenter.nameMaxLength
         ) { s ->
@@ -87,6 +92,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             WishEditPresenterReporterWatcher(
                 mAddGoodsPresenter,
                 AddGoodsPresenter.Field.NAME
+
             )
         )
         wishEditDescriptionEditText.addTextChangedListener(
@@ -387,7 +393,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         const val TAG = "AddGoodsFragment"
         private const val DATA_KEY = "data_key"
 
-        fun getInstance(goodId: String?): AddGoodsFragment {
+        fun getInstance(goodId: Place?): AddGoodsFragment {
             val fragment =
                 AddGoodsFragment()
 

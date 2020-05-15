@@ -3,6 +3,7 @@ package com.spacesofting.weshare.common
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
@@ -50,7 +51,7 @@ object ScreenPool {
                 BaseFragment.newInstance(data as String?)
             }
             INVENTORY_FRAGMENT -> {
-                InventoryFragment.newInstance(data as Int?)
+                InventoryFragment.newInstance (data as Int?)
             }
             EDIT_PROFILE -> {
                 EditProfile.newInstance()
@@ -69,7 +70,7 @@ object ScreenPool {
                 // FeedFragment.getInstance()
             }
             ADD_GOODS -> {
-                AddGoodsFragment.getInstance(data as String?)
+                AddGoodsFragment.getInstance(data as Place?)
             }
 
             SHOW_CATEGORY -> {

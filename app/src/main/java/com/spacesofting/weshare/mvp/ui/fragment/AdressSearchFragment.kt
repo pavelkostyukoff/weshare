@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +20,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +31,7 @@ import com.google.gson.reflect.TypeToken
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.presentation.presenter.AddressSearchPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddressSearchView
 import com.spacesofting.weshare.mvp.ui.adapter.AddressSearchAdapter
@@ -191,7 +190,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                     mAdapter!!.refill(allPlaces)
                 } catch (e: JsonSyntaxException) {
                     e.printStackTrace()
-                    LogUtil.Loge(e);
+                    LogUtil.Loge(e)
                 } catch (e: JsonParseException) {
                     e.printStackTrace()
                     LogUtil.Loge(e)
@@ -203,6 +202,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                     LogUtil.Loge(e)
                 }
                 LogUtil.Log(query)
+                hideKeyboard(context)
             }
         }
     }
@@ -315,18 +315,22 @@ open class AddressSearchFragment : FragmentWrapper(),
         webView!!.loadUrl(mapCommand)
     }
 
+    open fun onLocationChanged(location: Location?) {
+        location
+    }
+
     private fun onLocationSearch() {
         var addr: String = searchEditText.text.toString()
         if (!TextUtils.isEmpty(addr)) {
             val loc = Location("loc")
-            loc.latitude = MOSCOW_CENTER_LATITUDE
-            loc.longitude = MOSCOW_CENTER_LONGITUDE
-            progressBar.post(Runnable {
+            //loc.latitude = MOSCOW_CENTER_LATITUDE
+            //loc.longitude = MOSCOW_CENTER_LONGITUDE
+            progressBar.post {
                 progressBar.visibility = View.VISIBLE
                 addresList.isEnabled = false
                 searchEditText.isEnabled = false
                 hideKeyboard(context)
-            })
+            }
             val ym = YandexMaps()
             ym.getAddressBy(addr, loc, this@AddressSearchFragment)
         }
@@ -355,6 +359,7 @@ open class AddressSearchFragment : FragmentWrapper(),
        searchEditText.setText(text)
        searchEditText.setSelection(text.length, text.length)
        onLocationSearch()
+       //todo тут я могу забирать место и закрывать фрагмент передавая данные
        return false
    }
 
@@ -373,7 +378,7 @@ open class AddressSearchFragment : FragmentWrapper(),
             val airport: Boolean =
                 isInAirportRange(place.location)
             place.setIsAirport(airport)
-            val res = Intent()
+         //   val res = Intent()
             /*when (orderParam) {
                 From -> {
                   //  mTitleImageView.setImageResource(R.drawable.from_whence_blue)
@@ -386,12 +391,13 @@ open class AddressSearchFragment : FragmentWrapper(),
                     res.putExtra(ADDRESS_TO, place)
                 }
             }*/
-            res.putExtra(REQUEST_CODE, getRequestCode())
-            val a: FragmentActivity? = activity
+        //    res.putExtra(REQUEST_CODE, getRequestCode())
+           /* val a: FragmentActivity? = activity
             if (a != null) {
                 a.setResult(Activity.RESULT_OK, res)
                 a.finish()
-            }
+            }*/
+            router.navigateTo(ScreenPool.ADD_GOODS)
         })
     }
 
@@ -469,10 +475,12 @@ open class AddressSearchFragment : FragmentWrapper(),
     }
     private fun isInAirportRange(location: Location?): Boolean {
         if (location == null) return false
-        for (item in airports!!) {
-            val centerLocation = item.location ?: continue
-            val distance = centerLocation.distanceTo(location)
-            if (distance <= 1000) return true
+        if (airports != null) {
+            for (item in airports) {
+                val centerLocation = item.location ?: continue
+                val distance = centerLocation.distanceTo(location)
+                if (distance <= 1000) return true
+            }
         }
         return false
     }

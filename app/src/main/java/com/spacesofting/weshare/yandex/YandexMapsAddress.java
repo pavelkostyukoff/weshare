@@ -4,6 +4,9 @@ package com.spacesofting.weshare.yandex;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class YandexMapsAddress {
 
     @SerializedName("type")
@@ -15,14 +18,13 @@ public class YandexMapsAddress {
     @SerializedName("value")
     @Expose
     private String value;
-
     private double latitude;
     private double longitude;
 
     //не всегда возвращается integer, бывает mp - уберем, потому что не используем
-//    @SerializedName("hl")
-//    @Expose
-//    private List<List<Integer>> hl = new ArrayList<List<Integer>>();
+    @SerializedName("hl")
+    @Expose
+    private List<List<Integer>> hl = new ArrayList<List<Integer>>();
 
     /**
      * 
