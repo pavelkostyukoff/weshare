@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
-import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
@@ -24,7 +23,6 @@ import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
-import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -62,6 +60,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var bannerItems = ArrayList<File>()
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
+    private var advert = Advert()
 
     companion object {
         private const val DATA_KEY = "data"
@@ -83,7 +82,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
@@ -93,6 +91,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 if (it!= null)
                 {
                     searchEditText.setText(place.city + place.address)
+                    advert.address?.country = place.country
+                    advert.address?.city = place.city
+                    advert.address?.address = place.address
                 }
             }
         }
@@ -269,6 +270,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun setNewSubCategory(it: Entitys) {
         initAdapterCategory(it)
+        initSubCategoryList(it)
     }
 
     fun showSubCategory(id: String?) {
@@ -418,7 +420,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     //todo инициализация банеров / категорий и прочее
     private fun setBannerData() {
-        initAdapterCategory(null)
+        initAdapterCategory(category)
         initData()
         // initDataCategory()
         //todo добавляем фото
@@ -487,7 +489,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
         //todo category
     }
-
+    //garage country-house house flat-квартира office workplace рабочее место warehouse склад
+    //costumes  folk-costumes - народные костюмы dresses-платья shirt - рубашки formal-wear - торжественная одежда
+    //cars bicycles motocycles water-transport
     private fun initAdapterCategory(it: Entitys?) {
         setPhotoAdapter(it)
     }
@@ -495,8 +499,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     //todo добавление фото по соответсвию наименованию к категориям
     private fun setPhotoAdapter(it: Entitys?) {
         var resourceId: Int? = null
-        if (it == null) {
-            category?.entities?.map {
+       // if (it?.entities == null) {
+        it?.entities?.map {
                 when (it.code) {
                     "kids" -> {
                         resourceId = R.drawable.kids
@@ -523,7 +527,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
                     "transport" -> {
                         resourceId = R.drawable.transport
-
                     }
                     "hobby" -> {
                         resourceId = R.drawable.sports
@@ -532,16 +535,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     "electronics" -> {
                         resourceId = R.drawable.electronix
                     }
+                    else -> resourceId = R.drawable.electronix
                 }
                 val uri: Uri =
                     Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + resourceId)
                 it.categoryImg = uri.toString()
             }
-        } else {
-
-        }
+    //    }
     }
-
 
     private fun initData() {
         // подписываем нашу активити на события колбэка
@@ -566,6 +567,53 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapterBaner?.dataset = bannerItems
         btn_remove.visible = bannerItems.isNotEmpty()
         adapterBaner?.notifyDataSetChanged()
+    }
+
+    private fun initSubCategoryList(it: Entitys?) {
+        val listFour = mutableListOf<CarouselItem>()
+
+        subCategoryCycleView.captionTextSize = 0
+        it?.entities?.map {
+            it.categoryImg?.let { it1 ->
+                CarouselItem(
+                    imageUrl = it1,
+                    caption = it.name
+                )
+            }?.let { it2 -> listFour.add(it2) }
+        }
+        subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+                    carouselItem?.apply {
+                        custom_sub_category.text = caption
+                    }
+                    //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
+                //    mAddGoodsPresenter.getSubCategory(category?.entities?.get(position)?.id)
+                }
+                advert.categoryId = it?.entities?.get(position)?.id
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
+                // todo презентер отображает initSabCategoryList ()
+            }
+        }
+        subCategoryCycleView.addData(listFour)
+        if (listFour.isEmpty()) {
+            subCategoryCycleView.visibility = View.GONE
+            custom_sub_category.visibility = View.GONE
+        }
+        else {
+            subCategoryCycleView.visibility = View.VISIBLE
+            custom_sub_category.visibility = View.VISIBLE
+           // subCategoryCycleView.setIndicator(custom_indicator)
+        }
     }
 
     private fun initCategoryList() {
@@ -599,7 +647,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     carouselItem?.apply {
                         custom_caption.text = caption
                     }
+                    //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
+                    mAddGoodsPresenter.getSubCategory(category?.entities?.get(position)?.id)
                 }
+                advert.categoryId = category?.entities?.get(position)?.id
 
             }
 
@@ -608,7 +659,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 // todo презентер отображает initSabCategoryList ()
             }
         }
-        categoryCycleView.setIndicator(custom_indicator)
+      //  categoryCycleView.setIndicator(custom_indicator)
     }
 
     override fun openCamera(file: File) {

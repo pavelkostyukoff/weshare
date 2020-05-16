@@ -162,7 +162,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         }
     }
 
-    fun saveImageOrCompress() {
+    private fun saveImageOrCompress() {
         //todo тут - /me/adverts/{advertId}/images
         if (imageChanged) {
             imageFile?.let {
@@ -248,15 +248,17 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         return true
     }
 
-    fun loadImageFromUrl(url: URL) {
-        ImageUtils.download(url.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ res ->
-                imageFile = res
-                viewState.setPreviewImg(res)
-            }, {
-                viewState.showToast(R.string.error_general)
-            })
+    private fun loadImageFromUrl(url: URL) {
+        with(ImageUtils) {
+            download(url.toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ res ->
+                    imageFile = res
+                    viewState.setPreviewImg(res)
+                }, {
+                    viewState.showToast(R.string.error_general)
+                })
+        }
     }
 
     override fun onPickerUrlConfirm(url: URL) {

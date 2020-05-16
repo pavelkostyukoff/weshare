@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
-import com.spacesofting.weshare.mvp.ui.fragment.AddGoodsFragment
 import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
 import java.io.File

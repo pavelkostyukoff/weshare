@@ -48,12 +48,8 @@ public class Place implements Parcelable {
     } ;
 
     private String address;
+    private String country;
     private Location location;
-
-
-
-
-
     private String city;
     private String house;
     private String street;
@@ -117,6 +113,14 @@ public class Place implements Parcelable {
         this.address = address;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -171,6 +175,7 @@ public class Place implements Parcelable {
 
     protected Place(Parcel in) {
         address = in.readString();
+        country = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());
         comment = in.readString();
         fullAddress = in.readString();
@@ -200,6 +205,7 @@ public class Place implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(address);
+        dest.writeString(country);
         dest.writeParcelable(location, flags);
         dest.writeString(comment);
         dest.writeString(fullAddress);
@@ -219,6 +225,8 @@ public class Place implements Parcelable {
             return false;
         Place other = (Place) obj;
         if (address != null && other.address != null && !address.equalsIgnoreCase(other.address))
+            return false;
+        if (country != null && other.country != null && !country.equalsIgnoreCase(other.country))
             return false;
         if (location != null && other.location != null && location.getLatitude() != other.location.getLatitude()
                 && location.getLongitude() != other.location.getLongitude())

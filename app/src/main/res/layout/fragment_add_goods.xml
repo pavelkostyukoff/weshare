@@ -412,7 +412,7 @@
                         app:scalingFactor=".25"
                         app:showBottomShadow="false"
                         app:showCaption="true"
-                        app:showIndicator="true"
+                        app:showIndicator="false"
                         app:showNavigationButtons="false"
                         app:showTopShadow="false"
                        />
@@ -433,7 +433,7 @@
                         android:textStyle="bold"
                         tools:text="Caption" />
 
-                <me.relex.circleindicator.CircleIndicator2
+               <!-- <me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/custom_indicator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -441,7 +441,7 @@
                         app:ci_drawable="@drawable/dot"
                         android:visibility="gone"
                         app:ci_drawable_unselected="@drawable/dot" />
-
+-->
 <!--                <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -463,10 +463,11 @@
                         app:previousButtonLayout="@layout/custom_previous_button_layout"
                         app:previousButtonMargin="8dp"
                         app:scaleOnScroll="true"
+                        android:visibility="gone"
                         app:scalingFactor=".25"
                         app:showBottomShadow="false"
                         app:showCaption="true"
-                        app:showIndicator="true"
+                        app:showIndicator="false"
                         app:showNavigationButtons="false"
                         app:showTopShadow="false"
                         />
@@ -479,6 +480,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="1dp"
                         android:ellipsize="marquee"
+                        android:visibility="gone"
                         android:gravity="center"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:singleLine="true"
@@ -487,14 +489,14 @@
                         android:textStyle="bold"
                         tools:text="Caption" />
 
-                <me.relex.circleindicator.CircleIndicator2
+                <!--<me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/custom_indicator_sub"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ci_animator="@animator/scale_with_alpha"
                         app:ci_drawable="@drawable/dot"
                         android:visibility="gone"
-                        app:ci_drawable_unselected="@drawable/dot" />
+                        app:ci_drawable_unselected="@drawable/dot" />-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
