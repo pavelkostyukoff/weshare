@@ -476,6 +476,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun saved(isSuccess: Boolean) {
+        //todo инвентори и кладем в список вещь или делаем запрос
         /* if (isSuccess) {
              val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
              mAddGoodsPresenter.wish?.isNew().let {

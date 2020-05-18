@@ -66,18 +66,11 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         WISH_URL
     }
 
-    private fun saveAdvert() {
-
-        //todo -   /me/adverts/{advertId}/publish
-        //add or update wish
-        // if (advert.id != 0) {
-        goodId
-        //todo тут - /me/adverts/{advertId}
-            goodId = ApplicationWrapper.editAdvertId.toString()
+    private fun publishAdvert(goodId: String) {
         with(Api) {
             with(Adverts) {
-                goodId.let {
-                    publishMyAdvert(it!!)
+                this@AddGoodsPresenter.goodId.let {
+                    publishMyAdvert(advert,it!!)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ advert ->
@@ -88,6 +81,37 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                         }, { error ->
                             viewState.showProgress(false)
                             viewState.saved(false)
+                            viewState.showToast(R.string.error_general)
+                        })
+                }
+
+            }
+        }
+    }
+
+    private fun saveAdvert() {
+
+        //todo -   /me/adverts/{advertId}/publish
+        //add or update wish
+        // if (advert.id != 0) {
+        goodId
+        //todo тут - /me/adverts/{advertId}
+        goodId = ApplicationWrapper.editAdvertId.toString()
+        with(Api) {
+            with(Adverts) {
+                goodId.let {
+                    updateMyAdvertById(it!!)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ advert ->
+                          //  viewState.saved(true)
+                            viewState.showProgress(false)
+                            //checkExternalApp()
+                            publishAdvert(goodId)
+
+                        }, { error ->
+                            viewState.showProgress(false)
+                           // viewState.saved(false)
                             viewState.showToast(R.string.error_general)
                         })
                 }

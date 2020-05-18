@@ -50,6 +50,7 @@ import moxy.presenter.InjectPresenter
 import org.apache.commons.collections4.IterableUtils
 import org.apache.commons.collections4.Predicate
 import java.io.UnsupportedEncodingException
+import java.lang.Exception
 import java.net.URLDecoder
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -385,10 +386,16 @@ open class AddressSearchFragment : FragmentWrapper(),
    }
 
     fun hideKeyboard(context: Context?) {
-        if (context == null) return
-        val inputMethodManager =
-            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        try {
+            if (context == null) return
+            val inputMethodManager =
+                context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        }
+        catch (e: Exception) {
+
+        }
+
     }
     override fun onListItemLongClick(position: Int) {}
     // сюда возвращается из яндекс-карт адрес с координатами

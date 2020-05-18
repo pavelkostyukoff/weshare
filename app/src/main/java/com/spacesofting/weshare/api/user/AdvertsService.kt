@@ -1,9 +1,11 @@
 package com.spacesofting.weshare.api.user
 
 import com.spacesofting.weshare.api.ResponceAddImege
+import com.spacesofting.weshare.api.ResponceEditAdvert
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
+import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.UpdateProfile
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -28,14 +30,14 @@ interface AdvertsService {
 
     //todo  Update user profile
     @PATCH("me/adverts/{advertId}")
-    fun updateMyAdvertById(@Body updProfile: UpdateProfile): Observable<User>
+    fun updateMyAdvertById(@Path("advertId") advertId: String): Observable<ResponceEditAdvert>
 
     @DELETE("me/adverts/{advertId}")  //todo //
     fun delMyAdvertById():  Observable<Void>
 
     //todo  publicsh advert
     @PATCH("me/adverts/{advertId}/publish")
-    fun publishMyAdvert(@Path("advertId") advertId: String): Observable<ResponcePublish>
+    fun publishMyAdvert(@Body advert: Advert?,@Path("advertId") advertId: String): Observable<ResponcePublish>
 
    // @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
    // fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>
