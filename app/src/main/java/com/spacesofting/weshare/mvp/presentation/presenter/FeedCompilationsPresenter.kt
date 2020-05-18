@@ -25,15 +25,17 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var paginateLoading = false
 
     init {
-        if (ApplicationWrapper.INSTANCE.profile == null)
+        if (ApplicationWrapper.instance.profile == null)
         {
-            Api.Users.getAccount()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ profile ->
-                    ApplicationWrapper.INSTANCE.profile = profile
-                }, { e ->
-                })
+            with(Api) {
+                Users.getAccount()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ profile ->
+                            ApplicationWrapper.instance.profile = profile
+                        }, { e ->
+                        })
+            }
         }
     }
 
@@ -49,7 +51,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
 
         fun loadCompilations() {
-            Api.Tags.getListCompilations("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
+            Api.Tags.getCategories("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ ent ->
                     ApplicationWrapper.category?.entities?.clear()

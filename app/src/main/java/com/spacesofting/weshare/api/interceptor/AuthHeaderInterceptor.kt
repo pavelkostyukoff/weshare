@@ -36,7 +36,7 @@ class AuthHeaderInterceptor : Interceptor {
 
     var accessToken: String? = null
     var validationToken: String? = null
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.instance.getRouter()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request: Request = chain.request()

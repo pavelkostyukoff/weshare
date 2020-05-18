@@ -36,7 +36,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         super.setContentView(R.layout.activity_wrapper)
       //  Fabric.with(this, Crashlytics())
         setSupportActionBar(mainToolbar)
-        router = ApplicationWrapper.INSTANCE.getRouter()
+        router = ApplicationWrapper.instance.getRouter()
         showToolbar(false)
         lockDrawerMenu(true)
         scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -231,7 +231,6 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 })*/
     }
     override fun  onBackPressed() {
-
         val count = getSupportFragmentManager().getBackStackEntryCount()
 
         if (count == 0) {
@@ -240,6 +239,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
             getSupportFragmentManager().popBackStack()
         }
     }
+
     fun showLogoutDialogClosed() {
         MaterialDialog.Builder(this)
             .title("Вы действительно хотите выйти из приложения?")

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 
 class ItemThingRentAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemThingRentAdapter.CompaniesListViewHolder>() {
     val dataset = ArrayList<RentItem>()
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.instance.getRouter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_card_view_i_rent, parent, false)

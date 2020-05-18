@@ -23,12 +23,13 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import java.net.URLEncoder
 
 
 class ImageUtils {
 
     companion object {
-        val CACHE = ApplicationWrapper.INSTANCE?.cacheDir?.path
+        val CACHE = ApplicationWrapper.instance.cacheDir?.path
 
         fun convertToGrayscale(drawable: Drawable): Drawable {
             val matrix = ColorMatrix()
@@ -77,9 +78,9 @@ class ImageUtils {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
-            if (takePictureIntent.resolveActivity(ApplicationWrapper.INSTANCE?.getPackageManager()) != null) {
+            if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.getPackageManager()) != null) {
                 // Continue only if the File was successfully created
-                //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.INSTANCE, ApplicationWrapper.INSTANCE.packageName, file)
+                //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
                 val photoURI =
                     ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -97,11 +98,11 @@ class ImageUtils {
             val segments = URL(url).file.split("/")
             val fileName = segments[segments.size - 1]
             val file = File("$CACHE/$fileName")
-            val observable = Single.create<File>({ emitter ->
+            return Single.create { emitter ->
                 run {
-                    val builder = Picasso.Builder(ApplicationWrapper.INSTANCE)
+                    val builder = Picasso.Builder(ApplicationWrapper.instance)
                     builder.listener { picasso, uri, exception ->
-                        run {
+                        run<Companion, Unit> {
                             emitter.onError(Exception("Could not load image"))
                             file.delete()
                         }
@@ -130,8 +131,7 @@ class ImageUtils {
                             }
                         })
                 }
-            })
-            return observable
+            }
         }
 
         /**
@@ -176,7 +176,7 @@ class ImageUtils {
             }
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
-            val body = MultipartBody.Part.createFormData("file", img.name, file)
+            val body = MultipartBody.Part.createFormData("file", URLEncoder.encode(img.name, "utf-8"), file)
             val observable = goodId?.let { Api.Pictures.addPictureMyGood(it,body).default().share() }
             //remove file on success if it stored in cache directory
             if (img.path != img.path) {

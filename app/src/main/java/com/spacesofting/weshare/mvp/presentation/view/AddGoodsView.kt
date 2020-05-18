@@ -3,9 +3,10 @@ package com.spacesofting.weshare.mvp.presentation.view
 import com.spacesofting.weshare.api.Entitys
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.StateStrategyType
 import java.io.File
-@StateStrategyType(value = AddToEndSingleStrategy::class, tag = "")
+@StateStrategyType(value = AddToEndStrategy::class, tag = "")
 
 interface AddGoodsView : MvpView {
     fun showWishImage(file: File)

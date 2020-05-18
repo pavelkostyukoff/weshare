@@ -24,7 +24,7 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         var isInvitedMode = false
     }
 
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.instance.getRouter()
     val TOOLBAR_HIDE = 0
     val TOOLBAR_OVERLAY = 1
     val TOOLBAR_EMBEDDED = 2

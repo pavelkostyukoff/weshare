@@ -14,6 +14,7 @@ import com.spacesofting.weshare.di.DaggerAppComponent
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.model.Advert
 import com.squareup.picasso.Picasso
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
@@ -25,7 +26,7 @@ import java.io.File
 class ApplicationWrapper : MultiDexApplication() {
     private var component: AppComponent? = null
 
-    private var doAuthtorizedWish: Wish? = null
+    private var doAuthtorizedWish: Advert? = null
         private var photoPath: File? = null
         var profile: User? = null
         var isDesireToAuthorize: Boolean = false
@@ -36,12 +37,14 @@ class ApplicationWrapper : MultiDexApplication() {
 
 
     companion object {
-        lateinit var INSTANCE: ApplicationWrapper
+        lateinit var instance: ApplicationWrapper
         lateinit var user: User
         var place = Place()
+        var advert : Advert? = null
         lateinit var context: Context
         lateinit var file: File
         var avatar: String? = null
+        var editAdvertId: String? = null
         var isAddress: Boolean? = null
         var category: Entitys? = null
 
@@ -55,12 +58,19 @@ class ApplicationWrapper : MultiDexApplication() {
     }
 
     private lateinit var cicerone: Cicerone<BoomerangoRouter>
-    fun getAuthorityWish(): Wish {
-        return this.doAuthtorizedWish!!
+
+    fun getAuthorityWish(): Advert? {
+        return this.doAuthtorizedWish
     }
 
     fun getImagePathWish(): File? {
         return photoPath
+    }
+
+    fun setAuthorityWish(advert: Advert , photoPath: File? = null) {
+        doAuthtorizedWish = advert
+        this.photoPath = photoPath
+        isDesireToAuthorize = true
     }
 
     fun isNewUserProfile(): Boolean{
@@ -72,7 +82,7 @@ class ApplicationWrapper : MultiDexApplication() {
     }
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
+        instance = this
 /*
         component = DaggerAppComponent.create()
 */

@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.model
 import com.google.gson.annotations.SerializedName
+import java.io.File
 import java.io.Serializable
 
 
@@ -10,10 +11,11 @@ class Advert :Serializable {
     @SerializedName("description")
     var description: String? = null
     @SerializedName("rentPeriods")
-    var rentPeriods: List<RentPeriod>? = null
+    var rentPeriods= ArrayList<RentPeriod>()
     @SerializedName("categoryId")
     var categoryId: String? = null
     @SerializedName("address")
     var address: Address? = null
+    var bannerItems = ArrayList<File>()
 
 }

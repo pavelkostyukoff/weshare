@@ -1,6 +1,7 @@
 package com.spacesofting.weshare.api.user
 
 import com.spacesofting.weshare.api.ResponceAddImege
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.UpdateProfile
@@ -14,7 +15,7 @@ interface AdvertsService {
     @GET("adverts")
     fun getMyAdverts(): Observable<User>
 
-    //todo  Get user profile
+    //todo  details
     @GET("adverts/{advertId}")
     fun showAdvertDetail(): Observable<User>
 
@@ -32,15 +33,15 @@ interface AdvertsService {
     @DELETE("me/adverts/{advertId}")  //todo //
     fun delMyAdvertById():  Observable<Void>
 
-    //todo  Update user profile
+    //todo  publicsh advert
     @PATCH("me/adverts/{advertId}/publish")
-    fun publishMyAdvert(@Body updProfile: UpdateProfile): Observable<User>
+    fun publishMyAdvert(@Path("advertId") advertId: String): Observable<ResponcePublish>
 
-    @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
-    fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>
+   // @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+   // fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>
 
-    @DELETE("me/adverts/{advertId}/images/{imageId}")  //todo //
-    fun delImageToMyAdvert():  Observable<Void>
+  //  @DELETE("me/adverts/{advertId}/images/{imageId}")  //todo //
+   // fun delImageToMyAdvert():  Observable<Void>
 
   /*  @POST("/auth/verify-email/request")  //todo //Запрос пароля напочту повторно
     fun verifyMailRequest(@Body mail: Mail?): Observable<Void>

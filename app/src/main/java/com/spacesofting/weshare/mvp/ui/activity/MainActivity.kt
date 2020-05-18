@@ -28,7 +28,7 @@ class MainActivity  : ActivityWrapper() {
         lockDrawerMenu(false)
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this.applicationContext
-        ApplicationWrapper.INSTANCE.getComponent()?.injectsMainActivity(this)
+        ApplicationWrapper.instance.getComponent()?.injectsMainActivity(this)
 
         val constraints = Constraints.Builder()
             .setRequiresCharging(true)
@@ -53,12 +53,12 @@ class MainActivity  : ActivityWrapper() {
 
     override fun onResume() {
         super.onResume()
-        ApplicationWrapper.INSTANCE.getNavigationHolder().setNavigator(navigator)
+        ApplicationWrapper.instance.getNavigationHolder().setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        ApplicationWrapper.INSTANCE.getNavigationHolder().removeNavigator()
+        ApplicationWrapper.instance.getNavigationHolder().removeNavigator()
     }
 
     var fragment: androidx.fragment.app.Fragment? = null

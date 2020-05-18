@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface TagsService {
 
     @GET("advert-categories")
-    fun getListCompilations(/*@Query("id") id : String?,*/ @Query("parentId") parentId : String?,/* @Query("search") search : String?,*/ /*@Query("searchByCode") searchByCode : String?,*/ @Query("limit") limit : Int, @Query("offset") offset: Int): Observable<Entitys>
+    fun getCategories(/*@Query("id") id : String?,*/ @Query("parentId") parentId : String?,/* @Query("search") search : String?,*/ /*@Query("searchByCode") searchByCode : String?,*/ @Query("limit") limit : Int, @Query("offset") offset: Int): Observable<Entitys>
     //todo туту я должен получить список кол-во категорий
 
 }

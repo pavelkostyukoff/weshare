@@ -21,14 +21,14 @@ import kotlin.collections.LinkedHashMap
 
 
 object Settings {
-    private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.INSTANCE)
+    private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.instance)
     private val KEY_API_NAME = "key_api_name"
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
 
     private val KEY_ROLE = "key_role"
-    val LIMIT_IMAGE_SIZE = 5
+    val LIMIT_IMAGE_SIZE = 2
     val THE_SIZE_OF_A_MEGABYTE = 1024
 
     var IsAuthorized = false

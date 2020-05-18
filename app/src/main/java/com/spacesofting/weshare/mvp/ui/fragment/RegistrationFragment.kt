@@ -252,7 +252,7 @@ class RegistrationFragment : FragmentWrapper(),
     override fun saved(isSuccess: Boolean, isNew: Boolean) {
         if (isSuccess) {
             if (isNew) {
-                ApplicationWrapper.INSTANCE.setNewUserFlag(true)
+                ApplicationWrapper.instance.setNewUserFlag(true)
                // logEvent("profile_created")
             }
 

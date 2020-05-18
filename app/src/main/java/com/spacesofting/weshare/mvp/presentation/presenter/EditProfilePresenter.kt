@@ -23,7 +23,7 @@ import java.util.regex.Pattern
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
 
-    val router = ApplicationWrapper.INSTANCE?.getRouter()
+    val router = ApplicationWrapper.instance?.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
 
@@ -217,7 +217,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.INSTANCE?.profile != null) {
+        if(ApplicationWrapper.instance.profile != null) {
             return true
         } else {
             Settings.logout()
@@ -244,7 +244,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.setPreviewPhoto(res)
                 }
             }, { e ->
-              //  ApplicationWrapper.INSTANCE.profile = User
+              //  ApplicationWrapper.instance.profile = User
                 viewState.showToast(R.string.error_message)
             })
     }

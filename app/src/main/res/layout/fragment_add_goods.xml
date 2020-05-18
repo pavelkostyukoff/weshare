@@ -184,7 +184,7 @@
                         app:hintTextAppearance="@style/small">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
-                            android:id="@+id/wishEditNameEditText"
+                            android:id="@+id/advertTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/wish_edit_name_hint"
@@ -202,7 +202,7 @@
                         app:hintTextAppearance="@style/small">
 
                         <me.zhanghai.android.materialedittext.MaterialEditText
-                                android:id="@+id/wishEditAmountEditText"
+                                android:id="@+id/advertAmount"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin"
@@ -301,7 +301,7 @@
                             android:layout_height="wrap_content">
 
                         <Spinner
-                                android:id="@+id/privacyOptions"
+                                android:id="@+id/currencyOptions"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -345,7 +345,7 @@
                             android:layout_height="wrap_content">
 
                         <Spinner
-                                android:id="@+id/priceOptions"
+                                android:id="@+id/periodOptions"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -381,7 +381,7 @@
                         app:hintTextAppearance="@style/small">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
-                            android:id="@+id/wishEditDescriptionEditText"
+                            android:id="@+id/advertDiscription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="top|left"
@@ -423,7 +423,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="1dp"
+                        android:layout_marginBottom="10dp"
                         android:ellipsize="marquee"
                         android:gravity="center"
                         android:marqueeRepeatLimit="marquee_forever"
@@ -508,7 +508,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:textColorHint="@color/colorPrimary"
-                        android:visibility="invisible"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/textView3"
                         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
@@ -551,18 +551,19 @@
             <!--    здесь мы встровляем окно поиска-->
                 <EditText
                         android:id="@+id/searchEditText"
-                        android:padding="5dp"
-                        style="@style/EditTextGreyBorder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/edit_advert_address_search" />
+                        style="@style/EditTextGreyBorder"
+                        android:hint="@string/edit_advert_address_search"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
 
             </LinearLayout>
         </ScrollView>
 
         <Button
                 android:id="@+id/save"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 style="@style/button.bottom"
                 android:layout_marginBottom="@dimen/margin"
                 android:background="@drawable/bg_super"

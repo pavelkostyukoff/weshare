@@ -47,7 +47,7 @@ object SecureUtils {
             val end = Calendar.getInstance();
             end.add(Calendar.YEAR, 30);
 
-            val spec = KeyPairGeneratorSpec.Builder(ApplicationWrapper.INSTANCE)
+            val spec = KeyPairGeneratorSpec.Builder(ApplicationWrapper.instance)
                     .setAlias(KEY)
                     .setSubject(X500Principal("CN=" + KEY))
                     .setSerialNumber(BigInteger.TEN)
@@ -104,7 +104,7 @@ object SecureUtils {
     }
 
     private fun getAES(): Key {
-        val pref = ApplicationWrapper.INSTANCE?.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE)
+        val pref = ApplicationWrapper.instance.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE)
         var encryptedKeyB64 = pref?.getString(KEY_AES, null)
         var key: ByteArray = ByteArray(16)
         if (encryptedKeyB64 == null) {

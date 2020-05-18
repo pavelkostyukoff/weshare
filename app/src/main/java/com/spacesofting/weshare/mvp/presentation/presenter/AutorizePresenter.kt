@@ -25,7 +25,7 @@ import moxy.MvpPresenter
 @InjectViewState
 class AutorizePresenter : MvpPresenter<AutorizeView>() {
     lateinit var deviceInfo: DeviceInfo
-    val router = ApplicationWrapper.INSTANCE.getRouter()
+    val router = ApplicationWrapper.instance.getRouter()
 
 
     fun autorize(mail: Login, isRetryIn: Boolean = false) {
@@ -86,16 +86,18 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
     private fun getProfile()
         {
             //todo userME
-            Api.Users.getAccount()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                        profile ->
-                    ApplicationWrapper.INSTANCE.profile = profile
-                    router.newRootScreen(ScreenPool.FEED_FRAGMENT)
-                }, { e ->
-                    e.message?.let { viewState.toastError(it) }
-                })
+            with(Api) {
+                Users.getAccount()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                                profile ->
+                            ApplicationWrapper.instance.profile = profile
+                            router.newRootScreen(ScreenPool.FEED_FRAGMENT)
+                        }, { e ->
+                            e.message?.let { viewState.toastError(it) }
+                        })
+            }
         }
     //todo ТУТТУТ
 

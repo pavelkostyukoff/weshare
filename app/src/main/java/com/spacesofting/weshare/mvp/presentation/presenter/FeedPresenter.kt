@@ -6,6 +6,7 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Template
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedView
 import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
@@ -25,18 +26,18 @@ class FeedPresenter : MvpPresenter<FeedView>() {
 
     private val LIMIT = 0.toDouble()
     var limit: Double = LIMIT
-    var wish: Wish? = null
+    var wish: Advert? = null
         set(value) {
-            field = value
-            newWish = field?.clone() as Wish
+       /*     field = value
+            newWish = field?.clone() as Advert
             //wish is not mine, we cannot save foreign wish. So it will be a new wish after saving
             if (!newWish.isMy()) {
                 newWish.id = 0
-            }
+            }*/
         }
 
-    private var newWish = Wish()
-    var photoPath = ApplicationWrapper.INSTANCE.getImagePathWish()
+    private var newWish = Advert()
+    var photoPath = ApplicationWrapper.instance.getImagePathWish()
     var imageFile = photoPath
     var imageChanged = false
 
@@ -44,11 +45,11 @@ class FeedPresenter : MvpPresenter<FeedView>() {
 
 
     init {
-        if (ApplicationWrapper.INSTANCE.isDesireToAuthorize) {
+        if (ApplicationWrapper.instance.isDesireToAuthorize) {
 
             imageChanged = true
-            ApplicationWrapper.INSTANCE.isDesireToAuthorize = false
-            newWish = ApplicationWrapper.INSTANCE.getAuthorityWish()
+            ApplicationWrapper.instance.isDesireToAuthorize = false
+            newWish = ApplicationWrapper.instance.getAuthorityWish()!!
             saveWish()
 
            // newWish.price = Money(0)
@@ -156,13 +157,13 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     }
 
     fun handleWishToAdd() {
-        if (ApplicationWrapper.INSTANCE.profile == null)
+        if (ApplicationWrapper.instance.profile == null)
         {
             Api.Users.getAccount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ profile ->
-                    ApplicationWrapper.INSTANCE.profile = profile
+                    ApplicationWrapper.instance.profile = profile
                 }, { e ->
                 })
         }
@@ -230,7 +231,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     private fun save(img: Image) {
         //setup new image before saving
         if (img != null) {
-            newWish.images = arrayOf(img)
+         //   newWish.images = arrayOf(img)
         }
 
  /*       Api.Wishes.wishAdd(newWish)

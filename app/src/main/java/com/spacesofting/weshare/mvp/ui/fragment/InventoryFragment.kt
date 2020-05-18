@@ -112,7 +112,7 @@ class InventoryFragment : FragmentWrapper(),
     }
     private fun nameUpdate()
     {
-        val result  = ApplicationWrapper.INSTANCE.profile
+        val result  = ApplicationWrapper.instance.profile
 
         /*if (result == null)
         {
