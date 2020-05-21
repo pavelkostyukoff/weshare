@@ -1,23 +1,25 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.mvp.ui.fragment.IRentFragment
 import com.spacesofting.weshare.mvp.ui.fragment.IShootItFragment
 
-class InventoryPagerAdapter (fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+class InventoryPagerAdapter(
+    fm: FragmentManager,
+    advert: ResponcePublish?
+) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+    val advert = advert
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+    override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                IRentFragment()
-                return IRentFragment()
+                IRentFragment(advert)
             }
             1 -> {
                 IShootItFragment()
-                return IShootItFragment()
             }
-            else -> return IShootItFragment()
+            else -> IShootItFragment()
         }
     }
 

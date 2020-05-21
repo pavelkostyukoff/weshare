@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
 import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.ResponcePublish
 import moxy.MvpView
-import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.StateStrategyType
 import java.io.File
@@ -22,7 +22,7 @@ interface AddGoodsView : MvpView {
     fun showProgress(isShowed: Boolean)
 
     fun setConfirmButtonState(isEnabled: Boolean)
-    fun saved(isSuccess: Boolean)
+    fun saved(isSuccess: ResponcePublish)
 
     fun openCamera(file: File)
     fun openGallery()
@@ -31,6 +31,8 @@ interface AddGoodsView : MvpView {
     fun showYMButton()
 */
     fun emptyPrice(isEmpty: Boolean)
+    fun emptyTitle(isEmpty: Boolean)
+    fun emptyDesc(isEmpty: Boolean)
     fun setPreviewImg(file: File)
     fun goToRegistration()
     fun showBrokenUrlMessage(isShowed: Boolean)

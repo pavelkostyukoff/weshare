@@ -31,7 +31,9 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
 
     var newAdvert = Advert()
     val nameMaxLength = 48
+    val nameMinLength = 3
     val descriptionMaxLength = 800
+    val descriptionMinLength = 10
     var advert: Advert? = null
 
     var isSharingController: Boolean = false
@@ -40,6 +42,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     var editWishName: String? = null
     var editWishDescription: String? = null
     var goodId: String = ""
+    var goodIdForPatch: String = ""
     private var goodImageId: String = ""
     var editWishAmount: String? = null
     var editWishImage: String? = null
@@ -69,27 +72,26 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     private fun publishAdvert(goodId: String) {
         with(Api) {
             with(Adverts) {
-                this@AddGoodsPresenter.goodId.let {
-                    publishMyAdvert(advert,it!!)
+                    publishMyAdvert(goodId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ advert ->
-                            viewState.saved(true)
+                        .subscribe({
+                                advert ->
+                            viewState.saved(advert)
                             viewState.showProgress(false)
                             //checkExternalApp()
 
                         }, { error ->
                             viewState.showProgress(false)
-                            viewState.saved(false)
+                          //  viewState.saved(false)
                             viewState.showToast(R.string.error_general)
                         })
-                }
 
             }
         }
     }
 
-    private fun saveAdvert() {
+    private fun saveAdvert(advert: Advert) {
 
         //todo -   /me/adverts/{advertId}/publish
         //add or update wish
@@ -97,10 +99,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         goodId
         //todo тут - /me/adverts/{advertId}
         goodId = ApplicationWrapper.editAdvertId.toString()
-        with(Api) {
-            with(Adverts) {
                 goodId.let {
-                    updateMyAdvertById(it!!)
+                    Api.Adverts.updateMyAdvertById(advert,it)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ advert ->
@@ -114,9 +114,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                            // viewState.saved(false)
                             viewState.showToast(R.string.error_general)
                         })
-                }
-
-            }
         }
         //  }
     }
@@ -187,6 +184,25 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 }
             }, 500)
         }*/
+        if (newAdvert.title == null) {
+            //   newAdvert.rentPeriods = price
+            viewState.emptyTitle(true)
+        } else {
+            // advert?.rentPeriods?.get(0)?.amount = price// RentPeriod(price)
+            isValid = isValid(newAdvert)
+            viewState.emptyTitle(false)
+        }
+
+        if (newAdvert.description == null) {
+            //   newAdvert.rentPeriods = price
+            viewState.emptyDesc(true)
+        } else {
+            // advert?.rentPeriods?.get(0)?.amount = price// RentPeriod(price)
+            isValid = isValid(newAdvert)
+            viewState.emptyDesc(false)
+        }
+
+
         if (priceIsNotNill == null || addressIsNotNill == null) {
             //   newAdvert.rentPeriods = price
             viewState.emptyPrice(true)
@@ -195,12 +211,13 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
             isValid = isValid(newAdvert)
             viewState.emptyPrice(false)
         }
+
         viewState.setConfirmButtonState(isValid)
     }
 
-    private fun confirmPressed() {
-        if (isValid(newAdvert)) {
-            saveAdvert()
+    private fun confirmPressed(advert: Advert) {
+        if (isValid(advert)) {
+            saveAdvert(advert)
         } else {
             onBackPressed()
         }
@@ -248,7 +265,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
 
     }
 
-    fun checkEditFieldsOrImage() {
+    fun checkEditFieldsOrImage(advert: Advert) {
         //check edit fields for appsflyer
         /*  if (newAdvert.rentPeriods?.amount.toString() != editWishAmount
         || newAdvert.title.toString() != editWishName
@@ -261,7 +278,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
             isWishImageEdit = true
         }
 
-        confirmPressed()
+        confirmPressed(advert)
     }
 
     fun isValid(advert: Advert): Boolean {
@@ -277,13 +294,15 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         if (!isUrlValidate(url)){
             return false
         }*/
-        /*else*/ if (title == null || title.isEmpty() || title.length > nameMaxLength) {
+        /*else*/ if (title == null || title.isEmpty() || title.length <= nameMinLength || title.length > nameMaxLength) {
+            viewState.emptyTitle(true)
             return false
         }
        /* else if (address == null || advert.address?.address!!.isEmpty() *//*|| advert.address?.address!!.length > 5*//*) {
             return false
         }*/
-        else if (description == null || description.isEmpty()/*&& description.length > descriptionMaxLength*/) {
+        else if (description == null || description.isEmpty() || description.length <= descriptionMinLength || description.length > descriptionMaxLength) {
+            viewState.emptyDesc(true)
             return false
         }
       /*  else if(price == null){

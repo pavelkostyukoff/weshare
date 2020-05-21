@@ -3,7 +3,9 @@ package com.spacesofting.weshare.mvp.ui.fragment
 import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -20,16 +22,19 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.model.Address
 import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.model.Point
 import com.spacesofting.weshare.mvp.model.RentPeriod
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
@@ -66,7 +71,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var pathImg: String? = null
     private var progressDialog: ProgressDialog? = null
 
-    // private var bannerItems = ArrayList<File>()
+    private var bannerItemsFake = ArrayList<File>()
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
     private var advert = Advert()
@@ -99,10 +104,52 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         if (advert.rentPeriods.isEmpty()) {
             rentPeriod.amount = 0.74
-            rentPeriod.period = RentPeriod.Period.HOUR
+            rentPeriod.period = RentPeriod.Period.hour
             rentPeriod.currency = RentPeriod.Currency.RUB
             rentPeriodList.add(rentPeriod)
             advert.rentPeriods = rentPeriodList
+        }
+        //todo иногда пустой потому что нет города а штат или что-то такое
+        if (ApplicationWrapper.instance.getAuthorityWish() != null) {
+            advert = ApplicationWrapper.instance.getAuthorityWish()!!
+            Log.e(
+                "Selected_Page",
+                ApplicationWrapper.instance.getAuthorityWish()!!.title.toString()
+            )
+            val place = ApplicationWrapper.place
+            place.let {
+                place.city.let { it ->
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val address = Address()
+                            if (address.country == null) {
+                                address.country = "Russia"
+                            }
+                            else {
+                                if (address.country!!.isEmpty())
+                                {
+                                    address.country = "Russia"
+                                }
+                                else {
+                                    address.country = place.country
+                                }
+                            }
+                            val point = Point()
+
+                            address.region = place.address
+                            address.city = place.city
+                            address.address = place.address
+                            point.latitude = place.location.latitude.toString()
+                            point.longitude = place.location.longitude.toString()
+                            address.point = point
+                            advert.address = address
+                        }
+                    }
+                }
+            }
+
+            setLoadedWishView(advert)
+            // mAddGoodsPresenter.isValid(advert)
         }
 
         val place = ApplicationWrapper.place
@@ -111,9 +158,22 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 if (it != null) {
                     if (it.isNotEmpty()) {
                         searchEditText.setText(place.city + " " + place.address)
-                        advert.address?.country = place.country
-                        advert.address?.city = place.city
-                        advert.address?.address = place.address
+                        if (place.country == null || place.country.isEmpty()) {
+                            place.country = "Russia"
+                        }
+                        else {
+                            place.country = place.country
+                        }
+                        val point = Point()
+                        val address = Address()
+                        address.region = place.address
+                        address.city = place.city
+                        address.address = place.address
+                        point.longitude = place.location.longitude.toString()
+                        point.latitude = place.location.latitude.toString()
+                        address.point = point
+
+                        advert.address = address
                     }
                 }
             }
@@ -221,7 +281,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 Log.e("Selected_Page", position.toString())
             }
         })
-        save.setOnClickListener { mAddGoodsPresenter.checkEditFieldsOrImage() }
+        save.setOnClickListener {
+            if (searchEditText.text.isEmpty()) {
+                toast("Заполните адресс")
+            }
+            else {
+                mAddGoodsPresenter.checkEditFieldsOrImage(advert)
+            }
+        }
         //todo слушаем ввод текста - открываем фрагмент с поиском адреса
         searchEditText.setOnTouchListener(
             object : OnTouchListener {
@@ -250,38 +317,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     return false
                 }
             })
-        //todo иногда пустой потому что нет города а штат или что-то такое
-        if (ApplicationWrapper.instance.getAuthorityWish() != null) {
-            advert = ApplicationWrapper.instance.getAuthorityWish()!!
-            Log.e(
-                "Selected_Page",
-                ApplicationWrapper.instance.getAuthorityWish()!!.title.toString()
-            )
-            val place = ApplicationWrapper.place
-            place.let {
-                place.city.let { it ->
-                    if (it != null) {
-                        if (it.isNotEmpty()) {
-                            val address = Address()
-                            address.country = place.country
-                            address.city = place.city
-                            address.address = place.address
-                            address.point?.latitude = place.location.latitude.toString()
-                            address.point?.longitude = place.location.longitude.toString()
-                            advert.address = address
-                        }
-                    }
-                }
-            }
 
-            setLoadedWish(advert)
-           // mAddGoodsPresenter.isValid(advert)
-        }
         setBannerData()
     }
 
     //todo размещаем поля - если мы зашли в режим редактрования объявления
-    private fun setLoadedWish(advert: Advert) {
+    private fun setLoadedWishView(advert: Advert) {
         this.advert = advert
         setConfirmButtonState(mAddGoodsPresenter.isValid(advert))
         //   wishUrlEditText.setText(wish.url)
@@ -350,7 +391,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             mAddGoodsPresenter.editWishAmount = "0.0"
         }
 
-        ApplicationWrapper.place.let {
+       /* ApplicationWrapper.place.let {
             it.city.let { city ->
                 if (city != null) {
                     if (city.isNotEmpty()) {
@@ -361,7 +402,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
                 }
             }
-        }
+        }*/
     }
 
     override fun showWishImage(file: File) {
@@ -375,8 +416,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         mAddGoodsPresenter.imageFile = file
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //  addImgLayout.visibility = View.GONE
-        // wishChangeImgBtn.visibility = View.VISIBLE
-        // dellImage.visibility = View.VISIBLE
         //todo
         refrashAdapterBaner(file)
     }
@@ -419,8 +458,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         mAddGoodsPresenter.imageChanged = true
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //   addImgLayout.visibility = View.VISIBLE
-        //   wishChangeImgBtn.visibility = View.GONE
-        //   dellImage.visibility = View.GONE
     }
 
     //todo тут нажимает на кнопку сохранить внизу - если прошли валидацию - она становится активна
@@ -475,9 +512,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         save.isEnabled = isEnabled
     }
 
-    override fun saved(isSuccess: Boolean) {
+    override fun saved(isSuccess: ResponcePublish) {
+        router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT, InventoryFragment.getBundle(null, isSuccess))
         //todo инвентори и кладем в список вещь или делаем запрос
-        /* if (isSuccess) {
+      /*   if (isSuccess) {
              val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
              mAddGoodsPresenter.wish?.isNew().let {
                  //   logEvent("wish_created")
@@ -486,8 +524,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
              wishSaveSuccess(wish)
              returnWish()
              goToAddCardFragment()
-         }
-         if (!Settings.isAuthenticated()) {
+         }*/
+        /* if (!Settings.isAuthenticated()) {
              goToRegister()
          }*/
     }
@@ -502,9 +540,33 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    override fun emptyTitle(isEmpty: Boolean) {
+        if (isEmpty) {
+            emptyTitleMessage.visibility = View.VISIBLE
+           // connectBankCard.visibility = View.GONE
+        } else {
+            emptyTitleMessage.visibility = View.GONE
+        }
+    }
+
+    override fun emptyDesc(isEmpty: Boolean) {
+        if (isEmpty) {
+            emptyDescMessage.visibility = View.VISIBLE
+           // connectBankCard.visibility = View.GONE
+        } else {
+            emptyDescMessage.visibility = View.GONE
+        }
+    }
+
     //todo отображение фото на пикере перед подтверждением
     override fun setPreviewImg(file: File) {
-        picker?.setImage(file)
+        try {
+            picker?.setImage(file)
+
+        }
+        catch (e:Exception){
+
+        }
     }
 
     //todo на экран регистрации - если хотим разместить вещь
@@ -547,11 +609,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         initData()
         // initDataCategory()
         //todo добавляем фото
-        btn_add.setOnClickListener {
+       /* btn_add.setOnClickListener {
             showPicker()
-        }
+        }*/
         //todo удаляем фото
-        btn_remove.setOnClickListener {
+       /* btn_remove.setOnClickListener {
             if (advert.bannerItems.isNotEmpty()) {
                 val index = advert.bannerItems.size - 1
                 advert.bannerItems.removeAt(index)
@@ -562,7 +624,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
                 }
             }
-        }
+        }*/
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.dialog_corner_radius)
         val currentItemHorizontalMarginPx =
@@ -651,7 +713,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 "electronics" -> {
                     resourceId = R.drawable.electronix
                 }
-                else -> resourceId = R.drawable.ic_launcher
+                else -> resourceId = R.drawable.wish_default_img
             }
             val uri: Uri =
                 Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + resourceId)
@@ -666,22 +728,38 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         initCategoryList()
     }
 
+    @SuppressLint("ResourceType")
     private fun initBanners() {
+        bannerItemsFake.clear()
         adapterBaner = MyCyclePagerAdapter()
         adapterBaner?.setOnCardClickListener(this)
-
          if (advert.bannerItems.isNotEmpty()) {
         //   bannerItems.add(f)   //todo случайный элемент(resList.random())
         adapterBaner?.dataset = advert.bannerItems
         adapterBaner?.notifyDataSetChanged()
            }
+        else {
+             val resources: Resources = context!!.resources
+             val test = Uri.parse(
+                 ContentResolver.SCHEME_ANDROID_RESOURCE.toString() + "://" + resources.getResourcePackageName(
+                     R.drawable.wish_default_img
+                 ) + '/' + resources.getResourceTypeName(R.drawable.wish_default_img) + '/' + resources.getResourceEntryName(
+                     R.drawable.wish_default_img
+                 )
+             )
+             val file = File("")
+            // val file = File("android.resource://" + "com.spacesofting.weshare" + "/" + R.drawable.wish_default_img)//getResources().openRawResource(R.drawable.wish_default_img)//File(R.drawable.wish_default_img)
+             bannerItemsFake.add(file)
+             adapterBaner?.dataset = bannerItemsFake
+             adapterBaner?.notifyDataSetChanged()
+         }
     }
 
     private fun refrashAdapterBaner(file: File) {
         // bannerItems.clear()
-        advert.bannerItems?.add(file)
+        advert.bannerItems.add(file)
         adapterBaner?.dataset = advert.bannerItems
-        btn_remove.visible = advert.bannerItems?.isNotEmpty()
+        btn_remove.visible = advert.bannerItems.isNotEmpty()
         adapterBaner?.notifyDataSetChanged()
     }
 
@@ -756,6 +834,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
+
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -785,6 +864,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
 
         subCategoryCycleView.addData(listFour)
+        subCategoryCycleView.scrollTo(0,0)
         if (entitys?.entities?.isEmpty()!!) {
             subCategoryCycleView.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
@@ -874,12 +954,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         advert.rentPeriods[0].amount = advertAmount.text.toString().toDouble()
 
         when (periodOptions.selectedItem) {
-            "HOUR" -> advert.rentPeriods[0].period = RentPeriod.Period.HOUR
-            "DAY" -> advert.rentPeriods[0].period = RentPeriod.Period.DAY
-            "MONTH" -> advert.rentPeriods[0].period = RentPeriod.Period.MONTH
+            "HOUR" -> advert.rentPeriods[0].period = RentPeriod.Period.hour
+            "DAY" -> advert.rentPeriods[0].period = RentPeriod.Period.day
+            "MONTH" -> advert.rentPeriods[0].period = RentPeriod.Period.month
         }
         when (currencyOptions.selectedItem) {
-            "EURO" -> advert.rentPeriods[0].currency = RentPeriod.Currency.EURO
+            "EUR" -> advert.rentPeriods[0].currency = RentPeriod.Currency.EUR
             "USD" -> advert.rentPeriods[0].currency = RentPeriod.Currency.USD
             "RUB" -> advert.rentPeriods[0].currency = RentPeriod.Currency.RUB
         }
@@ -891,13 +971,19 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             it.city.let { city ->
                 if (city != null) {
                     if (city.isNotEmpty()) {
+                        val point = Point()
                         val address = Address()
                         searchEditText.setText(city + " " + it.address)
+                        if (address.country == null) {
+                            address.country = "Russia"
+                        }
                         address.country = it.country
+                        address.region = it.address
                         address.city = it.city
                         address.address = it.address
-                        address.point?.latitude = it.location.latitude.toString()
-                        address.point?.longitude = it.location.longitude.toString()
+                        point.latitude = it.location.latitude.toString()
+                        point.longitude = it.location.longitude.toString()
+                        address.point = point
                         advert.address = address
                     }
                 }
@@ -929,13 +1015,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         when (parent!!.id) {
             R.id.periodOptions ->
                 when (position) {
-                    1 -> advert.rentPeriods[0].period = RentPeriod.Period.HOUR
-                    2 -> advert.rentPeriods[0].period = RentPeriod.Period.DAY
-                    3 -> advert.rentPeriods[0].period = RentPeriod.Period.MONTH
+                    1 -> advert.rentPeriods[0].period = RentPeriod.Period.hour
+                    2 -> advert.rentPeriods[0].period = RentPeriod.Period.day
+                    3 -> advert.rentPeriods[0].period = RentPeriod.Period.month
                 }
             R.id.currencyOptions ->
                 when (position) {
-                    1 -> advert.rentPeriods[0].currency = RentPeriod.Currency.EURO
+                    1 -> advert.rentPeriods[0].currency = RentPeriod.Currency.EUR
                     2 -> advert.rentPeriods[0].currency = RentPeriod.Currency.USD
                     3 -> advert.rentPeriods[0].currency = RentPeriod.Currency.RUB
                 }
@@ -950,8 +1036,25 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {}
+
     override fun onCardClick() {
         showPicker()
     }
+
+    override fun onCardClickDelete() {
+        if (advert.bannerItems.isNotEmpty()) {
+            val index = advert.bannerItems.size - 1
+            advert.bannerItems.removeAt(index)
+            adapterBaner?.notifyDataSetChanged()
+
+            if (advert.bannerItems.isEmpty()) {
+                bannerItemsFake.clear()
+                val uri: Uri =
+                    Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + R.drawable.wish_default_img)
+                val file = File(uri.toString())
+                bannerItemsFake.add(file)
+                adapterBaner?.dataset = bannerItemsFake
+                adapterBaner?.notifyDataSetChanged()            }
+        }    }
 
 }

@@ -10,6 +10,7 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
 import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
+import kotlinx.android.synthetic.main.fragment_pager.*
 import java.io.File
 
 
@@ -41,28 +42,39 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
         val item = dataset[position]
         holder.carImageView.background = item.photoId*/
        // Log.d(AddGoodsFragment.TAG, "onBindRealViewHolder $position")
+
         Picasso.with(context)
             .load(dataset[position])
+           // .transform(RoundedCorners(radius))
             .into(holder.wishEditImageView)
 
         holder.wishEditImageBtn.setOnClickListener {
-          //  activity.showPicker()
             mListener?.onCardClick()
-
         }
         holder.dellImage.setOnClickListener {
             //todo презентер удаляет фото и говоит отобразить пикассо заглушку
-            //  mAddGoodsPresenter.delPictureMyGood()
-
+              mListener?.onCardClickDelete()
           //  privacyOptions
             //после успешного удаления скрываем   dellImage.visibility = View.GONE
+        }
+        if (dataset.isNotEmpty()) {
+            val test = dataset[0].name
+            if (test == ""){
+                holder.dellImage.visibility = View.GONE
+            }
+            else {
+                holder.dellImage.visibility = View.VISIBLE
+            }
+        }
+        else {
+            holder.dellImage.visibility = View.VISIBLE
         }
     }
     // создаем сам интерфейс и указываем метод и передаваемые им аргументы
 // View на котором произошло событие и позиция этого View
     interface OnCardClickListener {
         fun onCardClick(/*view: View?, position: Int*/)
-
+        fun onCardClickDelete(/*view: View?, position: Int*/)
     }
 
 

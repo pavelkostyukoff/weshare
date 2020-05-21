@@ -13,15 +13,16 @@ class RentPeriod {
 
     @SerializedName("currency")
     var currency: Currency? = null
-
+//hour,day,week,month
     enum class Period {
-        HOUR,
-        DAY,
-        MONTH
+        hour,
+        day,
+        week,
+        month
     }
-
+//RUB,USD,EUR
     enum class Currency {
-        EURO,
+        EUR,
         USD,
         RUB
     }

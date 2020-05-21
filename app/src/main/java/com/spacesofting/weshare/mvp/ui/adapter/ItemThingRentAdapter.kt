@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 
-class ItemThingRentAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<ItemThingRentAdapter.CompaniesListViewHolder>() {
-    val dataset = ArrayList<RentItem>()
+class ItemThingRentAdapter(val context: Context) : RecyclerView.Adapter<ItemThingRentAdapter.CompaniesListViewHolder>() {
+    val dataset = ArrayList<ResponcePublish>()
     val router = ApplicationWrapper.instance.getRouter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesListViewHolder {
@@ -25,6 +26,7 @@ class ItemThingRentAdapter(val context: Context) : androidx.recyclerview.widget.
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CompaniesListViewHolder, position: Int) {
         val itemRent = dataset[position]
+        holder.itemId
       //  holder.person_name.text = itemRent.name
 
     /*    val innText = String.format(context.getString(R.string.edit_guest_card_inn_count), company.inn)
@@ -35,7 +37,7 @@ class ItemThingRentAdapter(val context: Context) : androidx.recyclerview.widget.
         }*/
     }
 
-    class CompaniesListViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
+    class CompaniesListViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         var person_photo = item.porterShapeImageView
        // var person_name = item.person_name
       //  var person_age = item.person_age

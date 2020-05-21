@@ -40,12 +40,13 @@
                     android:layout_height="210dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
+                    android:background="@drawable/btn_corners_gradient_horizontal_sapphire"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_corner_radius="30dip" />
+                    app:riv_corner_radius="30dp" />
 <!--
             android:src="@drawable/wish_default_img"
 -->
@@ -73,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center_horizontal"
                     android:shadowColor="@color/design_default_color_primary"
                     android:shadowRadius="5"
@@ -96,7 +97,7 @@
                     android:src="@drawable/bg_upload_big_button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="@+id/wishEditImageView"
                     app:layout_constraintTop_toTopOf="@+id/wishEditImageView" />
 

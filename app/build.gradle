@@ -137,6 +137,8 @@
         implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
         implementation 'com.squareup.picasso:picasso:2.5.2'
         implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
+        implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+
         // Carusel
         implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.0.2'
 

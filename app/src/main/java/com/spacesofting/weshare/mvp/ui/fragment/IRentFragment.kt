@@ -2,13 +2,11 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.RentItem
 import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
@@ -16,24 +14,25 @@ import com.spacesofting.weshare.mvp.presentation.view.IrentView
 import com.spacesofting.weshare.mvp.ui.adapter.ItemThingRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
 
-class IRentFragment : FragmentWrapper(),
+class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
     IrentView {
     private var adapter: ItemThingRentAdapter? = null
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_irent
     }
+    val advert = advert
 
     companion object {
         const val TAG = "IRentFragment"
 
-        fun newInstance(): IRentFragment {
+     /*   fun newInstance(): IRentFragment {
             val fragment: IRentFragment =
-                IRentFragment()
+                IRentFragment(advert)
             val args: Bundle = Bundle()
             fragment.arguments = args
             return fragment
-        }
+        }*/
     }
 
     @InjectPresenter
@@ -43,7 +42,7 @@ class IRentFragment : FragmentWrapper(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        initListItems()
+        initListItems(advert)
 
 
 
@@ -91,9 +90,12 @@ class IRentFragment : FragmentWrapper(),
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics))
     }
 
-    private fun initListItems() {
+    private fun initListItems(advert: ResponcePublish?) {
         if (adapter == null) {
             adapter = ItemThingRentAdapter(activity!!)
+        }
+        if (advert != null) {
+            adapter?.dataset?.add(advert)
         }
         adapter?.dataset?.clear()
 
@@ -106,12 +108,12 @@ class IRentFragment : FragmentWrapper(),
         /*val imageFile: File?
         imageFile = R.drawable.img12*/
 
-        val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
+       /* val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
         val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
         val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_tools, null))
         val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.ic_car, null))
 
-        val filterList = ArrayList<RentItem>()
+        val filterList = ArrayList<RentItem>()*/
 
        /* filterList.add(one)
         filterList.add(one1)
@@ -123,7 +125,7 @@ class IRentFragment : FragmentWrapper(),
         filterList.add(one2)
         filterList.add(one3)*/
 
-        adapter?.dataset?.addAll(filterList)
+      //  adapter?.dataset?.addAll(filterList)
 
 
         recyclerView.adapter = adapter

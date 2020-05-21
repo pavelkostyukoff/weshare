@@ -30,14 +30,14 @@ interface AdvertsService {
 
     //todo  Update user profile
     @PATCH("me/adverts/{advertId}")
-    fun updateMyAdvertById(@Path("advertId") advertId: String): Observable<ResponceEditAdvert>
+    fun updateMyAdvertById(@Body advert: Advert?,@Path("advertId") advertId: String): Observable<ResponceEditAdvert>
 
     @DELETE("me/adverts/{advertId}")  //todo //
     fun delMyAdvertById():  Observable<Void>
 
     //todo  publicsh advert
     @PATCH("me/adverts/{advertId}/publish")
-    fun publishMyAdvert(@Body advert: Advert?,@Path("advertId") advertId: String): Observable<ResponcePublish>
+    fun publishMyAdvert(@Path("advertId") advertId: String): Observable<ResponcePublish>
 
    // @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
    // fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>

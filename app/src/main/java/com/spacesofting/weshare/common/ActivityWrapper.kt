@@ -2,12 +2,12 @@ package com.spacesofting.weshare.common
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.drawerlayout.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import moxy.MvpAppCompatActivity
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment
 import com.spacesofting.weshare.utils.inflate
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_wrapper.*
@@ -191,10 +191,12 @@ open class ActivityWrapper : MvpAppCompatActivity() {
             }
             R.id.navigation_inventory -> {
              //   if (Settings.IsAuthorized) {
-                    router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,1)
-              /*  } else {
-                    toast(R.string.rega)
-                }*/
+                 //   router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,0)
+                router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT, InventoryFragment.getBundle(0, null))
+
+                /*  } else {
+                      toast(R.string.rega)
+                  }*/
               /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
                     allMyTask = TaskFragment.taskList
                     if (allMyTask.isNotEmpty()) {

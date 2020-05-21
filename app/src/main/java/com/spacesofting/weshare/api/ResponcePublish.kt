@@ -1,9 +1,10 @@
 package com.spacesofting.weshare.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-class ResponcePublish {
+class ResponcePublish : Serializable {
     @SerializedName("id")
     val id: String? = null
     @SerializedName("userId")

@@ -5,6 +5,7 @@ import com.google.android.material.tabs.TabLayout
 import android.view.View
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
+import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -22,6 +23,8 @@ import java.util.*
 class InventoryFragment : FragmentWrapper(),
     InventoryView {
    // val user = ApplicationWrapper.user
+    private var advert: ResponcePublish? = null
+    private var tab: Int? = null
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_inventory
@@ -29,20 +32,24 @@ class InventoryFragment : FragmentWrapper(),
 
     companion object {
         val SCANNER_REQUEST_CODE = 101
-
+        private const val POSITION_KEY = "key_pass"
+        private const val ADVERT_KEY = "key_card"
         const val TAG = "InventoryFragment"
-        private const val DATA_KEY = "data"
-        fun newInstance(tabPosition: Int?): InventoryFragment {
-            val fragment =
-                InventoryFragment()
 
-            tabPosition?.let {
-                val argument = Bundle()
-                argument.putSerializable(DATA_KEY, it)
-                fragment.arguments = argument
-            }
+        fun getBundle(pass: Int?, card: ResponcePublish?) : Bundle{
+            val argument = Bundle()
+            argument.putSerializable(POSITION_KEY, pass)
+            argument.putSerializable(ADVERT_KEY, card)
+            return argument
+        }
+
+        fun newInstance(bundle: Bundle): InventoryFragment {
+            val fragment = InventoryFragment()
+            fragment.arguments = bundle
             return fragment
         }
+
+
     }
 
     @InjectPresenter
@@ -50,20 +57,28 @@ class InventoryFragment : FragmentWrapper(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tabPosition = arguments?.getSerializable(DATA_KEY)
+        arguments?.let{ bundle ->
+            tab = bundle.get(POSITION_KEY) as? Int
+            advert = bundle.get(ADVERT_KEY) as? ResponcePublish
+        }
+
+        if(tab == null)
+        {
+            tab = 0
+        }
         showToolbar(TOOLBAR_HIDE)
         //showToolbar(TOOLBAR_EMBEDDED, R.layout.view_fragment_toolbar)
        // setTitleColor(R.color.black)
       //  setTitle("Bag")
        // setToolbarBackgroundDrawable(R.color.link_water)
        // setHomeAsUpIndicator(TOOLBAR_INDICATOR_BACK_ARROW)
-        val fragmentAdapter = InventoryPagerAdapter(childFragmentManager)
+        val fragmentAdapter = InventoryPagerAdapter(childFragmentManager,advert)
         viewpager_main.adapter = fragmentAdapter
 
         tabs_main.setupWithViewPager(viewpager_main)
    /*     tabs_main.getTabAt(0)?.setIcon(R.drawable.ic_message)
         tabs_main.getTabAt(1)?.setIcon(R.drawable.ic_calendar)*/
-        tabs_main.getTabAt(tabPosition as Int)?.select()
+        tabs_main.getTabAt(tab as Int)?.select()
         tabs_main.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.position == 0) {
@@ -88,6 +103,7 @@ class InventoryFragment : FragmentWrapper(),
         showSettings.setOnClickListener {
             router.navigateTo(ScreenPool.EDIT_PROFILE)
         }
+
         router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
                 ApplicationWrapper.user = result as User
