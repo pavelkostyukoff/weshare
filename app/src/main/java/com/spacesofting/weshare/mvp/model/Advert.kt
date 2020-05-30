@@ -16,6 +16,6 @@ class Advert :Serializable {
     var categoryId: String? = null
     @SerializedName("address")
     var address: Address? = null
-    var bannerItems = ArrayList<File>()
+    var bannerItems = ArrayList<String>()
 
 }

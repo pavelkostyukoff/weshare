@@ -2,10 +2,12 @@ package com.spacesofting.weshare.api.user
 
 import com.spacesofting.weshare.api.ResponceAddImege
 import com.spacesofting.weshare.api.ResponceEditAdvert
+import com.spacesofting.weshare.api.ResponceMyAdvert
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.mvp.model.UpdateProfile
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -24,16 +26,20 @@ interface AdvertsService {
     @POST("me/adverts")  //todo //Подтвердить получение задачи Observable<Response<Void>>
     fun creatNewAdvert(): Observable<ResponceProfile>
 
-    //todo  Get user profile
-    @GET("me/adverts/{advertId}")
-    fun getMyAdvertById(): Observable<User>
+    //Get list of advert categories
+    @GET("me/adverts")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+    fun getMeAdverts(): Observable<ResponceMyAdvert>
 
-    //todo  Update user profile
+    //todo  Get advert by ID
+    @GET("me/adverts/{advertId}")
+    fun getMyAdvertById(@Path("advertId") advertId: String): Observable<Advert>
+
+    //todo  Update/Create advert
     @PATCH("me/adverts/{advertId}")
     fun updateMyAdvertById(@Body advert: Advert?,@Path("advertId") advertId: String): Observable<ResponceEditAdvert>
 
     @DELETE("me/adverts/{advertId}")  //todo //
-    fun delMyAdvertById():  Observable<Void>
+    fun dellMeAdverts(@Path("advertId") advertId: String):  Observable<Boolean>
 
     //todo  publicsh advert
     @PATCH("me/adverts/{advertId}/publish")

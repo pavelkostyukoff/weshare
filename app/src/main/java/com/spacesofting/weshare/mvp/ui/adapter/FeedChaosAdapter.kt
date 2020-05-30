@@ -29,7 +29,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
     private val wishItemMargin  = context.resources.getDimensionPixelSize(R.dimen.margin_half) * 2
     private var isFirstStart    = true
     private var itemNum         = 0
-    private var viewPool        = androidx.recyclerview.widget.RecyclerView.RecycledViewPool()
+    private var viewPool        = RecyclerView.RecycledViewPool()
     val dataset                 = ArrayList<Datum>()
     val wishList = ArrayList<Wish>()
     val w22 = Wish()

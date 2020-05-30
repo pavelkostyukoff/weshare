@@ -354,7 +354,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                 hideKeyboard(context)
             }
             val ym = YandexMaps()
-            ym.getAddressBy(addr, loc, this@AddressSearchFragment)
+            ym.getAddressBy(addr, loc, this)
         }
     }
 
@@ -427,6 +427,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                 }*/
             ApplicationWrapper.place = place
             router.navigateTo(ScreenPool.ADD_GOODS)
+            //todo exitWithResult
         }
     }
 

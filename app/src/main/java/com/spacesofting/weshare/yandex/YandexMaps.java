@@ -39,14 +39,14 @@ public class YandexMaps {
     // адрес должен формироваться где-то здесь
     public void getAddressBy(final String name, final Location location, final YandexMapsListener listener) {
         RequestParams params = new RequestParams();
-        params.put(KIND, HOUSE);
+      //  params.put(KIND, HOUSE);
         params.put(FORMAT, JSON);
 
         if (!TextUtils.isEmpty(name)) {
             params.put(GEOCODE, name);
             params.put(APIKEY, API_KEY);
 
-            if (location != null) {
+            if (location != null && location.getLongitude() != 0.0) {
                 params.put(LL, String.format(Locale.ENGLISH, "%f,%f", location.getLongitude(), location.getLatitude()));
             }
         }
@@ -131,6 +131,7 @@ public class YandexMaps {
                             }
                         }
                     }
+
                     catch (JsonSyntaxException e) {
                         LogUtil.Loge(e);
                         e.printStackTrace();
@@ -163,7 +164,7 @@ public class YandexMaps {
 
         params.put(GEOCODE, String.format(Locale.ENGLISH, "%f,%f", location.getLongitude(), location.getLatitude()));
 
-        YandexMapsClient.get("/", params, new TextHttpResponseHandler() {
+        YandexMapsClient.get("?", params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 if (listener != null) {
@@ -261,10 +262,10 @@ public class YandexMaps {
         RequestParams params = new RequestParams();
         params.put(KIND, HOUSE);
         params.put(FORMAT, JSON);
-
+        params.put(APIKEY, API_KEY);
         params.put(GEOCODE, name);
 
-        YandexMapsClient.get("/", params, new TextHttpResponseHandler() {
+        YandexMapsClient.get("?", params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 if (listener != null) {

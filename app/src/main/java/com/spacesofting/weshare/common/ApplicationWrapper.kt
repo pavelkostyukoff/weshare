@@ -6,6 +6,7 @@ import androidx.multidex.MultiDexApplication
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.Image
 import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.di.AppComponent
 /*
@@ -15,6 +16,7 @@ import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.squareup.picasso.Picasso
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
@@ -34,6 +36,8 @@ class ApplicationWrapper : MultiDexApplication() {
         val ONE_LINK_ID = "vVZC"
         var isNewUser = false
         var sharingWishID = 0
+        var idForEdit: String? = null
+        var myImages: ArrayList<RespounceDataMyAdverts>? = null
 
 
     companion object {
@@ -67,7 +71,7 @@ class ApplicationWrapper : MultiDexApplication() {
         return photoPath
     }
 
-    fun setAuthorityWish(advert: Advert , photoPath: File? = null) {
+    fun setAuthorityWish(advert: Advert?=null , photoPath: File? = null) {
         doAuthtorizedWish = advert
         this.photoPath = photoPath
         isDesireToAuthorize = true

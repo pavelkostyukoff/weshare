@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class InventoryFragment : FragmentWrapper(),
     InventoryView {
@@ -48,8 +49,6 @@ class InventoryFragment : FragmentWrapper(),
             fragment.arguments = bundle
             return fragment
         }
-
-
     }
 
     @InjectPresenter
@@ -62,8 +61,7 @@ class InventoryFragment : FragmentWrapper(),
             advert = bundle.get(ADVERT_KEY) as? ResponcePublish
         }
 
-        if(tab == null)
-        {
+        if(tab == null) {
             tab = 0
         }
         showToolbar(TOOLBAR_HIDE)
@@ -174,4 +172,5 @@ class InventoryFragment : FragmentWrapper(),
                     })
         }
     }
+
 }

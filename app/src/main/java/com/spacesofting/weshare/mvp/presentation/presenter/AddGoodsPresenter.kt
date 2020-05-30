@@ -77,7 +77,9 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                                 advert ->
+
                             viewState.saved(advert)
+
                             viewState.showProgress(false)
                             //checkExternalApp()
 
@@ -92,13 +94,13 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     }
 
     private fun saveAdvert(advert: Advert) {
-
+        ApplicationWrapper.instance.setAuthorityWish(advert)
         //todo -   /me/adverts/{advertId}/publish
         //add or update wish
         // if (advert.id != 0) {
-        goodId
+     /*   goodId
         //todo тут - /me/adverts/{advertId}
-        goodId = ApplicationWrapper.editAdvertId.toString()
+        goodId = ApplicationWrapper.instance.getAuthorityWish().toString()*/
                 goodId.let {
                     Api.Adverts.updateMyAdvertById(advert,it)
                         .subscribeOn(Schedulers.io())
@@ -115,6 +117,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                             viewState.showToast(R.string.error_general)
                         })
         }
+        advert.let { ApplicationWrapper.instance.setAuthorityWish(null, null) }
+
         //  }
     }
 
@@ -155,7 +159,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 priceIsNotNill = value.toString()
                 //todo заполнеить вместо числа
                 //todo из объекта в котором сумма Double период и валюта
-
             }
 
 

@@ -1,20 +1,25 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
+import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.paginate.Paginate
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.mvp.RentItem
+import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
 import com.spacesofting.weshare.mvp.presentation.view.IrentView
+import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
 import com.spacesofting.weshare.mvp.ui.adapter.ItemThingRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
 
 class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
+    Paginate.Callbacks,
     IrentView {
     private var adapter: ItemThingRentAdapter? = null
 
@@ -42,12 +47,35 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        initListItems(advert)
+        initAdapter()
+     //   val test = RespounceDataMyAdverts()
+     //   val arr = ArrayList<RespounceDataMyAdverts>()
 
-
-
+       // test.images = advert.images
+      //  advert?.let { arr.add(it) }
+      //  initListItems(arr)
 
     }
+
+    private fun initAdapter() {
+        adapter = ItemThingRentAdapter(mIrentPresenter)
+        val mLayoutManager =
+            androidx.recyclerview.widget.GridLayoutManager(activity, 2)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = mLayoutManager
+//        Paginate.with(compilationsList, this).build()
+    }
+     override fun delAdvertCOmplite() {
+         mIrentPresenter.getMyAdvert()
+     }
+
+    override fun editCOmplite() {
+        mIrentPresenter.getMyAdvert()
+    }
+
     private fun listShow() {
         val mLayoutManager =
             androidx.recyclerview.widget.GridLayoutManager(activity, 2)
@@ -90,49 +118,34 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics))
     }
 
-    private fun initListItems(advert: ResponcePublish?) {
+    private fun initListItems(advert: ArrayList<RespounceDataMyAdverts>) {
         if (adapter == null) {
-            adapter = ItemThingRentAdapter(activity!!)
-        }
-        if (advert != null) {
-            adapter?.dataset?.add(advert)
+            adapter = ItemThingRentAdapter(mIrentPresenter)
         }
         adapter?.dataset?.clear()
+        try {
+            adapter!!.dataset = advert
+            adapter?.notifyDataSetChanged()
+        }
+        catch (e:Exception){
 
-        val mLayoutManager =
-            androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        recyclerView.itemAnimator =
-            androidx.recyclerview.widget.DefaultItemAnimator()
+        }
 
-        /*val imageFile: File?
-        imageFile = R.drawable.img12*/
+    }
 
-       /* val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
-        val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
-        val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_tools, null))
-        val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.ic_car, null))
+    override fun setListAdverts(it: ArrayList<RespounceDataMyAdverts>?) {
+        it?.let { it1 -> initListItems(it1) }
+    }
 
-        val filterList = ArrayList<RentItem>()*/
+    override fun onLoadMore() {
+        TODO("Not yet implemented")
+    }
 
-       /* filterList.add(one)
-        filterList.add(one1)
-        filterList.add(one2)
-        filterList.add(one3)
-        filterList.add(one2)
-        filterList.add(one3)
-        filterList.add(one3)
-        filterList.add(one2)
-        filterList.add(one3)*/
+    override fun isLoading(): Boolean {
+        TODO("Not yet implemented")
+    }
 
-      //  adapter?.dataset?.addAll(filterList)
-
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = mLayoutManager
-
-       /* if (!presenter.isLoadedAllItems()) {
-            Paginate.with(companiesList, this).build()
-        }*/
+    override fun hasLoadedAllItems(): Boolean {
+        TODO("Not yet implemented")
     }
 }

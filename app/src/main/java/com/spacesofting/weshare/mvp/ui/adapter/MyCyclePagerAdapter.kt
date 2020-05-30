@@ -7,15 +7,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
 import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
-import kotlinx.android.synthetic.main.fragment_pager.*
 import java.io.File
 
 
 class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHolder>() {
-    var dataset = ArrayList<File>()
+    var dataset = ArrayList<String>()
 
     // создаем поле объекта-колбэка
     private var mListener: OnCardClickListener? = null
@@ -38,15 +36,35 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
 
 
     override fun onBindRealViewHolder(holder: PagerViewHolder, position: Int) {
+        val context = holder.dellImage.context
 /*
         val item = dataset[position]
         holder.carImageView.background = item.photoId*/
        // Log.d(AddGoodsFragment.TAG, "onBindRealViewHolder $position")
+          //  if (dataset as String)
+        if (dataset[position].contains("http"))
+        {
 
-        Picasso.with(context)
-            .load(dataset[position])
-           // .transform(RoundedCorners(radius))
-            .into(holder.wishEditImageView)
+            val output =  StringBuilder().append(dataset[position].substring(0, 4))
+                .append("s").append(dataset[position].substring(4, dataset[position].length)).toString()
+            /*Glide
+                .with(context)
+                .load("http://i.imgur.com/DvpvklR.png")
+                .into(holder.wishEditImageView)*/
+            Picasso.with(context)
+                .load(output)//"http://i.imgur.com/DvpvklR.png")//dataset[position])
+                // .transform(RoundedCorners(radius))
+                .into(holder.wishEditImageView)
+        }
+        else {
+            val f = File(dataset[position])
+
+            Picasso.with(context)
+                .load(f)
+                // .transform(RoundedCorners(radius))
+                .into(holder.wishEditImageView)
+        }
+
 
         holder.wishEditImageBtn.setOnClickListener {
             mListener?.onCardClick()
@@ -58,8 +76,8 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
             //после успешного удаления скрываем   dellImage.visibility = View.GONE
         }
         if (dataset.isNotEmpty()) {
-            val test = dataset[0].name
-            if (test == ""){
+            val test = dataset[0]
+            if (test == " "){
                 holder.dellImage.visibility = View.GONE
             }
             else {

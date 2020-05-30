@@ -4,76 +4,125 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:id="@+id/cv"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="15dp"
         android:layout_margin="5dp"
         android:elevation="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
+
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="@drawable/bg_rect_rounded"
-            android:id="@+id/test">
+            app:layout_constraintBottom_toTopOf="@+id/imageButton2"
+            app:layout_constraintTop_toTopOf="@+id/imageButton2">
+
         <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:siShape="@drawable/shape_rounded_rectangle"
-                android:src="@drawable/img1"
-                android:scaleType="fitXY"
-                app:siSquare="true"
                 android:id="@+id/porterShapeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/wish_default_img"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:siShape="@drawable/shape_rounded_rectangle"
+                app:siSquare="true" />
+        <!--
+        android:adjustViewBounds="true"
+-->
 
 
-        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:background="@drawable/ic_yae" android:id="@+id/imageButton"
-                     android:layout_marginTop="16dp"
-                     app:layout_constraintTop_toTopOf="parent"
-                     app:layout_constraintStart_toEndOf="@+id/porterShapeImageView" android:layout_marginStart="8dp"/>
-        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:background="@drawable/ic_hart" android:id="@+id/imageButton2"
-                     app:layout_constraintTop_toBottomOf="@+id/imageButton"
-                     app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
-                     android:layout_marginTop="24dp" android:layout_marginStart="8dp"/>
-        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:background="@drawable/ic_bissnes" android:id="@+id/imageButton3"
-                     app:layout_constraintTop_toBottomOf="@+id/imageButton"
-                     app:layout_constraintStart_toEndOf="@+id/porterShapeImageView" android:layout_marginStart="8dp"
-                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-                     app:layout_constraintVertical_bias="0.854"/>
+        <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/ic_yae"
+                app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+                android:id="@+id/dellAdvert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_error" />
+
+        <ImageView
+                android:id="@+id/editAdvert"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_pencil" />
+
+        <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ic_hart"
+                app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+        <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/ic_bissnes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton"
+                app:layout_constraintVertical_bias="0.854" />
+
         <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="8dp"
                 android:text="3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView" android:textSize="12sp"
                 android:textColor="#030202"
-                app:layout_constraintTop_toTopOf="@+id/imageButton3"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-                app:layout_constraintStart_toEndOf="@+id/imageButton3" android:layout_marginStart="1dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton3"
+                app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+
         <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="8dp"
                 android:text="20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView4" android:textSize="12sp"
                 android:textColor="#030202"
-                app:layout_constraintTop_toTopOf="@+id/imageButton"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-                app:layout_constraintStart_toEndOf="@+id/imageButton" android:layout_marginStart="2dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-        />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
         <TextView
-                android:text="7"
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5" android:textSize="12sp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="8dp"
+                android:text="7"
                 android:textColor="#030202"
-                app:layout_constraintTop_toTopOf="@+id/imageButton2"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                app:layout_constraintStart_toEndOf="@+id/imageButton2" android:layout_marginStart="1dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-        />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                app:layout_constraintTop_toTopOf="@+id/imageButton2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

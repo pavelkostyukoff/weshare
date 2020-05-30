@@ -17,7 +17,9 @@ class RentPeriod {
     enum class Period {
         hour,
         day,
+/*
         week,
+*/
         month
     }
 //RUB,USD,EUR

@@ -23,6 +23,8 @@ class FeedCompilationsFragment :
     FragmentWrapper(),
     FeedCompilationsView,
     Paginate.Callbacks {
+
+
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_feed_compilations
     }

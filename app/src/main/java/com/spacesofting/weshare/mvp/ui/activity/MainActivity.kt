@@ -34,7 +34,7 @@ class MainActivity  : ActivityWrapper() {
             .setRequiresCharging(true)
             .build()
 
-        val request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(30, TimeUnit.MINUTES)
+        val request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(3, TimeUnit.HOURS)
 
             .setConstraints(constraints)
             .build()
