@@ -247,7 +247,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 /*    ImageUtils.send(saveImgFile,goodId)
                     ?.subscribeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({ img ->*/
-                if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
+                if (imageSize >= Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(it)
                 }
                 ImageUtils.send(saveImgFile, goodId)

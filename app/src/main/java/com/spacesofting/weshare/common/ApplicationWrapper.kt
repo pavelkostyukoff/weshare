@@ -36,6 +36,7 @@ class ApplicationWrapper : MultiDexApplication() {
         val ONE_LINK_ID = "vVZC"
         var isNewUser = false
         var sharingWishID = 0
+        var goodId: String? = ""
         var idForEdit: String? = null
         var myImages: ArrayList<RespounceDataMyAdverts>? = null
 

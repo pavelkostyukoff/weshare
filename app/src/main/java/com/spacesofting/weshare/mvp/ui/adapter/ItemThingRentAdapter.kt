@@ -30,29 +30,36 @@ class ItemThingRentAdapter(presenter: IrentPresenter) : RecyclerView.Adapter<Ite
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CompaniesListViewHolder, position: Int) {
+       val  positionOne = dataset[position]
       //  holder.itemId
        // holder.carImageView = itemRent.images.get(0) as PorterShapeImageView
        // val img = itemRent.images?.get(0) as Uri
-        if (dataset[position].images != null)
+        if (positionOne.images != null )
         {
-            val output =  StringBuilder().append(dataset[position].images?.get(0)?.url?.substring(0, 4))
-                .append("s").append(dataset[position].images?.get(0)?.url?.substring(4,
-                    dataset[position].images?.get(0)?.url?.length!!
-                )).toString()
+            if (positionOne.images!!.isNotEmpty())
+            {
+                val output =  StringBuilder().append(positionOne.images?.get(0)?.url?.substring(0, 4))
+                    .append("s").append(positionOne.images?.get(0)?.url?.length?.let {
+                        positionOne.images?.get(0)?.url?.substring(4,
+                            it
+                        )
+                    }).toString()
 
-            if (dataset[position].images!!.isNotEmpty()) {
-                Picasso.with(context)
-                    .load(output)
-                    .placeholder(R.drawable.wish_default_img)
-                    // .transform(RoundedCorners(radius))
-                    .into(holder.carImageView)
+                if (positionOne.images!!.isNotEmpty()) {
+                    Picasso.with(context)
+                        .load(output)
+                        .placeholder(R.drawable.wish_default_img)
+                        // .transform(RoundedCorners(radius))
+                        .into(holder.carImageView)
+                }
             }
+
         }
         holder.dellAdvert.setOnClickListener {
-            presenter.delAdvertById(dataset[position])
+            presenter.delAdvertById(positionOne)
         }
         holder.editAdvert.setOnClickListener {
-            presenter.getAdvert(dataset[position])
+            presenter.getAdvert(positionOne)
         }
 
        /* val innText = String.format(context.getString(R.string.edit_guest_card_inn_count), company.inn)

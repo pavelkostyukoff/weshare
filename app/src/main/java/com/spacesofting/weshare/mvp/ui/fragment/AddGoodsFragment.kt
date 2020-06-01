@@ -59,6 +59,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     MyCyclePagerAdapter.OnCardClickListener {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
+    private val isNewAdvert = false
 
     private var adapterBaner: MyCyclePagerAdapter? = null
     private val category = ApplicationWrapper.category
@@ -173,8 +174,27 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             }
         }
+        if (mAddGoodsPresenter.goodId.isEmpty())
+        {
+            mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
+            if (mAddGoodsPresenter.goodId.isEmpty()){
+                mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+            }
+            else {
+                if (mAddGoodsPresenter.goodId != "null")
+                {
+                    ApplicationWrapper.instance.goodId = mAddGoodsPresenter.goodId
+                }
+                else {
+                    mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+                }
+            }
+        }
 
-        mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
+        if (ApplicationWrapper.instance.goodId != null && !ApplicationWrapper.instance.goodId.equals(""))
+        {
+            mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+        }
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
         //    val advert = arguments?.getSerializable(DATA_KEY) as? Advert
 
@@ -317,8 +337,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             try {
                 if (searchEditText.text.isEmpty()) {
                     toast("Заполните адресс")
-                } else if (advertAmount.text!!.equals("0.0")) {
-                    toast("Заполните адресс")
+                } else if (advertAmount.text.toString() == "0.0" || advertAmount.text.toString() == "0" || advertAmount.text!!.isEmpty()) {
+                    toast("Заполните сумму")
                 } else {
                     setPeriods()
                     mAddGoodsPresenter.checkEditFieldsOrImage(advert)
@@ -550,6 +570,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             ScreenPool.INVENTORY_FRAGMENT,
             InventoryFragment.getBundle(null, isSuccess)
         )
+        ApplicationWrapper.instance.setAuthorityWish(null,null)
         //todo инвентори и кладем в список вещь или делаем запрос
         /*   if (isSuccess) {
                val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
@@ -767,22 +788,21 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         bannerItemsFake.clear()
         adapterBaner = MyCyclePagerAdapter()
         adapterBaner?.setOnCardClickListener(this)
-        if (ApplicationWrapper.instance.myImages != null ) {
+        if (ApplicationWrapper.instance.myImages != null && advert.bannerItems.isEmpty()) {
             if (ApplicationWrapper.instance.myImages!!.isNotEmpty())
             {
                 //   bannerItems.add(f)   //todo случайный элемент(resList.random())
                 ApplicationWrapper.instance.myImages?.map { it ->
 
+                    if (mAddGoodsPresenter.goodId == it.id)
+                    {
+                        it.images?.map {
+                            it.url
+                            // advert.bannerItems = it.url as ArrayList<String>
+                            advert.bannerItems.add(it.url!!)
 
-
-                    val test = it.images?.map {
-                        it.url
-
-                       // advert.bannerItems = it.url as ArrayList<String>
-                        advert.bannerItems.add(it.url!!)
-
+                        }
                     }
-
                 }
 
                 if(advert.bannerItems.isEmpty())
@@ -803,6 +823,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
 
 
+        }
+        else {
+            adapterBaner?.dataset = advert.bannerItems
+            adapterBaner?.notifyDataSetChanged()
         }
     }
 
@@ -1079,6 +1103,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         // advert.bannerItems = ban
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+       // ApplicationWrapper.instance.goodId = null
+     //   advert = null
+    }
+
     override fun onDetach() {
         super.onDetach()
         categoryItems?.clear()
@@ -1129,10 +1159,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         showPicker()
     }
 
-    override fun onCardClickDelete() {
+    override fun onCardClickDelete(position: Int) {
         if (advert.bannerItems.isNotEmpty()) {
-            val index = advert.bannerItems.size - 1
-            advert.bannerItems.removeAt(index)
+          //  val index = advert.bannerItems.size - 1
+            advert.bannerItems.removeAt(position)
             adapterBaner?.notifyDataSetChanged()
 
             if (advert.bannerItems.isEmpty()) {

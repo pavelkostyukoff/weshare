@@ -29,7 +29,7 @@ object Settings {
 
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 1
-    val THE_SIZE_OF_A_MEGABYTE = 1024
+    val THE_SIZE_OF_A_MEGABYTE = 920///1024
 
     var IsAuthorized = false
 

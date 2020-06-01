@@ -47,12 +47,9 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
 
             val output =  StringBuilder().append(dataset[position].substring(0, 4))
                 .append("s").append(dataset[position].substring(4, dataset[position].length)).toString()
-            /*Glide
-                .with(context)
-                .load("http://i.imgur.com/DvpvklR.png")
-                .into(holder.wishEditImageView)*/
             Picasso.with(context)
                 .load(output)//"http://i.imgur.com/DvpvklR.png")//dataset[position])
+                .error(R.drawable.wish_default_img)
                 // .transform(RoundedCorners(radius))
                 .into(holder.wishEditImageView)
         }
@@ -61,11 +58,10 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
 
             Picasso.with(context)
                 .load(f)
+                .error(R.drawable.wish_default_img)
                 // .transform(RoundedCorners(radius))
                 .into(holder.wishEditImageView)
         }
-
-
         holder.wishEditImageBtn.setOnClickListener {
             mListener?.onCardClick()
         }
@@ -92,7 +88,7 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
 // View на котором произошло событие и позиция этого View
     interface OnCardClickListener {
         fun onCardClick(/*view: View?, position: Int*/)
-        fun onCardClickDelete(/*view: View?, position: Int*/)
+        fun onCardClickDelete(/*view: View?,*/ position: Int)
     }
 
 

@@ -67,19 +67,19 @@
     <!--CURRENCY-->
 
     <string-array name="wish_edit_cyrrency">
+        <item>RUB</item>
         <item>EURO</item>
         <item>USD</item>
-        <item>RUB</item>
     </string-array>
 
     <!--PERIOD-->
     <string-array name="wish_edit_period">
-        <item>HOUR</item>
-        <item>DAY</item>
-        <item>MONTH</item>
+        <item>ДЕНЬ</item>
+        <item>МЕСЯЦ</item>
+        <item>ЧАС</item>
     </string-array>
    <!-- <string name="period_hour">HOUR</string>
-    <string name="period_day">DAY</string>
+    <string name="period_day">DAY</string>DAY MONTH MONTH
     <string name="period_month">MONTH</string>-->
 
 
