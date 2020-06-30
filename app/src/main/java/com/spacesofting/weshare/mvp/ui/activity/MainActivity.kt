@@ -30,18 +30,18 @@ class MainActivity  : ActivityWrapper() {
         ApplicationWrapper.context = this.applicationContext
         ApplicationWrapper.instance.getComponent()?.injectsMainActivity(this)
 
-        val constraints = Constraints.Builder()
+       /* val constraints = Constraints.Builder()
             .setRequiresCharging(true)
             .build()
 
         val request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(3, TimeUnit.HOURS)
 
             .setConstraints(constraints)
-            .build()
+            .build()*/
 /*
         WorkManager.getInstance()
             .enqueueUniquePeriodicWork("jobTag", ExistingPeriodicWorkPolicy.KEEP, request)*/
-        WorkManager.getInstance(this).enqueue(request)
+     //   WorkManager.getInstance(this).enqueue(request)
 
        /* WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.id)
             .observe(this, Observer {

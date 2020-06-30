@@ -13,10 +13,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import okhttp3.OkHttpClient
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.*
+
 
 @InjectViewState
 class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.PickerListener {

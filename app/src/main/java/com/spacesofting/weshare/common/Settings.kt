@@ -26,16 +26,22 @@ object Settings {
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
-
+    private val KEY_ACCESS_TOKEN_ANONYMOUS = "key_access_token_anon"
+    private val IS_A_ANONYMOUS = "is_anonymous_user"
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 1
     val THE_SIZE_OF_A_MEGABYTE = 920///1024
 
-    var IsAuthorized = false
-
+    private var isAuthenticated = false
+    var isAnonymousUser: Boolean
+        get() = PREFERENCES.getBoolean(IS_A_ANONYMOUS, false)
+        set(value) {
+            PREFERENCES.edit().putBoolean(IS_A_ANONYMOUS, value).apply()
+        }
+/*
     init {
-        IsAuthorized = AccessToken != null
-    }
+        isAuthorized = AccessToken != null
+    }*/
     var apiPathName: String
         get() = PREFERENCES.getString(KEY_API_NAME, "PROD")!!
         set(value) {
@@ -55,6 +61,7 @@ object Settings {
             BuildConfig.API_PATHS[apiPathName] = value
         }
 
+
 /*
     var PicPath: String = ""
         get() {
@@ -65,7 +72,11 @@ object Settings {
                 return BuildConfig.API_PATHS[BuildConfig.DEFAULT_API_NAME]!!
             }
         }*/
+//use for check authorization status
 
+    fun checkAuthorization() {
+        isAuthenticated = AccessToken != null /*|| AccessTokenAnonymous != null*/
+    }
 
     private fun decrypt(key: String): String? {
         val encrypted = PREFERENCES.getString(key, null)
@@ -74,11 +85,14 @@ object Settings {
         return encrypted
     }
 
+    //use for check authorization status
+    fun isAuthenticated() = isAuthenticated
+
     var AccessToken: String?
         get() = decrypt(KEY_ACCESS_TOKEN)
         set(value) {
             encrypt(KEY_ACCESS_TOKEN, value)
-            IsAuthorized = true
+          //  IsAuthorized = true
         }
 
     var ValidationToken: String?
@@ -86,6 +100,7 @@ object Settings {
         set(value) {
             encrypt(KEY_VALIDATION_TOKEN, value)
         }
+
     private fun encrypt(key: String, value: String?) {
       //  val encrypted: String? = SecureUtils.encrypt(value)
         PREFERENCES.edit().putString(key, value).apply()
@@ -112,7 +127,7 @@ object Settings {
     fun logout() {
         AccessToken = null
         ValidationToken = null
-        IsAuthorized = false
+        isAuthenticated = false
     }
  /*   private var apiPathName: String
         get() = PREFERENCES.getString(KEY_API_NAME, BuildConfig.DEFAULT_API_NAME)

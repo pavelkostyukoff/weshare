@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import moxy.MvpAppCompatFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.pawegio.kandroid.i
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
@@ -48,10 +49,10 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
      val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_feed -> {
-                if (Settings.IsAuthorized) {
+                if (Settings.isAuthenticated()) {
                     router.navigateTo(ScreenPool.FEED_FRAGMENT)
                 } else {
-toast(R.string.rega)
+                    toast(R.string.rega)
                 }
 
 
@@ -65,7 +66,7 @@ toast(R.string.rega)
             }
             R.id.navigation_map -> {
 
-                if (Settings.IsAuthorized) {
+                if (Settings.isAuthenticated()) {
                     router.navigateTo(ScreenPool.MAP_FRAGMENT)
                 } else {
                     toast(R.string.rega)
@@ -103,7 +104,7 @@ toast(R.string.rega)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_inventory -> {
-                if (Settings.IsAuthorized) {
+                if (Settings.isAuthenticated()) {
                     router.navigateTo(ScreenPool.INVENTORY_FRAGMENT,1)
                 } else {
                     toast(R.string.rega)

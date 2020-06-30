@@ -40,13 +40,15 @@
                   android:configChanges="keyboardHidden|orientation|screenSize">
 <!--
             android:launchMode="singleTop"
+
+             <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
 -->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
 
 

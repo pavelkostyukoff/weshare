@@ -36,7 +36,7 @@ class SplashFragment : FragmentWrapper() {
 
 
         runDelayed(DELAY){
-            if (Settings.IsAuthorized) {
+            if (Settings.isAuthenticated()) {
                 router.newRootScreen(ScreenPool.FEED_FRAGMENT)
             } else {
                //todo конкретно тут мы стартуем router.newRootScreen(ScreenPool.AUTORIZE_FRAGMENT)

@@ -33,8 +33,6 @@ object Api {
     private val LOG: HttpLoggingInterceptor =
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val AUTH = AuthHeaderInterceptor()
-    private val TOKEN = TokenInterceptor()
-
     private val CLIENT: OkHttpClient = OkHttpClient.Builder().cache(
         Cache(
             File("/tmp/http"),
@@ -42,9 +40,10 @@ object Api {
         ))
         .addInterceptor(AUTH)
           .addInterceptor(MOCK)
-       // .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
+
+    // .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
         //  .addInterceptor(SMS)
-        .addInterceptor(TOKEN)
+       // .addInterceptor(TOKEN)
         .addInterceptor(LOG)
         .cache(cache)
         /*.connectTimeout(30, TimeUnit.SECONDS)
@@ -81,39 +80,4 @@ object Api {
     val Adverts: AdvertsService
         get() = RETROFIT.create(AdvertsService::class.java)
 
-
- /*   private fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
-        try {
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-
-                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-
-                @Throws(CertificateException::class)
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) =
-                    Unit
-
-                @Throws(CertificateException::class)
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) =
-                    Unit
-            })
-            // Install the all-trusting trust manager
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-
-            // Create an ssl socket factory with our all-trusting manager
-            val sslSocketFactory = sslContext.socketFactory
-
-            return OkHttpClient.Builder()
-                .addInterceptor(AUTH)
-                .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                .hostnameVerifier { _, _ -> true }
-                .addInterceptor(LOG)
-                .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-    }*/
 }

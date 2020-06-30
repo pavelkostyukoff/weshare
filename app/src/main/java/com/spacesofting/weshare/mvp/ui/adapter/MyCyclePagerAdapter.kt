@@ -67,7 +67,7 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
         }
         holder.dellImage.setOnClickListener {
             //todo презентер удаляет фото и говоит отобразить пикассо заглушку
-              mListener?.onCardClickDelete()
+              mListener?.onCardClickDelete(position)
           //  privacyOptions
             //после успешного удаления скрываем   dellImage.visibility = View.GONE
         }

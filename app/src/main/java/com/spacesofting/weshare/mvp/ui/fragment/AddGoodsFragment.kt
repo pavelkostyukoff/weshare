@@ -174,25 +174,23 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             }
         }
-        if (mAddGoodsPresenter.goodId.isEmpty())
-        {
+        if (mAddGoodsPresenter.goodId.isEmpty()) {
             mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
-            if (mAddGoodsPresenter.goodId.isEmpty()){
+            if (mAddGoodsPresenter.goodId.isEmpty()) {
                 mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
-            }
-            else {
-                if (mAddGoodsPresenter.goodId != "null")
-                {
+            } else {
+                if (mAddGoodsPresenter.goodId != "null") {
                     ApplicationWrapper.instance.goodId = mAddGoodsPresenter.goodId
-                }
-                else {
+                } else {
                     mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
                 }
             }
         }
 
-        if (ApplicationWrapper.instance.goodId != null && !ApplicationWrapper.instance.goodId.equals(""))
-        {
+        if (ApplicationWrapper.instance.goodId != null && !ApplicationWrapper.instance.goodId.equals(
+                ""
+            )
+        ) {
             mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
         }
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
@@ -570,7 +568,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             ScreenPool.INVENTORY_FRAGMENT,
             InventoryFragment.getBundle(null, isSuccess)
         )
-        ApplicationWrapper.instance.setAuthorityWish(null,null)
+        ApplicationWrapper.instance.setAuthorityWish(null, null)
         //todo инвентори и кладем в список вещь или делаем запрос
         /*   if (isSuccess) {
                val wish = if (mAddGoodsPresenter.wish != null) mAddGoodsPresenter.wish else mAddGoodsPresenter.newWish
@@ -789,13 +787,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapterBaner = MyCyclePagerAdapter()
         adapterBaner?.setOnCardClickListener(this)
         if (ApplicationWrapper.instance.myImages != null && advert.bannerItems.isEmpty()) {
-            if (ApplicationWrapper.instance.myImages!!.isNotEmpty())
-            {
+            if (ApplicationWrapper.instance.myImages!!.isNotEmpty()) {
                 //   bannerItems.add(f)   //todo случайный элемент(resList.random())
                 ApplicationWrapper.instance.myImages?.map { it ->
 
-                    if (mAddGoodsPresenter.goodId == it.id)
-                    {
+                    if (mAddGoodsPresenter.goodId == it.id) {
                         it.images?.map {
                             it.url
                             // advert.bannerItems = it.url as ArrayList<String>
@@ -805,26 +801,22 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
                 }
 
-                if(advert.bannerItems.isEmpty())
-                {
+                if (advert.bannerItems.isEmpty()) {
                     bannerItemsFake.add(" ")
                     adapterBaner?.dataset = bannerItemsFake
                     adapterBaner?.notifyDataSetChanged()
-                }
-                else {
+                } else {
                     adapterBaner?.dataset = advert.bannerItems
                     adapterBaner?.notifyDataSetChanged()
                 }
-            }
-            else {
+            } else {
                 bannerItemsFake.add(" ")
                 adapterBaner?.dataset = bannerItemsFake
                 adapterBaner?.notifyDataSetChanged()
             }
 
 
-        }
-        else {
+        } else {
             adapterBaner?.dataset = advert.bannerItems
             adapterBaner?.notifyDataSetChanged()
         }
@@ -1105,8 +1097,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun onDestroy() {
         super.onDestroy()
-       // ApplicationWrapper.instance.goodId = null
-     //   advert = null
+        // ApplicationWrapper.instance.goodId = null
+        //   advert = null
     }
 
     override fun onDetach() {
@@ -1161,7 +1153,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun onCardClickDelete(position: Int) {
         if (advert.bannerItems.isNotEmpty()) {
-          //  val index = advert.bannerItems.size - 1
+            //  val index = advert.bannerItems.size - 1
             advert.bannerItems.removeAt(position)
             adapterBaner?.notifyDataSetChanged()
 
