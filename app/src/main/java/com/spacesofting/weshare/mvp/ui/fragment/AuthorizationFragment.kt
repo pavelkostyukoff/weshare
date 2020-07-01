@@ -215,6 +215,8 @@ class AuthorizationFragment : FragmentWrapper(),
 
                 mailAutorize = login
                 presenter.autorize(login,false)
+                com.spacesofting.weshare.common.Settings.checkAuthorization()
+                //todo hide keyboard
             }
 
           //  }

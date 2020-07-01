@@ -164,7 +164,11 @@
         implementation 'com.android.support:support-v13:28.0.0'
         implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
         //maps
-        implementation 'com.yandex.android:mapkit:3.4.0'
+        implementation 'com.yandex.android:mapkit:3.5.0'
+        implementation 'com.yandex.android:search:3.5.0'
+        implementation 'com.yandex.android:directions:3.5.0'
+        implementation 'com.yandex.android:transport:3.5.0'
+        implementation 'com.yandex.android:places:3.5.0'
         // navigation
         implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
         implementation 'androidx.multidex:multidex:2.0.1'

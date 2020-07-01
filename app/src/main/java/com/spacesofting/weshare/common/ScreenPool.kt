@@ -47,9 +47,9 @@ object ScreenPool {
             AUTORIZE_FRAGMENT -> {
                 AuthorizationFragment.getInstance()
             }
-            BASE_FRAGMENT -> {
+          /*  BASE_FRAGMENT -> {
                 BaseFragment.newInstance(data as String?)
-            }
+            }*/
             INVENTORY_FRAGMENT -> {
                 (data as Bundle?)?.let { InventoryFragment.newInstance (it) }
             }

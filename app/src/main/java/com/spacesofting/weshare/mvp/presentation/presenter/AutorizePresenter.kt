@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import com.pawegio.kandroid.d
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.EnumErrorType
@@ -28,6 +29,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
     val router = ApplicationWrapper.instance.getRouter()
 
 
+    @SuppressLint("CheckResult")
     fun autorize(mail: Login, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
         Api.Auth.autorize(mail)

@@ -41,7 +41,9 @@ class MyMapFragment : FragmentWrapper(),
     private var latMain = String()
     private var lngMain = String()
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
-    private val TARGET_LOCATION = Point(59.956, 30.313)
+    private val TARGET_LOCATION: Point? =
+        Point(59.945933, 30.320045)
+    //private val TARGET_LOCATION = Point(59.956, 30.313)
     private val ANIMATED_RECTANGLE_CENTER = Point(59.956, 30.313)
     private val DRAGGABLE_PLACEMARK_CENTER = Point(59.948, 30.323)
     var catAdapter: CategoryAdapter? = null
@@ -72,21 +74,27 @@ fun newInstance(): MyMapFragment {
     lateinit var mMapPresenter: MapPresenter
 
     override fun onAttach(context: Context) {
-       MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        MapKitFactory.initialize(context)
+        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+        MapKitFactory.initialize(activity)
         super.onAttach(context)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         initListItems()
+        /*mapview.map.move(
+            CameraPosition(TARGET_LOCATION!!, 14.0f, 0.0f, 0.0f),
+            Animation(Animation.Type.SMOOTH, 5F),
+            null
+        )*/
+
 
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe {
+                    it
                     val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
                     try {
                       val  location =
@@ -97,20 +105,17 @@ fun newInstance(): MyMapFragment {
                         loe = two.toString()
                         // Укажите имя activity вместо map.
                         mapview?.map?.move(
-                            CameraPosition(Point(one!!,two!!), 10.0f, 0.0f, 0.0f),
-                            Animation(Animation.Type.LINEAR, 1f),
+                            CameraPosition(Point(one!!,two!!), 14.0f, 0.0f, 0.0f),
+                            Animation(Animation.Type.LINEAR, 4f),
                             null
                         )
                     } catch (e: SecurityException) {
                       //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                        e
                     }
-                 //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-
-
-
+                    createMapObjects()
                 }
         }
-        createMapObjects()
     }
 
      override fun onStop() {
@@ -127,7 +132,7 @@ fun newInstance(): MyMapFragment {
 
     private fun createMapObjects() {
 
-        mapObjects = mapview.getMap().getMapObjects().addCollection()
+        mapObjects = mapview.map.mapObjects.addCollection()
         val marks = ArrayList<Point>()
         marks.add(Point(lat.toDouble(), loe.toDouble()))
         marks.add(Point(lat.toDouble(), loe.toDouble()+1))
@@ -137,19 +142,19 @@ fun newInstance(): MyMapFragment {
         for (i in 0 until marks.size) {
             val mark = mapObjects?.addPlacemark(Point(marks.get(i).latitude, marks.get(i).longitude))
             mark?.opacity = 2.8f
-            mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.img1))
+            mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.tools_instruments))
             mark?.addTapListener(YandexMapObjectTapListener())
         }
 
         val mark = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()))
         mark?.opacity = 2.8f
-        mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.img1))
+        mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.transport))
                mark?.isDraggable = false
         mark?.addTapListener(YandexMapObjectTapListener())
 
         val mark2 = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()+1))
         mark2?.opacity = 2.8f
-        mark2?.setIcon(ImageProvider.fromResource(activity, R.drawable.img12))
+        mark2?.setIcon(ImageProvider.fromResource(activity, R.drawable.clouse))
         //   mark?.isDraggable = false
         mark2?.addTapListener(YandexMapObjectTapListener())
     }
@@ -163,8 +168,6 @@ fun newInstance(): MyMapFragment {
         if (catAdapter == null) {
             catAdapter = activity?.let { context?.let { it1 -> CategoryAdapter(mMapPresenter) } }
         }
-        /*val imageFile: File?
-      imageFile = R.drawable.img12*/
 
         val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
         val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
@@ -175,12 +178,8 @@ fun newInstance(): MyMapFragment {
         filterList.add(one)
         filterList.add(one1)
         filterList.add(one2)
-       // filterList.add(one3)
         filterList.add(one2)
-     //   filterList.add(one3)
-     //   filterList.add(one3)
         filterList.add(one2)
-       // filterList.add(one3)
 
         catAdapter?.dataset?.addAll(filterList)
 
@@ -191,7 +190,7 @@ fun newInstance(): MyMapFragment {
                 activity,
                 androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
                 false
-            ) //mTariffsLayoutManager //LinearLayoutManager(activity)
+            )
 
     }
 }

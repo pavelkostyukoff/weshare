@@ -10,6 +10,7 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment
 import com.spacesofting.weshare.utils.inflate
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_wrapper.*
 
 open class ActivityWrapper : MvpAppCompatActivity() {
@@ -19,6 +20,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         NONE
     }
     lateinit var router: BoomerangoRouter
+    private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
 
     companion object {
         var serverNumber = ""
@@ -146,11 +148,17 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
+
                 this.let {
                     RxPermissions(it)
                         .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
                         .subscribe { granted ->
-                            router.replaceScreen(ScreenPool.MAP_FRAGMENT)
+                            if (granted) {
+                                router.replaceScreen(ScreenPool.MAP_FRAGMENT)
+                            } else {
+                                //todo запрос на пермишн
+                            }
+
                         }
                 }
               //  if (Settings.IsAuthorized) {

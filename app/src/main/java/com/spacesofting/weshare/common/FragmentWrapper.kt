@@ -17,6 +17,8 @@ import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.utils.inflate
+import com.tbruyelle.rxpermissions2.RxPermissions
+import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
 
@@ -41,9 +43,6 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val view = inflater.inflate(R.layout.fragment_wrapper, container, false)
         val viewContainer = view.findViewById<FrameLayout>(R.id.mainContainer)
         setLayout(getFragmentLayout(), viewContainer)
-       // scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-       // scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
         return view
     }
      val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -67,6 +66,18 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
             R.id.navigation_map -> {
 
                 if (Settings.isAuthenticated()) {
+/*
+
+                    activity?.let {
+                        RxPermissions(it)
+                            .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            .subscribe {
+
+                            }
+
+
+*/
+
                     router.navigateTo(ScreenPool.MAP_FRAGMENT)
                 } else {
                     toast(R.string.rega)

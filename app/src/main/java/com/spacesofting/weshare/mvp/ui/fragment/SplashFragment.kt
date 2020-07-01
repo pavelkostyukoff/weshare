@@ -33,7 +33,7 @@ class SplashFragment : FragmentWrapper() {
 
         gpbLogo.startAnimation(animation)
     //    scan.visible = false
-
+        Settings.checkAuthorization()
 
         runDelayed(DELAY){
             if (Settings.isAuthenticated()) {
