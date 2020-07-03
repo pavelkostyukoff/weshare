@@ -39,13 +39,14 @@ class AuthHeaderInterceptor : Interceptor {
                 val currentToken: String? = accessToken // accessToken.getToken()
                 if (currentToken != null && currentToken == token) {
                     try {
+                        isRefreshing = false
                         getRefreshToken() //aysnc
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
                     }
                 }
                 if (accessToken != null) {
-                    builder.header("Authorization", accessToken)
+                    builder.header("Authorization","Bearer " + accessToken)
                     request = builder.build()
                     Log.e(
                         "refreshToken",

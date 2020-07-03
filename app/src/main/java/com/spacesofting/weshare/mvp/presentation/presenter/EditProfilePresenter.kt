@@ -44,7 +44,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     init {
         this.profile = Settings.get()//ApplicationWrapper.user
-        ApplicationWrapper.user?.let { viewState.showProfile(it) }
+        profile?.let { viewState.showProfile(it) }
 
         //todo запрос оправляется как только мы хотим показать профиль после логина
        /* Api.Users.getAccount()
@@ -110,7 +110,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         val imageSize = imageFile?.let {
             it.length() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE)
         }
-        viewState.showProgress(true)
+      //  viewState.showProgress(true)
         //save image
         imageFile?.let {
             imageSize?.let {
@@ -340,14 +340,15 @@ fun chengeMyProfile(updProfile: UpdateProfile) {
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
                 it
-                ApplicationWrapper.user = it
+                Settings.set(it)
+               // ApplicationWrapper.user = it
               //  viewState.showNewInfo(it)
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
                 router?.exitWithResult(SCANNER_REQUEST_CODE, it)
             }){
                 it
-                router?.exit()
+             //   router?.exit()
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

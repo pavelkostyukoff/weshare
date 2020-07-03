@@ -42,7 +42,7 @@ interface UserService {
     fun getAccount(): Observable<User>
 
     //todo  Update user profile
-    @PATCH("users/me")
+    @PATCH("me")
     fun updateProfile(@Body updProfile: UpdateProfile): Observable<User>
 
     //todo    Update user avatar

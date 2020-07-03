@@ -81,7 +81,7 @@ class EditProfile : FragmentWrapper(),
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // showProgress()
+      //  showProgress(false)
         showToolbar(TOOLBAR_HIDE)
         presenter
         //handle nick changes and validate it
