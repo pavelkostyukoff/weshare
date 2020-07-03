@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.pawegio.kandroid.runOnUiThread
@@ -42,7 +43,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     private var isCheckAlreadyExist = false
 
     init {
-        this.profile = ApplicationWrapper.user
+        this.profile = Settings.get()//ApplicationWrapper.user
         ApplicationWrapper.user?.let { viewState.showProfile(it) }
 
         //todo запрос оправляется как только мы хотим показать профиль после логина
@@ -217,7 +218,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     fun hasProfile(): Boolean {
-        if(ApplicationWrapper.instance.profile != null) {
+        if(Settings.get() != null) {
             return true
         } else {
             Settings.logout()
@@ -234,6 +235,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         viewState.openCamera(imageFile!!)
     }
 
+    @SuppressLint("CheckResult")
     override fun onPickerUrlConfirm(url: URL) {
         ImageUtils.download(url.toString())
             .subscribeOn(AndroidSchedulers.mainThread())
@@ -329,7 +331,8 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             })*/
     }
 //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
-    fun chengeMyProfile(updProfile: UpdateProfile) {
+@SuppressLint("CheckResult")
+fun chengeMyProfile(updProfile: UpdateProfile) {
         viewState.showProgress(true)
 
         Api.Users.updateProfile(updProfile)

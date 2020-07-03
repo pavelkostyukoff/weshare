@@ -65,7 +65,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val category = ApplicationWrapper.category
 
     @InjectPresenter
-    lateinit var mAddGoodsPresenter: AddGoodsPresenter
+    lateinit var presenter: AddGoodsPresenter
     private var picker: ImagePickerFragment? = null
     private var pathImg: String? = null
     private var progressDialog: ProgressDialog? = null
@@ -111,7 +111,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (ApplicationWrapper.instance.getAuthorityWish() != null) {
             advert = ApplicationWrapper.instance.getAuthorityWish()!!
-            mAddGoodsPresenter.newAdvert = advert //todo должно решить проблему
+            presenter.newAdvert = advert //todo должно решить проблему
             Log.e(
                 "Selected_Page",
                 ApplicationWrapper.instance.getAuthorityWish()!!.title.toString()
@@ -174,15 +174,15 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             }
         }
-        if (mAddGoodsPresenter.goodId.isEmpty()) {
-            mAddGoodsPresenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
-            if (mAddGoodsPresenter.goodId.isEmpty()) {
-                mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+        if (presenter.goodId.isEmpty()) {
+            presenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
+            if (presenter.goodId.isEmpty()) {
+                presenter.goodId = ApplicationWrapper.instance.goodId!!
             } else {
-                if (mAddGoodsPresenter.goodId != "null") {
-                    ApplicationWrapper.instance.goodId = mAddGoodsPresenter.goodId
+                if (presenter.goodId != "null") {
+                    ApplicationWrapper.instance.goodId = presenter.goodId
                 } else {
-                    mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+                    presenter.goodId = ApplicationWrapper.instance.goodId!!
                 }
             }
         }
@@ -191,7 +191,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 ""
             )
         ) {
-            mAddGoodsPresenter.goodId = ApplicationWrapper.instance.goodId!!
+            presenter.goodId = ApplicationWrapper.instance.goodId!!
         }
         //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
         //    val advert = arguments?.getSerializable(DATA_KEY) as? Advert
@@ -205,7 +205,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
 
         advertTitle.addTextChangedListener(WishNameToDescriptionWatcher(
-            mAddGoodsPresenter.nameMaxLength
+            presenter.nameMaxLength
         ) { s ->
             advertDiscription.text?.clear()
             advertDiscription.text?.append(s)
@@ -214,7 +214,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         advertTitle.addTextChangedListener(
             WishEditPresenterReporterWatcher(
-                mAddGoodsPresenter,
+                presenter,
                 AddGoodsPresenter.Field.NAME
             )
         )
@@ -229,7 +229,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         advertDiscription.addTextChangedListener(
             WishEditPresenterReporterWatcher(
-                mAddGoodsPresenter,
+                presenter,
                 AddGoodsPresenter.Field.DESCRIPTION
             )
         )
@@ -243,7 +243,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //  wishUrlEditText.addTextChangedListener(WishEditPresenterReporterWatcher(presenter = presenter, field = WishEditPresenter.Field.WISH_URL))
         advertAmount.addTextChangedListener(
             WishEditPresenterReporterWatcher(
-                mAddGoodsPresenter,
+                presenter,
                 AddGoodsPresenter.Field.PRICE
             )
         )
@@ -257,7 +257,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         searchEditText.addTextChangedListener(
             WishEditPresenterReporterWatcher(
-                mAddGoodsPresenter,
+                presenter,
                 AddGoodsPresenter.Field.ADRESS
             )
         )
@@ -333,13 +333,19 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         })
         save.setOnClickListener {
             try {
-                if (searchEditText.text.isEmpty()) {
+                if (searchEditText.text.isEmpty() && searchEditText.text.startsWith("null")) {
                     toast("Заполните адресс")
                 } else if (advertAmount.text.toString() == "0.0" || advertAmount.text.toString() == "0" || advertAmount.text!!.isEmpty()) {
                     toast("Заполните сумму")
-                } else {
+                }
+                else if (advertTitle.length() < 5) {
+                    toast("Название должно быть не менее 5 символов")
+                }
+
+
+                else {
                     setPeriods()
-                    mAddGoodsPresenter.checkEditFieldsOrImage(advert)
+                    presenter.checkEditFieldsOrImage(advert)
                 }
             } catch (e: Exception) {
 
@@ -381,7 +387,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     //todo размещаем поля - если мы зашли в режим редактрования объявления
     private fun setLoadedWishView(advert: Advert) {
         this.advert = advert
-        setConfirmButtonState(mAddGoodsPresenter.isValid(advert))
+        setConfirmButtonState(presenter.isValid(advert))
         //   wishUrlEditText.setText(wish.url)
         // presenter.newWish.images = wish.images
         //todo установить Название
@@ -404,8 +410,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
 
         //for check edit fields
-        mAddGoodsPresenter.editWishName = advert.title
-        mAddGoodsPresenter.editWishDescription = advert.description
+        presenter.editWishName = advert.title
+        presenter.editWishDescription = advert.description
 
         //todo за место этого кода - мы получаем список url и заполняем список
 
@@ -445,7 +451,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                        RentPeriod.Currency.RUB -> currencyOptions.setSelection(2)
                    }*/
                 //for check edit fields
-                mAddGoodsPresenter.editWishAmount = it[0].amount.toString()
+                presenter.editWishAmount = it[0].amount.toString()
                 //todo currency
                 //todo period
             }
@@ -463,8 +469,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                  .centerCrop()
                  .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
                  .into(wishEditImageView)*/
-        mAddGoodsPresenter.imageChanged = true
-        mAddGoodsPresenter.imageFile = file
+        presenter.imageChanged = true
+        presenter.imageFile = file
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //  addImgLayout.visibility = View.GONE
         //todo
@@ -506,7 +512,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun wishImageDelete() {
         //  Picasso.with(context).load(R.drawable.wish_default_img).into(wishEditImageView)
-        mAddGoodsPresenter.imageChanged = true
+        presenter.imageChanged = true
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //   addImgLayout.visibility = View.VISIBLE
     }
@@ -791,7 +797,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 //   bannerItems.add(f)   //todo случайный элемент(resList.random())
                 ApplicationWrapper.instance.myImages?.map { it ->
 
-                    if (mAddGoodsPresenter.goodId == it.id) {
+                    if (presenter.goodId == it.id) {
                         it.images?.map {
                             it.url
                             // advert.bannerItems = it.url as ArrayList<String>
@@ -863,7 +869,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //  }
 
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-            var positionNew = -1
+            var positionNew = pos
+            @SuppressLint("CheckResult")
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
                 newState: Int,
@@ -879,7 +886,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         .delay(1000, TimeUnit.MILLISECONDS)
                         .applySchedulers()
                         .subscribe({
-                            mAddGoodsPresenter.getSubCategory(category?.entities?.get(position))
+                            presenter.getSubCategory(category?.entities?.get(position))
                             advert.categoryId = category?.entities?.get(position)?.id
                             val test = category?.entities?.get(position)?.name
 
@@ -906,10 +913,16 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     //todo 2--------------------2
     private fun initSubCategoryList(entitys: Entitys?) {
+        var position = 0
+        var count = 0
         val listFour = mutableListOf<CarouselItem>()
 
         subCategoryCycleView.captionTextSize = 0
         entitys?.entities?.map {
+            count++
+            if (it.id == advert.categoryId) {
+                position = count
+            }
             it.categoryImg?.let { it1 ->
                 CarouselItem(
                     imageUrl = it1,
@@ -920,6 +933,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         subCategoryCycleView.currentPosition = 0
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+            var positionNew = position
+
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
                 newState: Int,
@@ -939,6 +954,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         }
                     }
                 }
+                positionNew = position
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -988,7 +1004,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            CAMERA_REQUEST_CODE -> mAddGoodsPresenter.onCameraResult()
+            CAMERA_REQUEST_CODE -> presenter.onCameraResult()
             GALLERY_REQUEST_CODE -> consumeGalleryResult(data)
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
@@ -1000,7 +1016,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             val path = activity?.let { it1 -> RealFilePath.getPath(it1, uri) }
             if (path != null) {
                 val file = File(path)
-                mAddGoodsPresenter.onGalleryResult(file)
+                presenter.onGalleryResult(file)
             } else {
                 w("Could not load result from gallary")
             }
@@ -1011,10 +1027,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         activity?.hideKeyboard()
 
         picker = ImagePickerFragment()
-        picker?.listener = mAddGoodsPresenter
+        picker?.listener = presenter
         picker?.isAvatarForm = false
         picker?.pathImage = pathImg
-        picker?.file = mAddGoodsPresenter.imageFile
+        picker?.file = presenter.imageFile
 
         activity?.let {
             RxPermissions(it)

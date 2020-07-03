@@ -6,6 +6,6 @@ import java.io.Serializable
 class Refrash(tocken: String) : Serializable {
 
     @SerializedName("token")
-    var tocken: String = tocken
+    var refreshToken: String = tocken
 
 }

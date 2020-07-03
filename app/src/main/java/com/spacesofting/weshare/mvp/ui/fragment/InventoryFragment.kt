@@ -9,6 +9,7 @@ import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.presentation.presenter.InventoryPresenter
 import com.spacesofting.weshare.mvp.presentation.view.InventoryView
@@ -126,7 +127,8 @@ class InventoryFragment : FragmentWrapper(),
     }
     private fun nameUpdate()
     {
-        val result  = ApplicationWrapper.instance.profile
+
+        val result  = Settings.get()
 
         /*if (result == null)
         {

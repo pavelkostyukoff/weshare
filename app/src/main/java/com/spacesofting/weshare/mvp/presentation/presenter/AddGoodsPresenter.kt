@@ -155,7 +155,13 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         when (field) {
             Field.IMAGE -> imageChanged = true
             Field.DESCRIPTION -> newAdvert.description = value
-            Field.NAME -> newAdvert.title = value
+            Field.NAME ->
+            {
+             /*   if (value?.length!! < 5) {
+                    viewState.showToast(R.string.min_title_mane_advert)
+                }*/
+                newAdvert.title = value
+            }
             Field.ADRESS -> addressIsNotNill = value.toString()
             Field.PRICE -> {
                 priceIsNotNill = value.toString()
@@ -189,7 +195,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 }
             }, 500)
         }*/
-        if (newAdvert.title == null) {
+        if (newAdvert.title == null ) {
             //   newAdvert.rentPeriods = price
             viewState.emptyTitle(true)
         } else {

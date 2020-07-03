@@ -205,7 +205,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
     }
 
     fun hasProfile(): Boolean {
-        if (ApplicationWrapper.instance?.profile != null) {
+        if (Settings.get() != null) {
             return true
         } else {
             Settings.logout()

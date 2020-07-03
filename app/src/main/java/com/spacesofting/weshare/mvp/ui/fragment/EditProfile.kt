@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -75,13 +76,14 @@ class EditProfile : FragmentWrapper(),
     }
 
     @InjectPresenter
-    lateinit var mEditProfilePresenter: EditProfilePresenter
+    lateinit var presenter: EditProfilePresenter
 
+    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        // showProgress()
         showToolbar(TOOLBAR_HIDE)
-        mEditProfilePresenter
+        presenter
         //handle nick changes and validate it
         RxTextView.afterTextChangeEvents(nickName)
             .debounce(500, TimeUnit.MILLISECONDS)
@@ -93,7 +95,7 @@ class EditProfile : FragmentWrapper(),
                 if (newValue != null && newValue != nickName.text.toString()) {
                     nickName.text.replace(0, nickName.text.length, newValue)
                 }
-                mEditProfilePresenter.fieldChanged(newValue, EditProfilePresenter.Field.NICK)
+                presenter.fieldChanged(newValue, EditProfilePresenter.Field.NICK)
             }
 
         nickName.setOnFocusChangeListener { view, isFocused ->
@@ -112,7 +114,7 @@ class EditProfile : FragmentWrapper(),
         }
 
         avatarO.setOnClickListener { showPhotoPicker() }
-        delPhoto.setOnClickListener { mEditProfilePresenter.deletePhoto() }
+        delPhoto.setOnClickListener { presenter.deletePhoto() }
 
         saveProfile.setOnClickListener {
             // profile: User
@@ -122,7 +124,7 @@ class EditProfile : FragmentWrapper(),
             updProfile.phone = phone.text.toString()
             updProfile.lastName = name.text.toString()
             //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
-            mEditProfilePresenter.chengeMyProfile(updProfile)
+            presenter.chengeMyProfile(updProfile)
         }
     }
   /*  override fun onSupportNavigateUp(): Boolean {
@@ -323,7 +325,7 @@ class EditProfile : FragmentWrapper(),
     }
 
     override fun close() {
-        if (!mEditProfilePresenter.hasProfile()) {
+        if (!presenter.hasProfile()) {
           //  router.navigateTo(ScreenPool.FEED_FRAGMENT)
             router.backTo(ScreenPool.INVENTORY_FRAGMENT)
         }
@@ -333,9 +335,9 @@ class EditProfile : FragmentWrapper(),
 
     fun showPhotoPicker() {
         picker = ImagePickerFragment()
-        picker.listener = mEditProfilePresenter
+        picker.listener = presenter
         picker.pathImage = pathImg
-        picker.file = mEditProfilePresenter.imageFile
+        picker.file = presenter.imageFile
 
         activity?.let {
             RxPermissions(it)
@@ -382,7 +384,7 @@ class EditProfile : FragmentWrapper(),
         if (code == Activity.RESULT_OK) {
             when (requestCode) {
                 CAMERA_REQUEST_CODE -> {
-                    mEditProfilePresenter.onCameraResult()
+                    presenter.onCameraResult()
                     return
                 }
                 GALLERY_REQUEST_CODE -> {
@@ -402,7 +404,7 @@ class EditProfile : FragmentWrapper(),
 
             if (path != null) {
                 val file = File(path)
-                mEditProfilePresenter.onGalleryResult(file)
+                presenter.onGalleryResult(file)
             } else {
                 w("Could not load path from Gallery")
             }

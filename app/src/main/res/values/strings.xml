@@ -244,6 +244,10 @@
     <!-- SEARCH -->
     <string name="search_hint">Введите поисковый запрос</string>
 
+
+    <string name="min_title_mane_advert">Минимальное описание от 5 символов</string>
+
+
     <!-- BASE_GUEST_MANAGER -->
     <string name="base_guest_manager_all_tab">Все</string>
     <string name="base_guest_manager_my_guests_tab">Мои гости</string>

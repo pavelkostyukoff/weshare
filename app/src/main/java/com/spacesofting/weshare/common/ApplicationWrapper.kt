@@ -28,9 +28,11 @@ import java.io.File
 class ApplicationWrapper : MultiDexApplication() {
     private var component: AppComponent? = null
 
+
+
     private var doAuthtorizedWish: Advert? = null
         private var photoPath: File? = null
-        var profile: User? = null
+      //  var profile: User? = null
         var isDesireToAuthorize: Boolean = false
         val APPSFLYER = "a7vkdKBUKnfGBnz5BahSRd"
         val ONE_LINK_ID = "vVZC"
@@ -38,7 +40,9 @@ class ApplicationWrapper : MultiDexApplication() {
         var sharingWishID = 0
         var goodId: String? = ""
         var idForEdit: String? = null
-        var myImages: ArrayList<RespounceDataMyAdverts>? = null
+       // var profile : User? = gson.fromJson(Settings.json2, User::class.java)
+
+    var myImages: ArrayList<RespounceDataMyAdverts>? = null
 
 
     companion object {
@@ -54,7 +58,6 @@ class ApplicationWrapper : MultiDexApplication() {
         var category: Entitys? = null
 
         lateinit var mailAutorize : Login
-
         //  lateinit var updProfile: UpdateProfile
     }
 

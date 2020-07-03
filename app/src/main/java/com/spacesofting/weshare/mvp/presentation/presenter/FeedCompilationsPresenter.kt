@@ -5,6 +5,7 @@ import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Compilation
+import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
@@ -17,6 +18,7 @@ import java.util.*
 
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
+        var user :User? = null
         var default: WishList? = null
         val ITEMS_PER_PAGE = 20
         val ITEMS_PER_PAGE_WISH_LIST = 5
@@ -25,14 +27,15 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var paginateLoading = false
 
     init {
-        if (ApplicationWrapper.instance.profile == null)
+        user = Settings.get()
+        if (user == null)
         {
             with(Api) {
                 Users.getAccount()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ profile ->
-                            ApplicationWrapper.instance.profile = profile
+                            Settings.set(profile)
                         }, { e ->
                         })
             }

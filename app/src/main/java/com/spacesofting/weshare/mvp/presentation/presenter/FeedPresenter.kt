@@ -157,7 +157,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
     }
 
     fun handleWishToAdd() {
-        if (ApplicationWrapper.instance.profile == null)
+      /*  if (ApplicationWrapper.instance.profile == null)
         {
             Api.Users.getAccount()
                 .subscribeOn(Schedulers.io())
@@ -174,7 +174,7 @@ class FeedPresenter : MvpPresenter<FeedView>() {
                 viewState.editWish(Wish(it, defaultList!!.id!!))
             }
             wishToAdd = null
-        }
+        }*/
     }
 
     fun onNewTemplatesRequired(mode: FeedFragment.ListLoadingMode, page: Int) {

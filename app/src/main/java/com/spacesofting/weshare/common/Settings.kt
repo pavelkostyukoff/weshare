@@ -1,10 +1,14 @@
 package com.spacesofting.weshare.common
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.text.TextUtils
+import com.google.gson.Gson
 import com.spacesofting.weshare.BuildConfig
 import com.spacesofting.weshare.mvp.RoleEnum
+import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
 import okhttp3.MediaType
@@ -21,11 +25,13 @@ import kotlin.collections.LinkedHashMap
 
 
 object Settings {
+
     private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.instance)
     private val KEY_API_NAME = "key_api_name"
     private val KEY_ACCESS_TOKEN = "key_access_token"
     private val KEY_VALIDATION_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
+    private val PROFILE = "profile"
     private val KEY_ACCESS_TOKEN_ANONYMOUS = "key_access_token_anon"
     private val IS_A_ANONYMOUS = "is_anonymous_user"
     private val KEY_ROLE = "key_role"
@@ -41,13 +47,70 @@ object Settings {
 /*
     init {
         isAuthorized = AccessToken != null
+
     }*/
+/*var myObject =  User()
+    var profile: String
+        get() = PREFERENCES.getString(PROFILE, "")!!
+
+        set(value) {
+            PREFERENCES.edit().putString(PROFILE, value).apply()
+        }*/
+
+    /*fun getProfile(): User? {
+       *//* val gson = Gson()
+        val json = PREFERENCES.getString("MyObject", "")
+        return gson.fromJson(json, User::class.java)*//*
+    }*/
+
+
+
+    fun setProfile(pr : User) {
+      /*  val gson =  Gson();
+        val json = gson.toJson(pr);
+        PREFERENCES.edit().putString("MyObject", json);
+        PREFERENCES.edit().commit();*/
+    }
+
     var apiPathName: String
         get() = PREFERENCES.getString(KEY_API_NAME, "PROD")!!
         set(value) {
             PREFERENCES.edit().putString(KEY_API_NAME, value).apply()
         }
 
+    fun get(): User? {
+        val gson = Gson()
+        val json = PREFERENCES.getString(PROFILE, "")
+        return gson.fromJson(json, User::class.java)
+    }
+
+    fun set(user : User) {
+        val gson = Gson()
+        val json = gson.toJson(user);
+        profi = json
+    }
+
+    var profi: String
+        get() = PREFERENCES.getString(PROFILE, "PROD")!!
+        set(value) {
+            PREFERENCES.edit().putString(PROFILE, value).apply()
+        }
+
+    fun saveData(
+    )
+    {
+
+    }
+
+
+    fun getData(
+        con: Context?,
+        variable: String?,
+        defaultValue: String?
+    ): String? {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(con)
+        return prefs.getString(variable, defaultValue)
+    }
     var ApiPath: String
         get() {
             val path = BuildConfig.API_PATHS[apiPathName]

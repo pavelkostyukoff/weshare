@@ -48,6 +48,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             }
     }
 
+    @SuppressLint("CheckResult")
     fun loginMailRequest(mail: Mail) {
         Api.Users.reqestMeil(mail)
             .subscribeOn(Schedulers.io())
@@ -94,7 +95,8 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                                 profile ->
-                            ApplicationWrapper.instance.profile = profile
+
+                            Settings.set(profile)
                             router.newRootScreen(ScreenPool.FEED_FRAGMENT)
                         }, { e ->
                             e.message?.let { viewState.toastError(it) }
