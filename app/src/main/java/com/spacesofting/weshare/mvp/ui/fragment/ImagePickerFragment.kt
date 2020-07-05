@@ -224,9 +224,11 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                 WishEditActivity.imgHeight = newH*/
 
                 Picasso.with(activity)
+                        //.load(ImageUtils.resolveImagePath(file.toString()))
                         .load(file)
-                        .memoryPolicy(MemoryPolicy.NO_STORE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                      /*  .memoryPolicy(MemoryPolicy.NO_STORE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)*/
+
                         .resize(newW, newH)
                         .into(editImg,
                                 object : Callback {

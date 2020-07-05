@@ -4,8 +4,10 @@ import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Refrash
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.util.concurrent.Callable
 
 interface AuthService {
 
@@ -13,7 +15,7 @@ interface AuthService {
     fun autorize(@Body mail: Login): Observable<Autorize>
 
     @POST("auth/refresh-token")  //todo Refresh token
-    fun getNewToken(@Body refreshToken: Refrash): Observable<Autorize>
+    fun getNewToken(@Body refreshToken: Refrash): Single<Autorize>
 
    /* @POST("auth/otp")
     fun register(@Body registration: Autorize, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>

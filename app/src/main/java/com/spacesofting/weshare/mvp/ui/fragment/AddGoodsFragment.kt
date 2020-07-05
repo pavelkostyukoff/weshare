@@ -624,7 +624,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         try {
             picker?.setImage(file)
         } catch (e: Exception) {
-
+            e
         }
     }
 

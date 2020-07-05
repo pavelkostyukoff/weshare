@@ -78,7 +78,7 @@ class ImageUtils {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
-            if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.getPackageManager()) != null) {
+            if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
                 // Continue only if the File was successfully created
                 //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
                 val photoURI =
