@@ -181,7 +181,7 @@ return R.layout.fragment_compilation   }
         if(imgName == null){
             avatarCompilation.setImageResource(R.drawable.ic_avatar_placeholder)
         } else {
-            Picasso.with(activity).load(ImageUtils.resolveImagePath(imgName)).into(avatarCompilation)
+            Picasso.with(context).load(ImageUtils.resolveImagePath(imgName)).into(avatarCompilation)
         }
     }
 

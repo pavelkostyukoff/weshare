@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
+import kotlinx.android.synthetic.main.image_picker_fragment.*
 import java.io.File
 
 
@@ -51,7 +54,15 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
                 .load(output)//"http://i.imgur.com/DvpvklR.png")//dataset[position])
                 .error(R.drawable.wish_default_img)
                 // .transform(RoundedCorners(radius))
-                .into(holder.wishEditImageView)
+                .into(holder.wishEditImageView,
+                    object : Callback {
+                        override fun onSuccess() {
+                            output
+                        }
+
+                        override fun onError() {
+                            output                        }
+                    })
         }
         else {
             val f = File(dataset[position])

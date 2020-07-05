@@ -39,7 +39,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.CAMERA)
-                .subscribe { granted ->
+                .subscribe { _ ->
                     val intent = ImageUtils.takePhotoIntent(file)
                     startActivityForResult(intent, CAMERA_REQUEST_CODE)
                 }
@@ -59,6 +59,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     var pathImage: String? = null
     var file: File? = null
     var avatar: ImageView? = null
+    private var imgID: com.makeramen.roundedimageview.RoundedImageView? = null
     private var uploadBtn: ImageButton? = null
     private var linkIcon: ImageView? = null
     var galleryPermissionGranted: Boolean = false
@@ -71,6 +72,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         super.onViewCreated(view, savedInstanceState)
         initAvatar()
         val scrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        imgID = view.findViewById(R.id.editImg)
         val galleryButton = view.findViewById<LinearLayout>(R.id.pickerGalleryButton)
         avatar = view.findViewById(R.id.editAvatar)
      //   uploadBtn = view?.findViewById(R.id.uploadBtn)
@@ -82,8 +84,9 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
         if (!isAvatarForm) {
             view.findViewById<TextView>(R.id.pickerTitle)?.visibility = View.GONE
-            editAvatar.visibility = View.GONE
-            editImg.visibility = View.VISIBLE
+            imgID?.visibility = View.VISIBLE
+
+           // editAvatar.visibility = View.GONE
             view.findViewById<ConstraintLayout>(R.id.rootLayout)?.setBackgroundColor(resources.getColor(R.color.profile_background))
         }
 
@@ -107,7 +110,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         //camera
         view.findViewById<LinearLayout>(R.id.pickerCameraButton)?.setOnClickListener { listener?.onPickerCameraClick() }
         //confirm
-        view.findViewById<ImageButton>(R.id.confirm)?.setOnClickListener { confirmPressed() }
+        confirm.setOnClickListener { confirmPressed() }
         //upload
       //  view?.findViewById<ImageButton>(R.id.uploadBtn)?.setOnClickListener { confirmUrl() }
 
@@ -116,7 +119,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         } else {
             galleryButton?.visibility = View.INVISIBLE
         }
-        editImg.viewTreeObserver.addOnGlobalLayoutListener(this)
+       // editImg.viewTreeObserver.addOnGlobalLayoutListener(this)
     }
 
 
@@ -133,7 +136,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         } else if (pathImage != null) {
             listener?.onPickerUrlConfirm(URL(pathImage))
         }
-        editImg.viewTreeObserver.removeOnGlobalLayoutListener(this)
+      //  editImg.viewTreeObserver.removeOnGlobalLayoutListener(this)
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -160,7 +163,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     fun initAvatar()
     {
         if (ApplicationWrapper.avatar != null) {
-            Picasso.with(activity)
+            Picasso.with(context)
                 .load(ApplicationWrapper.avatar)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
@@ -190,7 +193,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
             ApplicationWrapper.file = file
 
 
-            Picasso.with(activity)
+            Picasso.with(context)
                     .load(file)
                     .centerCrop()
                     .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
@@ -223,23 +226,21 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
               /*  WishEditActivity.imgWidth = newW
                 WishEditActivity.imgHeight = newH*/
 
-                Picasso.with(activity)
-                        //.load(ImageUtils.resolveImagePath(file.toString()))
-                        .load(file)
-                      /*  .memoryPolicy(MemoryPolicy.NO_STORE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)*/
+                Picasso.with(imgID?.context)
+                    .load(file)
+              /*      .memoryPolicy(MemoryPolicy.NO_STORE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)*/
+                    .resize(newW, newH)
+                    .into(imgID,
+                        object : Callback {
+                            override fun onSuccess() {
+                                loadImageProgress?.visible = false
+                            }
 
-                        .resize(newW, newH)
-                        .into(editImg,
-                                object : Callback {
-                                    override fun onSuccess() {
-                                        loadImageProgress?.visible = false
-                                    }
-
-                                    override fun onError() {
-                                        loadImageProgress?.visible = false
-                                    }
-                                })
+                            override fun onError() {
+                                loadImageProgress?.visible = false
+                            }
+                        })
             } ?: run {
                 loadImageProgress?.visible = false
             }
@@ -265,7 +266,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
     private fun confirmPressed() {
       //  activity.hideKeyboard()
-        Picasso.with(context).load(R.drawable.wish_default_img).into(editImg)
+        Picasso.with(context).load(R.drawable.wish_default_img).into(view?.findViewById<ImageView>(R.id.editImg))
        // file = null
         listener?.onEditPhotoConfirmClick()
         finish()
@@ -281,11 +282,13 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
     }
 
     private fun finish() {
-        activity!!.fragmentManager
+        activity?.run {
+            fragmentManager
                 .beginTransaction()
                 .remove(Fragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit()
+        }
         fragmentManager?.popBackStack()
         this.onDetach()
 

@@ -159,7 +159,7 @@ class InventoryFragment : FragmentWrapper(),
     {
         if (avatar != null)
         {
-            Picasso.with(activity)
+            Picasso.with(context)
                 .load(avatar)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)

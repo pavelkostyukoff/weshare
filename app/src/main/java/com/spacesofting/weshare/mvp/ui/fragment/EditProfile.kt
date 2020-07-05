@@ -151,7 +151,7 @@ class EditProfile : FragmentWrapper(),
 
         if (img.url != null)
         {
-            Picasso.with(activity)
+            Picasso.with(context)
                 .load(img.url.toString())
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
@@ -193,7 +193,7 @@ class EditProfile : FragmentWrapper(),
       //  saveProfile.isEnabled = true
         if (avatar != null)
         {
-            Picasso.with(activity)
+            Picasso.with(context)
                 .load(avatar)
                 .placeholder(R.drawable.ic_avatar_placeholder)
                 .centerCrop()
@@ -263,7 +263,7 @@ class EditProfile : FragmentWrapper(),
     {
         avatar = R.drawable.ic_avatar_placeholder.toString()
         progress.visible = true
-        Picasso.with(activity)
+        Picasso.with(context)
             .load(avatar)
             .placeholder(R.drawable.ic_avatar_placeholder)
             .centerCrop()
@@ -369,7 +369,7 @@ class EditProfile : FragmentWrapper(),
 
     override fun showImage(file: File) {
         //show image
-        Picasso.with(activity).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
+        Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
        // Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         newAvatar = true
     }
