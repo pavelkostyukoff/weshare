@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import moxy.presenter.InjectPresenter
@@ -112,12 +113,13 @@ return R.layout.fragment_feed
             feedPresenter.pull2refresh()
         }
     }
-
     override fun onResume() {
         super.onResume()
-       /* if(!(activity as NavigationActivity).isMyProfile()){
-            return
-        }*/
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+
+        /* if(!(activity as NavigationActivity).isMyProfile()){
+             return
+         }*/
         feedPresenter.handleWishToAdd()
         currentListLoadingMode =
             ListLoadingMode.FEED

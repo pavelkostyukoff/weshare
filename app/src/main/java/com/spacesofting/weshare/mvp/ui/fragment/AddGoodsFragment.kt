@@ -61,7 +61,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val GALLERY_REQUEST_CODE = 2
     private val isNewAdvert = false
 
-    private var adapterBaner: MyCyclePagerAdapter? = null
+    private var  adapterBaner = MyCyclePagerAdapter()
     private val category = ApplicationWrapper.category
 
     @InjectPresenter
@@ -790,7 +790,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     @SuppressLint("ResourceType")
     private fun initBanners() {
         bannerItemsFake.clear()
-        adapterBaner = MyCyclePagerAdapter()
+
         adapterBaner?.setOnCardClickListener(this)
         if (ApplicationWrapper.instance.myImages != null && advert.bannerItems.isEmpty()) {
             if (ApplicationWrapper.instance.myImages!!.isNotEmpty()) {
@@ -809,22 +809,22 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
                 if (advert.bannerItems.isEmpty()) {
                     bannerItemsFake.add(" ")
-                    adapterBaner?.dataset = bannerItemsFake
-                    adapterBaner?.notifyDataSetChanged()
+                    adapterBaner.dataset = bannerItemsFake
+                    adapterBaner.notifyDataSetChanged()
                 } else {
-                    adapterBaner?.dataset = advert.bannerItems
-                    adapterBaner?.notifyDataSetChanged()
+                    adapterBaner.dataset = advert.bannerItems
+                    adapterBaner.notifyDataSetChanged()
                 }
             } else {
                 bannerItemsFake.add(" ")
-                adapterBaner?.dataset = bannerItemsFake
-                adapterBaner?.notifyDataSetChanged()
+                adapterBaner.dataset = bannerItemsFake
+                adapterBaner.notifyDataSetChanged()
             }
 
 
         } else {
-            adapterBaner?.dataset = advert.bannerItems
-            adapterBaner?.notifyDataSetChanged()
+            adapterBaner.dataset = advert.bannerItems
+            adapterBaner.notifyDataSetChanged()
         }
     }
 
@@ -836,6 +836,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapterBaner?.dataset = advert.bannerItems
         btn_remove.visible = advert.bannerItems.isNotEmpty()
         adapterBaner?.notifyDataSetChanged()
+
+        //initBanners()
+
     }
 
     //todo 1--------------------1

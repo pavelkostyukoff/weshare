@@ -55,7 +55,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     override fun onEditPhotoConfirmClick() {
         imageFile?.let {
             //  viewState.showWishImage(it)
-            // savePhoto()
+          //   savePhoto()
             imageChanged = true
             saveImageOrCompress()
         }
@@ -379,7 +379,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     }
 
     override fun onPickerCameraClick() {
-        imageFile = ImageUtils.savePhotoFile()
+        imageFile = ImageUtils.createImageFile() //savePhotoFile
         imageFile?.let {
             viewState.openCamera(it)
         }

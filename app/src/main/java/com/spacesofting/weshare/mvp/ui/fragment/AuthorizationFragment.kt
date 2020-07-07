@@ -8,6 +8,7 @@ import android.os.CountDownTimer
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -247,7 +248,7 @@ class AuthorizationFragment : FragmentWrapper(),
         //        toast(R.string.auth_incorrect_all)
         //    }
     //    }
-     //   keyboard.attachEditText(inputNumber)
+        //keyboard.attachEditText(inputNumber)
         //todo botton presenter.registration(Login)
     }
 
@@ -286,7 +287,7 @@ class AuthorizationFragment : FragmentWrapper(),
         super.onResume()
 
         //fix emerging keyboard after recovery state app
-      //  activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
     /**

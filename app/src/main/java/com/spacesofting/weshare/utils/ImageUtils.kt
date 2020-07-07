@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import com.spacesofting.weshare.api.Api
@@ -22,15 +23,18 @@ import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.net.URL
 import java.net.URLEncoder
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ImageUtils {
 
     companion object {
         val CACHE = ApplicationWrapper.instance.cacheDir?.path
-
+        lateinit var imageFilePath: String
         fun convertToGrayscale(drawable: Drawable): Drawable {
             val matrix = ColorMatrix()
             matrix.setSaturation(0f)
@@ -66,6 +70,21 @@ class ImageUtils {
             val file = File("$CACHE/${System.currentTimeMillis()}.png") //TODO: check image format
             return file
         }
+
+
+
+        fun createImageFile(): File {
+            val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(
+                Date()
+            )
+            val imageFileName: String = "JPEG_" + timeStamp + "_"
+            val storageDir: File = ApplicationWrapper.context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            if(!storageDir.exists()) storageDir.mkdirs()
+            val imageFile = File.createTempFile(imageFileName, ".jpg", storageDir)
+            imageFilePath = imageFile.absolutePath
+            return imageFile
+        }
+
         fun savePhotoFile(files :String): File {
             val file = File("$files")
             return file
@@ -81,9 +100,12 @@ class ImageUtils {
             if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
                 // Continue only if the File was successfully created
                 //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
-                val photoURI =
-                    ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                /*val photoURI =
+                    ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }*/
+
+                val authorities = ApplicationWrapper.context.packageName + ".fileprovider"
+                val imageUri = FileProvider.getUriForFile(ApplicationWrapper.context, authorities, file)
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             }
 
             return takePictureIntent

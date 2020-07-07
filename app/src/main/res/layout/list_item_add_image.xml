@@ -37,7 +37,7 @@
                 android:minHeight="180dp">
 
             <ImageView
-                    android:id="@+id/wishEditImageView"
+                    android:id="@+id/wishEditImageView2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -47,6 +47,7 @@
 
             <LinearLayout
                     android:id="@+id/addImgLayout"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -36,7 +36,7 @@ object Settings {
     private val IS_A_ANONYMOUS = "is_anonymous_user"
     private val KEY_ROLE = "key_role"
     val LIMIT_IMAGE_SIZE = 1
-    val THE_SIZE_OF_A_MEGABYTE = 1024//920///1024
+    val THE_SIZE_OF_A_MEGABYTE = 920//920///1024
 
     private var isAuthenticated = false
     var isAnonymousUser: Boolean

@@ -2,6 +2,7 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.app.Fragment
 import android.app.FragmentTransaction
+import android.gesture.GestureLibraries
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -223,15 +225,25 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                     newW = (newW.toDouble() * scaleFactor).toInt()
                 }
 
-              /*  WishEditActivity.imgWidth = newW
+                /*  WishEditActivity.imgWidth = newW
                 WishEditActivity.imgHeight = newH*/
 
-                Picasso.with(imgID?.context)
+                imgID?.let { it1 ->
+                    Glide
+                        .with(this)
+                        .load(file)
+                        .into(it1)
+                }.run {
+                    loadImageProgress.visibility = View.GONE
+                }
+
+            }
+              /*  Picasso.with(imgID?.context)
                     .load(file)
-              /*      .memoryPolicy(MemoryPolicy.NO_STORE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)*/
-                    .resize(newW, newH)
-                    .into(imgID,
+                   *//* .memoryPolicy(MemoryPolicy.NO_STORE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)*//*
+                    .resize(2500, 1825)
+                    .into(imgID*//*,
                         object : Callback {
                             override fun onSuccess() {
                                 loadImageProgress?.visible = false
@@ -240,10 +252,10 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                             override fun onError() {
                                 loadImageProgress?.visible = false
                             }
-                        })
-            } ?: run {
+                        }*//*)
+            }*/ /*?: run {
                 loadImageProgress?.visible = false
-            }
+            }*/
         }
     }
 
@@ -266,7 +278,7 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
 
     private fun confirmPressed() {
       //  activity.hideKeyboard()
-        Picasso.with(context).load(R.drawable.wish_default_img).into(view?.findViewById<ImageView>(R.id.editImg))
+      //  Picasso.with(context).load(R.drawable.wish_default_img).into(view?.findViewById<ImageView>(R.id.editImg))
        // file = null
         listener?.onEditPhotoConfirmClick()
         finish()

@@ -98,11 +98,11 @@
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bg_upload_big_button"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="@+id/wishEditImageView"
-                    app:layout_constraintTop_toTopOf="@+id/wishEditImageView" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                     android:id="@+id/dellImage"
