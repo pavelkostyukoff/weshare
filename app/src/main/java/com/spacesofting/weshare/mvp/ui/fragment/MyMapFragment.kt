@@ -5,7 +5,6 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.LocationListener
 import com.pawegio.kandroid.toast
 import com.spacesofting.weshare.R
@@ -30,25 +29,27 @@ import moxy.presenter.InjectPresenter
 class MyMapFragment : FragmentWrapper(),
     MapViewMaps, LocationListener {
     override fun onLocationChanged(p0: Location?) {
-      //  lng = p0?.longitude.toString()
-      //  lat= p0?.latitude.toString()
+        //  lng = p0?.longitude.toString()
+        //  lat= p0?.latitude.toString()
 
-        val lat =  (p0?.latitude)
-        val  lng = (p0?.longitude)
+        val lat = (p0?.latitude)
+        val lng = (p0?.longitude)
         latMain = lat.toString()
         lngMain = lng.toString()
     }
+
     private var latMain = String()
     private var lngMain = String()
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
     private val TARGET_LOCATION: Point? =
         Point(59.945933, 30.320045)
+
     //private val TARGET_LOCATION = Point(59.956, 30.313)
     private val ANIMATED_RECTANGLE_CENTER = Point(59.956, 30.313)
     private val DRAGGABLE_PLACEMARK_CENTER = Point(59.948, 30.323)
     var catAdapter: CategoryAdapter? = null
-    var lat = String()
-    var loe = String()
+    private var lat = String()
+    private var loe = String()
 
     // //  private var lat = String
     private var mapObjects: MapObjectCollection? = null
@@ -61,7 +62,7 @@ class MyMapFragment : FragmentWrapper(),
     companion object {
         const val TAG = "MyMapFragment"
 
-fun newInstance(): MyMapFragment {
+        fun newInstance(): MyMapFragment {
             val fragment: MyMapFragment =
                 MyMapFragment()
             val args: Bundle = Bundle()
@@ -83,34 +84,30 @@ fun newInstance(): MyMapFragment {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         initListItems()
-        /*mapview.map.move(
-            CameraPosition(TARGET_LOCATION!!, 14.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 5F),
-            null
-        )*/
 
 
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe {
-                    it
-                    val locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+                    val locationManager =
+                        context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
                     try {
-                      val  location =
-                          locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+                        val location =
+                            locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)//GPS_PROVIDER
                         val one = location?.latitude
                         val two = location?.longitude
                         lat = one.toString()
                         loe = two.toString()
                         // Укажите имя activity вместо map.
                         mapview?.map?.move(
-                            CameraPosition(Point(one!!,two!!), 14.0f, 0.0f, 0.0f),
+                            CameraPosition(Point(one!!, two!!), 14.0f, 0.0f, 0.0f),
                             Animation(Animation.Type.LINEAR, 4f),
                             null
                         )
                     } catch (e: SecurityException) {
-                      //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
                         e
                     }
                     createMapObjects()
@@ -118,13 +115,13 @@ fun newInstance(): MyMapFragment {
         }
     }
 
-     override fun onStop() {
+    override fun onStop() {
         super.onStop()
         mapview?.onStop()
         MapKitFactory.getInstance().onStop()
     }
 
-     override fun onStart() {
+    override fun onStart() {
         super.onStart()
         mapview?.onStart()
         MapKitFactory.getInstance().onStart()
@@ -135,12 +132,12 @@ fun newInstance(): MyMapFragment {
         mapObjects = mapview.map.mapObjects.addCollection()
         val marks = ArrayList<Point>()
         marks.add(Point(lat.toDouble(), loe.toDouble()))
-        marks.add(Point(lat.toDouble(), loe.toDouble()+1))
-        marks.add(Point(lat.toDouble(), loe.toDouble()+2))
-        marks.add(Point(lat.toDouble(), loe.toDouble()+3))
+        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.05))
+        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.06))
+        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.07))
 
         for (i in 0 until marks.size) {
-            val mark = mapObjects?.addPlacemark(Point(marks.get(i).latitude, marks.get(i).longitude))
+            val mark = mapObjects?.addPlacemark(Point(marks[i].latitude, marks[i].longitude))
             mark?.opacity = 2.8f
             mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.tools_instruments))
             mark?.addTapListener(YandexMapObjectTapListener())
@@ -149,29 +146,31 @@ fun newInstance(): MyMapFragment {
         val mark = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()))
         mark?.opacity = 2.8f
         mark?.setIcon(ImageProvider.fromResource(activity, R.drawable.transport))
-               mark?.isDraggable = false
+        mark?.isDraggable = false
         mark?.addTapListener(YandexMapObjectTapListener())
 
-        val mark2 = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble()+1))
+        val mark2 = mapObjects?.addPlacemark(Point(lat.toDouble(), loe.toDouble() + 1))
         mark2?.opacity = 2.8f
         mark2?.setIcon(ImageProvider.fromResource(activity, R.drawable.clouse))
         //   mark?.isDraggable = false
         mark2?.addTapListener(YandexMapObjectTapListener())
     }
+
     private inner class YandexMapObjectTapListener : MapObjectTapListener {
-         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
+        override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
             toast("something")
             return true
         }
     }
+
     private fun initListItems() {
         if (catAdapter == null) {
             catAdapter = activity?.let { context?.let { it1 -> CategoryAdapter(mMapPresenter) } }
         }
 
-        val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
-        val one1 = RentItem("12","2",resources.getDrawable(R.drawable.ic_big_car, null))
-        val one2 = RentItem("14","2",resources.getDrawable(R.drawable.ic_kids, null))
+        val one = RentItem("9", "2", resources.getDrawable(R.drawable.dress, null))
+        val one1 = RentItem("12", "2", resources.getDrawable(R.drawable.ic_big_car, null))
+        val one2 = RentItem("14", "2", resources.getDrawable(R.drawable.ic_kids, null))
 
         val filterList = ArrayList<RentItem>()
 
