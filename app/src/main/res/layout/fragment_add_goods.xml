@@ -456,20 +456,6 @@
                         android:textStyle="bold"
                         tools:text="Caption" />
 
-               <!-- <me.relex.circleindicator.CircleIndicator2
-                        android:id="@+id/custom_indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ci_animator="@animator/scale_with_alpha"
-                        app:ci_drawable="@drawable/dot"
-                        android:visibility="gone"
-                        app:ci_drawable_unselected="@drawable/dot" />
--->
-<!--                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#ccc" />-->
-
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/subCategoryCycleView"
                         android:layout_width="match_parent"

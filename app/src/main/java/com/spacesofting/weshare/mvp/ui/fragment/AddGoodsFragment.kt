@@ -61,7 +61,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val GALLERY_REQUEST_CODE = 2
     private val isNewAdvert = false
 
-    private var  adapterBaner = MyCyclePagerAdapter()
+    private var adapterBaner = MyCyclePagerAdapter()
     private val category = ApplicationWrapper.category
 
     @InjectPresenter
@@ -337,13 +337,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     toast("Заполните адресс")
                 } else if (advertAmount.text.toString() == "0.0" || advertAmount.text.toString() == "0" || advertAmount.text!!.isEmpty()) {
                     toast("Заполните сумму")
-                }
-                else if (advertTitle.length() < 5) {
+                } else if (advertTitle.length() < 5) {
                     toast("Название должно быть не менее 5 символов")
-                }
-
-
-                else {
+                } else {
                     setPeriods()
                     presenter.checkEditFieldsOrImage(advert)
                 }
@@ -841,7 +837,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     }
 
-    //todo 1--------------------1
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
         categoryCycleView.captionTextSize = 0
@@ -853,23 +848,18 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 pos = count
             }
 
-            it.categoryImg?.let { it1 ->
+            it.categoryImg?.let { url ->
                 CarouselItem(
-                    imageUrl = it1,
+                    imageUrl = url,
                     caption = it.name
                 )
-            }?.let { it2 ->
+            }?.let { item ->
                 listFour.add(
-                    it2
+                    item
                 )
                 categoryCycleView.addData(listFour)
             }
         }
-
-        //    if (advert != null)
-        //   {
-        //   categoryCycleView.currentPosition = pos
-        //  }
 
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = pos
@@ -892,8 +882,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                             presenter.getSubCategory(category?.entities?.get(position))
                             advert.categoryId = category?.entities?.get(position)?.id
                             val test = category?.entities?.get(position)?.name
-
-                            //todo 1--------------------1
                         }, {
                             it
                             //  loadingViewModel.errorMessage = it.nonNullMessage()
