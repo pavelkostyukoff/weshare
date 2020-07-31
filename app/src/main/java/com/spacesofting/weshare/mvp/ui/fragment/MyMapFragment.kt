@@ -12,6 +12,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.digitalhorizon.eve.ui.widget.IOSSheetDialog
 import com.google.android.gms.location.LocationListener
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
@@ -161,8 +162,6 @@ class MyMapFragment : FragmentWrapper(),
         MapKitFactory.getInstance().onStart()
     }
     //filter
-
-
     private fun openFilter() {
         filterLayout.visible = !filterLayout.visible
         val cs = ConstraintSet()
@@ -173,7 +172,6 @@ class MyMapFragment : FragmentWrapper(),
         TransitionManager.beginDelayedTransition(rootLayout, AutoTransition().setDuration(500))
         cs.applyTo(rootLayout)
         context?.let { ContextCompat.getColor(it, colorId) }?.let { filter.setColorFilter(it) }
-
         /*  if (!filterLayout.visible) {
               //todo запрашивает фильтра с сервера и утсанавливает через презентер
               setFilters()
@@ -217,7 +215,51 @@ class MyMapFragment : FragmentWrapper(),
     private inner class YandexMapObjectTapListener : MapObjectTapListener {
         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
             toast("something")
+            showDialogMore()
             return true
+        }
+    }
+
+    private fun showDialogMore(/*guestCard: GuestCard*/) {
+        context?.let {
+            val dialog = IOSSheetDialog(it)
+                .setTitle(R.string.dialog_chose_action)
+                .setOnSelectedListener(object: IOSSheetDialog.OnSelectedItemListener{
+                    override fun onSelectedItem(btnName: String) {
+                        when(btnName){
+                            getString(R.string.escalate) -> {
+                               // presenter.sendForApprovalGuestCard(guestCard)
+                            }
+                            getString(R.string.change_request) -> {
+                               // showChangeRequestDialog(guestCard)
+                            }
+                            getString(R.string.edit) -> {
+                              //  router.navigateTo(ScreenPool.EDIT_GUEST_CARD_FRAGMENT, guestCard)
+                            }
+                            getString(R.string.remove) -> {
+                              //  presenter.deleteGuestCard(guestCard)
+                            }
+                        }
+                    }
+                })
+
+            /*if (guestCard.guestCardOperations.isEscalate){
+                dialog.addButton(R.string.escalate)
+            }
+
+            if (guestCard.guestCardOperations.isChangeRequest){
+                dialog.addButton(R.string.change_request)
+            }
+
+            if (guestCard.guestCardOperations.isEdit){
+                dialog.addButton(R.string.edit)
+            }
+
+            if (guestCard.guestCardOperations.isDelete){
+                dialog.addButton(R.string.remove, R.color.red_orange)
+            }*/
+
+            dialog.show()
         }
     }
 

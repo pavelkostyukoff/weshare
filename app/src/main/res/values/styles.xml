@@ -27,6 +27,28 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
+    <!-- Alert dialog style -->
+    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="IOSSheetDialog" parent="AlertDialog" />
+
+    <style name="IOSSheetDialog.Item">
+        <item name="android:background">@drawable/btn_with_top_line_dialog_concrete</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@drawable/text_item_chose_dialog</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="IOSSheetDialog.Button" parent="IOSSheetDialog.Item">
+        <item name="android:background">@drawable/btn_corners_dialog_concrete</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="EditTextGreyBorder" parent="EditText">
         <item name="android:background">@drawable/round_corner_grey</item>
     </style>
@@ -63,8 +85,6 @@
         <item name="android:textSize">@dimen/class_text_size</item>
     </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-
 
     <style name="AppTheme.Light" parent="AppTheme">
         <item name="colorPrimary">@color/white</item>
