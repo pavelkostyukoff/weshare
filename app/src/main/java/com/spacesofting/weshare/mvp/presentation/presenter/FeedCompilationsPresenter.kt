@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -53,6 +54,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                 })*/
         }
 
+        @SuppressLint("CheckResult")
         fun loadCompilations() {
             Api.Tags.getCategories("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
                 .observeOn(AndroidSchedulers.mainThread())

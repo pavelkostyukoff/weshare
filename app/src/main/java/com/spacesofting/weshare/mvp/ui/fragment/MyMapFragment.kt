@@ -12,20 +12,17 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.digitalhorizon.eve.ui.widget.IOSSheetDialog
 import com.google.android.gms.location.LocationListener
-import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.Api
-import com.spacesofting.weshare.api.Entity
-import com.spacesofting.weshare.api.Entitys
+import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.mvp.RentItem
 import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
 import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
 import com.spacesofting.weshare.mvp.ui.adapter.CategoryAdapter
+import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
+import com.spacesofting.weshare.mvp.ui.widget.IOSSheetDialog
 import com.spacesofting.weshare.utils.applySchedulers
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yandex.mapkit.Animation
@@ -51,7 +48,7 @@ import java.util.concurrent.TimeUnit
 
 
 class MyMapFragment : FragmentWrapper(),
-    MapViewMaps, LocationListener {
+    MapViewMaps, LocationListener/*, MapObjectTapListener*/ {
     override fun onLocationChanged(p0: Location?) {
         //  lng = p0?.longitude.toString()
         //  lat= p0?.latitude.toString()
@@ -63,6 +60,8 @@ class MyMapFragment : FragmentWrapper(),
     }
     private val category = ApplicationWrapper.category
     private var latMain = String()
+    private var arrList = Entitys()
+    val count =  0.07
 
     private var lngMain = String()
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
@@ -111,9 +110,7 @@ class MyMapFragment : FragmentWrapper(),
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
         initAdapterCategory(category)
-        initListItems()
         initCategoryList()
-
 
         filter.setOnClickListener {
             openFilter()
@@ -125,28 +122,30 @@ class MyMapFragment : FragmentWrapper(),
             RxPermissions(it)
                 .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe {
-                    val locationManager =
-                        context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-                    try {
-
-                        val location =
-                            locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)//GPS_PROVIDER
-                        val one = location?.latitude
-                        val two = location?.longitude
-                        lat = one.toString()
-                        loe = two.toString()
-                        // Укажите имя activity вместо map.
+                    getCurrentPosition()
                         mapview?.map?.move(
-                            CameraPosition(Point(one!!, two!!), 14.0f, 0.0f, 0.0f),
+                            CameraPosition(Point(lat.toDouble(), loe.toDouble()), 14.0f, 0.0f, 0.0f),
                             Animation(Animation.Type.LINEAR, 4f),
                             null
                         )
-                    } catch (e: SecurityException) {
-                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
-                        e
-                    }
-                    createMapObjects()
+                  //  getRequast("00000000-0000-0000-6000-000000000000")
                 }
+        }
+    }
+
+    fun getCurrentPosition() {
+        val locationManager =
+            context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        try {
+            val location =
+                locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)//GPS_PROVIDER
+            val one = location?.latitude
+            val two = location?.longitude
+            lat = one.toString()
+            loe = two.toString()
+        } catch (e: SecurityException) {
+            //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+            e
         }
     }
 
@@ -183,15 +182,37 @@ class MyMapFragment : FragmentWrapper(),
           context?.let { Settings.SaveFilterListPriority(FILTER_LIST_PRIORITY, getFiltersPriority, it) }*/
     }
 
-    private fun createMapObjects() {
-
+    override fun showCatObjects(it: ResponceMyAdvertMaps) {
         mapObjects = mapview.map.mapObjects.addCollection()
+        it
+
         val marks = ArrayList<Point>()
+        it.data?.map { data ->
+            data.address?.point.let {
+                marks.add(Point(it?.latitude?.toDouble()!! ,
+                    it.longitude?.toDouble()!! + count
+
+                ))
+                count + 0.05
+            }
+
+        }
+
+        marks.map {
+            mapObjects?.addPlacemark(Point(it.latitude, it.longitude))?.apply {
+                opacity = 2.8f
+                setIcon(ImageProvider.fromResource(activity, R.drawable.transport))
+                addTapListener(YandexMapObjectTapListener())
+            }
+        }
+       /*
         marks.add(Point(lat.toDouble(), loe.toDouble()))
         marks.add(Point(lat.toDouble(), loe.toDouble() + 0.05))
         marks.add(Point(lat.toDouble(), loe.toDouble() + 0.06))
-        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.07))
+        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.07))*/
 
+
+/*
         for (i in 0 until marks.size) {
             val mark = mapObjects?.addPlacemark(Point(marks[i].latitude, marks[i].longitude))
             mark?.opacity = 2.8f
@@ -209,14 +230,36 @@ class MyMapFragment : FragmentWrapper(),
         mark2?.opacity = 2.8f
         mark2?.setIcon(ImageProvider.fromResource(activity, R.drawable.clouse))
         //   mark?.isDraggable = false
-        mark2?.addTapListener(YandexMapObjectTapListener())
+        mark2?.addTapListener(YandexMapObjectTapListener())*/
+    }
+
+    override fun setFirstRequest(it: ResponceMyAdvertMaps) {
+        showCatObjects(it)
+
+       // createMapObjects(arrList.entities?.get(0)?.id)
+    }
+
+    private fun createMapObjects(id: String?) {
+        mMapPresenter.getCategoryAdvertsList(id)
     }
 
     private inner class YandexMapObjectTapListener : MapObjectTapListener {
         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
-            toast("something")
-            showDialogMore()
+            //toast("something")
+            //showDialogMore()
+            showBottomSheetDialog()
             return true
+        }
+    }
+
+    private fun showBottomSheetDialog() {
+        val addPhotoBottomDialogFragment =
+            ActionBottomDialogFragment()
+        activity?.supportFragmentManager?.let {
+            addPhotoBottomDialogFragment.show(
+                it,
+                "add_photo_dialog_fragment"
+            )
         }
     }
 
@@ -242,6 +285,7 @@ class MyMapFragment : FragmentWrapper(),
                         }
                     }
                 })
+            dialog.addButton(R.string.edit)
 
             /*if (guestCard.guestCardOperations.isEscalate){
                 dialog.addButton(R.string.escalate)
@@ -263,36 +307,7 @@ class MyMapFragment : FragmentWrapper(),
         }
     }
 
-    private fun initListItems() {
-        if (catAdapter == null) {
-            catAdapter = activity?.let { context?.let { it1 -> CategoryAdapter(mMapPresenter) } }
-        }
 
-        val one = RentItem("9", "2", resources.getDrawable(R.drawable.dress, null))
-        val one1 = RentItem("12", "2", resources.getDrawable(R.drawable.ic_big_car, null))
-        val one2 = RentItem("14", "2", resources.getDrawable(R.drawable.ic_kids, null))
-
-        val filterList = ArrayList<RentItem>()
-
-        filterList.add(one)
-        filterList.add(one1)
-        filterList.add(one2)
-        filterList.add(one2)
-        filterList.add(one2)
-
-        catAdapter?.dataset?.addAll(filterList)
-
-/*
-        category.adapter = catAdapter
-
-        category.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(
-                activity,
-                androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL,
-                false
-            )
-*/
-    }
     private fun initAdapterCategory(it: Entitys?) {
         var resourceId: Int? = null
         // if (it?.entities == null) {
@@ -332,6 +347,12 @@ class MyMapFragment : FragmentWrapper(),
             it.categoryImg = uri.toString()
         }
     }
+
+
+    fun getRequast(categoryId: String) {
+        getCurrentPosition()
+        mMapPresenter.getFirstRequest(lat, loe,"5000",categoryId)
+    }
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
         categoryCycleView.captionTextSize = 0
@@ -339,7 +360,7 @@ class MyMapFragment : FragmentWrapper(),
         var count = 0
         category?.entities?.map {
             count++
-           // if (it.id == advert.categoryId) {
+          //  if (it.id == advert.categoryId) {
                 pos = count
           //  }
 
@@ -356,6 +377,7 @@ class MyMapFragment : FragmentWrapper(),
             }
         }
 
+
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = pos
             @SuppressLint("CheckResult")
@@ -369,14 +391,22 @@ class MyMapFragment : FragmentWrapper(),
                     carouselItem?.apply {
                         custom_caption.text = caption
                     }
+           //todo если нету саб категории - запрос -   mMapPresenter.getFirstRequest(lat, loe,"5000","00000000-0000-0000-6000-000000000000")
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
                     Single.just(position)
                         .delay(1000, TimeUnit.MILLISECONDS)
                         .applySchedulers()
                         .subscribe({
-                            getSubCategory(category?.entities?.get(position))
-                            //todo вот тут мы и будем делать запрос - получать шмотки и обновлять карту
-                            val test = category?.entities?.get(position)?.name
+                            if (it != 0)
+                            {
+                                getSubCategory(category?.entities?.get(position))
+                                //todo вот тут мы и будем делать запрос - получать шмотки и обновлять карту
+                              //  val test = category?.entities?.get(position)?.name
+                            }
+                            else {
+                                //todo делаем запрос и рисуем
+                                category?.entities?.get(positionNew)?.id?.let { it1 -> getRequast(it1) }
+                            }
                         }, {
                             it
                             //  loadingViewModel.errorMessage = it.nonNullMessage()
@@ -394,7 +424,6 @@ class MyMapFragment : FragmentWrapper(),
         }
         //  categoryCycleView.setIndicator(custom_indicator)
         categoryCycleView.currentPosition = 3
-
     }
 
     //todo 2--------------------2
@@ -438,6 +467,10 @@ class MyMapFragment : FragmentWrapper(),
                             //todo вот тут мы и будем делать запрос - получать шмотки и обновлять карту
                            // advert.categoryId = entitys.entities!![position].id
                             val test = entitys.entities!![position].name
+                            val id = entitys.entities!![position].id
+                            id?.let { getRequast(it) }
+                           // category?.entities?.get(positionNew)?.id?.let { getRequast(it) }
+
                         }
                     }
                 }
@@ -486,6 +519,7 @@ class MyMapFragment : FragmentWrapper(),
                 }
         }
     }
+     @SuppressLint("CheckResult")
      fun setNewSubCategory(it: Entitys) {
         //
         val test = it
@@ -499,4 +533,17 @@ class MyMapFragment : FragmentWrapper(),
                 // loadingViewModel.isError = true
             })
     }
+    fun getMapObjectForCatId() {
+
+    }
+
+/*    override fun onMapObjectTap(p0: MapObject, p1: Point): Boolean {
+        TODO("Not yet implemented")
+    }*/
+
+
+/*
+    override fun onItemClick(item: String?) {
+        TODO("Not yet implemented")
+    }*/
 }

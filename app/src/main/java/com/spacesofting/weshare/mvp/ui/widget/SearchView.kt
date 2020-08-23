@@ -1,4 +1,4 @@
-package com.digitalhorizon.eve.ui.widget
+package com.spacesofting.weshare.mvp.ui.widget
 
 import android.content.Context
 import android.util.AttributeSet

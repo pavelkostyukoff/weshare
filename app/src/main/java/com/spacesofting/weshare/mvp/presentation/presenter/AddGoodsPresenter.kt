@@ -111,8 +111,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                           //  viewState.saved(true)
                             viewState.showProgress(false)
                             //checkExternalApp()
+                            goodId
                             publishAdvert(goodId)
-
                         }, { error ->
                             viewState.showProgress(false)
                            // viewState.saved(false)

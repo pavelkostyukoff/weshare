@@ -1,8 +1,10 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import moxy.InjectViewState
@@ -22,6 +24,7 @@ class IrentPresenter : MvpPresenter<IrentView>() {
         getMyAdvert()
     }
 
+    @SuppressLint("CheckResult")
     fun getMyAdvert() {
         Api.Adverts.getMeAdverts()
             .subscribeOn(Schedulers.io())

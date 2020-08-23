@@ -199,7 +199,9 @@ class ImageUtils {
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
             val body = MultipartBody.Part.createFormData("file", URLEncoder.encode(img.name, "utf-8"), file)
-            val observable = goodId?.let { Api.Pictures.addPictureMyGood(it,body).default().share() }
+            val observable = goodId?.let {
+                Api.Pictures.addPictureMyGood(it,body).default().share()
+            }
             //remove file on success if it stored in cache directory
             if (img.path != img.path) {
                 observable?.subscribe({ img.delete() })

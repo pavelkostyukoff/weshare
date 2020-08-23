@@ -59,7 +59,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     MyCyclePagerAdapter.OnCardClickListener {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
-    private val isNewAdvert = false
+    private var isNew = false
+
+    private var catPosition = 0
+    private var subCatPosition = 0
 
     private var adapterBaner = MyCyclePagerAdapter()
     private val category = ApplicationWrapper.category
@@ -110,7 +113,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
           }*/
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (ApplicationWrapper.instance.getAuthorityWish() != null) {
-            advert = ApplicationWrapper.instance.getAuthorityWish()!!
+
+            if (!isNew) {
+                advert = ApplicationWrapper.instance.getAuthorityWish()!!
+            }
+
             presenter.newAdvert = advert //todo должно решить проблему
             Log.e(
                 "Selected_Page",
@@ -839,6 +846,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
+
+        categoryCycleView.currentPosition = catPosition
+
         categoryCycleView.captionTextSize = 0
         var pos = 0
         var count = 0
@@ -874,13 +884,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     carouselItem?.apply {
                         custom_caption.text = caption
                     }
+                    catPosition = pos
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
                     Single.just(position)
                         .delay(1000, TimeUnit.MILLISECONDS)
                         .applySchedulers()
                         .subscribe({
                             presenter.getSubCategory(category?.entities?.get(position))
-                            advert.categoryId = category?.entities?.get(position)?.id
+                            advert.categoryId = category?.entities?.get(positionNew)?.id
                             val test = category?.entities?.get(position)?.name
                         }, {
                             it
@@ -898,8 +909,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
         //  categoryCycleView.setIndicator(custom_indicator)
-        categoryCycleView.currentPosition = 3
-
     }
 
     //todo 2--------------------2
@@ -921,7 +930,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
-        subCategoryCycleView.currentPosition = 0
+        subCategoryCycleView.currentPosition = subCatPosition
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = position
@@ -933,7 +942,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 carouselItem: CarouselItem?
             ) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
+                    subCatPosition = position
                     carouselItem?.apply {
                         custom_sub_category.text = caption
                     }
@@ -1070,7 +1079,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onPause() {
         super.onPause()
         setPeriods()
-
+        isNew = true
 
         /* val test = currencyOptions.selectedItem
          val test2 =  periodOptions.selectedItem
@@ -1105,7 +1114,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onDestroy() {
         super.onDestroy()
         // ApplicationWrapper.instance.goodId = null
-        //   advert = null
+        isNew = false
     }
 
     override fun onDetach() {

@@ -11,14 +11,14 @@ import io.reactivex.schedulers.Schedulers
 class IShootItPresenter : MvpPresenter<IShootItView>() {
 
     fun loadMyGoods() {
-        Api.Adverts.getMyAdverts()
+  /*      Api.Adverts.getMyAdverts()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
 
             }){
 
-            }
+            }*/
 
     }
 

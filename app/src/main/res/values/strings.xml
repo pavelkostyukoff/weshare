@@ -13,6 +13,10 @@
         <item quantity="other">%1$d таких желаний</item>
     </plurals>
     <!-- AUTH -->
+        <string name="action_share">Share</string>
+        <string name="action_upload">Upload</string>
+        <string name="action_copy">Copy</string>
+        <string name="action_print">Print</string>
 
     <string name="wish_edit_progress">Сохранение изменений</string>
     <string name="wish_save_progress">Создаем желание…</string>

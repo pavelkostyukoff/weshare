@@ -9,8 +9,7 @@
             android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="fill_vertical"
-            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+            android:layout_gravity="fill_vertical">
 
         <com.spacesofting.weshare.mvp.presentation.views.StaggeredRecyclerView
                 android:id="@+id/wishesList"
@@ -21,8 +20,8 @@
                 android:paddingBottom="12dp"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                android:paddingTop="24dp"
-                app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"/>
+                android:paddingTop="24dp"/>
+               <!-- app:layout_behavior="com.google.android.material.widget.AppBarLayout$ScrollingViewBehavior-->
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -30,8 +29,7 @@
             android:id="@+id/errorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+            android:visibility="gone">
 
         <include
                 layout="@layout/view_list_error"

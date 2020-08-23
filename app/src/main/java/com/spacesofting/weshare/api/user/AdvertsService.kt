@@ -1,9 +1,6 @@
 package com.spacesofting.weshare.api.user
 
-import com.spacesofting.weshare.api.ResponceAddImege
-import com.spacesofting.weshare.api.ResponceEditAdvert
-import com.spacesofting.weshare.api.ResponceMyAdvert
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Advert
@@ -17,7 +14,10 @@ interface AdvertsService {
 
     //todo  Get user profile
     @GET("adverts")
-    fun getMyAdverts(): Observable<User>
+    fun getMyAdverts(@Query("longitude") longitude: String,
+                     @Query("latitude") latitude: String,
+                     @Query("searchRadius") searchRadius: String,
+                     @Query("categoryId") categoryId: String ): Observable<ResponceMyAdvertMaps>
 
     //todo  details
     @GET("adverts/{advertId}")

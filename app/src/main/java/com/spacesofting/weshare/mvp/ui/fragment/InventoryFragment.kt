@@ -1,9 +1,8 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
 import android.view.View
-import moxy.presenter.InjectPresenter
+import com.google.android.material.tabs.TabLayout
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -14,19 +13,21 @@ import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.presentation.presenter.InventoryPresenter
 import com.spacesofting.weshare.mvp.presentation.view.InventoryView
 import com.spacesofting.weshare.mvp.ui.adapter.InventoryPagerAdapter
+import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
+import moxy.presenter.InjectPresenter
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class InventoryFragment : FragmentWrapper(),
-    InventoryView {
+    InventoryView, ActionBottomDialogFragment.ItemClickListener {
    // val user = ApplicationWrapper.user
     private var advert: ResponcePublish? = null
     private var tab: Int? = null
+
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_inventory
@@ -64,6 +65,17 @@ class InventoryFragment : FragmentWrapper(),
 
         if(tab == null) {
             tab = 0
+        }
+
+        navItemInvited.setOnClickListener {
+
+            val addPhotoBottomDialogFragment =
+                ActionBottomDialogFragment.newInstance()
+            addPhotoBottomDialogFragment.show(
+                activity?.getSupportFragmentManager()!!,
+                ActionBottomDialogFragment.TAG
+            )
+
         }
         showToolbar(TOOLBAR_HIDE)
         //showToolbar(TOOLBAR_EMBEDDED, R.layout.view_fragment_toolbar)
@@ -173,6 +185,10 @@ class InventoryFragment : FragmentWrapper(),
                         }
                     })
         }
+    }
+
+    override fun onItemClick(item: String?) {
+        TODO("Not yet implemented")
     }
 
 }

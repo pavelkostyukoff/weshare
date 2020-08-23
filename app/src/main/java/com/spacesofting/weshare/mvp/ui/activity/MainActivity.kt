@@ -13,6 +13,7 @@ import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.ui.fragment.SplashFragment
+import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
 import com.spacesofting.weshare.utils.RefreshTokenWorker
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
@@ -20,7 +21,7 @@ import ru.terrakok.cicerone.commands.Command
 import java.util.concurrent.TimeUnit
 
 
-class MainActivity  : ActivityWrapper() {
+class MainActivity  : ActivityWrapper(), ActionBottomDialogFragment.ItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -99,6 +100,11 @@ class MainActivity  : ActivityWrapper() {
             fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.slide_to_left)
         }
     }
+
+    override fun onItemClick(item: String?) {
+        TODO("Not yet implemented")
+    }
+
 //todo должно помоч сделать переходы ровные без логических ошибок
 //    override fun onBackPressed() {
 //       router.exit()
