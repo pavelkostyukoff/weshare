@@ -27,9 +27,6 @@ import java.io.File
 
 class ApplicationWrapper : MultiDexApplication() {
     private var component: AppComponent? = null
-
-
-
     private var doAuthtorizedWish: Advert? = null
         private var photoPath: File? = null
       //  var profile: User? = null
