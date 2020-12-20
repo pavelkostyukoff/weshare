@@ -1,10 +1,12 @@
-package com.spacesofting.weshare.mvp
+package com.spacesofting.weshare.mvp.GuestCard
 
 import com.spacesofting.weshare.mvp.model.Company
 import com.spacesofting.weshare.mvp.model.Photo
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardPriority
 import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.common.StructureUnit
+import com.spacesofting.weshare.mvp.GuestCardOperations
+import com.spacesofting.weshare.mvp.GuestResponsible
 import com.spacesofting.weshare.mvp.model.guestcard.GuestCardState
 import java.io.Serializable
 
@@ -95,24 +97,25 @@ class GuestCard : Serializable {
 
         if (other is GuestCard) {
             if (companyId == other.companyId &&
-                    photo == other.photo &&
-                    priority == other.priority &&
-                    id == other.id &&
-                    rowVersion == other.rowVersion &&
-                    phone == other.phone &&
-                    surname == other.surname &&
-                    lastName == other.lastName &&
-                    firstName == other.firstName &&
-                    accompanyings == other.accompanyings &&
-                    comment == other.comment &&
-                    company == other.company &&
-                    position == other.position &&
-                    state == other.state &&
-                    email == other.email &&
-                    structureUnitId == other.structureUnitId &&
-                    structureUnit == other.structureUnit &&
-                    guestCardOperations == other.guestCardOperations &&
-                    guestResponsible == other.guestResponsible) {
+                photo == other.photo &&
+                priority == other.priority &&
+                id == other.id &&
+                rowVersion == other.rowVersion &&
+                phone == other.phone &&
+                surname == other.surname &&
+                lastName == other.lastName &&
+                firstName == other.firstName &&
+                accompanyings == other.accompanyings &&
+                comment == other.comment &&
+                company == other.company &&
+                position == other.position &&
+                state == other.state &&
+                email == other.email &&
+                structureUnitId == other.structureUnitId &&
+                structureUnit == other.structureUnit &&
+                guestCardOperations == other.guestCardOperations &&
+                guestResponsible == other.guestResponsible
+            ) {
                 return true
             }
         }

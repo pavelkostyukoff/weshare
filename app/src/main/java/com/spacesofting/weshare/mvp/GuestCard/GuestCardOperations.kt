@@ -31,13 +31,14 @@ class GuestCardOperations : Serializable {
     override fun equals(other: Any?): Boolean {
         if (other is GuestCardOperations) {
             if (isEdit == other.isEdit &&
-                    isDelete == other.isDelete &&
-                    isSendForApproval == other.isSendForApproval &&
-                    isApproval == other.isApproval &&
-                    isRefused == other.isRefused &&
-                    isChangeRequest == other.isChangeRequest &&
-                    isCancelLastOperation == other.isCancelLastOperation &&
-                    isEscalate == other.isEscalate) {
+                isDelete == other.isDelete &&
+                isSendForApproval == other.isSendForApproval &&
+                isApproval == other.isApproval &&
+                isRefused == other.isRefused &&
+                isChangeRequest == other.isChangeRequest &&
+                isCancelLastOperation == other.isCancelLastOperation &&
+                isEscalate == other.isEscalate
+            ) {
                 return true
             }
         }

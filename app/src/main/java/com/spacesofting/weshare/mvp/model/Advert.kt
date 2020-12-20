@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.model
 import com.google.gson.annotations.SerializedName
-import java.io.File
 import java.io.Serializable
 
 

@@ -19,9 +19,7 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
-/**
- * Created by vkozlov on 28.12.15.
- */
+
 public class YandexMaps {
 
     private static final String FORMAT = "format";
@@ -39,7 +37,7 @@ public class YandexMaps {
     // адрес должен формироваться где-то здесь
     public void getAddressBy(final String name, final Location location, final YandexMapsListener listener) {
         RequestParams params = new RequestParams();
-      //  params.put(KIND, HOUSE);
+        //  params.put(KIND, HOUSE);
         params.put(FORMAT, JSON);
 
         if (!TextUtils.isEmpty(name)) {
@@ -49,8 +47,7 @@ public class YandexMaps {
             if (location != null && location.getLongitude() != 0.0) {
                 params.put(LL, String.format(Locale.ENGLISH, "%f,%f", location.getLongitude(), location.getLatitude()));
             }
-        }
-        else {
+        } else {
             params.put(GEOCODE, String.format(Locale.ENGLISH, "%f,%f", location.getLongitude(), location.getLatitude()));
         }
 
@@ -67,10 +64,8 @@ public class YandexMaps {
                 new Thread(() -> {
                     //XXX: http://www.jsonschema2pojo.org/ делает из json классы
                     //XXX: https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library
-                  //  LogUtil.Log(responseString);
-
+                    //  LogUtil.Log(responseString);
                     Place place = null;
-
                     try {
                         System.err.println("YMSearch1 " + responseString);
                         JsonElement jsonElement = fromString(responseString, "response.GeoObjectCollection.featureMember");
@@ -101,16 +96,6 @@ public class YandexMaps {
                                             "GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country" +
                                                     ".AdministrativeArea.Locality.Thoroughfare.Premise.PremiseNumber").getAsString();
                                 }
-                                // как-то так получаются данные от яндекс-карт
-                                //todo не плохо разобрался за 1н вечер ссылки не осталось ? где описание ?раньше не
-                                // я не читал ничего, это всё из того Json-ответа от сервера
-                                // не факт, что всё сразу заработает, там есть ещё моменты. но их долго искать и проверять
-                                // давай лучше просто попробуем
-                                //todo можно буквально в 2х словах , что это за класс и за что он отвечает ? раньше не открывал его..
-                                // как и следует из названия, класс для работы с яндекс-картами, если точнее из функционала - для обработки ответов
-                                // api карт
-                                //todo ook 1 мин гляну что тут есть.. , ок продолжим?
-                                // да
                                 if (!TextUtils.isEmpty(name1.getAsString()) && !TextUtils.isEmpty(point.getAsString())) {
                                     String[] coords = point.getAsString().split(" ");
 
@@ -130,19 +115,15 @@ public class YandexMaps {
                                 }
                             }
                         }
-                    }
-
-                    catch (JsonSyntaxException e) {
+                    } catch (JsonSyntaxException e) {
                         LogUtil.Loge(e);
                         e.printStackTrace();
                         place = null;
-                    }
-                    catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         LogUtil.Loge(e);
                         e.printStackTrace();
                         place = null;
-                    }
-                    finally {
+                    } finally {
                         if (listener != null) {
                             if (place != null) {
                                 listener.onSuccessResponse(place);
@@ -373,5 +354,4 @@ public class YandexMaps {
         }
         return obj;
     }
-
 }

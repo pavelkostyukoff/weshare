@@ -1,8 +1,6 @@
 package com.spacesofting.weshare.common
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.text.TextUtils
 import com.google.gson.Gson
@@ -22,7 +20,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 import kotlin.collections.LinkedHashMap
-
 
 object Settings {
 

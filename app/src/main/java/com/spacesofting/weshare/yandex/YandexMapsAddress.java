@@ -27,27 +27,21 @@ public class YandexMapsAddress {
     private List<List<Integer>> hl = new ArrayList<List<Integer>>();
 
     /**
-     * 
-     * @return
-     *     The type
+     * @return The type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 
-     * @param type
-     *     The type
+     * @param type The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
     /**
-     * 
-     * @return
-     *     The displayName
+     * @return The displayName
      */
     public String getDisplayName() {
         if (displayName != null)
@@ -56,18 +50,14 @@ public class YandexMapsAddress {
     }
 
     /**
-     * 
-     * @param displayName
-     *     The displayName
+     * @param displayName The displayName
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     /**
-     * 
-     * @return
-     *     The value
+     * @return The value
      */
     public String getValue() {
         if (value != null)
@@ -76,9 +66,7 @@ public class YandexMapsAddress {
     }
 
     /**
-     * 
-     * @param value
-     *     The value
+     * @param value The value
      */
     public void setValue(String value) {
         this.value = value;

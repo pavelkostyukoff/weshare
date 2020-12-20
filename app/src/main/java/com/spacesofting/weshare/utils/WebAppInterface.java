@@ -6,9 +6,7 @@ import android.widget.Toast;
 
 import com.spacesofting.weshare.yandex.MapListener;
 
-/**
- * Created by vkozlov on 13.01.16.
- */
+
 public class WebAppInterface {
     public static final String NEXI = "Nexi";
     private Context mContext;

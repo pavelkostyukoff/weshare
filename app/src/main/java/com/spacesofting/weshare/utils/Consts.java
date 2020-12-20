@@ -1,8 +1,6 @@
 package com.spacesofting.weshare.utils;
 
-/**
- * Created by vkozlov on 25.12.15.
- */
+
 public class Consts {
 
     public static final int FAKE_LIST_ITEIMS = 1000;

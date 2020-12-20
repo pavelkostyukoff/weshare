@@ -21,5 +21,4 @@ class Image {
 
     @SerializedName("updatedAt")
     var updatedAt: String? = null
-
 }

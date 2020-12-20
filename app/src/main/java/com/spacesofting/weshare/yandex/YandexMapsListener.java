@@ -4,9 +4,6 @@ import com.spacesofting.weshare.api.model.place.Place;
 
 import java.util.ArrayList;
 
-/**
- * Created by vkozlov on 12.01.16.
- */
 public interface YandexMapsListener {
     void onSuccessResponse(Place place);
 

@@ -4,9 +4,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-/**
- * Created by vkozlov on 28.12.15.
- */
+
 public class YandexMapsClient {
     private static final String BASE_URL = "https://geocode-maps.yandex.ru/1.x";
 
@@ -14,7 +12,7 @@ public class YandexMapsClient {
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
 
-        
+
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 

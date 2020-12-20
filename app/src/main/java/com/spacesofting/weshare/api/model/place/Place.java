@@ -8,9 +8,7 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by vkozlov on 30.12.15.
- */
+
 public class Place implements Parcelable {
 
 
@@ -45,7 +43,9 @@ public class Place implements Parcelable {
             }
             return PlaceParamEnumSize;
         }
-    } ;
+    }
+
+    ;
 
     private String address;
     private String country;
@@ -72,14 +72,12 @@ public class Place implements Parcelable {
                     location = new Location("loc");
                 }
                 location.setLatitude(Double.valueOf(v));
-            }
-            else if ("longitude".equals(k)) {
+            } else if ("longitude".equals(k)) {
                 if (location == null) {
                     location = new Location("loc");
                 }
                 location.setLongitude(Double.valueOf(v));
-            }
-            else if ("title".equals(k)) {
+            } else if ("title".equals(k)) {
                 setAddress(v);
             }
         }

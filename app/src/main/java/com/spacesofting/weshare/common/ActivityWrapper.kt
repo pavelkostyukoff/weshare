@@ -19,6 +19,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
         BACK_ARROW,
         NONE
     }
+
     lateinit var router: BoomerangoRouter
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
 
@@ -36,13 +37,12 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.activity_wrapper)
-      //  Fabric.with(this, Crashlytics())
+        //  Fabric.with(this, Crashlytics())
         setSupportActionBar(mainToolbar)
         router = ApplicationWrapper.instance.getRouter()
         showToolbar(false)
         lockDrawerMenu(true)
         scan.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
     }
 
     override fun setContentView(view: View?) {
@@ -119,55 +119,55 @@ open class ActivityWrapper : MvpAppCompatActivity() {
 
     fun showLogoutDialog() {
         MaterialDialog.Builder(this)
-                .title(R.string.logout_going_exit_from_application)
-                .cancelable(true)
-                .negativeText(R.string.no)
-                .positiveText(R.string.yes)
-                .onPositive { _, _ ->
-                    logout()
-                }
-                .onNegative { dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
-    }
-    val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_feed -> {
-             //   if (Settings.IsAuthorized) {
-                    router.replaceScreen(ScreenPool.FEED_FRAGMENT)
-            /*    } else {
-                toast(R.string.rega)
-                }*/
-                //todo запрос актуальных задачь - положить их в список и открыть
-             /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
-                   // getMyTask()
-                } else {
-                    Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
-                }*/
-                return@OnNavigationItemSelectedListener true
+            .title(R.string.logout_going_exit_from_application)
+            .cancelable(true)
+            .negativeText(R.string.no)
+            .positiveText(R.string.yes)
+            .onPositive { _, _ ->
+                logout()
             }
-            R.id.navigation_map -> {
+            .onNegative { dialog, _ ->
+                dialog.cancel()
+            }
+            .show()
+    }
 
-                this.let {
-                    RxPermissions(it)
-                        .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        .subscribe { granted ->
-                            if (granted) {
-                                router.replaceScreen(ScreenPool.MAP_FRAGMENT)
-                            } else {
-                                //todo запрос на пермишн
-                            }
-
-                        }
+    val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_feed -> {
+                    //   if (Settings.IsAuthorized) {
+                    router.replaceScreen(ScreenPool.FEED_FRAGMENT)
+                    /*    } else {
+                        toast(R.string.rega)
+                        }*/
+                    //todo запрос актуальных задачь - положить их в список и открыть
+                    /*   if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                          // getMyTask()
+                       } else {
+                           Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                       }*/
+                    return@OnNavigationItemSelectedListener true
                 }
-              //  if (Settings.IsAuthorized) {
-             /*   } else {
-                    toast(R.string.rega)
-                }*/
+                R.id.navigation_map -> {
+                    this.let {
+                        RxPermissions(it)
+                            .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            .subscribe { granted ->
+                                if (granted) {
+                                    router.replaceScreen(ScreenPool.MAP_FRAGMENT)
+                                } else {
+                                    //todo запрос на пермишн
+                                }
+                            }
+                    }
+                    //  if (Settings.IsAuthorized) {
+                    /*   } else {
+                           toast(R.string.rega)
+                       }*/
 
 
-              //  when(fragmnetTag) {
+                    //  when(fragmnetTag) {
 
 /*
                     "WSTFR" -> {
@@ -192,55 +192,59 @@ open class ActivityWrapper : MvpAppCompatActivity() {
                         }
                     }*/
 
-              //      else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
-            //    }
+                    //      else -> Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
+                    //    }
 
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_inventory -> {
-             //   if (Settings.IsAuthorized) {
-                 //   router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,0)
-                router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT, InventoryFragment.getBundle(0, null))
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_inventory -> {
+                    //   if (Settings.IsAuthorized) {
+                    //   router.replaceScreen(ScreenPool.INVENTORY_FRAGMENT,0)
+                    router.replaceScreen(
+                        ScreenPool.INVENTORY_FRAGMENT,
+                        InventoryFragment.getBundle(0, null)
+                    )
 
-                /*  } else {
-                      toast(R.string.rega)
-                  }*/
-              /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
-                    allMyTask = TaskFragment.taskList
-                    if (allMyTask.isNotEmpty()) {
-                        router.newScreenChain(ScreenPool.BMTCWWCF)
-                    } else {
-                        Toast.makeText(
-                            this, "У Вас не текущих задач.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }*/
+                    /*  } else {
+                          toast(R.string.rega)
+                      }*/
+                    /*  if (com.kargo.scaner.utils.Settings.isAnonymousUser == true) {
+                          allMyTask = TaskFragment.taskList
+                          if (allMyTask.isNotEmpty()) {
+                              router.newScreenChain(ScreenPool.BMTCWWCF)
+                          } else {
+                              Toast.makeText(
+                                  this, "У Вас не текущих задач.",
+                                  Toast.LENGTH_SHORT
+                              ).show()
+                          }*/
 /*
                 } else {
                     Toast.makeText(this, "Вы не авторизованы!", Toast.LENGTH_SHORT).show()
                 }*/
-                return@OnNavigationItemSelectedListener true
+                    return@OnNavigationItemSelectedListener true
+                }
             }
+            true
         }
-        true
-    }
 
     fun logout() {
-    /*    Api.Auth.logout()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Settings.logout()
-                    mainUserName.visible = false
-                    mainAvatar.visible = false
-                    mainUserName.setText(R.string.hamburger_default_username)
-                    mainAvatar.setImageResource(R.color.colorPrimaryLight)
-                    navItemsLayout.removeAllViews()
-                    router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
-                }, { e ->
-                    Toast.makeText(this, R.string.error_general, Toast.LENGTH_LONG).show()
-                })*/
+        /*    Api.Auth.logout()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Settings.logout()
+                        mainUserName.visible = false
+                        mainAvatar.visible = false
+                        mainUserName.setText(R.string.hamburger_default_username)
+                        mainAvatar.setImageResource(R.color.colorPrimaryLight)
+                        navItemsLayout.removeAllViews()
+                        router.newRootScreen(ScreenPool.REGISTRATION_FRAGMENT)
+                    }, { e ->
+                        Toast.makeText(this, R.string.error_general, Toast.LENGTH_LONG).show()
+                    })*/
     }
-    override fun  onBackPressed() {
+
+    override fun onBackPressed() {
         val count = getSupportFragmentManager().getBackStackEntryCount()
 
         if (count == 0) {

@@ -46,7 +46,6 @@ import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.util.concurrent.TimeUnit
 
-
 class MyMapFragment : FragmentWrapper(),
     MapViewMaps, LocationListener/*, MapObjectTapListener*/ {
     override fun onLocationChanged(p0: Location?) {

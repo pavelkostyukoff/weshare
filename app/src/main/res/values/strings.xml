@@ -67,7 +67,6 @@
     <string name="add_card_dialog_not_connected_bank_card">Чтобы получать подарки необходимо подключить банковскую карту</string>
     <string name="add_card_connect_bank_card">Подключить карту</string>
     <string name="wish_edit_field_required">Поле обязательно для заполнения</string>
-
     <!--CURRENCY-->
 
     <string-array name="wish_edit_cyrrency">

@@ -20,9 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * Created by vkozlov on 22.01.16.
- */
 public class PlacesLoader extends AsyncTaskLoader<List<Place>> {
 
     private final Place.PlaceParam placeParam;

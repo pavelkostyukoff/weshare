@@ -13,9 +13,7 @@ import android.view.WindowManager;
 
 import java.util.Locale;
 
-/**
- * Created by vkozlov on 16/06/15.
- */
+
 public class UIUtil {
 
     public static boolean hasKitKat() {

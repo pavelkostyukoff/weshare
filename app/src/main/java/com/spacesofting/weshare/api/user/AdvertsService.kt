@@ -4,8 +4,6 @@ import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Advert
-import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
-import com.spacesofting.weshare.mvp.model.UpdateProfile
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -19,15 +17,17 @@ interface AdvertsService {
                      @Query("searchRadius") searchRadius: String,
                      @Query("categoryId") categoryId: String ): Observable<ResponceMyAdvertMaps>
 
-    //todo  details
+    //todo получить вещь по id - использовать для экрана детальное описание вещи (тап(
     @GET("adverts/{advertId}")
     fun showAdvertDetail(): Observable<User>
 
-    @POST("me/adverts")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+    //todo //Подтвердить получение задачи Observable<Response<Void>>
+    @POST("me/adverts")
     fun creatNewAdvert(): Observable<ResponceProfile>
 
     //Get list of advert categories
-    @GET("me/adverts")  //todo //Подтвердить получение задачи Observable<Response<Void>>
+    //todo //Подтвердить получение задачи Observable<Response<Void>>
+    @GET("me/adverts")
     fun getMeAdverts(): Observable<ResponceMyAdvert>
 
     //todo  Get advert by ID
@@ -35,13 +35,16 @@ interface AdvertsService {
     fun getMyAdvertById(@Path("advertId") advertId: String): Observable<Advert>
 
     //todo  Update/Create advert
+    //todo создать вещь
     @PATCH("me/adverts/{advertId}")
     fun updateMyAdvertById(@Body advert: Advert?,@Path("advertId") advertId: String): Observable<ResponceEditAdvert>
 
-    @DELETE("me/adverts/{advertId}")  //todo //
+    //todo удалить вещь
+    @DELETE("me/adverts/{advertId}")
     fun dellMeAdverts(@Path("advertId") advertId: String):  Observable<Boolean>
 
     //todo  publicsh advert
+    // не показывать окно переключения языка
     @PATCH("me/adverts/{advertId}/publish")
     fun publishMyAdvert(@Path("advertId") advertId: String): Observable<ResponcePublish>
 
