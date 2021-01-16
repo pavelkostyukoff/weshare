@@ -162,7 +162,7 @@ class RegistrationFragment : FragmentWrapper(),
             //todo верификация
             //profile если ок то отсылка
             //todo валидация паттерн для почты
-            profile.login = "pavel.rilisoft+" + loginText.text.toString() + "@gmail.com"
+            profile.login = /*"pavel.rilisoft+" +*/ loginText.text.toString() /*+ "@gmail.com"*/
 
             //  profile.login = "Soprano61+" + loginText.text.toString() + "@yandex.ru"
             //todo валидация паттерн для почты

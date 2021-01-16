@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.pawegio.kandroid.d
@@ -328,7 +329,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe({
-
+                    it
                 viewState.showEmailComfirmDialog(profile.login)
                 /*    when (it.code()) {
                     HttpStatusCode.NO_CONTENT,
@@ -341,13 +342,13 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                 }*/
 
             }) {
+                it
                 val error = ErrorUtils.parseError(it)
                 parseError(error)
                 /*//todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 if (it.message.equals("User already exists"))
                 {
                     //повторный запрос
-
                 }
                 else {
                     it.message?.let { it1 -> viewState.toastError(it1) }

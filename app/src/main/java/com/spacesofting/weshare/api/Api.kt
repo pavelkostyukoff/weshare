@@ -27,7 +27,7 @@ object Api {
     var cacheSize = 10 * 1024 * 1024 // 10 MiB
 
     var cache = Cache(httpCacheDirectory, cacheSize.toLong())
-        val MOCK = MockInterceptor()
+       // val MOCK = MockInterceptor()
     val REWRITE_RESPONSE_INTERCEPTOR_OFFLINE = CachingControlInterceptor()
     val SMS = SMSInterceptor()
     private val LOG: HttpLoggingInterceptor =
@@ -39,7 +39,7 @@ object Api {
             10 * 1024 * 1024
         ))
         .addInterceptor(AUTH)
-          .addInterceptor(MOCK)
+          //.addInterceptor(MOCK)
 
     // .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
         //  .addInterceptor(SMS)

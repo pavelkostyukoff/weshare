@@ -19,7 +19,7 @@ class SplashFragment : FragmentWrapper() {
             SplashFragment()
     }
 
-    private val DELAY: Long = 100
+    private val DELAY: Long = 2000
     val animation = AnimationUtils.loadAnimation(ApplicationWrapper.context, R.anim.rotate)
 
     override fun getFragmentLayout(): Int {

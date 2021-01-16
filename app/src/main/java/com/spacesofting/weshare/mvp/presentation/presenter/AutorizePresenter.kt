@@ -107,6 +107,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
 
 
 
+    @SuppressLint("CheckResult")
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
         Api.Users.register(profile)

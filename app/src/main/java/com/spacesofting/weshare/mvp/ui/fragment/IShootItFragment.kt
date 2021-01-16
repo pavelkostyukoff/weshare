@@ -57,28 +57,7 @@ class IShootItFragment : FragmentWrapper(),
         recyclerView.itemAnimator =
             androidx.recyclerview.widget.DefaultItemAnimator()
 
-        /*val imageFile: File?
-        imageFile = R.drawable.img12*/
-
-        val one = RentItem("9","2",resources.getDrawable(R.drawable.dress, null))
-        val one1 = RentItem("12","2",resources.getDrawable(R.drawable.dress, null))
-        val one2 = RentItem("14","2",resources.getDrawable(R.drawable.dress, null))
-        val one3 = RentItem("1111","2",resources.getDrawable(R.drawable.dress, null))
-
-
         val filterList = ArrayList<RentItem>()
-
-
-      /*  filterList.add(one)
-        filterList.add(one1)
-        filterList.add(one2)
-        filterList.add(one3)
-        filterList.add(one2)
-        filterList.add(one3)
-        filterList.add(one3)
-        filterList.add(one2)
-        filterList.add(one3)*/
-
         mIShootItPresenter.loadMyGoods()
 
         adapter?.dataset?.addAll(filterList)
