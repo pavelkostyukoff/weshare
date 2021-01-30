@@ -5,7 +5,6 @@
     apply plugin: 'com.google.gms.google-services'
     apply plugin: 'com.google.firebase.crashlytics'
 
-    def SUPPORT_VERSION = '28.0.0'
     def API_VERSION = "1"
     def moxyVersion = "2.1.2"
 
@@ -82,45 +81,26 @@
     }
 
     dependencies {
-        //todo kotlin
+        // Kotlin
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-        //todo Dagger 2
-     /*   implementation 'com.google.dagger:dagger:2.27'
-        kapt 'com.google.dagger:dagger-compiler:2.9'*/
-        /* implementation "com.google.dagger:dagger:$daggerVer"
-        implementation "com.google.dagger:dagger-android-support:$daggerVer"
-        kapt "com.google.dagger:dagger-android-processor:$daggerVer"
-        kapt "com.google.dagger:dagger-compiler:$daggerVer"*/
-        //todo Retrofit
+        // Retrofit
         implementation 'com.squareup.retrofit2:retrofit:2.6.2'
         implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
         implementation 'com.squareup.okhttp3:logging-interceptor:3.12.2'
-        //todo Rx2
+        // Rx2
         implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
         implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
         implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
         implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-        //todo moxy х
-        // annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.5'
+        // Moxy
         implementation "com.github.moxy-community:moxy:$moxyVersion"
         kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
         implementation "com.github.moxy-community:moxy-app-compat:$moxyVersion"
         implementation 'com.loopj.android:android-async-http:1.4.9'
         implementation 'org.apache.commons:commons-collections4:4.4'
 
-        implementation "androidx.work:work-runtime-ktx:2.3.4"
-
-        // annotationProcessor "com.github.moxy-community:moxy-compiler:2.1.2"
-       // implementation "com.github.moxy-community:moxy-androidx:2.1.2"
-/*
-        kapt "com.github.moxy-community:moxy-compiler:2.1.2"
-*/
-        /*  implementation 'com.arello-mobile:moxy:1.5.3'
-          implementation 'com.arello-mobile:moxy-android:1.5.3'
-          implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
-          kapt 'com.arello-mobile:moxy-compiler:1.5.3'*/
-        //todo ui
+        // UI
         implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
         implementation "androidx.viewpager2:viewpager2:1.0.0"
         implementation 'com.github.wangpeiyuan:CycleViewPager2:v1.0.7'
@@ -137,12 +117,9 @@
         implementation 'de.hdodenhof:circleimageview:2.2.0'
         implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
         implementation 'com.squareup.picasso:picasso:2.5.2'
-        implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
         implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
+
         implementation 'androidx.appcompat:appcompat:1.1.0'
-        implementation 'androidx.appcompat:appcompat:1.1.0'
-        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-        implementation 'com.google.android.material:material:1.1.0'
         // Carusel
         implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.0.2'
 
@@ -153,23 +130,10 @@
         // Circle Indicator
         implementation 'me.relex:circleindicator:2.1.4'
 
-        //todo test
-        androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-        implementation 'com.github.bumptech.glide:glide:4.6.1'
-
-        implementation 'com.makeramen:roundedimageview:2.3.0'
-
-        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-        //todo other
-        implementation 'org.greenrobot:eventbus:3.1.1'
-        implementation fileTree(include: ['*.jar'], dir: 'libs')
         implementation 'com.google.firebase:firebase-analytics:17.4.0'
         implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
-/*
-        implementation 'com.android.support:support-v13:28.0.0'
-*/
         implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
-        //maps
+        // Maps
         implementation 'com.yandex.android:mapkit:3.5.0'
         implementation 'com.yandex.android:search:3.5.0'
         implementation 'com.yandex.android:directions:3.5.0'
@@ -178,5 +142,10 @@
         // navigation
         implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
         implementation 'androidx.multidex:multidex:2.0.1'
-        //todo end
+
+        // Test
+        androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
     }

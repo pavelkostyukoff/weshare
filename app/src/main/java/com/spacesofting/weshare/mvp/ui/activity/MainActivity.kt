@@ -5,20 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.work.Constraints
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ActivityWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.ui.fragment.SplashFragment
 import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
-import com.spacesofting.weshare.utils.RefreshTokenWorker
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity  : ActivityWrapper(), ActionBottomDialogFragment.ItemClickListener {
@@ -29,27 +24,6 @@ class MainActivity  : ActivityWrapper(), ActionBottomDialogFragment.ItemClickLis
         lockDrawerMenu(false)
         router.navigateTo(ScreenPool.SPLASH_FRAGMENT)
         ApplicationWrapper.context = this.applicationContext
-        ApplicationWrapper.instance.getComponent()?.injectsMainActivity(this)
-
-       /* val constraints = Constraints.Builder()
-            .setRequiresCharging(true)
-            .build()
-
-        val request = PeriodicWorkRequestBuilder<RefreshTokenWorker>(3, TimeUnit.HOURS)
-
-            .setConstraints(constraints)
-            .build()*/
-/*
-        WorkManager.getInstance()
-            .enqueueUniquePeriodicWork("jobTag", ExistingPeriodicWorkPolicy.KEEP, request)*/
-     //   WorkManager.getInstance(this).enqueue(request)
-
-       /* WorkManager.getInstance(this).getWorkInfoByIdLiveData(request.id)
-            .observe(this, Observer {
-
-                val status: String = it.state.name
-                Toast.makeText(this,status, Toast.LENGTH_SHORT).show()
-            })*/
     }
 
     override fun onResume() {
@@ -63,8 +37,9 @@ class MainActivity  : ActivityWrapper(), ActionBottomDialogFragment.ItemClickLis
     }
 
     var fragment: androidx.fragment.app.Fragment? = null
-    override fun onNewIntent(intent: Intent) {
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
         // Check if the fragment is an instance of the right fragment
         if (fragment is SplashFragment) {
             val my = fragment as SplashFragment?

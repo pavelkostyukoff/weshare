@@ -2,7 +2,6 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.app.Fragment
 import android.app.FragmentTransaction
-import android.gesture.GestureLibraries
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -13,14 +12,11 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.bumptech.glide.Glide
-import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.utils.ImageUtils
 import com.squareup.picasso.Callback
-import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.image_picker_fragment.*
@@ -229,8 +225,8 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
                 WishEditActivity.imgHeight = newH*/
 
                 imgID?.let { it1 ->
-                    Glide
-                        .with(this)
+                    Picasso
+                        .with(context)
                         .load(file)
                         .into(it1)
                 }.run {

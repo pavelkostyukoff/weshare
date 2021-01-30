@@ -1,27 +1,15 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
-import android.content.Context
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
-import kotlinx.android.synthetic.main.image_picker_fragment.*
 import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
-
 
 class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHolder>() {
     var dataset = ArrayList<String>()
@@ -55,7 +43,7 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
             val output =  StringBuilder().append(dataset[position].substring(0, 4))
                 .append("s").append(dataset[position].substring(4, dataset[position].length)).toString()
             holder.wishEditImageView?.let { it ->
-                Glide
+                Picasso
                     .with(context)
                     .load(output)
                     .into(it)

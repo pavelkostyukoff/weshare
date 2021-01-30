@@ -6,15 +6,12 @@ import androidx.multidex.MultiDexApplication
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.pawegio.kandroid.e
 import com.spacesofting.weshare.api.Entitys
-import com.spacesofting.weshare.api.Image
 import com.spacesofting.weshare.api.model.place.Place
-import com.spacesofting.weshare.di.AppComponent
 /*
 import com.spacesofting.weshare.di.DaggerAppComponent
 */
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.squareup.picasso.Picasso
@@ -26,7 +23,6 @@ import java.io.File
 
 
 class ApplicationWrapper : MultiDexApplication() {
-    private var component: AppComponent? = null
     private var doAuthtorizedWish: Advert? = null
         private var photoPath: File? = null
       //  var profile: User? = null
@@ -56,10 +52,6 @@ class ApplicationWrapper : MultiDexApplication() {
 
         lateinit var mailAutorize : Login
         //  lateinit var updProfile: UpdateProfile
-    }
-
-    fun getComponent(): AppComponent? {
-        return component
     }
 
     private lateinit var cicerone: Cicerone<BoomerangoRouter>
