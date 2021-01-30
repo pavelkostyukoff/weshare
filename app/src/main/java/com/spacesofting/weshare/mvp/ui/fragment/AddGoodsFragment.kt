@@ -60,10 +60,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
     private var isNew = false
-
     private var catPosition = 0
     private var subCatPosition = 0
-
     private var adapterBaner = MyCyclePagerAdapter()
     private val category = ApplicationWrapper.category
 
@@ -72,7 +70,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var picker: ImagePickerFragment? = null
     private var pathImg: String? = null
     private var progressDialog: ProgressDialog? = null
-
     private var bannerItemsFake = ArrayList<String>()
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
@@ -84,7 +81,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         private const val DATA_KEY_STR = "string"
         fun getInstance(id: String?): AddGoodsFragment {
             val fragment = AddGoodsFragment()
-
             /*   smsRegistration?.let {
                    val argument = Bundle()
                    argument.putSerializable(DATA_KEY, it)
@@ -103,7 +99,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-
         /*  if (advert.rentPeriods.isEmpty()) {
               rentPeriod.amount = 0.74
               rentPeriod.period = RentPeriod.Period.hour
@@ -113,11 +108,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
           }*/
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (ApplicationWrapper.instance.getAuthorityWish() != null) {
-
             if (!isNew) {
                 advert = ApplicationWrapper.instance.getAuthorityWish()!!
             }
-
             presenter.newAdvert = advert //todo должно решить проблему
             Log.e(
                 "Selected_Page",
@@ -139,7 +132,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                                 }
                             }
                             val point = Point()
-
                             address.region = place.address
                             address.city = place.city
                             address.address = place.address
@@ -175,7 +167,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         point.longitude = place.location.longitude.toString()
                         point.latitude = place.location.latitude.toString()
                         address.point = point
-
                         advert.address = address
                     }
                 }
@@ -209,8 +200,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
              //todo в случае если мы получили вещь и она пошла грузитсья в поля
              setLoadedWish(it)
          }*/
-
-
         advertTitle.addTextChangedListener(WishNameToDescriptionWatcher(
             presenter.nameMaxLength
         ) { s ->
@@ -225,7 +214,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 AddGoodsPresenter.Field.NAME
             )
         )
-
 
         RxTextView.afterTextChangeEvents(advertTitle)
             //.debounce(500, TimeUnit.MILLISECONDS)
@@ -246,7 +234,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             .subscribe {
                 advert.description = advertDiscription.text.toString()
             }
-
         //  wishUrlEditText.addTextChangedListener(WishEditPresenterReporterWatcher(presenter = presenter, field = WishEditPresenter.Field.WISH_URL))
         advertAmount.addTextChangedListener(
             WishEditPresenterReporterWatcher(
@@ -261,21 +248,19 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 val text = advertAmount.text.toString()
                 advert.rentPeriods[0].amount = text.toDouble()
             }
-
         searchEditText.addTextChangedListener(
             WishEditPresenterReporterWatcher(
                 presenter,
                 AddGoodsPresenter.Field.ADRESS
             )
         )
-
         banner.viewPager2.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
         view.viewTreeObserver.addOnWindowFocusChangeListener {
         }
-//todo выбор валюты
+        //todo выбор валюты
         val adapter = ArrayAdapter.createFromResource(
             activity,
             R.array.wish_edit_cyrrency,
@@ -285,7 +270,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         currencyOptions.adapter = adapter
         currencyOptions.onItemSelectedListener = this
         //  currencyOptions.setSelection(0)
-//todo выбор промежутка времени
+        //todo выбор промежутка времени
         val adpaterPeriod = ArrayAdapter.createFromResource(
             activity,
             R.array.wish_edit_period,
@@ -299,8 +284,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             advert.rentPeriods.let { it ->
                 //   it.get(0)
                 //todo amound
-
-
                 // periodOptions.setSelection(2)
                 when (it[0].period) {
                     RentPeriod.Period.hour -> periodOptions.setSelection(0)
@@ -873,6 +856,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = pos
+
             @SuppressLint("CheckResult")
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,

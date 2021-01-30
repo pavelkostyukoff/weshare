@@ -28,7 +28,6 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
     lateinit var deviceInfo: DeviceInfo
     val router = ApplicationWrapper.instance.getRouter()
 
-
     @SuppressLint("CheckResult")
     fun autorize(mail: Login, isRetryIn: Boolean = false) {
         viewState.showProgress(true)

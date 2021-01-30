@@ -10,7 +10,6 @@ import retrofit2.http.POST
 import java.util.concurrent.Callable
 
 interface AuthService {
-
     @POST("auth/login")  //todo //Подтвердить получение задач`и
     fun autorize(@Body mail: Login): Observable<Autorize>
 
