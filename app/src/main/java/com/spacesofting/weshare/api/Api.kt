@@ -40,8 +40,7 @@ object Api {
         ))
         .addInterceptor(AUTH)
           //.addInterceptor(MOCK)
-
-    // .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
+        // .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
         //  .addInterceptor(SMS)
        // .addInterceptor(TOKEN)
         .addInterceptor(LOG)
@@ -61,9 +60,6 @@ object Api {
         .addConverterFactory(GsonConverterFactory.create())
         .callbackExecutor(Executors.newSingleThreadExecutor())
         .build()
-
-
-
 
     val Auth: AuthService
         get() = RETROFIT.create(AuthService::class.java)

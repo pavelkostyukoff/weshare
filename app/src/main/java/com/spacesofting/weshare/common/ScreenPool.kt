@@ -8,7 +8,6 @@ import com.spacesofting.weshare.mvp.RoleEnum
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
 object ScreenPool {
-
     val MAIN_FRAGMENT = "main_fragment"
     val BASE_FRAGMENT = "base_fragment"
     val MAP_FRAGMENT = "map_fragment"
@@ -40,7 +39,6 @@ object ScreenPool {
 
     fun getFragment(screenKey: String, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (screenKey) {
-
             SPLASH_FRAGMENT -> {
                 SplashFragment.getInstance()
             }
@@ -56,7 +54,6 @@ object ScreenPool {
             EDIT_PROFILE -> {
                 EditProfile.newInstance()
             }
-
             MAP_FRAGMENT -> {
                 MyMapFragment.newInstance()
             }
@@ -64,7 +61,6 @@ object ScreenPool {
                 FeedCompilationsFragment.getInstance()
                 // FeedFragment.getInstance()
             }
-
             FEED_CHAOS_FRAGMENT -> {
                 FeedChaosFragment.getInstance()
                 // FeedFragment.getInstance()
@@ -72,7 +68,6 @@ object ScreenPool {
             ADD_GOODS -> {
                 AddGoodsFragment.getInstance(data as String?)
             }
-
             SHOW_CATEGORY -> {
                 //todo set string tag name
                 ShowCategoryFragment.newInstance(data as String?)
@@ -81,24 +76,18 @@ object ScreenPool {
                 //todo set string tag name
                 RegistrationFragment.newInstance()
             }
-
             SHOW_GOOD -> {
                 //todo sent exist
                 ShowGoodFragment.newInstance(data as String?)
             }
-
             ADDRESS_SEARCH -> {
                 //todo sent exist
                 AddressSearchFragment.newInstance(data as String?)
             }
-
-
             /* ADD_GOODS -> {
                     AddGoodsFragment.newInstance()
                     // FeedFragment.getInstance()
                 }*/
-
-
             /*  REGISTRATION_FRAGMENT -> {
                       AuthorizationFragment.getInstance()
                   }
@@ -111,7 +100,6 @@ object ScreenPool {
                   SECURITY_FRAGMENT -> {
                       SecurityFragment.getInstance()
                   }*/
-
             /* COMPANIES_LIST_FARGMENT -> {
                     CompaniesListFragment.getInstance()
                 }
