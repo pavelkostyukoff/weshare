@@ -34,6 +34,7 @@ import com.spacesofting.weshare.mvp.model.Address
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.Point
 import com.spacesofting.weshare.mvp.model.RentPeriod
+import com.spacesofting.weshare.mvp.model.RentPeriod.*
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
@@ -60,10 +61,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
     private var isNew = false
-
     private var catPosition = 0
     private var subCatPosition = 0
-
     private var adapterBaner = MyCyclePagerAdapter()
     private val category = ApplicationWrapper.category
 
@@ -139,7 +138,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                                 }
                             }
                             val point = Point()
-
                             address.region = place.address
                             address.city = place.city
                             address.address = place.address
@@ -303,14 +301,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
                 // periodOptions.setSelection(2)
                 when (it[0].period) {
-                    RentPeriod.Period.hour -> periodOptions.setSelection(0)
-                    RentPeriod.Period.day -> periodOptions.setSelection(1)
-                    RentPeriod.Period.month -> periodOptions.setSelection(2)
+                    Period.hour -> periodOptions.setSelection(0)
+                    Period.day -> periodOptions.setSelection(1)
+                    Period.month -> periodOptions.setSelection(2)
                 }
                 when (it[0].currency) {
-                    RentPeriod.Currency.EUR -> currencyOptions.setSelection(0)
-                    RentPeriod.Currency.USD -> currencyOptions.setSelection(1)
-                    RentPeriod.Currency.RUB -> currencyOptions.setSelection(2)
+                    Currency.EUR -> currencyOptions.setSelection(0)
+                    Currency.USD -> currencyOptions.setSelection(1)
+                    Currency.RUB -> currencyOptions.setSelection(2)
                 }
                 //for check edit fields
                 //   mAddGoodsPresenter.editWishAmount = it[0].amount.toString()
@@ -736,7 +734,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         setPhotoAdapter(it)
     }
 
-    //todo добавление фото по соответсвию наименованию к категориям
+    //todo добавление фото по соответсвию к категориям
     private fun setPhotoAdapter(it: Entitys?) {
         var resourceId: Int? = null
         // if (it?.entities == null) {
@@ -784,13 +782,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //    }
     }
 
+    //todo инициализация всех данных
     private fun initData() {
         // подписываем нашу активити на события колбэка
         initBanners()
         initCategoryList()
     }
 
-    @SuppressLint("ResourceType")
+    //todo инициализация баннера
     private fun initBanners() {
         bannerItemsFake.clear()
 
@@ -831,19 +830,21 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo работа обновления баннеров карточек фото
     private fun refrashAdapterBaner(file: File) {
         // bannerItems.clear()
         file
         bannerItemsFake.clear()
         advert.bannerItems.add(file.toString())
-        adapterBaner?.dataset = advert.bannerItems
+        adapterBaner.dataset = advert.bannerItems
         btn_remove.visible = advert.bannerItems.isNotEmpty()
-        adapterBaner?.notifyDataSetChanged()
-
+        adapterBaner.notifyDataSetChanged()
         //initBanners()
 
     }
 
+    //todo инициализация и выбор категории занесения ключа категории в ендпоинт при создании вещи 0000-0000-0000-0000-0000
+    //todo если у нас при инициализации сразу записываем первую , если есть изменения меняем
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
 
@@ -873,6 +874,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = pos
+
             @SuppressLint("CheckResult")
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -911,7 +913,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //  categoryCycleView.setIndicator(custom_indicator)
     }
 
-    //todo 2--------------------2
+    //todo инициализация и работа подкатегорий , если у нас они видны, конечно  0000-0000-0000-0000-0000
     private fun initSubCategoryList(entitys: Entitys?) {
         var position = 0
         var count = 0
@@ -962,7 +964,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 // todo презентер отображает initSabCategoryList ()
             }
         }
-
         subCategoryCycleView.addData(listFour)
         subCategoryCycleView.scrollTo(0, 0)
         if (entitys?.entities?.isEmpty()!!) {
@@ -977,6 +978,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo запрос на открытие камеры и права
     override fun openCamera(file: File) {
         activity?.let {
             RxPermissions(it)
@@ -994,6 +996,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo запрос открыть галерею на девайсе
     override fun openGallery() {
         val getContentIntent = Intent(Intent.ACTION_GET_CONTENT)
         getContentIntent.type = "image/*"
@@ -1010,6 +1013,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo метод возврата с выбранным файлом фото
     private fun consumeGalleryResult(data: Intent?) {
         data?.let {
             val uri = it.data as Uri
@@ -1023,15 +1027,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    //todo метод выбора фото
     private fun showPicker() {
         activity?.hideKeyboard()
-
         picker = ImagePickerFragment()
         picker?.listener = presenter
         picker?.isAvatarForm = false
         picker?.pathImage = pathImg
         picker?.file = presenter.imageFile
-
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -1043,35 +1046,30 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
                     ApplicationWrapper.context = this.context!!
-
                 }
         }
     }
 
     private fun setPeriods() {
-
         if (advert.rentPeriods.isEmpty()) {
             rentPeriod.amount = advertAmount.text.toString().toDouble()
-            rentPeriod.period = RentPeriod.Period.hour
-            rentPeriod.currency = RentPeriod.Currency.RUB
+            rentPeriod.period = Period.hour
+            rentPeriod.currency = Currency.RUB
             rentPeriodList.add(rentPeriod)
             advert.rentPeriods = rentPeriodList
         }
-
-
         if (advert.rentPeriods.isNotEmpty()) {
             advert.rentPeriods[0].amount = advertAmount.text.toString().toDouble()
 
             when (periodOptions.selectedItem) {
-                "HOUR" -> advert.rentPeriods[0].period = RentPeriod.Period.hour
-                "DAY" -> advert.rentPeriods[0].period = RentPeriod.Period.day
-                "MONTH" -> advert.rentPeriods[0].period =
-                    RentPeriod.Period.month // todo убрать если надо
+                "HOUR" -> advert.rentPeriods[0].period = Period.hour
+                "DAY" -> advert.rentPeriods[0].period = Period.day
+                "MONTH" -> advert.rentPeriods[0].period = Period.month // todo убрать если надо
             }
             when (currencyOptions.selectedItem) {
-                "EUR" -> advert.rentPeriods[0].currency = RentPeriod.Currency.EUR
-                "USD" -> advert.rentPeriods[0].currency = RentPeriod.Currency.USD
-                "RUB" -> advert.rentPeriods[0].currency = RentPeriod.Currency.RUB
+                "EUR" -> advert.rentPeriods[0].currency = Currency.EUR
+                "USD" -> advert.rentPeriods[0].currency = Currency.USD
+                "RUB" -> advert.rentPeriods[0].currency = Currency.RUB
             }
         }
     }
@@ -1080,7 +1078,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         super.onPause()
         setPeriods()
         isNew = true
-
         /* val test = currencyOptions.selectedItem
          val test2 =  periodOptions.selectedItem
          advert.rentPeriods[0].currency = currencyOptions.selectedItem as RentPeriod.Currency//currencyOptions.text.toString()
@@ -1138,17 +1135,19 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         // presenter.fieldChanged(null, WishEditPresenter.Field.PRIVACY, Wish.PrivacyLevel.values()[p2])
         if (advert.rentPeriods.isNotEmpty()) {
             when (parent!!.id) {
+                //todo метод выбора временного отрезка
                 R.id.periodOptions ->
                     when (position) {
-                        1 -> advert.rentPeriods[0].period = RentPeriod.Period.hour
-                        2 -> advert.rentPeriods[0].period = RentPeriod.Period.day
-                        3 -> advert.rentPeriods[0].period = RentPeriod.Period.month
+                        1 -> advert.rentPeriods[0].period = Period.hour
+                        2 -> advert.rentPeriods[0].period = Period.day
+                        3 -> advert.rentPeriods[0].period = Period.month
                     }
+                //todo выбор валюты для сдачи
                 R.id.currencyOptions ->
                     when (position) {
-                        1 -> advert.rentPeriods[0].currency = RentPeriod.Currency.EUR
-                        2 -> advert.rentPeriods[0].currency = RentPeriod.Currency.USD
-                        3 -> advert.rentPeriods[0].currency = RentPeriod.Currency.RUB
+                        1 -> advert.rentPeriods[0].currency = Currency.EUR
+                        2 -> advert.rentPeriods[0].currency = Currency.USD
+                        3 -> advert.rentPeriods[0].currency = Currency.RUB
                     }
                 else -> {
                     Toast.makeText(
@@ -1163,10 +1162,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun onNothingSelected(p0: AdapterView<*>?) {}
 
+    //todo добавление новой фоточки для карточки товара
     override fun onCardClick() {
         showPicker()
     }
 
+    //todo удаление карточки товара точнее ее фото
     override fun onCardClickDelete(position: Int) {
         if (advert.bannerItems.isNotEmpty()) {
             //  val index = advert.bannerItems.size - 1
