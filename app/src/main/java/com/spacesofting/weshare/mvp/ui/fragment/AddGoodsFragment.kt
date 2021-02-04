@@ -96,17 +96,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
-    @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        /*  if (advert.rentPeriods.isEmpty()) {
-              rentPeriod.amount = 0.74
-              rentPeriod.period = RentPeriod.Period.hour
-              rentPeriod.currency = RentPeriod.Currency.RUB
-              rentPeriodList.add(rentPeriod)
-              advert.rentPeriods = rentPeriodList
-          }*/
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (ApplicationWrapper.instance.getAuthorityWish() != null) {
             if (!isNew) {
@@ -345,23 +337,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
                     if (event.action == MotionEvent.ACTION_DOWN) {
                         router.navigateTo(ScreenPool.ADDRESS_SEARCH)
-                        /*val i = Intent(activity, AddressSearchActivity::class.java)
-                        i.putExtra(MainActivity.ORDER_PARAM, getOrderParam().ordinal())
-                        if (getOrderParam() === Order.OrderParam.From) i.putExtra(
-                            AddressSearchActivity.ADDRESS_TEXT,
-                            NexiApplication.getActiveProfile().getCurrentOrder().getFrom().getAddress()
-                        ) else i.putExtra(
-                            AddressSearchActivity.ADDRESS_TEXT,
-                            NexiApplication.getActiveProfile().getCurrentOrder().getTo().getAddress()
-                        )
-                        i.putExtra(
-                            MainActivity.REQUEST_CODE,
-                            ru.ddg.nexi.nexitaxi.fragments.PlaceFragment.ACTIVITY_SEARCH_CODE
-                        )
-                        startActivityForResult(
-                            i,
-                            ru.ddg.nexi.nexitaxi.fragments.PlaceFragment.ACTIVITY_SEARCH_CODE
-                        )*/
                         return true
                     }
                     return false
@@ -502,6 +477,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         presenter.imageChanged = true
         // mAddGoodsPresenter.fieldChanged(file.path, AddGoodsPresenter.Field.IMAGE)
         //   addImgLayout.visibility = View.VISIBLE
+    }
+
+    override fun showForgetWriteAdress() {
+        toast("Вы забыли ввеси адрес или адрес введен не корректно")
     }
 
     //todo тут нажимает на кнопку сохранить внизу - если прошли валидацию - она становится активна
@@ -728,6 +707,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             when (it.code) {
                 "kids" -> {
                     resourceId = R.drawable.kids
+                    ApplicationWrapper.category
                 }
                 "realty" -> {
                     resourceId = R.drawable.nedviga
@@ -835,7 +815,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         val listFour = mutableListOf<CarouselItem>()
 
         categoryCycleView.currentPosition = catPosition
-
         categoryCycleView.captionTextSize = 0
         var pos = 0
         var count = 0
@@ -915,6 +894,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 CarouselItem(
                     imageUrl = it1,
                     caption = it.name
+
+                   // if(ApplicationWrapper.category.)
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
@@ -936,9 +917,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
                     if (entitys?.entities != null) {
-                        if (entitys.entities!!.isNotEmpty()) {
-                            advert.categoryId = entitys.entities!![position].id
-                            val test = entitys.entities!![position].name
+                        if (entitys?.entities!!.isNotEmpty()) {
+                            advert.categoryId = entitys?.entities!![position].id
+                            val test = entitys?.entities!![position].name
                         }
                     }
                 }

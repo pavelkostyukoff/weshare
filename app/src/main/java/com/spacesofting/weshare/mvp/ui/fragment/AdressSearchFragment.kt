@@ -209,7 +209,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                     LogUtil.Loge(e)
                 }
                 LogUtil.Log(query)
-                hideKeyboard(context)
+               //todo скрывает клавиатуру hideKeyboard(context)
             }
         }
     }
@@ -220,7 +220,6 @@ open class AddressSearchFragment : FragmentWrapper(),
 
     companion object {
         const val TAG = "AddressSearch"
-
         private const val DATA_KEY = "data"
         fun newInstance(searchText: String?): AddressSearchFragment {
             val fragment = AddressSearchFragment()
@@ -283,15 +282,14 @@ open class AddressSearchFragment : FragmentWrapper(),
                    }*/
 
 
-        searchEditText.gravity = Gravity.CENTER
+       // searchEditText.gravity = Gravity.CENTER
         searchEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onLocationSearch()
-                return@OnEditorActionListener true
             }
-            false
+            return@OnEditorActionListener true
         })
-        searchEditText.isEnabled = false
+       //todo работает тапы на поиске нет searchEditText.isEnabled = false
 
         mRecyclerViewScrollListener = object : RecyclerView.OnScrollListener() {
             override
@@ -341,20 +339,22 @@ open class AddressSearchFragment : FragmentWrapper(),
         location
     }
 
+
+
     private fun onLocationSearch() {
-        var addr: String = searchEditText.text.toString()
-        if (!TextUtils.isEmpty(addr)) {
+        val address: String = searchEditText.text.toString()
+        if (!TextUtils.isEmpty(address)) {
             val loc = Location("loc")
             //loc.latitude = MOSCOW_CENTER_LATITUDE
             //loc.longitude = MOSCOW_CENTER_LONGITUDE
             progressBar.post {
                 progressBar.visibility = View.VISIBLE
                 addresList.isEnabled = false
-                searchEditText.isEnabled = false
-                hideKeyboard(context)
+              //  searchEditText.isEnabled = false
+                    // hideKeyboard(context)
             }
             val ym = YandexMaps()
-            ym.getAddressBy(addr, loc, this)
+            ym.getAddressBy(address, loc, this)
         }
     }
 
@@ -379,7 +379,7 @@ open class AddressSearchFragment : FragmentWrapper(),
        searchForAddress(place.value)
        val text = place.displayName.toString() + " "
        searchEditText.setText(text)
-       searchEditText.setSelection(text.length, text.length)
+      // searchEditText.setSelection(text.length, text.length)
        onLocationSearch()
        //todo тут я могу забирать место и закрывать фрагмент передавая данные
        return false
@@ -390,7 +390,7 @@ open class AddressSearchFragment : FragmentWrapper(),
             if (context == null) return
             val inputMethodManager =
                 context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+           // inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
         catch (e: Exception) {
 
@@ -425,8 +425,17 @@ open class AddressSearchFragment : FragmentWrapper(),
                     a.setResult(Activity.RESULT_OK, res)
                     a.finish()
                 }*/
-            ApplicationWrapper.place = place
-            router.navigateTo(ScreenPool.ADD_GOODS)
+
+
+            if (place.house.isNotEmpty())
+            {
+                ApplicationWrapper.place = place
+                router.navigateTo(ScreenPool.ADD_GOODS)
+            }
+            else {
+                Toast.makeText(context,"Обязательно укажите дом", Toast.LENGTH_LONG).show()
+
+            }
             //todo exitWithResult
         }
     }
@@ -436,8 +445,8 @@ open class AddressSearchFragment : FragmentWrapper(),
         titleImageView.post(Runnable {
             progressBar.visibility = View.GONE
             addresList.isEnabled = true
-            searchEditText.
-                isEnabled = true
+  /*          searchEditText.
+                isEnabled = true*/
             showKeyboard(context)
             Toast.makeText(context, "error", Toast.LENGTH_LONG)
                 .show()
@@ -452,7 +461,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                 webView.loadUrl("file:///android_asset/map.html")
             } else {
                 searchEditText.post(Runnable {
-                    searchEditText.isEnabled = true
+                   // searchEditText.isEnabled = true
                     progressBar.visibility = View.GONE
                     showKeyboard(context)
                 })

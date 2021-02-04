@@ -79,6 +79,8 @@
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
+
+
     <EditText
             android:id="@+id/searchEditText"
             style="@style/EditText"
@@ -88,6 +90,15 @@
             android:hint="@string/edit_advert_address_search_inside"
             android:imeOptions="actionSearch"
             android:paddingTop="5dp" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/apple"
+            android:layout_marginLeft="40dp"
+            android:layout_height="wrap_content"
+            android:text="Введите адрес вручную">
+
+    </TextView>
 
     <RelativeLayout
             android:layout_width="match_parent"

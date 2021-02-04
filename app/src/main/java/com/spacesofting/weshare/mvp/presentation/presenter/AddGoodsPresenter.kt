@@ -1,5 +1,6 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.widget.Toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
@@ -288,8 +289,13 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         if (imageFile?.name != editWishImage) {
             isWishImageEdit = true
         }
+        if (advert.address != null) {
+            confirmPressed(advert)
+        }
+        else {
+            viewState.showForgetWriteAdress()
+        }
 
-        confirmPressed(advert)
     }
 
     fun isValid(advert: Advert): Boolean {

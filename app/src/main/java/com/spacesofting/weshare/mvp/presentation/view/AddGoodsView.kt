@@ -13,6 +13,7 @@ interface AddGoodsView : MvpView {
     fun showToast(stringId: Int)
     fun showMaterialDialog(stringId: Int)
     fun wishImageDelete ()
+    fun showForgetWriteAdress ()
     fun setNewSubCategory(it: Entitys)
   /*  fun setLoadedWish(wish: Wish)
     fun share(shareLink: ShareLink)*/
