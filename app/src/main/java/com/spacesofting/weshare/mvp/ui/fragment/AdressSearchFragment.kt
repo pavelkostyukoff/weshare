@@ -45,6 +45,7 @@ import com.spacesofting.weshare.yandex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_address_search.*
 import kotlinx.android.synthetic.main.fragment_address_search.progressBar
+import kotlinx.android.synthetic.main.fragment_address_search.view.*
 import kotlinx.android.synthetic.main.fragment_authorization.*
 import moxy.presenter.InjectPresenter
 import org.apache.commons.collections4.IterableUtils
@@ -283,6 +284,9 @@ open class AddressSearchFragment : FragmentWrapper(),
 
 
        // searchEditText.gravity = Gravity.CENTER
+        clearText.setOnClickListener {
+            searchEditText.text.clear()
+        }
         searchEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 onLocationSearch()
@@ -321,10 +325,9 @@ open class AddressSearchFragment : FragmentWrapper(),
 //        map = map.replace("mydot://dot.png", path.toString());
 //        webView.loadDataWithBaseURL(null, map, "text/html", "utf-8", null);
         webView.loadUrl("file:///android_asset/map.html")
-/*
         fakeImageView.setOnClickListener {
             router.backTo(ScreenPool.ADD_GOODS)
-        }*/
+        }
     }
     private fun positionMapToCity(name: String) {
         val mapCommand = String.format(
@@ -334,6 +337,8 @@ open class AddressSearchFragment : FragmentWrapper(),
         )
         webView!!.loadUrl(mapCommand)
     }
+
+
 
     open fun onLocationChanged(location: Location?) {
         location
@@ -430,7 +435,7 @@ open class AddressSearchFragment : FragmentWrapper(),
             if (place.house.isNotEmpty())
             {
                 ApplicationWrapper.place = place
-                router.navigateTo(ScreenPool.ADD_GOODS)
+                router.exit()
             }
             else {
                 Toast.makeText(context,"Обязательно укажите дом", Toast.LENGTH_LONG).show()

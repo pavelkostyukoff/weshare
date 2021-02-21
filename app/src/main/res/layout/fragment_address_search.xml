@@ -18,14 +18,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                 <ImageView
                         android:id="@+id/fakeImageView"
@@ -79,17 +79,44 @@
             android:layout_height="match_parent"
             android:visibility="gone"/>
 
-
-
-    <EditText
-            android:id="@+id/searchEditText"
-            style="@style/EditText"
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:hint="@string/edit_advert_address_search_inside"
-            android:imeOptions="actionSearch"
-            android:paddingTop="5dp" />
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/clearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/white"
+                android:src="@drawable/close"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/searchEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/searchEditText"
+                app:layout_constraintTop_toTopOf="@+id/searchEditText"
+                app:layout_constraintVertical_bias="0.562" />
+
+        <EditText
+                android:id="@+id/searchEditText"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="40dp"
+                android:hint="@string/edit_advert_address_search_inside"
+                android:imeOptions="actionSearch"
+                android:paddingTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
             android:layout_width="wrap_content"

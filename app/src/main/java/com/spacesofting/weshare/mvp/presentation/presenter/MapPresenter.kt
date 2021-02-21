@@ -21,7 +21,7 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
     }
 
     @SuppressLint("CheckResult")
-    fun getFirstRequest(
+    fun getNewMapRequest(
         lat: String,
         lan: String,
         sRadius: String,
@@ -31,8 +31,7 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                viewState.setFirstRequest(it)
-
+                viewState.setUpdateRequest(it)
             }){
                 it
             }

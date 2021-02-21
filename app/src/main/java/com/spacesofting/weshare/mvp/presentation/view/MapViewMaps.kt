@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
-import com.spacesofting.weshare.api.ResponceMyAdvert
 import com.spacesofting.weshare.api.ResponceMyAdvertMaps
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
@@ -11,6 +10,6 @@ import moxy.viewstate.strategy.StateStrategyType
 interface MapViewMaps : MvpView {
 
     fun showCatObjects(it: ResponceMyAdvertMaps)
-    fun setFirstRequest(it: ResponceMyAdvertMaps)
+    fun setUpdateRequest(it: ResponceMyAdvertMaps)
 
 }

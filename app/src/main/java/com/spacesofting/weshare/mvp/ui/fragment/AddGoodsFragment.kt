@@ -54,6 +54,7 @@ import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.io.File
 import java.util.concurrent.TimeUnit
+import kotlin.Double as Double
 
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
@@ -125,10 +126,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                                 }
                             }
                             val point = Point()
+                            val rnds = (0..10).random()      * 0.003
                             address.region = place.address
                             address.city = place.city
                             address.address = place.address
-                            point.latitude = place.location.latitude.toString()
+                            point.latitude = (place.location.latitude + rnds).toString()
                             point.longitude = place.location.longitude.toString()
                             address.point = point
                             advert.address = address
@@ -154,10 +156,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         }
                         val point = Point()
                         val address = Address()
+                        val rnds = (0..10).random() * 0.003
                         address.region = place.address
                         address.city = place.city
                         address.address = place.address
-                        point.longitude = place.location.longitude.toString()
+                        point.longitude = (place.location.longitude+ rnds).toString()
                         point.latitude = place.location.latitude.toString()
                         address.point = point
                         advert.address = address
@@ -1060,10 +1063,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                             address.country = "Russia"
                         }
                         address.country = it.country
+                        val rnds = (0..10).random() * 0.003
                         address.region = it.address
                         address.city = it.city
                         address.address = it.address
-                        point.latitude = it.location.latitude.toString()
+                        point.latitude = (it.location.latitude + rnds).toString()
                         point.longitude = it.location.longitude.toString()
                         address.point = point
                         advert.address = address

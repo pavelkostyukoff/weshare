@@ -17,6 +17,7 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.CategotiesImage.*
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
 import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
@@ -61,6 +62,7 @@ class MyMapFragment : FragmentWrapper(),
     private var latMain = String()
     private var arrList = Entitys()
     val count =  0.07
+    var globalCategoryId = ""
 
     private var lngMain = String()
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
@@ -68,6 +70,7 @@ class MyMapFragment : FragmentWrapper(),
         Point(59.945933, 30.320045)
 
     val ITEMS_PER_PAGE = 15
+    var realLifeSizeEntities : ArrayList<Entity>? = null
     var page = 0
     //private val TARGET_LOCATION = Point(59.956, 30.313)
     private val ANIMATED_RECTANGLE_CENTER = Point(59.956, 30.313)
@@ -182,6 +185,7 @@ class MyMapFragment : FragmentWrapper(),
     }
 
     override fun showCatObjects(it: ResponceMyAdvertMaps) {
+        mapObjects?.clear()
         mapObjects = mapview.map.mapObjects.addCollection()
         it
 
@@ -194,22 +198,17 @@ class MyMapFragment : FragmentWrapper(),
                 ))
                 count + 0.05
             }
-
         }
 
         marks.map {
             mapObjects?.addPlacemark(Point(it.latitude, it.longitude))?.apply {
                 opacity = 2.8f
-                setIcon(ImageProvider.fromResource(activity, R.drawable.transport))
+                //todo вычислять номер категории и вставлять по уму
+                val test = getIconWithCategory(globalCategoryId)
+                setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
                 addTapListener(YandexMapObjectTapListener())
             }
         }
-       /*
-        marks.add(Point(lat.toDouble(), loe.toDouble()))
-        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.05))
-        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.06))
-        marks.add(Point(lat.toDouble(), loe.toDouble() + 0.07))*/
-
 
 /*
         for (i in 0 until marks.size) {
@@ -232,9 +231,105 @@ class MyMapFragment : FragmentWrapper(),
         mark2?.addTapListener(YandexMapObjectTapListener())*/
     }
 
-    override fun setFirstRequest(it: ResponceMyAdvertMaps) {
-        showCatObjects(it)
+    fun getIconWithCategory(globalCategoryId: String): Int {
+        var icon = 0
+        when(globalCategoryId) {
 
+
+            KINDS_ALL.number -> {
+                icon = R.drawable.kids
+            }
+            OBORUDOVANIE.number -> {
+                icon = R.drawable.oborudovanie_stroyka
+            }
+
+            BUILDING_ALL.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_GARAGE.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_DACHA.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_HOUSE.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_KVARTIRA.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_OFFICE.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_WORK_SPACE.number -> {
+                icon = R.drawable.nedviga
+
+            }
+            BUILDING_SCLAD.number -> {
+                icon = R.drawable.nedviga
+            }
+
+            CLOUSED_ODEZDA_ALL.number -> {
+                icon = R.drawable.clouse
+            }
+            CLOUSED_ODEZDA_MUZ_KOSTYUM.number -> {
+                icon = R.drawable.clouse
+            }
+            CLOUSED_ODEZDA_NARODNAYA.number -> {
+                icon = R.drawable.clouse
+            }
+            CLOUSED_ODEZDA_PLATYA.number -> {
+                icon = R.drawable.clouse
+            }
+            CLOUSED_ODEZDA_RYBASHKI.number -> {
+                icon = R.drawable.clouse
+            }
+            CLOUSED_ODEZDA_TORZASTVENNAYA.number -> {
+                icon = R.drawable.clouse
+            }
+
+            CARS_ALL.number -> {
+                icon = R.drawable.transport
+            }
+            CARS_AUTO.number -> {
+                icon = R.drawable.transport
+            }
+            CARS_VELO.number -> {
+                icon = R.drawable.transport
+            }
+            CARS_MOTO.number -> {
+                icon = R.drawable.transport
+            }
+            CARS_RIVER.number -> {
+                icon = R.drawable.transport
+            }
+
+            OTDIH.number -> {
+                icon = R.drawable.rest_otdih
+            }
+            PROCHEE.number -> {
+                icon = R.drawable.tools_instruments
+            }
+            HOBBI_ALL.number -> {
+                icon = R.drawable.sports
+            }
+            ELECTRONICS_ALL.number -> {
+                icon = R.drawable.electronix
+            }
+        }
+
+        return icon
+    }
+
+    override fun setUpdateRequest(it: ResponceMyAdvertMaps) {
+        it
+        showCatObjects(it)
        // createMapObjects(arrList.entities?.get(0)?.id)
     }
 
@@ -247,18 +342,16 @@ class MyMapFragment : FragmentWrapper(),
             //toast("something")
             //showDialogMore()
             showBottomSheetDialog()
-            return true
+            return false
         }
+
     }
 
     private fun showBottomSheetDialog() {
         val addPhotoBottomDialogFragment =
             ActionBottomDialogFragment()
         activity?.supportFragmentManager?.let {
-            addPhotoBottomDialogFragment.show(
-                it,
-                "add_photo_dialog_fragment"
-            )
+            addPhotoBottomDialogFragment.show(it, "add_photo_dialog_fragment")
         }
     }
 
@@ -348,9 +441,10 @@ class MyMapFragment : FragmentWrapper(),
     }
 
 
-    fun getRequast(categoryId: String) {
+    fun getRequest(categoryId: String) {
         getCurrentPosition()
-        mMapPresenter.getFirstRequest(lat, loe,"5000",categoryId)
+        mMapPresenter.getNewMapRequest(lat, loe,"50000000",categoryId)//todo потом сделать тут ползунок
+        globalCategoryId = categoryId
     }
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
@@ -396,16 +490,37 @@ class MyMapFragment : FragmentWrapper(),
                         .delay(1000, TimeUnit.MILLISECONDS)
                         .applySchedulers()
                         .subscribe({
-                            if (it != 0)
-                            {
-                                getSubCategory(category?.entities?.get(position))
-                                //todo вот тут мы и будем делать запрос - получать шмотки и обновлять карту
-                              //  val test = category?.entities?.get(position)?.name
-                            }
-                            else {
-                                //todo делаем запрос и рисуем
-                                category?.entities?.get(positionNew)?.id?.let { it1 -> getRequast(it1) }
-                            }
+                      /*      if (it != 0)
+                            {*/
+                                //todo переделать ту тпо нормальному
+                                //todo имеются ли у нас сабкатегории? если да то 1 если нет то 2
+                               Single.just(getSubCategory(category?.entities?.get(position))) //todo 1)
+                                   .applySchedulers()
+                                   .subscribe({
+                                       if (realLifeSizeEntities != null) {
+                                           if (realLifeSizeEntities!!.isEmpty()) {
+                                               subCategoryCycleView.visibility = View.GONE
+                                               category?.entities?.get(positionNew)?.id?.let { it1 ->
+                                                   //todo стираем список точек
+                                                   getRequest(it1)  //todo 2
+                                               }
+                                           }
+                                       }
+                                       else {
+                                           category?.entities?.get(positionNew)?.id?.let { it1 ->
+                                               getRequest(it1)  //todo 2
+                                           }
+                                       }
+
+                                   }, {
+                                       it
+                                       //  loadingViewModel.errorMessage = it.nonNullMessage()
+                                       // loadingViewModel.isError = true
+                                   })
+
+
+                             //
+                        //    }
                         }, {
                             it
                             //  loadingViewModel.errorMessage = it.nonNullMessage()
@@ -415,15 +530,26 @@ class MyMapFragment : FragmentWrapper(),
                 }
                 positionNew = position
             }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
                 // todo презентер отображает initSabCategoryList ()
             }
         }
         //  categoryCycleView.setIndicator(custom_indicator)
-        categoryCycleView.currentPosition = 3
+        categoryCycleView.currentPosition = 0
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     //todo 2--------------------2
     private fun initSubCategoryList(entitys: Entitys?) {
@@ -467,7 +593,9 @@ class MyMapFragment : FragmentWrapper(),
                            // advert.categoryId = entitys.entities!![position].id
                             val test = entitys.entities!![position].name
                             val id = entitys.entities!![position].id
-                            id?.let { getRequast(it) }
+                            id?.let {
+                                getRequest(it)
+                            }
                            // category?.entities?.get(positionNew)?.id?.let { getRequast(it) }
 
                         }
@@ -502,6 +630,7 @@ class MyMapFragment : FragmentWrapper(),
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    realLifeSizeEntities =  it.entities
                     if (it.entities?.isNotEmpty()!!)
                     {
                         val arr = java.util.ArrayList<Entity>()
@@ -510,13 +639,16 @@ class MyMapFragment : FragmentWrapper(),
                         it.entities
                         it.entities?.let { it1 -> arr.addAll(it1) }
                         it.entities = arr
+                        setNewSubCategory(it)
                     }
-                    setNewSubCategory(it)
+
 
                 }) {
                   //  showToast(R.string.error_load_ok_delete)
+                    it
                 }
         }
+
     }
      @SuppressLint("CheckResult")
      fun setNewSubCategory(it: Entitys) {

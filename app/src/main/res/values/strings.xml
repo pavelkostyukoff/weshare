@@ -4,7 +4,7 @@
     <string name="app_name">BoomeranGO</string>
 
     <!-- SPLASH -->
-    <string name="splash_copyright">© 2020. ОАО «SpaceSofting» </string>
+    <string name="splash_copyright">© 2021. ОАО «Covenant» </string>
     <plurals name="add_wish_exist_plurals">
         <item quantity="one">%1$d такое желание</item>
         <item quantity="two">%1$d таких желания</item>
