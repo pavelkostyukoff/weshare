@@ -36,6 +36,7 @@ object ScreenPool {
     val SHOW_GOOD = "show_good"
     val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
     val ADDRESS_SEARCH = "address_search"
+    val SINGLE_CATEGORY_FRAGMENT = "cat_frag"
 
     fun getFragment(screenKey: String, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (screenKey) {
@@ -59,6 +60,10 @@ object ScreenPool {
             }
             FEED_FRAGMENT -> {
                 FeedCompilationsFragment.getInstance()
+                // FeedFragment.getInstance()
+            }
+            SINGLE_CATEGORY_FRAGMENT -> {
+                CompilationFragment.getInstance()
                 // FeedFragment.getInstance()
             }
             FEED_CHAOS_FRAGMENT -> {

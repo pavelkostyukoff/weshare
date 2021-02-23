@@ -138,8 +138,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
                 }
             }
-
-            setLoadedWishView(advert)
+            //todo Дописать тут условие при котором мы точно знакт что прошлая не была завершена
+                // setLoadedWishView(advert)
             // mAddGoodsPresenter.isValid(advert)
         }
 
@@ -345,7 +345,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     return false
                 }
             })
-
         setBannerData()
     }
 

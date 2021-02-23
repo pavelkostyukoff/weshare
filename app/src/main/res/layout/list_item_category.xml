@@ -55,7 +55,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/subscribe"
+            android:id="@+id/goToCategory"
             style="@style/button.pay"
             android:layout_width="110dp"
             android:layout_height="match_parent"

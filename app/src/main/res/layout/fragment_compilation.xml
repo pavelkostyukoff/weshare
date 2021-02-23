@@ -6,165 +6,89 @@
         android:layout_height="match_parent"
         tools:ignore="RtlHardcoded">
 
-    <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/compilationAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/mainCollapsing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/drawer_header_rectangle"
-                        android:tint="#11000000"
-                        app:layout_collapseMode="parallax"
-                        app:layout_collapseParallaxMultiplier="0.9" />
-
-                <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:background="@color/white"
-                        android:orientation="vertical"
-                        app:layout_collapseMode="parallax"
-                        app:layout_collapseParallaxMultiplier="0.3">
-
-                    <LinearLayout
-                            android:id="@+id/compilationLayoutTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="@dimen/margin_half"
-                            android:layout_marginTop="30dp"
-                            android:orientation="vertical">
-
-                        <TextView
-                                android:id="@+id/compilationSubTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="30dp"
-                                android:gravity="bottom|center"
-                                android:textColor="@color/black"
-                                android:textSize="30sp" />
-
-                        <TextView
-                                android:id="@+id/compilationCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="4dp"
-                                android:text="Нечто"
-                                android:textColor="@color/gray5555" />
-
-                        <Button
-                                android:id="@+id/subscribe"
-                                style="@style/button.pay"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/margin"
-                                android:paddingBottom="@dimen/padding_half"
-                                android:paddingTop="@dimen/padding_half"
-                                android:text="Категория" />
-
-                        <Button
-                                android:id="@+id/unSubscribe"
-                                style="@style/button.lilac"
-                                android:layout_width="130dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/margin"
-                                android:paddingBottom="@dimen/padding_half"
-                                android:paddingTop="@dimen/padding_half"
-                                android:text="Отписаться"
-                                android:visibility="gone"/>
-
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe"
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/wishesList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/compilationToolbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatarCompilation"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/compilationToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
-            android:visibility="visible"
-            app:layout_anchor="@id/compilationLayoutTitle"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            <Space
-                    android:layout_width="64dp"
-                    android:layout_height="@dimen/image_final_width" />
-
-            <TextView
-                    android:id="@+id/compilationTitle"
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_half"
-                    android:gravity="center_vertical"
-                    android:text=""
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+                <Space
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/image_final_width" />
 
-    <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginTop="@dimen/margin">
+                <TextView
+                        android:id="@+id/compilationTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_half"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
 
-        <ImageButton
-                android:id="@+id/buttonBack"
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <FrameLayout
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                    android:id="@+id/buttonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_toolbar_back" />
+        </FrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatarCompilation"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_avatar_placeholder"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp"
+                app:layout_behavior=".utils.AvatarImageBehavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bar" />
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_toolbar_back" />
-    </FrameLayout>
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/compilationToolbar"
+                app:layout_constraintTop_toBottomOf="@+id/compilationToolbar">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatarCompilation"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_avatar_placeholder"
-            app:civ_border_color="@color/white"
-            app:civ_border_width="1dp"
-            app:layout_behavior=".utils.AvatarImageBehavior" />
-          <!--  app:finalHeight="@dimen/image_final_width"-->
-          <!--  app:finalXPosition="32dp"-->
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wishesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

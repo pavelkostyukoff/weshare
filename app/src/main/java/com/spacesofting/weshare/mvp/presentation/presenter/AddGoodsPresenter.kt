@@ -357,7 +357,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     //todo после получения с камеры или с галереи есть колбек в котором мы обновляем переменную с рисунком фалом и далее ее юзаем
     fun onCameraResult() {
         imageFile?.let {
-
             //todo  или успех или ошибка
             viewState.setPreviewImg(it)
         }

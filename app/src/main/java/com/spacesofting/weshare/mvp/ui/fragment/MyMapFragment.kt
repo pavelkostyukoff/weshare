@@ -204,7 +204,6 @@ class MyMapFragment : FragmentWrapper(),
             mapObjects?.addPlacemark(Point(it.latitude, it.longitude))?.apply {
                 opacity = 2.8f
                 //todo вычислять номер категории и вставлять по уму
-                val test = getIconWithCategory(globalCategoryId)
                 setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
                 addTapListener(YandexMapObjectTapListener())
             }
@@ -234,8 +233,6 @@ class MyMapFragment : FragmentWrapper(),
     fun getIconWithCategory(globalCategoryId: String): Int {
         var icon = 0
         when(globalCategoryId) {
-
-
             KINDS_ALL.number -> {
                 icon = R.drawable.kids
             }
@@ -283,6 +280,7 @@ class MyMapFragment : FragmentWrapper(),
             }
             CLOUSED_ODEZDA_NARODNAYA.number -> {
                 icon = R.drawable.clouse
+
             }
             CLOUSED_ODEZDA_PLATYA.number -> {
                 icon = R.drawable.clouse
@@ -323,7 +321,6 @@ class MyMapFragment : FragmentWrapper(),
                 icon = R.drawable.electronix
             }
         }
-
         return icon
     }
 

@@ -2,7 +2,6 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.os.Bundle
 import com.google.android.material.appbar.AppBarLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.spacesofting.weshare.mvp.presentation.view.CompilationView
 import com.spacesofting.weshare.mvp.presentation.presenter.CompilationPresenter
@@ -20,7 +19,7 @@ import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.alphaAnimation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_compilation.*
-import kotlinx.android.synthetic.main.list_item_category.subscribe
+import kotlinx.android.synthetic.main.list_item_category.goToCategory
 
 class CompilationFragment : FragmentWrapper(),
     CompilationView, AppBarLayout.OnOffsetChangedListener, Paginate.Callbacks {
@@ -48,6 +47,8 @@ return R.layout.fragment_compilation   }
     companion object {
         val COMPILATION = "compilation"
         val RESULT_OK   = 100
+        fun getInstance(): CompilationFragment =
+            CompilationFragment()
 /*
         fun getIntent(context: Context, compilation: Compilation) : Intent {
             val intent = Intent(context, CompilationActivity::class.java)
@@ -68,8 +69,7 @@ return R.layout.fragment_compilation   }
         //hideToolbar()
         mPresenter.compilation?.title?.let { setTitle(it) }
      //   compilationCount.text = getString(R.string.compilation_count_idea, mPresenter.compilation?.count)
-        subscribe.visible = !mPresenter.compilation!!.isFavorite
-        unSubscribe.visible = mPresenter.compilation!!.isFavorite
+        goToCategory.visible = !mPresenter.compilation!!.isFavorite
         setAvatarCompilation()
         compilationTitle.alphaAnimation(0, View.INVISIBLE)
         initWishList()
@@ -80,8 +80,7 @@ return R.layout.fragment_compilation   }
         }
 
         buttonBack.setOnClickListener { onBackPressed() }
-        subscribe.setOnClickListener { mPresenter.subscribeCompilations() }
-        unSubscribe.setOnClickListener { mPresenter.unsubscribeCompilation() }
+        goToCategory.setOnClickListener { mPresenter.subscribeCompilations() }
         logEvent("compilation_view", mPresenter.compilation!!.id)
     }
 
@@ -110,13 +109,11 @@ return R.layout.fragment_compilation   }
         if(percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR){
             if(!isTheTitleVisible){
                 compilationTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.VISIBLE)
-                compilationAppBar.alpha = 0f
                 isTheTitleVisible = true
             }
         } else {
             if(isTheTitleVisible){
                 compilationTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.INVISIBLE)
-                compilationAppBar.alpha = 1f
                 isTheTitleVisible = false
             }
         }
@@ -125,12 +122,10 @@ return R.layout.fragment_compilation   }
     private fun handleSubtitleBlockHide(percentage: Float){
         if(percentage >= PERCENTAGE_TO_HIDE_SUBTITLE) {
             if(isSubtitleVisible) {
-                compilationSubTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.INVISIBLE)
                 isSubtitleVisible = false
             }
         } else {
             if(!isSubtitleVisible) {
-                compilationSubTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.VISIBLE)
                 isSubtitleVisible = true
             }
         }
@@ -139,12 +134,10 @@ return R.layout.fragment_compilation   }
     private fun handleContVisible(percentage: Float){
         if(percentage >= PERCENTAGE_TO_HIDE_COUNT) {
             if(isCountVisisble) {
-                compilationCount.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.INVISIBLE)
                 isCountVisisble = false
             }
         } else {
             if(!isCountVisisble) {
-                compilationCount.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.VISIBLE)
                 isCountVisisble = true
             }
         }
@@ -153,12 +146,10 @@ return R.layout.fragment_compilation   }
     private fun handleAlphaOnTitle(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
             if(isTheTitleContainerVisible) {
-                compilationLayoutTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.INVISIBLE)
                 isTheTitleContainerVisible = false
             }
         } else {
             if (!isTheTitleContainerVisible) {
-                compilationLayoutTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.VISIBLE)
                 isTheTitleContainerVisible = true
             }
         }
@@ -168,7 +159,6 @@ return R.layout.fragment_compilation   }
         /*super.setSupportActionBar(compilationToolbar)
         initAppBar(compilationToolbar)
         supportActionBar?.title = ""*/
-        compilationAppBar.addOnOffsetChangedListener(this)
     }
 
    /* private fun setTitle(title: String?){
@@ -238,8 +228,7 @@ return R.layout.fragment_compilation   }
     }
 
     override fun onSubscribe(compilationId: Int) {
-        unSubscribe.visible = true
-        subscribe.visible = false
+        goToCategory.visible = false
         mPresenter.compilation!!.isFavorite = true
         isSubscribeStatusChanged = true
 
@@ -247,8 +236,7 @@ return R.layout.fragment_compilation   }
     }
 
     override fun onUnsubscribe(compilationId: Int) {
-        unSubscribe.visible = false
-        subscribe.visible = true
+        goToCategory.visible = true
         mPresenter.compilation!!.isFavorite = false
         isSubscribeStatusChanged = true
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bar" type="id" />
+    <item name="compilationToolbar" type="id" />
+    <item name="compilationTitle" type="id" />
+    <item name="avatarCompilation" type="id" />
+</resources>
