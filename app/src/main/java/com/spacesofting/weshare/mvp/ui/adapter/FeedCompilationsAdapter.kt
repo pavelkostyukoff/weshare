@@ -15,12 +15,13 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.CategotiesImage
+import com.spacesofting.weshare.common.CategotiesImage.*
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.Datum
 import com.spacesofting.weshare.mvp.Image
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedCompilationsPresenter
-import com.spacesofting.weshare.mvp.ui.fragment.FeedCompilationsFragment
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
@@ -46,12 +47,11 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val view = LayoutInflater.from(p0.context).inflate(R.layout.list_item_category, p0, false)
         return CompilationViewHolder(view)
     }
+
     override fun onBindViewHolder(holder: CompilationViewHolder, position: Int) {
-        holder?.let {
+        holder.let {
             val item = dataset[position]
             val viewHolder = it
-
-
             /*        if(item.state == Compilation.State.INACTIVE){
                         viewHolder.root.visible = false
                         return
@@ -71,53 +71,53 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             viewHolder.goToCategory.setOnClickListener {
                 router.navigateTo(ScreenPool.SINGLE_CATEGORY_FRAGMENT)
             }
+
+            viewHolder.showGoods.setOnClickListener {
+                router.navigateTo(ScreenPool.SINGLE_CATEGORY_FRAGMENT)
+            }
             viewHolder.progress.visible = true
-
-            //todo что то тас при иницализации чото там рисуем если есть
-            //if (!item.isInitialized) {
-            // item.isInitialized = true
-            //  presenter.loadCompilationsWishes(item, { list ->
-            //todo тут происходит подгрузка вишей из подборки?
-            //item.wishList.addAll(list)
-            //      onUpdate(item)
-            //   }, {})
-            //} else if(item.wishList.isNotEmpty()) {
-            /*    val arrOmg = ArrayList<Int>()
-                arrOmg.add(R.drawable.icon_closed)
-                arrOmg.add(R.drawable.icon_home)
-                arrOmg.add(R.drawable.img_splash_bsq_1)
-                arrOmg.add(R.drawable.icon_bissnes)
-                arrOmg.add(R.drawable.icon_photo)
-                arrOmg.add(R.drawable.icon_kids)
-                arrOmg.add(R.drawable.icon_uikend)
-                arrOmg.add(R.drawable.icon_model)
-                arrOmg.add(R.drawable.icon_worker)*/
-
-
             val arrImg = ArrayList<Int>()
-            arrImg.add(R.drawable.ic_big_car)
-            //   arrImg.add(R.drawable.ic_building)
-            arrImg.add(R.drawable.ic_car)
-            arrImg.add(R.drawable.ic_dress)
-            arrImg.add(R.drawable.ic_hobbit)
-            arrImg.add(R.drawable.ic_hollidays)
-            arrImg.add(R.drawable.ic_kids)
-            arrImg.add(R.drawable.ic_tagik)
-            arrImg.add(R.drawable.ic_tools)
-            // viewHolder.wishImage.setImageResource(arrOmg.get(position))
-
+            presenter.entitiesListPresenter?.map {
+                var test = 0
+                when (it.id) {
+                    KINDS_ALL.name -> {
+                        test = R.drawable.kids
+                    }
+                    ELECTRONICS_ALL.name -> {
+                        test = R.drawable.transport
+                    }
+                    CLOUSED_ODEZDA_ALL.name -> {
+                        test = R.drawable.clouse
+                    }
+                    BUILDING_ALL.name -> {
+                        test = R.drawable.nedviga
+                    }
+                    OTDIH.name -> {
+                        test = R.drawable.rest_otdih
+                    }
+                    OBORUDOVANIE_ALL.name -> {
+                        test = R.drawable.oborudovanie_stroyka
+                    }
+                    PROCHEE.name -> {
+                        test = R.drawable.tools_instruments
+                    }
+                    ELECTRONICS_ALL.name -> {
+                        test = R.drawable.electronix
+                    }
+                    HOBBI_ALL.number -> {
+                        test = R.drawable.sports
+                    }
+                    else -> {
+                        test = R.drawable.bg_image_load_error
+                    }
+                }
+                arrImg.add(test)
+            }
             viewHolder.imageView.setImageResource(arrImg[position])
-
             w22.templateId = 0
             w22.compilationId = 0
             w22.description = "Wow it's worked"
             w22.name = item.name
-            // w22.images() wishIamge
-            /* todo new if (item.tags?.isNotEmpty()!!)
-            {
-                w22.description = item.tags?.get(0)
-
-            }*/
             wishList.clear()
             wishList.add(w22)
 
@@ -156,7 +156,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val width = context.displayWidth - 16.dp * 2
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
-        loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
+        loadImage(holder.showGoods, wishList[num].getImage(), width, height, true)
         holder.wishName.text = wishList[num].name
         //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(
@@ -247,7 +247,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val showMore: LinearLayout = item.showMore
         val goToCategory: Button = item.goToCategory
         val unsubscribe: Button = item.unsubscribe
-        val wishImage: RoundedImageView = item.wishIamge
+        val showGoods: RoundedImageView = item.showGoods
         val imageView: ImageView = item.imageViewmini
 
         val add: ImageButton = item.addBtn

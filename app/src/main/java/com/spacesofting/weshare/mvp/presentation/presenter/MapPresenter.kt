@@ -32,7 +32,7 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
             .subscribe({
                 viewState.setUpdateRequest(it)
             }) {
-                Log.e(it,"")
+                //Log.e(it,"")
             }
     }
 }

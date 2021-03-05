@@ -212,7 +212,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         val showMore: LinearLayout      = item.showMore
         val subscribe: Button           = item.goToCategory
         val unsubscribe: Button         = item.unsubscribe
-        val wishImage: RoundedImageView = item.wishIamge
+        val wishImage: RoundedImageView = item.showGoods
         val imageView: ImageView = item.imageViewmini
 
         val add: ImageButton            = item.addBtn

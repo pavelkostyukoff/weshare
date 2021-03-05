@@ -235,7 +235,7 @@ class MyMapFragment : FragmentWrapper(),
             KINDS_ALL.number -> {
                 icon = R.drawable.kids
             }
-            OBORUDOVANIE.number -> {
+            OBORUDOVANIE_ALL.number -> {
                 icon = R.drawable.oborudovanie_stroyka
             }
 

@@ -34,7 +34,7 @@ object ScreenPool {
     val REGISTRATION_FRAGMENT = "registration_fragment"
     val SHOW_CATEGORY = "show_category"
     val SHOW_GOOD = "show_good"
-    val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
+   //del val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
     val ADDRESS_SEARCH = "address_search"
     val SINGLE_CATEGORY_FRAGMENT = "cat_frag"
 
@@ -66,10 +66,10 @@ object ScreenPool {
                 CompilationFragment.getInstance()
                 // FeedFragment.getInstance()
             }
-            FEED_CHAOS_FRAGMENT -> {
+     /*del       FEED_CHAOS_FRAGMENT -> {
                 FeedChaosFragment.getInstance()
                 // FeedFragment.getInstance()
-            }
+            }*/
             ADD_GOODS -> {
                 AddGoodsFragment.getInstance(data as String?)
             }

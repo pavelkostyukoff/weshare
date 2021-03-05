@@ -3,6 +3,7 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 import android.annotation.SuppressLint
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
+import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Compilation
@@ -11,11 +12,12 @@ import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import java.util.*
 
 @InjectViewState
 class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
@@ -26,7 +28,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         var page = 0
         var lastLoadedCount = 0
         var paginateLoading = false
-
+        var entitiesListPresenter: ArrayList<Entity>? = null
     init {
         user = Settings.get()
         if (user == null)
@@ -71,6 +73,7 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                     ApplicationWrapper.category?.entities?.clear()
                     ApplicationWrapper.category = ent
                   //  ent.entities?.let { checkFavoritCompilations(it) }
+                    entitiesListPresenter = ent.entities
                     ent.entities?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
                     viewState.setProgressAnimation(false)
                 }, { error ->
@@ -78,6 +81,23 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                     viewState.setProgressAnimation(false)
                 })
         }
+
+    val observableOne = Observable.just("Hello", "World")
+    val observableTwo = Observable.just("Bye", "Friends")
+    val observableThree = Observable.just("Bye", "Friends")
+    val observableFour = Observable.just("Bye", "Friends")
+    val observableFive = Observable.just("Bye", "Friends")
+    val observableSix = Observable.just("Bye", "Friends")
+    val observableSeven = Observable.just("Bye", "Friends")
+    val observableEgth = Observable.just("Bye", "Friends")
+    val observableNine = Observable.just("Bye", "Friends")
+    val observableThen = Observable.just("Bye", "Friends")
+    val zipper = BiFunction<String, String, String> { first, second -> "$first - $second" }
+    val test = Observable.zip(observableOne, observableTwo, zipper)
+    .subscribe {
+        println(it)
+
+    }
 
         fun loadCompilationsWishes(compilation: Entity, success: (List<Wish>) -> Unit, failure: (error: Throwable) -> Unit) {
             //todo а тут мы грузим все вещи по данной категории или тегу ну или имитируем

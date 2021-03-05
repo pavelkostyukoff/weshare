@@ -25,42 +25,55 @@
 
             <LinearLayout
                 android:id="@+id/showMore"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/margin"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:singleLine="true"
+                        android:visibility="gone"
                     android:text=""
                     android:textAppearance="@style/title"
                     android:textColor="@color/black" />
 
                 <ImageView
                         android:id="@+id/imageViewmini"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:background="@android:color/transparent"
                         android:paddingTop="5dp"
                         app:srcCompat="@drawable/ic_enter_arrow_right_black_24dp" />
+                <TextView
+                        android:id="@+id/wishName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text=""
+                        android:textAppearance="@style/regular" />
 
             </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:id="@+id/goToCategory"
-            style="@style/button.pay"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:elevation="0dp"
-            android:text="Look Category" />
+                android:id="@+id/goToCategory"
+                style="@style/button.pay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:elevation="0dp"
+                android:text="Показать категорию" />
 
         <Button
             android:id="@+id/unsubscribe"
@@ -89,7 +102,7 @@
             android:layout_height="wrap_content">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/wishIamge"
+                android:id="@+id/showGoods"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/compilation_main_img_height"
                 android:scaleType="centerCrop"
@@ -115,16 +128,6 @@
             android:layout_marginTop="@dimen/margin_half"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/wishName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text=""
-                android:textAppearance="@style/regular" />
 
             <TextView
                 android:id="@+id/wishCost"
