@@ -2,19 +2,18 @@ package com.spacesofting.weshare.api.auth
 
 import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Login
-import com.spacesofting.weshare.mvp.Refrash
+import com.spacesofting.weshare.mvp.Refresh
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.POST
-import java.util.concurrent.Callable
 
 interface AuthService {
     @POST("auth/login")  //todo //Подтвердить получение задач`и
     fun autorize(@Body mail: Login): Observable<Autorize>
 
     @POST("auth/refresh-token")  //todo Refresh token
-    fun getNewToken(@Body refreshToken: Refrash): Single<Autorize>
+    fun getNewToken(@Body refreshToken: Refresh): Single<Autorize>
 
    /* @POST("auth/otp")
     fun register(@Body registration: Autorize, @Header("X-Confirmation-Code") sms: String): Observable<AuthResult>

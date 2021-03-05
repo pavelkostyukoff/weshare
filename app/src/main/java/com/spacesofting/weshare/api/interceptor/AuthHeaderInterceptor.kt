@@ -4,7 +4,7 @@ package com.spacesofting.weshare.api.interceptor
 import android.util.Log
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Refrash
+import com.spacesofting.weshare.mvp.Refresh
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -74,12 +74,12 @@ class AuthHeaderInterceptor : Interceptor {
     fun getRefreshToken() {
         if (!isRefreshing) {
             isRefreshing = true
-            val refreshToken = Settings.ValidationToken
+            val refreshToken = Settings.refreshToken
             refreshToken?.let { it ->
-                Api.Auth.getNewToken(Refrash(it))
+                Api.Auth.getNewToken(Refresh(it))
                     .map {
                         Settings.AccessToken = it.accessToken
-                        Settings.ValidationToken = it.rowrefreshTokenVersion
+                        Settings.refreshToken = it.rowrefreshTokenVersion
                         isRefreshing = false
                     }
                     //todo запрашиваем в основном потоке , потому что нам нужно подменить токен в моменте

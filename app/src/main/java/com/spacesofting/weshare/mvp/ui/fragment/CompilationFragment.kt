@@ -24,21 +24,22 @@ import kotlinx.android.synthetic.main.list_item_category.goToCategory
 class CompilationFragment : FragmentWrapper(),
     CompilationView, AppBarLayout.OnOffsetChangedListener, Paginate.Callbacks {
     override fun getFragmentLayout(): Int {
-return R.layout.fragment_compilation   }
+        return R.layout.fragment_compilation
+    }
 
-    private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR: Float  = 0.6f
-    private val PERCENTAGE_TO_HIDE_TITLE_DETAILS: Float     = 0.5f
-    private val PERCENTAGE_TO_HIDE_SUBTITLE: Float          = 0.3f
-    private val PERCENTAGE_TO_HIDE_COUNT: Float             = 0.4f
-    private val ALPHA_ANIMATIONS_DURATION: Long             = 200
+    private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR: Float = 0.6f
+    private val PERCENTAGE_TO_HIDE_TITLE_DETAILS: Float = 0.5f
+    private val PERCENTAGE_TO_HIDE_SUBTITLE: Float = 0.3f
+    private val PERCENTAGE_TO_HIDE_COUNT: Float = 0.4f
+    private val ALPHA_ANIMATIONS_DURATION: Long = 200
 
-    private var isTheTitleVisible: Boolean                 = false
-    private var isTheTitleContainerVisible: Boolean        = true
-    private var isSubtitleVisible: Boolean                 = true
-    private var isCountVisisble: Boolean                   = true
+    private var isTheTitleVisible: Boolean = false
+    private var isTheTitleContainerVisible: Boolean = true
+    private var isSubtitleVisible: Boolean = true
+    private var isCountVisisble: Boolean = true
 
-    var paginateLoading             = false
-    var isSubscribeStatusChanged    = false
+    var paginateLoading = false
+    var isSubscribeStatusChanged = false
     var adapter: CompilationAdapter? = null
 
     @InjectPresenter
@@ -46,7 +47,7 @@ return R.layout.fragment_compilation   }
 
     companion object {
         val COMPILATION = "compilation"
-        val RESULT_OK   = 100
+        val RESULT_OK = 100
         fun getInstance(): CompilationFragment =
             CompilationFragment()
 /*
@@ -63,16 +64,15 @@ return R.layout.fragment_compilation   }
         setHomeAsUpIndicator(TOOLBAR_INDICATOR_HAMBURGER, R.color.black)
 
 
-
-      //  mPresenter.compilation = intent.getSerializableExtra(COMPILATION) as Compilation?
-        initToolbar()
+        //  mPresenter.compilation = intent.getSerializableExtra(COMPILATION) as Compilation?
+        //   initToolbar()
         //hideToolbar()
-        mPresenter.compilation?.title?.let { setTitle(it) }
-     //   compilationCount.text = getString(R.string.compilation_count_idea, mPresenter.compilation?.count)
-        goToCategory.visible = !mPresenter.compilation!!.isFavorite
-        setAvatarCompilation()
-        compilationTitle.alphaAnimation(0, View.INVISIBLE)
-        initWishList()
+        //   mPresenter.compilation?.title?.let { setTitle(it) }
+        //   compilationCount.text = getString(R.string.compilation_count_idea, mPresenter.compilation?.count)
+//        goToCategory.visible = !mPresenter.compilation!!.isFavorite
+        //    setAvatarCompilation()
+        // compilationTitle.alphaAnimation(0, View.INVISIBLE)
+        //   initWishList()
 
         swipe.setOnRefreshListener {
             swipe.isRefreshing = false
@@ -80,16 +80,16 @@ return R.layout.fragment_compilation   }
         }
 
         buttonBack.setOnClickListener { onBackPressed() }
-        goToCategory.setOnClickListener { mPresenter.subscribeCompilations() }
-        logEvent("compilation_view", mPresenter.compilation!!.id)
+//        goToCategory.setOnClickListener { mPresenter.subscribeCompilations() }
+//        logEvent("compilation_view", mPresenter.compilation!!.id)
     }
 
 
-     private fun onBackPressed() {
+    private fun onBackPressed() {
         if (isSubscribeStatusChanged) {
-           /* intent.putExtra(COMPILATION, mPresenter.compilation)
-            setResult(RESULT_OK, intent)
-            finish()*/
+            /* intent.putExtra(COMPILATION, mPresenter.compilation)
+             setResult(RESULT_OK, intent)
+             finish()*/
         }
 
         activity?.onBackPressed()
@@ -105,39 +105,39 @@ return R.layout.fragment_compilation   }
         handleContVisible(percentage)
     }
 
-    private fun handleToolbarTitleVisibility(percentage: Float){
-        if(percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR){
-            if(!isTheTitleVisible){
+    private fun handleToolbarTitleVisibility(percentage: Float) {
+        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
+            if (!isTheTitleVisible) {
                 compilationTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.VISIBLE)
                 isTheTitleVisible = true
             }
         } else {
-            if(isTheTitleVisible){
+            if (isTheTitleVisible) {
                 compilationTitle.alphaAnimation(ALPHA_ANIMATIONS_DURATION, View.INVISIBLE)
                 isTheTitleVisible = false
             }
         }
     }
 
-    private fun handleSubtitleBlockHide(percentage: Float){
-        if(percentage >= PERCENTAGE_TO_HIDE_SUBTITLE) {
-            if(isSubtitleVisible) {
+    private fun handleSubtitleBlockHide(percentage: Float) {
+        if (percentage >= PERCENTAGE_TO_HIDE_SUBTITLE) {
+            if (isSubtitleVisible) {
                 isSubtitleVisible = false
             }
         } else {
-            if(!isSubtitleVisible) {
+            if (!isSubtitleVisible) {
                 isSubtitleVisible = true
             }
         }
     }
 
-    private fun handleContVisible(percentage: Float){
-        if(percentage >= PERCENTAGE_TO_HIDE_COUNT) {
-            if(isCountVisisble) {
+    private fun handleContVisible(percentage: Float) {
+        if (percentage >= PERCENTAGE_TO_HIDE_COUNT) {
+            if (isCountVisisble) {
                 isCountVisisble = false
             }
         } else {
-            if(!isCountVisisble) {
+            if (!isCountVisisble) {
                 isCountVisisble = true
             }
         }
@@ -145,7 +145,7 @@ return R.layout.fragment_compilation   }
 
     private fun handleAlphaOnTitle(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if(isTheTitleContainerVisible) {
+            if (isTheTitleContainerVisible) {
                 isTheTitleContainerVisible = false
             }
         } else {
@@ -155,27 +155,27 @@ return R.layout.fragment_compilation   }
         }
     }
 
-    private fun initToolbar(){
+    private fun initToolbar() {
         /*super.setSupportActionBar(compilationToolbar)
         initAppBar(compilationToolbar)
         supportActionBar?.title = ""*/
     }
 
-   /* private fun setTitle(title: String?){
-        compilationTitle.text = title
-        compilationSubTitle.text = title
-    }*/
+    /* private fun setTitle(title: String?){
+         compilationTitle.text = title
+         compilationSubTitle.text = title
+     }*/
 
-    private fun setAvatarCompilation(){
+    private fun setAvatarCompilation() {
         val imgName = mPresenter.compilation?.photo?.name
-        if(imgName == null){
+        if (imgName == null) {
             avatarCompilation.setImageResource(R.drawable.ic_avatar_placeholder)
         } else {
             Picasso.with(context).load(ImageUtils.resolveImagePath(imgName)).into(avatarCompilation)
         }
     }
 
-    override fun loadWish(list: List<Wish>){
+    override fun loadWish(list: List<Wish>) {
         paginateLoading = false
 
         mPresenter.lastLoadedCount = list.size
@@ -209,10 +209,10 @@ return R.layout.fragment_compilation   }
     }
 
     override fun wishAdded(wish: Wish) {
-       // wishSaveSuccess(wish)
+        // wishSaveSuccess(wish)
     }
 
-    private fun initWishList(){
+    private fun initWishList() {
         adapter = context?.let { CompilationAdapter(it, mPresenter) }
         wishesList.adapter = adapter
         wishesList.layoutManager =
@@ -220,7 +220,7 @@ return R.layout.fragment_compilation   }
         Paginate.with(wishesList, this).build()
     }
 
-    fun reload(){
+    fun reload() {
         paginateLoading = false
         mPresenter.lastLoadedCount = 0
         mPresenter.paginatePage = 0
@@ -243,15 +243,15 @@ return R.layout.fragment_compilation   }
         logEvent("compilation_remove", compilationId)
     }
 
-    fun logEvent(event: String, compilationId: Int){
+    fun logEvent(event: String, compilationId: Int) {
 
         val mapCompilation = HashMap<String, Any>()
         mapCompilation.put("compilation_id", compilationId)
 
-      //  ApplicationWrapper.trackEvent(this, event, mapCompilation);
+        //  ApplicationWrapper.trackEvent(this, event, mapCompilation);
     }
 
-    override fun hideAddAnimation(wish: Wish){
+    override fun hideAddAnimation(wish: Wish) {
         adapter?.let {
             for (i in 0 until it.dataset.size) {
                 val element = it.dataset[i]
@@ -265,15 +265,15 @@ return R.layout.fragment_compilation   }
     }
 
     override fun onAdded(wish: Wish) {
-       // wishSaveSuccess(wish)
-    //    ApplicationWrapper.trackEvent(this, "wish_added", mapOf("from" to "compilation"))
+        // wishSaveSuccess(wish)
+        //    ApplicationWrapper.trackEvent(this, "wish_added", mapOf("from" to "compilation"))
     }
 
     override fun onErrorAdded(wish: Wish) {
-       // wishSaveFailure(wish)
+        // wishSaveFailure(wish)
     }
 
-    override fun goToWish(wish: Wish, compilation: Compilation){
-       // startActivity(WishActivity.getIntent(this, wish, compilation))
+    override fun goToWish(wish: Wish, compilation: Compilation) {
+        // startActivity(WishActivity.getIntent(this, wish, compilation))
     }
 }

@@ -187,7 +187,6 @@ class MyMapFragment : FragmentWrapper(),
     override fun showCatObjects(it: ResponceMyAdvertMaps) {
         mapObjects?.clear()
         mapObjects = mapview.map.mapObjects.addCollection()
-        it
 
         val marks = ArrayList<Point>()
         it.data?.map { data ->

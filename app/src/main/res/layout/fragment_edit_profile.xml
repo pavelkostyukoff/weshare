@@ -22,26 +22,22 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-            <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/wrapper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0">
+                        app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/constraintLayout5"
-                            android:layout_width="320dp"
-                            android:layout_height="360dp"
-
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
                             android:layout_marginLeft="@dimen/margin"
                             android:layout_marginTop="68dp"
                             android:layout_marginRight="@dimen/margin"
@@ -68,7 +64,6 @@
                                     android:layout_marginBottom="52dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/gpbemLogo">
 
@@ -87,7 +82,6 @@
                                         android:textColor="@color/white"
                                         android:textColorHint="@color/white"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/nickName" />
 
@@ -106,7 +100,6 @@
                                         android:textColor="@color/white"
                                         android:textColorHint="@color/white"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -137,7 +130,6 @@
                                         android:textColorHint="@color/white"
                                         android:visibility="gone"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/phone" />
 
@@ -156,7 +148,6 @@
                                         android:textColor="@color/white"
                                         android:textColorHint="@color/white"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -166,7 +157,6 @@
                                         android:layout_height="wrap_content"
                                         android:visibility="gone"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent">
 
@@ -225,8 +215,7 @@
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintVertical_bias="0.0">
+                                    app:layout_constraintTop_toTopOf="parent">
 
                                 <ProgressBar
                                         android:id="@+id/checkNickProgress"
@@ -245,7 +234,6 @@
                                     android:gravity="center"
                                     android:orientation="horizontal"
                                     android:visibility="visible"
-                                    app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -281,7 +269,6 @@
                                     android:gravity="center"
                                     android:orientation="horizontal"
                                     android:visibility="gone"
-                                    app:layout_constraintHorizontal_bias="0.0"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintRight_toRightOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/incorrectNickLayout">
@@ -371,11 +358,9 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_avatar_placeholder"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
                                 app:riv_corner_radius="50dp" />
 
                         <ImageView
@@ -411,17 +396,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </FrameLayout>
         </ScrollView>
 
-        <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

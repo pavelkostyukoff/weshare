@@ -10,7 +10,6 @@ import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.Refrash
 import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.model.Mail
 import com.spacesofting.weshare.mvp.model.MailComfirm
@@ -36,7 +35,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
                 Settings.AccessToken = it.accessToken
-                Settings.ValidationToken = it.rowrefreshTokenVersion
+                Settings.refreshToken = it.rowrefreshTokenVersion
              //   ApplicationWrapper.user = it.user!!
                 getProfile()
                 //todo тут кладем токен в сохранялки Settings
@@ -133,11 +132,11 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
 
             }
 
-    fun sendAgainSmsCode(autorize: Autorize) {
-        Settings.ValidationToken = null
+  /*  fun sendAgainSmsCode(autorize: Autorize) {
+        Settings.refreshToken = null
        // autorize(autorize, true)
     }
-
+*/
 //todo  чекает есть ли в базе уже этот телефон
    /* fun checkPhoneNumber(phoneNumber: String) {
         viewState.showCheckPhoneProgress(true)
@@ -211,7 +210,7 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
        when (error.type) {
            EnumErrorType.REQUIRED_CONFIRMATION -> {
                //  val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
-               Settings.ValidationToken = error.extraFields?.validationToken
+             //  Settings.refreshToken = error.extraFields?.validationToken
                //  router.navigateTo(ScreenPool.SMS_CONFIRMATION_FRAGMENT, SmsRegistration(registration, timeout))
            }
            EnumErrorType.MODEL_VALIDATION -> {

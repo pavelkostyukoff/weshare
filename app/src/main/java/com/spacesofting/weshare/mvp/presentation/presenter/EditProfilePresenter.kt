@@ -47,70 +47,69 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         profile?.let { viewState.showProfile(it) }
 
         //todo запрос оправляется как только мы хотим показать профиль после логина
-       /* Api.Users.getAccount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ profile ->
-                this.profile = profile
-             //   profileNew = profile.clone() as Profile
-                viewState.showProfile(profile)
-              //  viewState.setTitle(R.string.edit_profile_edit)
-            }, { e ->
-                viewState.showProfile(profileNew)
-            //    viewState.setTitle(R.string.edit_profile_create)
-            })*/
+        /* Api.Users.getAccount()
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribe({ profile ->
+                 this.profile = profile
+              //   profileNew = profile.clone() as Profile
+                 viewState.showProfile(profile)
+               //  viewState.setTitle(R.string.edit_profile_edit)
+             }, { e ->
+                 viewState.showProfile(profileNew)
+             //    viewState.setTitle(R.string.edit_profile_create)
+             })*/
     }
 
 
-   /* fun showAvatar()
-    {
-        Api.Users.getAccount()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ profile ->
-                this.profile = profile
-                //   profileNew = profile.clone() as Profile
-                viewState.showProfile(profile)
-                //  viewState.setTitle(R.string.edit_profile_edit)
-            }, { e ->
-                //  profileNew = Profile()
-                viewState.showProfile(profileNew)
-                //    viewState.setTitle(R.string.edit_profile_create)
-            })
-    }*/
+    /* fun showAvatar()
+     {
+         Api.Users.getAccount()
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribe({ profile ->
+                 this.profile = profile
+                 //   profileNew = profile.clone() as Profile
+                 viewState.showProfile(profile)
+                 //  viewState.setTitle(R.string.edit_profile_edit)
+             }, { e ->
+                 //  profileNew = Profile()
+                 viewState.showProfile(profileNew)
+                 //    viewState.setTitle(R.string.edit_profile_create)
+             })
+     }*/
 
     fun onBackPressed() {
         // get difference
-      //  val equals = profile?.equals(profileNew)
+        //  val equals = profile?.equals(profileNew)
 
         //choose dialog to show
-       /* if (equals != null && equals) {
-            viewState.close()
-        } else if (isValid()) {
-            viewState.save()
-        } else {
-            viewState.cancel()
-        }*/
+        /* if (equals != null && equals) {
+             viewState.close()
+         } else if (isValid()) {
+             viewState.save()
+         } else {
+             viewState.cancel()
+         }*/
     }
 
-    fun deletePhoto()
-    {
-       /* Api.Pictures.delPicture()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally { viewState.showProgress(false) }
-            .subscribe ({
-                viewState.deletePhotos()
+    fun deletePhoto() {
+        /* Api.Pictures.delPicture()
+             .observeOn(AndroidSchedulers.mainThread())
+             .doFinally { viewState.showProgress(false) }
+             .subscribe ({
+                 viewState.deletePhotos()
 
-            }){
+             }){
 
-            }*/
+             }*/
     }
 
     fun saveAvatar() {
         val imageSize = imageFile?.let {
             it.length() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE)
         }
-      //  viewState.showProgress(true)
+        //  viewState.showProgress(true)
         //save image
         imageFile?.let {
             imageSize?.let {
@@ -119,50 +118,50 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(imageFile!!)
                 }
-              /*  ImageUtils.send(saveImgFile, goodId)?.subscribeOn(AndroidSchedulers.mainThread())
-                    ?.subscribe({ img ->
-                        //profileNew.img = img
-                       // this.profile?.let { it1 -> viewState.showProfile(it1) }
-                        //this.profile
-                        viewState.updateAvatar(img)
-                        viewState.showProgress(false)
+                /*  ImageUtils.send(saveImgFile, goodId)?.subscribeOn(AndroidSchedulers.mainThread())
+                      ?.subscribe({ img ->
+                          //profileNew.img = img
+                         // this.profile?.let { it1 -> viewState.showProfile(it1) }
+                          //this.profile
+                          viewState.updateAvatar(img)
+                          viewState.showProgress(false)
 
-                        //   updateProfile()
-                    }, { e ->
-                        viewState.saved(false)
-                       // viewState.showToast(R.string.error_link_image)
-                    })*/
+                          //   updateProfile()
+                      }, { e ->
+                          viewState.saved(false)
+                         // viewState.showToast(R.string.error_link_image)
+                      })*/
             }
         } ?: run {
             updateProfile()
         }
     }
 
-    private fun updateProfile(){
+    private fun updateProfile() {
         //update and profile
         //todo все ясно как только ендпоинт заработает аватарка поставится
-      /*  val observable: Observable<Photo>
-        var isNew = false
-        observable = Api.Users.update(profileNew)
-        observable = Api.Users.updateAvatar()
-        if (profile != null) {
-            observable = Api.Users.update(profileNew)
-        } else {
-            isNew = true
-            observable = Api.Users.make(profileNew)
-        }
+        /*  val observable: Observable<Photo>
+          var isNew = false
+          observable = Api.Users.update(profileNew)
+          observable = Api.Users.updateAvatar()
+          if (profile != null) {
+              observable = Api.Users.update(profileNew)
+          } else {
+              isNew = true
+              observable = Api.Users.make(profileNew)
+          }
 
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                    profile ->
-                ApplicationWrapper.instance.profile = profile
-                viewState.saved(true, isNew)
-            }, {
-                    e ->
-                ApplicationWrapper.instance.profile = profile
-                viewState.saved(false)
-            })*/
+          observable.subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe({
+                      profile ->
+                  ApplicationWrapper.instance.profile = profile
+                  viewState.saved(true, isNew)
+              }, {
+                      e ->
+                  ApplicationWrapper.instance.profile = profile
+                  viewState.saved(false)
+              })*/
     }
 
     fun fieldChanged(value: String?, field: Field) {
@@ -170,7 +169,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             isCheckAlreadyExist = false
 
             value?.let {
-                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.firstName) || (it.isNotEmpty() && it.length >= 3 && profile == null)){
+                if ((it.isNotEmpty() && it.length >= 3 && it != profile?.firstName) || (it.isNotEmpty() && it.length >= 3 && profile == null)) {
                     isCheckAlreadyExist = true
                     timeout?.cancel()
                     timeout = Timer()
@@ -178,7 +177,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                         override fun run() {
                             runOnUiThread {
                                 checkExistNick(it)
-                             //   profileNew.firstName = it
+                                //   profileNew.firstName = it
                             }
                         }
                     }, 500)
@@ -186,39 +185,39 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     timeout?.cancel()
                     viewState.saveButtonEnabled(false)
                     isNickNameValid = false
-               //     profileNew.firstName = it
+                    //     profileNew.firstName = it
 
-                    if(it.isEmpty()){
+                    if (it.isEmpty()) {
                         viewState.onCheckNick(EditProfileView.NONE)
-                    } else if(it == profile?.firstName){
+                    } else if (it == profile?.firstName) {
                         isNickNameValid = true
                         viewState.onCheckNick(EditProfileView.NONE)
                         viewState.saveButtonEnabled(isAddedNewAvatar)
-                    } else if(it.length < 3 && it.isNotEmpty()) {
+                    } else if (it.length < 3 && it.isNotEmpty()) {
                         viewState.onCheckNick(EditProfileView.SHORT_NICK)
-                    } else if(it.length > MAX_NICK_LINGTH){
+                    } else if (it.length > MAX_NICK_LINGTH) {
                         viewState.onCheckNick(EditProfileView.LONG_NICK)
                     }
                     return@let
                 }
             }
         } else if (field == Field.IMAGE) {
-          //  profileNew.img = Image(value)
+            //  profileNew.img = Image(value)
             viewState.saveButtonEnabled(isValid())
         }
     }
 
     fun isValid(): Boolean {
-    /*    if(profileNew.firstName != null) {
-            return PATTERN.matcher(profileNew.firstName).matches()
-        }else{
-            return false
-        }*/
+        /*    if(profileNew.firstName != null) {
+                return PATTERN.matcher(profileNew.firstName).matches()
+            }else{
+                return false
+            }*/
         return false
     }
 
     fun hasProfile(): Boolean {
-        if(Settings.get() != null) {
+        if (Settings.get() != null) {
             return true
         } else {
             Settings.logout()
@@ -246,7 +245,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     viewState.setPreviewPhoto(res)
                 }
             }, { e ->
-              //  ApplicationWrapper.instance.profile = User
+                //  ApplicationWrapper.instance.profile = User
                 viewState.showToast(R.string.error_message)
             })
     }
@@ -257,12 +256,12 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     override fun onEditPhotoConfirmClick() {
 
-                        saveAvatar()
-      /*  imageFile?.let {
-            isAddedNewAvatar = true
-            viewState.showImage(it)
-            viewState.saveButtonEnabled(isNickNameValid)
-        }*/
+        saveAvatar()
+        /*  imageFile?.let {
+              isAddedNewAvatar = true
+              viewState.showImage(it)
+              viewState.saveButtonEnabled(isNickNameValid)
+          }*/
 
         /*imageFile?.let {
             Api.Users.updateAvatar(it)
@@ -291,10 +290,11 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
 
     }
-   /* override fun onPickerCameraClick() {
-        imageFile = ImageUtils.savePhotoFile()
-        viewState.openCamera(imageFile!!)
-    }*/
+
+    /* override fun onPickerCameraClick() {
+         imageFile = ImageUtils.savePhotoFile()
+         viewState.openCamera(imageFile!!)
+     }*/
     fun onCameraResult() {
         imageFile?.let {
             viewState.setPreviewPhoto(it)
@@ -330,25 +330,26 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 }
             })*/
     }
-//todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
-@SuppressLint("CheckResult")
-fun chengeMyProfile(updProfile: UpdateProfile) {
+
+    //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
+    @SuppressLint("CheckResult")
+    fun chengeMyProfile(updProfile: UpdateProfile) {
         viewState.showProgress(true)
 
         Api.Users.updateProfile(updProfile)
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
-            .subscribe ({
+            .subscribe({
                 it
                 Settings.set(it)
-               // ApplicationWrapper.user = it
-              //  viewState.showNewInfo(it)
+                // ApplicationWrapper.user = it
+                //  viewState.showNewInfo(it)
                 //todo проходим в основной экран
                 //todo тут может отправить во вью и показать тост
                 router?.exitWithResult(SCANNER_REQUEST_CODE, it)
-            }){
+            }) {
                 it
-             //   router?.exit()
+                //   router?.exit()
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }

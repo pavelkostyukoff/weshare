@@ -108,7 +108,7 @@ class InventoryFragment : FragmentWrapper(),
 
 
         goodAdd.setOnClickListener {
-            mInventoryPresenter.creatNewAdvert()
+            mInventoryPresenter.createNewAdvert()
         }
 
         showSettings.setOnClickListener {

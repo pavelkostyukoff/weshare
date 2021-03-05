@@ -88,6 +88,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                    argument.putSerializable(DATA_KEY, it)
                    fragment.arguments = argument
                }*/
+            //todo сюда мы принимаем вещь из редактирвоания
             id.let {
                 val argument = Bundle()
                 argument.putSerializable(DATA_KEY_STR, it)

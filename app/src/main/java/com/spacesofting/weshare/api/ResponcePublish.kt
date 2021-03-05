@@ -10,13 +10,13 @@ class ResponcePublish : Serializable {
     @SerializedName("userId")
     val userId: String? = null
     @SerializedName("categoryId")
-    val categoryId: Any? = null
+    val categoryId: String? = null
     @SerializedName("title")
-    val title: Any? = null
+    val title: String? = null
     @SerializedName("description")
-    val description: Any? = null
+    val description: String? = null
     @SerializedName("address")
-    val address: Any? = null
+    val address: String? = null
     @SerializedName("images")
     val images: List<Image>? = null
     @SerializedName("rentPeriods")

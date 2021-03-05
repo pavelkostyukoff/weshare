@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import android.annotation.SuppressLint
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.pawegio.kandroid.d
@@ -362,7 +361,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
         when (error.type) {
             EnumErrorType.REQUIRED_CONFIRMATION -> {
                 //  val timeout = TimerUtils().timeToMillis(error.extraFields?.timeout?.elapsed)
-                Settings.ValidationToken = error.extraFields?.validationToken
+               //Settings.refreshToken = error.extraFields?.validationToken
                 //  router.navigateTo(ScreenPool.SMS_CONFIRMATION_FRAGMENT, SmsRegistration(registration, timeout))
             }
             EnumErrorType.MODEL_VALIDATION -> {
@@ -459,7 +458,7 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                     .doFinally { viewState.showProgress(false) }
                     .subscribe({ autorize ->
                         Settings.AccessToken = autorize.accessToken
-                        Settings.ValidationToken = autorize.rowrefreshTokenVersion
+                        Settings.refreshToken = autorize.rowrefreshTokenVersion
                         router.navigateTo(ScreenPool.FEED_FRAGMENT)
                         viewState.showToast(R.string.reg_succesfull)
                         //todo тут кладем токен в сохранялки Settings

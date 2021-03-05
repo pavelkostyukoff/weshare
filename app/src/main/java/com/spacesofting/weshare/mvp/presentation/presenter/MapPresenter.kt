@@ -15,7 +15,6 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
     var page = 0
     var lastLoadedCount = 0
     var paginateLoading = false
-
     fun getCategoryAdvertsList(id: String?) {
 
     }
@@ -24,29 +23,16 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
     fun getNewMapRequest(
         lat: String,
         lan: String,
-        sRadius: String,
-        categoty: String
+        searchRadius: String,
+        category: String
     ) {
-        Api.Adverts.getMyAdverts(lan,lat,sRadius,categoty)
+        Api.Adverts.getMyAdverts(lan, lat, searchRadius, category)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
+            .subscribe({
                 viewState.setUpdateRequest(it)
-            }){
-                it
+            }) {
+                Log.e(it,"")
             }
-       /* Api.Tags.getCategories("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ ent ->
-                ApplicationWrapper.category?.entities?.clear()
-                ApplicationWrapper.category = ent
-                //  ent.entities?.let { checkFavoritCompilations(it) }
-             //   ent.entities?.let { checkFavoritCompilations(it) }?.let { viewState.onLoadCompilations(it) }
-              //  viewState.setProgressAnimation(false)
-            }, { error ->
-                viewState.onLoadCompilations(ArrayList())
-                viewState.setProgressAnimation(false)
-            })*/
     }
-
 }

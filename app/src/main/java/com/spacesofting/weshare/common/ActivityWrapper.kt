@@ -21,7 +21,7 @@ open class ActivityWrapper : MvpAppCompatActivity() {
     }
 
     lateinit var router: BoomerangoRouter
-    private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
+    private val MAPKIT_API_KEYMAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
 
     companion object {
         var serverNumber = ""

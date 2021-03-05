@@ -23,7 +23,7 @@ interface AdvertsService {
 
     //todo //Подтвердить получение задачи Observable<Response<Void>>
     @POST("me/adverts")
-    fun creatNewAdvert(): Observable<ResponceProfile>
+    fun createNewAdvert(): Observable<ResponceProfile>
 
     //Get list of advert categories
     //todo //Подтвердить получение задачи Observable<Response<Void>>

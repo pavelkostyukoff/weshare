@@ -15,10 +15,10 @@ import kotlin.concurrent.fixedRateTimer
  */
 class SplashBackgroundView: ListView {
 
-    val listScrollInitDelay = 8000L
-    val listScrollSpeedFactor = 10000L // less means faster
-    val listInitAnimationDuration = 5000L
-    val listDimmingSwitchRate = 5000L // once in a while will switch dimmed elements, less means more often
+    val listScrollInitDelay = 2000L
+    val listScrollSpeedFactor = 2000L // less means faster
+    val listInitAnimationDuration = 100L
+    val listDimmingSwitchRate = 3000L // once in a while will switch dimmed elements, less means more often
 
     var scrollingTimer: Timer? = null
     var dimmingTimer: Timer? = null

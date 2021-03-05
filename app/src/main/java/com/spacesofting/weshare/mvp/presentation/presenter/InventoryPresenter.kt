@@ -15,17 +15,15 @@ class InventoryPresenter : MvpPresenter<InventoryView>() {
     var newId : String = ""
     val router = ApplicationWrapper.instance.getRouter()
 
-    fun creatNewAdvert() {
-        Api.Adverts.creatNewAdvert()
-
+    fun createNewAdvert() {
+        Api.Adverts.createNewAdvert()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 editAdvertId = it.id.toString()
                 router.navigateTo(ScreenPool.ADD_GOODS, editAdvertId)
-
             }) {
-               it
+               it->
             }
     }
 

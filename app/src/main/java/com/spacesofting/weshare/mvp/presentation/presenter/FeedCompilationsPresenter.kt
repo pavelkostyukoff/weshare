@@ -43,6 +43,15 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         }
     }
 
+
+    fun getMay8Adverts() {
+        //todo сюда получаем список категорий
+        //todo вызываем из него map
+        //todo для каждой итерации выбираем категорию и делаем запрос на сервер для получения списка 8 вещей по каждой
+        //todo при получении заносим в Map ключ - это категория - значение - список из 8 вещей
+        //todo после обработке отдаем UI
+    }
+
         fun addWish(wish: Wish, compilation: Entity?, adapter: FeedCompilationsAdapter? = null) {
          /*   Api.Wishes.wishAdd(wish)
                 .observeOn(AndroidSchedulers.mainThread())

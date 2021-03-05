@@ -155,7 +155,7 @@ object Settings {
           //  IsAuthorized = true
         }
 
-    var ValidationToken: String?
+    var refreshToken: String?
         get() = decrypt(KEY_VALIDATION_TOKEN)
         set(value) {
             encrypt(KEY_VALIDATION_TOKEN, value)
@@ -186,7 +186,7 @@ object Settings {
 
     fun logout() {
         AccessToken = null
-        ValidationToken = null
+        refreshToken = null
         isAuthenticated = false
     }
  /*   private var apiPathName: String

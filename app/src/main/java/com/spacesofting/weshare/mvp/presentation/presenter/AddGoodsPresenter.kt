@@ -96,6 +96,30 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         }
     }
 
+    private fun loadAvertToEdit(goodId: String) {
+        with(Api) {
+            with(Adverts) {
+                publishMyAdvert(goodId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                            advert ->
+
+                        viewState.saved(advert)
+
+                        viewState.showProgress(false)
+                        //checkExternalApp()
+
+                    }, { error ->
+                        viewState.showProgress(false)
+                        //  viewState.saved(false)
+                        viewState.showToast(R.string.error_general)
+                    })
+
+            }
+        }
+    }
+
     private fun saveAdvert(advert: Advert) {
         ApplicationWrapper.instance.setAuthorityWish(advert)
         //todo -   /me/adverts/{advertId}/publish
