@@ -150,6 +150,7 @@ class InventoryFragment : FragmentWrapper(),
             pHone.text = result?.phone.toString()
             firstName.text = result?.firstName.toString()
             lastName.text = result?.lastName.toString()
+            showAvatar(result?.avatar)
             // date.text = result.lastName.toString()
      //   }
       //todo  showAvatar(result.avatar)

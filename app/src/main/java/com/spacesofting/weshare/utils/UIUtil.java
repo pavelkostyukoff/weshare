@@ -19,12 +19,10 @@ public class UIUtil {
     public static boolean hasKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static boolean setTranslucentStatus(Activity activity) {
         return setTranslucent(activity, false, true);
     }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static boolean setTranslucent(Activity activity, boolean isNavigation, boolean isStatus) {
         if (!hasKitKat()) {

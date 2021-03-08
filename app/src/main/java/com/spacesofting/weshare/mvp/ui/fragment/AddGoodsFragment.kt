@@ -38,7 +38,7 @@ import com.spacesofting.weshare.mvp.model.RentPeriod.*
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
-import com.spacesofting.weshare.mvp.ui.adapter.MyCyclePagerAdapter
+import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.applySchedulers
@@ -54,17 +54,16 @@ import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.io.File
 import java.util.concurrent.TimeUnit
-import kotlin.Double as Double
 
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
-    MyCyclePagerAdapter.OnCardClickListener {
+    BannerAdapterPhoto.OnCardClickListener {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
     private var isNew = false
     private var catPosition = 0
     private var subCatPosition = 0
-    private var adapterBaner = MyCyclePagerAdapter()
+    private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
 
     @InjectPresenter
@@ -767,13 +766,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             if (ApplicationWrapper.instance.myImages!!.isNotEmpty()) {
                 //   bannerItems.add(f)   //todo случайный элемент(resList.random())
                 ApplicationWrapper.instance.myImages?.map { it ->
-
                     if (presenter.goodId == it.id) {
                         it.images?.map {
                             it.url
                             // advert.bannerItems = it.url as ArrayList<String>
                             advert.bannerItems.add(it.url!!)
-
                         }
                     }
                 }
@@ -791,8 +788,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 adapterBaner.dataset = bannerItemsFake
                 adapterBaner.notifyDataSetChanged()
             }
-
-
         } else {
             adapterBaner.dataset = advert.bannerItems
             adapterBaner.notifyDataSetChanged()

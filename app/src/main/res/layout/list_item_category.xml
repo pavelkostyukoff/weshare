@@ -52,10 +52,10 @@
                         android:paddingTop="5dp"
                         app:srcCompat="@drawable/ic_enter_arrow_right_black_24dp" />
                 <TextView
-                        android:id="@+id/wishName"
+                        android:id="@+id/categoryName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
+                        android:gravity="left|center"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="@dimen/margin"
                         android:layout_weight="1"

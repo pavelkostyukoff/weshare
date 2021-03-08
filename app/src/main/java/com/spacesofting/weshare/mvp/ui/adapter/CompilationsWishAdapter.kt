@@ -11,34 +11,35 @@ import android.widget.TextView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.Wish
 import kotlinx.android.synthetic.main.list_item_compilations_wish.view.*
 
-class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val parentAdapter: FeedCompilationsAdapter): androidx.recyclerview.widget.RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
-    var dataset =  ArrayList<Wish>()
+class CompilationsWishAdapter(wishList: List<DatumRequast>, val compilation: Entity, val parentAdapter: FeedCompilationsAdapter): androidx.recyclerview.widget.RecyclerView.Adapter<CompilationsWishAdapter.CompilationsWishViewHolder>() {
+    var dataset =  ArrayList<DatumRequast>()
 
 
     init {
 
         dataset.addAll(wishList)
-        val wish = Wish()
-        wish.templateId = 0
-        wish.compilationId = 0
-        wish.description = "Wow it's worked"
-        wish.name = "Next"
-        dataset.add(wish)
+      //  val wish = DatumRequast()
+      //  wish.templateId = 0
+        //wish.compilationId = 0
+        //wish.description = "Wow it's worked"
+      //  wish.name = "Next"
+       /// dataset.add(wish)
 
-        val wish2 = wish.clone()
+/*        val wish2 = wish.clone()
 
-        dataset.add(wish2 as Wish)
+        dataset.add(wish2 as DatumRequast)
         val wish3 = wish2.clone()
-        dataset.add(wish3 as Wish)
+        dataset.add(wish3 as DatumRequast)
         val wish4 = wish.clone()
-        dataset.add(wish4 as Wish)
+        dataset.add(wish4 as DatumRequast)
         val wish5 = wish.clone()
-        dataset.add(wish5 as Wish)
+        dataset.add(wish5 as DatumRequast)
         val wish6 = wish5.clone()
-        dataset.add(wish6 as Wish)
+        dataset.add(wish6 as DatumRequast)*/
 
 
         // dataset.add(MoreItem())
@@ -52,7 +53,7 @@ class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val
     }
 
     override fun onBindViewHolder(p0: CompilationsWishViewHolder, position: Int) {
-        p0?.let {
+                p0?.let {
             val item = dataset[position]
             val cost = it.wishCost
             val presenter = parentAdapter.presenter
@@ -60,24 +61,24 @@ class CompilationsWishAdapter(wishList: List<Wish>, val compilation: Entity, val
             val height = width
             it.wishName.text = item.description
 
-           /* if(item is Wish) {
+            if(item is DatumRequast) {
                 parentAdapter.loadImage(it.wishImg, item.getImage(), width, height)
                 cost.text = "0.0"
-                item.price?.let {
+             /*   item.price?.let {
                     cost.text = it.toString()
-                }
+                }*/
 
-                it.rootWish.visible = true
-                it.rootMore.visible = false
-                it.wishName.text = item.name
-                it.setLoading(item.isLoading())
+   /*             it.rootWish.visible = true
+                it.rootMore.visible = false*/
+                it.wishName.text = item.categoryId
+                //it.setLoading(item.isLoading())
                 it.rootWish.setOnClickListener { presenter.showWish(item, compilation) }
-                it.add.setOnClickListener {
+               /* it.add.setOnClickListener {
                     presenter.addWish(item, null, this)
                     item.setLoading(true)
                     notifyItemChanged(position)
-                }
-            } else if(item is MoreItem) {
+                }*/
+            } /*else if(item is MoreItem) {
                 it.rootWish.visible = false
                 it.rootMore.visible = true
                 it.rootMore.setOnClickListener {

@@ -133,7 +133,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
        loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
-        holder.wishName.text = wishList[num].name
+      //  holder.wishName.text = wishList[num].name
      //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
 
@@ -167,11 +167,11 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         img?.let {
             var imageColor = "#2EFFFFFF"
 
-            it.color?.let {
+            /*it.color?.let {
                 imageColor = "#2E${it.replace(" ", "").substring(1)}"
-            }
+            }*/
 
-            it.name?.let {
+            it.url?.let {
                 Picasso.with(wishImg.context)
                         .load(ImageUtils.resolveImagePath(it))
                         .resize(width, height)
@@ -216,7 +216,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         val imageView: ImageView = item.imageViewmini
 
         val add: ImageButton            = item.addBtn
-        val wishName: TextView          = item.wishName
+      //  val wishName: TextView          = item.wishName
         val wishCost: TextView          = item.wishCost
         val wishList: androidx.recyclerview.widget.RecyclerView = item.wishList
         val progress: FrameLayout       = item.progress

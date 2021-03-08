@@ -63,12 +63,12 @@ class CompilationAdapter(val context: Context, val presenter: CompilationPresent
     private fun loadWishImage(wishImage: ImageView, wish: ListWishElement){
         if (wish.getImage() != null) {
             val firstImage = wish.getImage()!!
-            val imageName = firstImage.name
+            val imageName = firstImage.url
             var imageColor = "#2EFFFFFF" // we need default color here because in some of cases we getting null color from server
 
-            firstImage.color?.let {
+           /* firstImage.color?.let {
                 imageColor = "#2E${it.substring(1).replace(" ", "")}" // alpha 18%, remove spaces
-            }
+            }*/
 
             imageName?.let {
                 try {

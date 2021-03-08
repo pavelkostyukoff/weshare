@@ -1,9 +1,9 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
+import com.spacesofting.weshare.mvp.model.AvatarPhoto
 
 class User {
-
     @SerializedName("id")
     val id: String? = null
     @SerializedName("email")
@@ -18,6 +18,8 @@ class User {
     var phone: String? = null
     @SerializedName("gender")
     val gender: String? = null
+    @SerializedName("avatar")
+    val avatar: String? = null
     @SerializedName("roles")
     val roles: List<String>? = null
     @SerializedName("emailVerified")
@@ -28,5 +30,4 @@ class User {
     val createdAt: Any? = null
     @SerializedName("updatedAt")
     val updatedAt: String? = null
-
 }

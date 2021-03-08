@@ -97,22 +97,19 @@ class ImageUtils {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
-            if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
+       //     if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
                 // Continue only if the File was successfully created
-                //  val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
-                /*val photoURI =
+               //   val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
+/*                val photoURI =
                     ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }*/
 
                 val authorities = ApplicationWrapper.context.packageName + ".fileprovider"
                 val imageUri = FileProvider.getUriForFile(ApplicationWrapper.context, authorities, file)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-            }
+           // }
 
             return takePictureIntent
         }
-
-
-
         /**
          * Downloads image and saves it into cache
          */

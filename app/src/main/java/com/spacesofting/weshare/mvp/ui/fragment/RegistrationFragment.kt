@@ -1,7 +1,9 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.FragmentTransaction
+import android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -154,7 +156,9 @@ class RegistrationFragment : FragmentWrapper(),
             }
         }
 
-        avatarO.setOnClickListener { showPhotoPicker() }
+        actionIcon.setOnClickListener {
+            showPhotoPicker()
+        }
         delPhoto.setOnClickListener { regPresenter.deletePhoto() }
 
         saveProfile.setOnClickListener {
@@ -365,23 +369,23 @@ class RegistrationFragment : FragmentWrapper(),
     //    finish()
     }
 
+    @SuppressLint("WrongConstant")
     fun showPhotoPicker() {
         picker = ImagePickerFragment()
         picker.listener = regPresenter
         picker.pathImage = pathImg
         picker.file = regPresenter.imageFile
-
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe { granted ->
                     picker.galleryPermissionGranted = granted
-                    fragmentManager
-                        ?.beginTransaction()
+                    fragmentManager?.beginTransaction()
                         ?.addToBackStack(null)
                         ?.add(R.id.container, picker)
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
+                    ApplicationWrapper.context = this.context!!
                 }
         }
     }
@@ -395,8 +399,20 @@ class RegistrationFragment : FragmentWrapper(),
     }
 
     override fun openCamera(file: File) {
-        val intent = ImageUtils.takePhotoIntent(file)
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.CAMERA)
+                .subscribe {
+                    try {
+                        // brokenUrlMessage.visible = false
+                        val intent = ImageUtils.takePhotoIntent(file)
+                        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+                    } catch (e: SecurityException) {
+                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                    }
+                    //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                }
+        }
     }
 
     override fun showImage(file: File) {

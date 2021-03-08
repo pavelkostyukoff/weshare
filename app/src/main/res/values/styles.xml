@@ -4,16 +4,16 @@
     <!-- AppTheme Light -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="titleTextColor">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/boomeranGo</item>
+        <item name="colorAccent">@color/boomeranGo</item>
+        <item name="titleTextColor">@color/boomeranGo</item>
         <item name="colorControlHighlight">@color/colorPrimaryLight</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
     </style>
     <style name="Title" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/boomeranGo</item>
         <item name="fontFamily">@font/roboto</item>
         <item name="android:textSize">18sp</item>
     </style>

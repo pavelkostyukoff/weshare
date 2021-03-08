@@ -15,6 +15,7 @@ import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -24,7 +25,7 @@ import java.util.regex.Pattern
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
 
-    val router = ApplicationWrapper.instance?.getRouter()
+    val router = ApplicationWrapper.instance.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
 
@@ -45,7 +46,6 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     init {
         this.profile = Settings.get()//ApplicationWrapper.user
         profile?.let { viewState.showProfile(it) }
-
         //todo запрос оправляется как только мы хотим показать профиль после логина
         /* Api.Users.getAccount()
              .subscribeOn(Schedulers.io())
@@ -60,25 +60,6 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
              //    viewState.setTitle(R.string.edit_profile_create)
              })*/
     }
-
-
-    /* fun showAvatar()
-     {
-         Api.Users.getAccount()
-             .subscribeOn(Schedulers.io())
-             .observeOn(AndroidSchedulers.mainThread())
-             .subscribe({ profile ->
-                 this.profile = profile
-                 //   profileNew = profile.clone() as Profile
-                 viewState.showProfile(profile)
-                 //  viewState.setTitle(R.string.edit_profile_edit)
-             }, { e ->
-                 //  profileNew = Profile()
-                 viewState.showProfile(profileNew)
-                 //    viewState.setTitle(R.string.edit_profile_create)
-             })
-     }*/
-
     fun onBackPressed() {
         // get difference
         //  val equals = profile?.equals(profileNew)
@@ -94,7 +75,7 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     fun deletePhoto() {
-        /* Api.Pictures.delPicture()
+    /*     Api.Pictures.delPicture()
              .observeOn(AndroidSchedulers.mainThread())
              .doFinally { viewState.showProgress(false) }
              .subscribe ({
@@ -230,8 +211,10 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     override fun onPickerCameraClick() {
-        imageFile = ImageUtils.savePhotoFile()
-        viewState.openCamera(imageFile!!)
+        imageFile = ImageUtils.createImageFile() //savePhotoFile
+        imageFile?.let {
+            viewState.openCamera(it)
+        }
     }
 
     @SuppressLint("CheckResult")

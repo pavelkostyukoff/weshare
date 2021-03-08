@@ -2,6 +2,7 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -18,12 +19,12 @@ import com.spacesofting.weshare.common.ApplicationWrapper.Companion.avatar
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.model.Photo
 import com.spacesofting.weshare.mvp.model.UpdateProfile
 import com.spacesofting.weshare.mvp.presentation.presenter.EditProfilePresenter
 import com.spacesofting.weshare.mvp.presentation.view.EditProfileView
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
+import com.spacesofting.weshare.utils.hideKeyboard
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -75,6 +76,29 @@ class EditProfile : FragmentWrapper(),
         }
     }
 
+    //todo метод выбора фото
+    private fun showPicker() {
+        activity?.hideKeyboard()
+        picker = ImagePickerFragment()
+        picker?.listener = presenter
+        picker?.isAvatarForm = false
+        picker?.pathImage = pathImg
+        picker?.file = presenter.imageFile
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe { granted ->
+                    picker?.galleryPermissionGranted = granted
+                    fragmentManager?.beginTransaction()
+                        ?.addToBackStack(null)
+                        ?.add(R.id.container, picker!!)
+                        ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        ?.commit()
+                    ApplicationWrapper.context = this.context!!
+                }
+        }
+    }
+
     @InjectPresenter
     lateinit var presenter: EditProfilePresenter
 
@@ -113,7 +137,10 @@ class EditProfile : FragmentWrapper(),
             }
         }
 
-        avatarO.setOnClickListener { showPhotoPicker() }
+        editAvatar.setOnClickListener {
+           // showPhotoPicker()
+            showPicker()
+        }
         delPhoto.setOnClickListener { presenter.deletePhoto() }
 
         saveProfile.setOnClickListener {
@@ -138,7 +165,6 @@ class EditProfile : FragmentWrapper(),
         } else {
             contentProfile.visibility = View.VISIBLE
         }
-
        // saveProfile.isEnabled = !isInProgress
         progress.visible = isInProgress
     }
@@ -146,13 +172,13 @@ class EditProfile : FragmentWrapper(),
     override fun showToast(stringId: Int) {
         //Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show()
     }
-    override fun updateAvatar(img: Photo) {
+    override fun updateAvatar(img: String?) {
      //   avatar = img.url.toString()
 
-        if (img.url != null)
+        if (img != null)
         {
             Picasso.with(context)
-                .load(img.url.toString())
+                .load(img)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
                 .into(avatarO,
@@ -176,6 +202,7 @@ class EditProfile : FragmentWrapper(),
         phone.setText(profile.phone.toString(), TextView.BufferType.EDITABLE)
         nickName.setText(profile.firstName .toString(), TextView.BufferType.EDITABLE)
         name.setText(profile.lastName.toString(), TextView.BufferType.EDITABLE)
+        updateAvatar(profile.avatar)
       //  date.setText(getStringForDate(profile.birthday.toString()), TextView.BufferType.EDITABLE)
        // val avatar = profile.avatar
       //  ApplicationWrapper.avatar = avatar.toString()
@@ -191,10 +218,10 @@ class EditProfile : FragmentWrapper(),
 
 
       //  saveProfile.isEnabled = true
-        if (avatar != null)
+       /* if (profile.avatar != null)
         {
             Picasso.with(context)
-                .load(avatar)
+                .load(profile.avatar!!.url)
                 .placeholder(R.drawable.ic_avatar_placeholder)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
@@ -212,20 +239,18 @@ class EditProfile : FragmentWrapper(),
         }
         else {
           //  delPhoto.visible = false
-        }
+        }*/
     }
-   /* override fun showAvatar(profile: Profile) {
+/*    override fun showAvatar(profile: Profile) {
         if (profile.img != null && (profile.img as Image).name != null) {
             val path = ImageUtils.resolveImagePath(profile.img!!.name!!)
             pathImg = path
             Picasso.with(activity).load(path).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatar)
             Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         } else {
-            Picasso.with(activity).load(R.drawable.ic_wish_fav_inactive).into(actionIcon)
+            Picasso.with(activity).load(R.drawable.ic_approve).into(actionIcon)
         }
     }*/
-
-
 
     override fun setTitle(resString: Int) {
         editProfileTitle.text = getString(resString)
@@ -334,22 +359,23 @@ class EditProfile : FragmentWrapper(),
     }
 
     fun showPhotoPicker() {
+        activity?.hideKeyboard()
         picker = ImagePickerFragment()
-        picker.listener = presenter
-        picker.pathImage = pathImg
-        picker.file = presenter.imageFile
-
+        picker?.listener = presenter
+        picker?.isAvatarForm = false
+        picker?.pathImage = pathImg
+        picker?.file = presenter.imageFile
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe { granted ->
-                    picker.galleryPermissionGranted = granted
-                    fragmentManager
-                        ?.beginTransaction()
+                    picker?.galleryPermissionGranted = granted
+                    fragmentManager?.beginTransaction()
                         ?.addToBackStack(null)
-                        ?.add(R.id.container, picker)
-                        ?.setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        ?.add(R.id.container, picker!!)
+                        ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
+                    ApplicationWrapper.context = this.context!!
                 }
         }
     }
@@ -363,10 +389,22 @@ class EditProfile : FragmentWrapper(),
     }
 
     override fun openCamera(file: File) {
-        val intent = ImageUtils.takePhotoIntent(file)
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        activity?.let {
+            RxPermissions(it)
+                .request(android.Manifest.permission.CAMERA)
+                .subscribe {
+                    try {
+                        // brokenUrlMessage.visible = false
+                        val intent = ImageUtils.takePhotoIntent(file)
+                        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+                    } catch (e: SecurityException) {
+                        e
+                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
+                    }
+                    //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+                }
+        }
     }
-
     override fun showImage(file: File) {
         //show image
         Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
@@ -376,6 +414,23 @@ class EditProfile : FragmentWrapper(),
 
     override fun setPreviewPhoto(file: File) {
         picker.setImage(file)
+        if (file != null)
+        {
+            Picasso.with(context)
+                .load(file)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(avatarO,
+                    object : Callback {
+                        override fun onSuccess() {
+                            // loadImageProgress.visibility = View.GONE
+                            delPhoto.visible = true
+                        }
+                        override fun onError() {
+                            //  loadImageProgress.visibility = View.GONE
+                        }
+                    })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

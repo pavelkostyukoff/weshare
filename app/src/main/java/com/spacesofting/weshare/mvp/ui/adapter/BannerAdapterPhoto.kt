@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import com.wangpeiyuan.cycleviewpager2.adapter.CyclePagerAdapter
 import java.io.File
 
-class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHolder>() {
+class BannerAdapterPhoto :  CyclePagerAdapter<BannerAdapterPhoto.PagerViewHolder>() {
     var dataset = ArrayList<String>()
 
     // создаем поле объекта-колбэка
@@ -81,8 +81,6 @@ class MyCyclePagerAdapter :  CyclePagerAdapter<MyCyclePagerAdapter.PagerViewHold
                 .into(it)
         }*/
         holder.wishEditImageBtn.setOnClickListener {
-
-
             mListener?.onCardClick()
         }
         holder.dellImage.setOnClickListener {

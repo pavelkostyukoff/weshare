@@ -61,26 +61,26 @@ val t = t
 
         if (item.getImage() != null) {
             val firstImage = item.getImage()!!
-            val imageName = firstImage.name
+            val imageName = firstImage.url
             var imageColor = "#2EFFFFFF" // we need default color here because in some of cases we getting null color from server
-            var height = elementWidth.div(firstImage.aspect!!).toInt()
-
+         //   var height = elementWidth.div(firstImage.aspect!!).toInt()
+/*
             firstImage.color?.let {
                 imageColor = "#2E${it.replace(" ", "").substring(1)}" // alpha 18% //fix " "
-            }
-
+            }*/
+/*
             if (height > imageMaxHeight) {
                 height  = imageMaxHeight
-            }
+            }*/
 
-            holder.templateImage.setHeight(height)
+           // holder.templateImage.setHeight(height)
 
             imageName?.let {
                 Picasso.with(holder.templateImage.context)
                         .load(ImageUtils.resolveImagePath(it))
                         .tag(PICASSO_TAG)
                         .centerInside()
-                        .resize(elementWidth, height)
+                        //.resize(elementWidth, height)
                         .placeholder(ColorDrawable(Color.parseColor(imageColor)))
                         .error(R.drawable.bg_image_load_error)
                         .into(holder.templateImage)

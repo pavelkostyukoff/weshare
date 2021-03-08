@@ -1,8 +1,11 @@
 package com.spacesofting.weshare.api.picture
 
+import com.spacesofting.weshare.mvp.model.AvatarPhoto
 import com.spacesofting.weshare.mvp.model.Photo
 import io.reactivex.Observable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -18,7 +21,7 @@ interface PicturesService {
     fun delPictureMyGood(@Path("advertId") advertId: String, @Path("imageId") imageId: String):  Observable<Response<Void>>
 
     //fun getAccount(): Observable<User>
- /*   @Multipart
-    @POST("users/me/avatar")
-    fun postFile(@Part file: MultipartBody.Part, @Part("description") description: RequestBody): Call<ResponseBody>*/
+    @Multipart
+    @POST("me/avatar")
+    fun postFile(@Part file: MultipartBody.Part): Observable<AvatarPhoto>
 }

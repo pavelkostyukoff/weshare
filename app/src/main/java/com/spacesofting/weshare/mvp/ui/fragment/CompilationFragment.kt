@@ -167,7 +167,7 @@ class CompilationFragment : FragmentWrapper(),
      }*/
 
     private fun setAvatarCompilation() {
-        val imgName = mPresenter.compilation?.photo?.name
+        val imgName = mPresenter.compilation?.photo?.url
         if (imgName == null) {
             avatarCompilation.setImageResource(R.drawable.ic_avatar_placeholder)
         } else {

@@ -12,6 +12,7 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedCompilationsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
@@ -150,8 +151,8 @@ class FeedCompilationsFragment :
     }
 
     //todo открыть вещь
-    override fun goToWish(wish: Wish, compilation: Entity) {
-       // startActivity(WishActivity.getIntent(activity, wish, compilation))
+    override fun goToWish(wish: DatumRequast, compilation: Entity) {
+       //todo перейти в вишу startActivity(WishActivity.getIntent(activity, wish, compilation))
     }
 
     //todo подписаться на категорию она всегда висит в топе
@@ -168,6 +169,10 @@ class FeedCompilationsFragment :
                 }*/
             }
         }
+    }
+
+    override fun refreshAdapter() {
+        feedAdapter?.notifyDataSetChanged()
     }
 
     override fun onUnsubscribe(compilationId: Int) {

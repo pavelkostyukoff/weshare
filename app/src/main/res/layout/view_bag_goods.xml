@@ -3,22 +3,24 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:background="@color/gray5555"
                                              tools:context=".mvp.ui.activity.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_main"
             android:layout_width="0dp"
             android:layout_height="42dp"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/bg_navigation_gradient"
             android:elevation="10dp"
             app:layout_constraintBottom_toTopOf="@+id/viewpager_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabBackground="@color/link_water"
             app:tabGravity="fill"
             app:tabMode="fixed" />
+<!--
+            app:tabBackground="@color/link_water"
+-->
+
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager_main"

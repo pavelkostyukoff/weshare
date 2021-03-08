@@ -364,7 +364,7 @@
                                 app:riv_corner_radius="50dp" />
 
                         <ImageView
-                                android:id="@+id/actionIcon"
+                                android:id="@+id/editAvatar"
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_gravity="bottom|end"
@@ -397,6 +397,14 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
+        <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

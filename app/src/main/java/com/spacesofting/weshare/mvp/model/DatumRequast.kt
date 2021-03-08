@@ -44,4 +44,12 @@ class DatumRequast {
     @SerializedName("updatedAt")
     var updatedAt: String? = null
 
+    fun getImage(): Image? {
+        images?.let {
+            if (it.isNotEmpty()) {
+                return it[0]
+            }
+        }
+        return null
+    }
 }

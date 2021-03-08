@@ -25,7 +25,7 @@ interface EditProfileView : MvpView {
     fun showProfile(profile: User)
     fun saved(isSuccess: Boolean, isNew: Boolean = false)
     fun showToast(stringId: Int)
-    fun updateAvatar(img: Photo)
+    fun updateAvatar(img: String?)
     fun deletePhotos()
 
     fun save()

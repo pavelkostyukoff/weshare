@@ -15,14 +15,12 @@ import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.common.CategotiesImage
 import com.spacesofting.weshare.common.CategotiesImage.*
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.mvp.Datum
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.Image
-import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.presentation.presenter.FeedCompilationsPresenter
-import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -36,8 +34,9 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     private var itemNum = 0
     private var viewPool = androidx.recyclerview.widget.RecyclerView.RecycledViewPool()
     val dataset = ArrayList<Entity>()
-    private val wishList = ArrayList<Wish>()
-    private val w22 = Wish()
+    private val wishList = ArrayList<DatumRequast>()
+    private val datum = DatumRequast()
+    private val datum2 = DatumRequast()
     val router = ApplicationWrapper.instance.getRouter()
 
 
@@ -49,16 +48,10 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
     }
 
     override fun onBindViewHolder(holder: CompilationViewHolder, position: Int) {
-        holder.let {
+        holder.let { it ->
             val item = dataset[position]
             val viewHolder = it
-            /*        if(item.state == Compilation.State.INACTIVE){
-                        viewHolder.root.visible = false
-                        return
-                    } else {*/
             viewHolder.root.visible = true
-            //  }
-
             viewHolder.title.text = item.name
             /* viewHolder.subscribe.visible = !item.isFavorite
              viewHolder.unsubscribe.visible = item.isFavorite*/
@@ -77,64 +70,97 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             }
             viewHolder.progress.visible = true
             val arrImg = ArrayList<Int>()
-            presenter.entitiesListPresenter?.map {
-                var test = 0
-                when (it.id) {
-                    KINDS_ALL.name -> {
-                        test = R.drawable.kids
+            wishList.clear()
+            presenter.entitiesListPresenter?.map { entity ->
+                var icon = 0
+                when (entity.id) {
+                    KINDS_ALL.number -> {
+                        icon = R.drawable.kids
+                        // тут достаем список презентера и отправляем по id
                     }
-                    ELECTRONICS_ALL.name -> {
-                        test = R.drawable.transport
+                    ELECTRONICS_ALL.number -> {
+                        icon = R.drawable.transport
                     }
-                    CLOUSED_ODEZDA_ALL.name -> {
-                        test = R.drawable.clouse
+                    CLOUSED_ODEZDA_ALL.number -> {
+                        icon = R.drawable.clouse
                     }
-                    BUILDING_ALL.name -> {
-                        test = R.drawable.nedviga
+                    BUILDING_ALL.number -> {
+                        icon = R.drawable.nedviga
                     }
-                    OTDIH.name -> {
-                        test = R.drawable.rest_otdih
+                    OTDIH.number -> {
+                        icon = R.drawable.rest_otdih
                     }
-                    OBORUDOVANIE_ALL.name -> {
-                        test = R.drawable.oborudovanie_stroyka
+                    OBORUDOVANIE_ALL.number -> {
+                        icon = R.drawable.oborudovanie_stroyka
                     }
-                    PROCHEE.name -> {
-                        test = R.drawable.tools_instruments
+                    PROCHEE.number -> {
+                        icon = R.drawable.tools_instruments
                     }
-                    ELECTRONICS_ALL.name -> {
-                        test = R.drawable.electronix
+                    ELECTRONICS_ALL.number -> {
+                        icon = R.drawable.electronix
                     }
                     HOBBI_ALL.number -> {
-                        test = R.drawable.sports
+                        icon = R.drawable.sports
                     }
                     else -> {
-                        test = R.drawable.bg_image_load_error
+                        icon = R.drawable.bg_image_load_error
                     }
                 }
-                arrImg.add(test)
+                arrImg.add(icon)
+            }
+            //todo мы тут собираем вещи в карту согласно их id
+
+            if (presenter.item8Maps.get(dataset[position].id) != null) {
+                wishList.clear()
+                val listUpdate = presenter.item8Maps.get(dataset[position].id)
+                if (!listUpdate?.isEmpty()!!) {
+                    listUpdate.map {
+                        if ( it.categoryId.equals(dataset[position].id)){
+                            wishList.addAll(listUpdate)
+                        }
+                    }
+                    //setWishList(viewHolder, presenter.item8Maps.get(entity.id.toString())!!, item)
+                }
             }
             viewHolder.imageView.setImageResource(arrImg[position])
-            w22.templateId = 0
-            w22.compilationId = 0
-            w22.description = "Wow it's worked"
-            w22.name = item.name
-            wishList.clear()
-            wishList.add(w22)
+            if (wishList.isEmpty()) {
+                datum.categoryId = "test"
+                datum.createdAt = "test"
+                datum.description = "Wow it's worked"
+                datum.description = item.name
+
+                datum2.categoryId = "test"
+                datum2.createdAt = "test"
+                datum2.description = "Wow it's worked"
+                datum2.description = item.name
+
+                wishList.clear()
+                wishList.add(datum)
+                wishList.add(datum2)
+            }
+
+
+            //todo тут на полняется каждый список
 
             setWishList(viewHolder, wishList, item)
+            updateItemView(viewHolder, wishList, item)
 
 //todo возмодное причина тормозов
-            https@ //ru.stackoverflow.com/questions/690916/тормозит-recyclerview-при-прокрутке-из-за-imageview-cardview
+
+            //ru.stackoverflow.com/questions/690916/тормозит-recyclerview-при-прокрутке-из-за-imageview-cardview
             //// RececlerView тормозит при пролистывании android asyncReportData
-            updateItemView(viewHolder, wishList, item)
+
             //  }
         }
     }
 
-    // todo подборка категорий
-    private fun setWishList(holder: CompilationViewHolder, wishList: List<Wish>, item: Entity) {
+    // todo подборка категорий ADAPTER ВНУТРИ АДАПТЕРА вот сюда и передаем 8 items
+    private fun setWishList(
+        holder: CompilationViewHolder,
+        wishList: List<DatumRequast>,
+        item: Entity
+    ) {
         val adapter = CompilationsWishAdapter(wishList, item, this)
-
         // holder.wishList.recycledViewPool = viewPool
         holder.wishList.visible = true
         holder.wishList.layoutManager =
@@ -149,7 +175,11 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
 
     // todo подборка вещей вот тут могут быть лаги всязи с расчетом
-    private fun updateItemView(holder: CompilationViewHolder, wishList: List<Wish>, item: Entity) {
+    private fun updateItemView(
+        holder: CompilationViewHolder,
+        wishList: List<DatumRequast>,
+        item: Entity
+    ) {
         val size = wishList.size
         val num = if (itemNum <= size - 1) itemNum else (size - 1)
         val scrollPosition = if (itemNum > size) (itemNum - size) else itemNum
@@ -157,7 +187,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
         loadImage(holder.showGoods, wishList[num].getImage(), width, height, true)
-        holder.wishName.text = wishList[num].name
+        holder.categoryName.text = dataset[num].name
         //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(
             scrollPosition,
@@ -166,14 +196,13 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
         holder.add.setOnClickListener {
             //   item.setLoading(true)
-            presenter.addWish(wishList[num], item)
+            //todo добавить виш себе в ищбранное presenter.addWish(wishList[num], item)
             holder.setLoading(true) //todo false замена тест
             notifyItemChanged(holder.adapterPosition)
         }
 
         holder.root.setOnClickListener {
-
-            presenter.showWish(wishList[num], item)
+            //todo показать вещь  presenter.showWish(wishList[num], item)
         }
         holder.progress.visible = false
     }
@@ -200,14 +229,18 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
 
         img?.let {
             var imageColor = "#2EFFFFFF"
-
+/*
             it.color?.let {
                 imageColor = "#2E${it.replace(" ", "").substring(1)}"
+            }*/
+             Picasso.Builder(wishImg.context)
+            .listener { picasso, uri, exception ->
+                exception.printStackTrace()
             }
-
-            it.name?.let {
+            .build().load(it.url).into(wishImg)
+/*            it.url?.let {
                 Picasso.with(wishImg.context)
-                    .load(ImageUtils.resolveImagePath(it))
+                    .load(it)
                     .resize(width, height)
                     .centerCrop()
                     .placeholder(ColorDrawable(Color.parseColor(imageColor)))
@@ -219,9 +252,13 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
                             }
                         }
 
-                        override fun onError() {}
+                        override fun onError() {
+                            TODO("Not yet implemented")
+                        }
+
+                        fun onError(e: Exception?) {}
                     })
-            }
+            }*/
         }
     }
 
@@ -251,7 +288,7 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
         val imageView: ImageView = item.imageViewmini
 
         val add: ImageButton = item.addBtn
-        val wishName: TextView = item.wishName
+        val categoryName: TextView = item.categoryName
         val wishCost: TextView = item.wishCost
         val wishList: androidx.recyclerview.widget.RecyclerView = item.wishList
         val progress: FrameLayout = item.progress
