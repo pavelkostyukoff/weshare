@@ -2,9 +2,6 @@ package com.spacesofting.weshare.mvp.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
 import moxy.presenter.InjectPresenter
@@ -16,7 +13,7 @@ import com.spacesofting.weshare.mvp.presentation.view.IShootItView
 import com.spacesofting.weshare.mvp.ui.adapter.ItemShootRentAdapter
 import kotlinx.android.synthetic.main.fragment_irent.*
 
-class IShootItFragment : FragmentWrapper(),
+class IAmRentGoodsFragment : FragmentWrapper(),
     IShootItView {
     private var adapter: ItemShootRentAdapter? = null
 
@@ -27,9 +24,9 @@ class IShootItFragment : FragmentWrapper(),
     companion object {
         const val TAG = "IShootItFragment"
 
-        fun newInstance(): IShootItFragment {
-            val fragment: IShootItFragment =
-                IShootItFragment()
+        fun newInstance(): IAmRentGoodsFragment {
+            val fragment: IAmRentGoodsFragment =
+                IAmRentGoodsFragment()
             val args: Bundle = Bundle()
             fragment.arguments = args
             return fragment
@@ -53,7 +50,7 @@ class IShootItFragment : FragmentWrapper(),
 
         val mLayoutManager =
             androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(25), true))
         recyclerView.itemAnimator =
             androidx.recyclerview.widget.DefaultItemAnimator()
 

@@ -28,7 +28,6 @@ class InventoryFragment : FragmentWrapper(),
     private var advert: ResponcePublish? = null
     private var tab: Int? = null
 
-
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_inventory
     }
@@ -118,6 +117,7 @@ class InventoryFragment : FragmentWrapper(),
         router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
                 ApplicationWrapper.user = result as User
+                showAvatar(ApplicationWrapper.user.avatar)
                // nameUpdate(result as User)
                 /*setFoldInfo(result as User)   */         }
         }
@@ -137,11 +137,10 @@ class InventoryFragment : FragmentWrapper(),
         super.onResume()
         nameUpdate()
     }
+
     private fun nameUpdate()
     {
-
         val result  = Settings.get()
-
         /*if (result == null)
         {
             mInventoryPresenter.getProfile()
@@ -168,7 +167,7 @@ class InventoryFragment : FragmentWrapper(),
 
     }
 
-    fun showAvatar(avatar: String?)
+    private fun showAvatar(avatar: String?)
     {
         if (avatar != null)
         {

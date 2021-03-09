@@ -8,10 +8,12 @@ import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import androidx.core.content.FileProvider
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
+import com.spacesofting.weshare.mvp.model.AvatarPhoto
 import com.spacesofting.weshare.mvp.model.Photo
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
@@ -44,20 +46,21 @@ class ImageUtils {
 
         fun compressPhoto(file: File): File {
             val compressedPhoto = File("$CACHE/${file.name}")
-            val imageSize       = file.length().toDouble()/(Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE).toDouble()
-            val scaleFactor     = Math.sqrt((Settings.LIMIT_IMAGE_SIZE / imageSize))
-            val bitmap: Bitmap  = BitmapFactory.decodeFile(file.path)
-            val outWidthB       = (bitmap.width * scaleFactor).toInt()
-            val outHeightB      = (bitmap.height * scaleFactor).toInt()
-            val outputStream    = ByteArrayOutputStream()
-            val newBitmap       = Bitmap.createScaledBitmap(bitmap, outWidthB, outHeightB,false)
-            newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
-            val bitmapData      = outputStream.toByteArray()
-            val fos             = FileOutputStream(compressedPhoto)
+            val imageSize = file.length()
+                .toDouble() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE).toDouble()
+            val scaleFactor = Math.sqrt((Settings.LIMIT_IMAGE_SIZE / imageSize))
+            val bitmap: Bitmap = BitmapFactory.decodeFile(file.path)
+            val outWidthB = (bitmap.width * scaleFactor).toInt()
+            val outHeightB = (bitmap.height * scaleFactor).toInt()
+            val outputStream = ByteArrayOutputStream()
+            val newBitmap = Bitmap.createScaledBitmap(bitmap, outWidthB, outHeightB, false)
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
+            val bitmapData = outputStream.toByteArray()
+            val fos = FileOutputStream(compressedPhoto)
             fos.write(bitmapData)
             fos.flush()
             fos.close()
-
+            compressedPhoto.length()
             return compressedPhoto
         }
 
@@ -71,21 +74,20 @@ class ImageUtils {
             return file
         }
 
-
-
         fun createImageFile(): File {
             val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(
                 Date()
             )
             val imageFileName: String = "JPEG_" + timeStamp + "_"
-            val storageDir: File = ApplicationWrapper.context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            if(!storageDir.exists()) storageDir.mkdirs()
+            val storageDir: File =
+                ApplicationWrapper.context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            if (!storageDir.exists()) storageDir.mkdirs()
             val imageFile = File.createTempFile(imageFileName, ".jpg", storageDir)
             imageFilePath = imageFile.absolutePath
             return imageFile
         }
 
-        fun savePhotoFile(files :String): File {
+        fun savePhotoFile(files: String): File {
             val file = File("$files")
             return file
         }
@@ -97,19 +99,20 @@ class ImageUtils {
 
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // Ensure that there's a camera activity to handle the intent
-       //     if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
-                // Continue only if the File was successfully created
-               //   val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
+            //     if (takePictureIntent.resolveActivity(ApplicationWrapper.instance.packageManager) != null) {
+            // Continue only if the File was successfully created
+            //   val photoURI = FileProvider.getUriForFile(ApplicationWrapper.instance, ApplicationWrapper.instance.packageName, file)
 /*                val photoURI =
                     ApplicationWrapper.context?.let { FileProvider.getUriForFile(it, "com.spacesofting.weshare", file) }*/
 
-                val authorities = ApplicationWrapper.context.packageName + ".fileprovider"
-                val imageUri = FileProvider.getUriForFile(ApplicationWrapper.context, authorities, file)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-           // }
+            val authorities = ApplicationWrapper.context.packageName + ".fileprovider"
+            val imageUri = FileProvider.getUriForFile(ApplicationWrapper.context, authorities, file)
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+            // }
 
             return takePictureIntent
         }
+
         /**
          * Downloads image and saves it into cache
          */
@@ -134,12 +137,19 @@ class ImageUtils {
                                 emitter.onError(Exception("Could not load image"))
                             }
 
-                            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                            override fun onBitmapLoaded(
+                                bitmap: Bitmap?,
+                                from: Picasso.LoadedFrom?
+                            ) {
                                 try {
                                     if (file.exists()) file.delete()
                                     file.createNewFile()
                                     val ostream = FileOutputStream(file)
-                                    bitmap?.compress(Bitmap.CompressFormat.PNG, 80, ostream) //TODO: check image format
+                                    bitmap?.compress(
+                                        Bitmap.CompressFormat.PNG,
+                                        80,
+                                        ostream
+                                    ) //TODO: check image format
                                     ostream.flush()
                                     ostream.close()
                                     emitter.onSuccess(file)
@@ -156,48 +166,54 @@ class ImageUtils {
         /**
          * Sends image to server. If image from cache then delete it
          */
-       /* fun send(img: File): Observable<PhotoNew> {
+        fun sendAvatar(img: File): Observable<AvatarPhoto> {
             //get extension for mimetype
             var extension = img.extension
-            if( extension.trim().isEmpty()){
+            if (extension.trim().isEmpty()) {
                 extension = "*"
             }
-
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
-            val body = MultipartBody.Part.createFormData("pictureFile", img.name, file)
-            val observable = Api.Pictures.addPicture(body).default().share()
-
+            val body = MultipartBody.Part.createFormData(
+                "file",
+                URLEncoder.encode(img.name, "utf-8"),
+                file
+            )
+            val observable = Api.Pictures.sentAvatar(body).default().share()
             //remove file on success if it stored in cache directory
             if (img.path != img.path) {
-                observable.subscribe({ img.delete() })
+                observable?.subscribe({ img.delete() })
             }
-
-            if (img.path.contains(CACHE)) {
-                observable.subscribe({ AddPictureResponse ->
+            if (CACHE?.let { img.path.contains(it) }!!) {
+                observable?.subscribe({
+                        newAvatar ->
                     img.delete()
-                },{
-                        e ->
-                    //  Log.d(e.message)
+                }, { e ->
+                      Log.d("errorrrr",e.message)
                 })
+                    ?.dispose()
             }
-
             return observable
-        }*/
+        }
+
         /**
          * Sends image to server. If image from cache then delete it
          */
         fun send(img: File, goodId: String?): Observable<Photo>? {
             //get extension for mimetype
             var extension = img.extension
-            if( extension.trim().isEmpty()){
+            if (extension.trim().isEmpty()) {
                 extension = "*"
             }
             //prepare body
             val file = RequestBody.create(MediaType.parse("image/${extension}"), img)
-            val body = MultipartBody.Part.createFormData("file", URLEncoder.encode(img.name, "utf-8"), file)
+            val body = MultipartBody.Part.createFormData(
+                "file",
+                URLEncoder.encode(img.name, "utf-8"),
+                file
+            )
             val observable = goodId?.let {
-                Api.Pictures.addPictureMyGood(it,body).default().share()
+                Api.Pictures.addPictureMyGood(it, body).default().share()
             }
             //remove file on success if it stored in cache directory
             if (img.path != img.path) {
@@ -206,10 +222,10 @@ class ImageUtils {
             if (CACHE?.let { img.path.contains(it) }!!) {
                 observable?.subscribe({ AddPictureResponse ->
                     img.delete()
-                },{
-                        e ->
+                }, { e ->
                     //  Log.d(e.message)
                 })
+                    ?.dispose()
             }
             return observable
         }

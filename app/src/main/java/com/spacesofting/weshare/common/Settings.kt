@@ -26,14 +26,15 @@ object Settings {
     private val PREFERENCES = PreferenceManager.getDefaultSharedPreferences(ApplicationWrapper.instance)
     private val KEY_API_NAME = "key_api_name"
     private val KEY_ACCESS_TOKEN = "key_access_token"
-    private val KEY_VALIDATION_TOKEN = "key_validation_token"
+    private val KEY_REFRESH_TOKEN = "key_validation_token"
     private val SAVE_COMPILATIONS = "save_compilations"
     private val PROFILE = "profile"
     private val KEY_ACCESS_TOKEN_ANONYMOUS = "key_access_token_anon"
     private val IS_A_ANONYMOUS = "is_anonymous_user"
     private val KEY_ROLE = "key_role"
-    val LIMIT_IMAGE_SIZE = 1
-    val THE_SIZE_OF_A_MEGABYTE = 920//920///1024
+    const val LIMIT_IMAGE_SIZE = 5
+    const val LIMIT_IMAGE_AVATAR_SIZE = 5
+    const val THE_SIZE_OF_A_MEGABYTE = 1024
 
     private var isAuthenticated = false
     var isAnonymousUser: Boolean
@@ -135,7 +136,7 @@ object Settings {
 //use for check authorization status
 
     fun checkAuthorization() {
-        isAuthenticated = AccessToken != null /*|| AccessTokenAnonymous != null*/
+        isAuthenticated = accessToken != null /*|| AccessTokenAnonymous != null*/
     }
 
     private fun decrypt(key: String): String? {
@@ -148,7 +149,7 @@ object Settings {
     //use for check authorization status
     fun isAuthenticated() = isAuthenticated
 
-    var AccessToken: String?
+    var accessToken: String?
         get() = decrypt(KEY_ACCESS_TOKEN)
         set(value) {
             encrypt(KEY_ACCESS_TOKEN, value)
@@ -156,9 +157,9 @@ object Settings {
         }
 
     var refreshToken: String?
-        get() = decrypt(KEY_VALIDATION_TOKEN)
+        get() = decrypt(KEY_REFRESH_TOKEN)
         set(value) {
-            encrypt(KEY_VALIDATION_TOKEN, value)
+            encrypt(KEY_REFRESH_TOKEN, value)
         }
 
     private fun encrypt(key: String, value: String?) {
@@ -185,7 +186,7 @@ object Settings {
         }
 
     fun logout() {
-        AccessToken = null
+        accessToken = null
         refreshToken = null
         isAuthenticated = false
     }

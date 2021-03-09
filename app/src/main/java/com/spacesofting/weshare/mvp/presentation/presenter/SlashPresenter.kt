@@ -11,7 +11,7 @@ class SlashPresenter : MvpPresenter<SlashView>() {
     var wasCalled = false
     var timeout: Timer = Timer()
 
-    fun isAuthenticated() = Settings.AccessToken != null
+    fun isAuthenticated() = Settings.accessToken != null
 
   /*  fun init() {
         if (!wasCalled) {

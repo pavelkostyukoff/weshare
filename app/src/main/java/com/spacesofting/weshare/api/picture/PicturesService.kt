@@ -23,5 +23,5 @@ interface PicturesService {
     //fun getAccount(): Observable<User>
     @Multipart
     @POST("me/avatar")
-    fun postFile(@Part file: MultipartBody.Part): Observable<AvatarPhoto>
+    fun sentAvatar(@Part file: MultipartBody.Part): Observable<AvatarPhoto>
 }

@@ -7,6 +7,7 @@ import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.BoomerangoRouter
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.UpdateProfile
@@ -25,7 +26,7 @@ import java.util.regex.Pattern
 @InjectViewState
 class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragment.PickerListener {
 
-    val router = ApplicationWrapper.instance.getRouter()
+    val router: BoomerangoRouter = ApplicationWrapper.instance.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
 
@@ -60,65 +61,39 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
              //    viewState.setTitle(R.string.edit_profile_create)
              })*/
     }
+
+/*
     fun onBackPressed() {
         // get difference
         //  val equals = profile?.equals(profileNew)
 
         //choose dialog to show
-        /* if (equals != null && equals) {
+        */
+/* if (equals != null && equals) {
              viewState.close()
          } else if (isValid()) {
              viewState.save()
          } else {
              viewState.cancel()
-         }*/
+         }*//*
+
     }
+*/
 
     fun deletePhoto() {
-    /*     Api.Pictures.delPicture()
-             .observeOn(AndroidSchedulers.mainThread())
-             .doFinally { viewState.showProgress(false) }
-             .subscribe ({
-                 viewState.deletePhotos()
+        /*     Api.Pictures.delPicture()
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .doFinally { viewState.showProgress(false) }
+                 .subscribe ({
+                     viewState.deletePhotos()
 
-             }){
+                 }){
 
-             }*/
+                 }*/
     }
 
-    fun saveAvatar() {
-        val imageSize = imageFile?.let {
-            it.length() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE)
-        }
-        //  viewState.showProgress(true)
-        //save image
-        imageFile?.let {
-            imageSize?.let {
-                var saveImgFile = imageFile!!
-
-                if (imageSize > Settings.LIMIT_IMAGE_SIZE) {
-                    saveImgFile = ImageUtils.compressPhoto(imageFile!!)
-                }
-                /*  ImageUtils.send(saveImgFile, goodId)?.subscribeOn(AndroidSchedulers.mainThread())
-                      ?.subscribe({ img ->
-                          //profileNew.img = img
-                         // this.profile?.let { it1 -> viewState.showProfile(it1) }
-                          //this.profile
-                          viewState.updateAvatar(img)
-                          viewState.showProgress(false)
-
-                          //   updateProfile()
-                      }, { e ->
-                          viewState.saved(false)
-                         // viewState.showToast(R.string.error_link_image)
-                      })*/
-            }
-        } ?: run {
-            updateProfile()
-        }
-    }
-
-    private fun updateProfile() {
+    private fun updateProfileAvatar(url: String?) {
+        getMyProfile()
         //update and profile
         //todo все ясно как только ендпоинт заработает аватарка поставится
         /*  val observable: Observable<Photo>
@@ -237,14 +212,47 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
         viewState.showToast(R.string.error_message)
     }
 
+    /* fun saveAvatar()
+     {
+         viewState.showProgress(true)
+         imageFile?.let { photoFile ->
+             ImageUtils.send(photoFile, goodId)
+                 ?.subscribeOn(AndroidSchedulers.mainThread())
+                 ?.subscribe({ photo ->
+                     viewState.showProgress(false)
+                     viewState.showToast(R.string.imag_load_ok_save)
+                 }, {
+                     viewState.showProgress(false)
+                     viewState.showToast(R.string.error_load_image)
+                 })
+         }
+     }*/
     override fun onEditPhotoConfirmClick() {
+        imageFile?.let {
+            //  viewState.showWishImage(it)
+            //   savePhoto()
+            isAddedNewAvatar = true
+            saveImageOrCompress()
+        }
+        /*imageFile?.let {
 
-        saveAvatar()
-        /*  imageFile?.let {
-              isAddedNewAvatar = true
-              viewState.showImage(it)
-              viewState.saveButtonEnabled(isNickNameValid)
-          }*/
+            Api.Pictures.sentAvatar(it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({
+                        response->{
+
+
+                    response.url
+                }
+                },{
+                        e->
+                })
+        }*/
+
+
+        // viewState.saveButtonEnabled(isNickNameValid)
+
 
         /*imageFile?.let {
             Api.Users.updateAvatar(it)
@@ -315,11 +323,23 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     }
 
     //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
-    @SuppressLint("CheckResult")
-    fun chengeMyProfile(updProfile: UpdateProfile) {
-        viewState.showProgress(true)
 
+    private fun getMyProfile() {
+        with(Api) {
+            Users.getAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profile ->
+                    Settings.set(profile)
+                }, { e ->
+                })
+        }
+    }
+
+    fun changeMyProfile(updProfile: UpdateProfile) {
+        viewState.showProgress(true)
         Api.Users.updateProfile(updProfile)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe({
@@ -336,6 +356,37 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                 //todo пользователь уже зарегистрирован проходим в аторизацию или диалог
                 //router.navigateTo(ScreenPool.BASE_FRAGMENT)
             }
+    }
 
+    private fun saveImageOrCompress() {
+        if (isAddedNewAvatar) {
+            imageFile?.let {
+                val imageSize =
+                    it.length() / (Settings.THE_SIZE_OF_A_MEGABYTE * Settings.THE_SIZE_OF_A_MEGABYTE)
+                var saveImgFile = it
+                viewState.showProgress(true)
+                if (imageSize >= Settings.LIMIT_IMAGE_SIZE) {
+                    saveImgFile = ImageUtils.compressPhoto(it)
+                }
+                ImageUtils.sendAvatar(saveImgFile)?.subscribeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe({
+                            avatar ->
+                        viewState.updateAvatar(avatar.url)
+                        viewState.showProgress(false)
+                        updateProfileAvatar(avatar.url)
+                    }, { e ->
+                        viewState.showToast(R.string.photo_server_full)
+                        //    stopShowProgress()
+                    })
+
+                  /*  .subscribe({ img ->
+                        viewState.showProgress(false)
+                    }, { e ->
+                        viewState.showProgress(false)
+                    })
+                    .dispose()*/
+            }
+        }
+        viewState.showProgress(false)
     }
 }

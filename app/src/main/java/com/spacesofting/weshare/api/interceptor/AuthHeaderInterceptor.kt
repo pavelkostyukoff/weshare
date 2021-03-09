@@ -14,53 +14,39 @@ class AuthHeaderInterceptor : Interceptor {
     private var isRefreshing = false
 
     override fun intercept(chain: Interceptor.Chain): Response? {
-        var accessToken = "Bearer " + Settings.AccessToken
-        var request: Request = chain.request()
-        val response: Response = chain.proceed(request)
+        var accessToken = "Bearer " + Settings.accessToken
+        var originalRequest : Request = chain.request()
+        val response: Response = chain.proceed(originalRequest )
 
-        val builder: Request.Builder = request.newBuilder()
+        val builder: Request.Builder = originalRequest.newBuilder()
         //todo первый раз прокатываем
         builder.header("Authorization", accessToken)// accessToken.getToken())
         builder.header("Content-Type", "application/json")
-        builder.method(request.method(), request.body())
-        request = builder.build()
-        if (response.code() === 403) {
+        builder.method(originalRequest .method(), originalRequest .body())
+        originalRequest  = builder.build()
+        if (response.code().equals(403)/* || response.code() === 401*/) {
             //todo получаем 403
             synchronized(this) {
                 Log.e(
                     "refreshToken",
-                    "Failed " + request.toString()
+                    "Failed " + originalRequest .toString()
                         .toString() + " with token -> " + accessToken // accessToken.getToken()
                 )
                 //todo получаем старый токен сюда
                 val currentToken: String? =
-                    "Bearer " + Settings.AccessToken // accessToken.getToken()
+                    "Bearer " + Settings.accessToken // accessToken.getToken()
                 //todo если верный токен не null и верный как и главный то
-                if (currentToken != null && currentToken == accessToken) {
-                    try {
-                        //todo получаем новую пару
-                        getRefreshToken() //aysnc
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-                }
-                if (Settings.AccessToken != null) {
+                        getRefreshToken(Settings.refreshToken) // в параметр кладем рефрешь
+                if (Settings.accessToken != null) {
                     //todo подставляем новый токен
                     //todo меняем хеддер
-                    builder.header("Authorization", "Bearer " + Settings.AccessToken)
+                    builder.header("Authorization", "Bearer " + Settings.accessToken)
                     builder.header("Content-Type", "application/json")
-                    request = builder.build()
-                    Log.e(
-                        "refreshToken",
-                        "Send " + request.toString()
-                            .toString() + " again with new token -> " + accessToken
-                    )
-                    Log.e(
-                        "refreshToken",
-                        "--------------------------------------------------------------------------------"
-                    )
+                    originalRequest  = builder.build()
+                    Log.e("refreshToken", "Send " + originalRequest .toString().toString() + " again with new token -> " + accessToken)
+                    Log.e("refreshToken", "--------------------------------------------------------------------------------")
                     //todo проигрываем старый запрос
-                    return chain.proceed(request)
+                    return chain.proceed(originalRequest )
                 }
             }
         }
@@ -71,19 +57,17 @@ class AuthHeaderInterceptor : Interceptor {
 
     @Synchronized
     @Throws(InterruptedException::class)
-    fun getRefreshToken() {
+    fun getRefreshToken(refreshToken: String?) {
         if (!isRefreshing) {
             isRefreshing = true
-            val refreshToken = Settings.refreshToken
             refreshToken?.let { it ->
-                Api.Auth.getNewToken(Refresh(it))
-                    .map {
-                        Settings.AccessToken = it.accessToken
-                        Settings.refreshToken = it.rowrefreshTokenVersion
+             val newPair =    Api.Auth.getNewToken(Refresh(it)).blockingGet()
+                        Settings.accessToken = newPair.accessToken
+                        Settings.refreshToken = newPair.refreshToken
+                Log.i("refreshToken______NEW", "req 200 with token -> " + newPair.accessToken)
                         isRefreshing = false
-                    }
                     //todo запрашиваем в основном потоке , потому что нам нужно подменить токен в моменте
-                    .blockingGet()
+
             }
         }
     }

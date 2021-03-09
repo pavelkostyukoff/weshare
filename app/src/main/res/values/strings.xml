@@ -265,4 +265,6 @@
     <string name="save_create_advert_button">Сохранить</string>
     <string name="edit_advert_address_search">Введите ваш адрес</string>
     <string name="edit_advert_address_search_inside">Поиск Адреса</string>
+    <string name="error_link_photo">Не удалось загузить фото, либо большой размер либо не верный формат, попробуйте другое</string>
+    <string name="photo_server_full">Удаленный сервер переполнен, повторите попытку еще раз</string>
 </resources>

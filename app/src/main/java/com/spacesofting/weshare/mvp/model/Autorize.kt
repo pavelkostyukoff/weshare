@@ -9,8 +9,5 @@ class Autorize(token: String) : Serializable {
     var accessToken: String = token
 
     @SerializedName("refreshToken")
-    var rowrefreshTokenVersion: String? = null
-/*
-    @SerializedName("user")
-    var user: User? = null*/
+    var refreshToken: String? = null
 }

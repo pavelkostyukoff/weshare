@@ -2,8 +2,8 @@ package com.spacesofting.weshare.mvp.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.spacesofting.weshare.api.ResponcePublish
-import com.spacesofting.weshare.mvp.ui.fragment.IRentFragment
-import com.spacesofting.weshare.mvp.ui.fragment.IShootItFragment
+import com.spacesofting.weshare.mvp.ui.fragment.IAmShooltGoodsFragment
+import com.spacesofting.weshare.mvp.ui.fragment.IAmRentGoodsFragment
 
 class InventoryPagerAdapter(
     fm: FragmentManager,
@@ -14,12 +14,12 @@ class InventoryPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                IRentFragment(advert)
+                IAmShooltGoodsFragment(advert)
             }
             1 -> {
-                IShootItFragment()
+                IAmRentGoodsFragment()
             }
-            else -> IShootItFragment()
+            else -> IAmRentGoodsFragment()
         }
     }
 

@@ -7,7 +7,6 @@ import com.spacesofting.weshare.api.EnumErrorType
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
 import com.spacesofting.weshare.common.Settings
-import com.spacesofting.weshare.mvp.Autorize
 import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.Profile
 import com.spacesofting.weshare.mvp.device.DeviceInfo
@@ -34,8 +33,8 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe ({
-                Settings.AccessToken = it.accessToken
-                Settings.refreshToken = it.rowrefreshTokenVersion
+                Settings.accessToken = it.accessToken
+                Settings.refreshToken = it.refreshToken
              //   ApplicationWrapper.user = it.user!!
                 getProfile()
                 //todo тут кладем токен в сохранялки Settings

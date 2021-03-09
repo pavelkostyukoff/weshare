@@ -1,11 +1,10 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
-import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DiffUtil
 import com.paginate.Paginate
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
@@ -14,14 +13,14 @@ import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
 import com.spacesofting.weshare.mvp.presentation.view.IrentView
-import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
-import com.spacesofting.weshare.mvp.ui.adapter.ItemThingRentAdapter
+import com.spacesofting.weshare.mvp.ui.adapter.ItemShootGoodsAdapter
+import com.spacesofting.weshare.mvp.ui.adapter.ProductDiffUtilCallback
 import kotlinx.android.synthetic.main.fragment_irent.*
 
-class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
+class IAmShooltGoodsFragment(advert: ResponcePublish?) : FragmentWrapper(),
     Paginate.Callbacks,
     IrentView {
-    private var adapter: ItemThingRentAdapter? = null
+    private var adapter: ItemShootGoodsAdapter? = null
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_irent
@@ -58,7 +57,8 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
     }
 
     private fun initAdapter() {
-        adapter = ItemThingRentAdapter(mIrentPresenter)
+
+        adapter = ItemShootGoodsAdapter(mIrentPresenter)
         val mLayoutManager =
             androidx.recyclerview.widget.GridLayoutManager(activity, 2)
         recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
@@ -66,14 +66,16 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
             androidx.recyclerview.widget.DefaultItemAnimator()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
+
+
 //        Paginate.with(compilationsList, this).build()
     }
      override fun delAdvertCOmplite() {
-         mIrentPresenter.getMyAdvert()
+         adapter?.notifyDataSetChanged()
      }
 
     override fun editCOmplite() {
-        mIrentPresenter.getMyAdvert()
+        adapter?.notifyDataSetChanged()
     }
 
     private fun listShow() {
@@ -91,11 +93,9 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
         override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
             val position = parent.getChildAdapterPosition(view) // item position
             val column = position % spanCount // item column
-
             if (includeEdge) {
                 outRect.left = spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
                 outRect.right = (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
-
                 if (position < spanCount) { // top edge
                     outRect.top = spacing
                 }
@@ -120,17 +120,19 @@ class IRentFragment(advert: ResponcePublish?) : FragmentWrapper(),
 
     private fun initListItems(advert: ArrayList<RespounceDataMyAdverts>) {
         if (adapter == null) {
-            adapter = ItemThingRentAdapter(mIrentPresenter)
-        }
+            adapter = ItemShootGoodsAdapter(mIrentPresenter)
+        } else {
         adapter?.dataset?.clear()
         try {
+            val productDiffUtilCallback =
+                ProductDiffUtilCallback(adapter!!.dataset, advert)
+            val productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback)
+            productDiffResult.dispatchUpdatesTo(adapter!!)
             adapter!!.dataset = advert
-            adapter?.notifyDataSetChanged()
+            productDiffResult.dispatchUpdatesTo(adapter!!)
+        } catch (e: Exception) {
         }
-        catch (e:Exception){
-
-        }
-
+    }
     }
 
     override fun setListAdverts(it: ArrayList<RespounceDataMyAdverts>?) {

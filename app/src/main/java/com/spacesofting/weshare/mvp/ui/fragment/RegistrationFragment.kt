@@ -3,7 +3,6 @@ package com.spacesofting.weshare.mvp.ui.fragment
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.FragmentTransaction
-import android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -37,7 +36,7 @@ import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_registration.*
-import kotlinx.android.synthetic.main.fragment_registration.avatarO
+import kotlinx.android.synthetic.main.fragment_registration.userAvatar
 import kotlinx.android.synthetic.main.fragment_registration.background
 import kotlinx.android.synthetic.main.fragment_registration.contentProfile
 import kotlinx.android.synthetic.main.fragment_registration.correctNickLayout
@@ -224,7 +223,7 @@ class RegistrationFragment : FragmentWrapper(),
                 .load(img.url.toString())
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                .into(avatarO,
+                .into(userAvatar,
                     object : Callback {
                         override fun onSuccess() {
                             // loadImageProgress.visibility = View.GONE
@@ -290,7 +289,7 @@ class RegistrationFragment : FragmentWrapper(),
             .placeholder(R.drawable.ic_avatar_placeholder)
             .centerCrop()
             .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-            .into(avatarO,
+            .into(userAvatar,
                 object : Callback {
                     override fun onSuccess() {
                         progress.visibility = View.GONE
@@ -417,7 +416,7 @@ class RegistrationFragment : FragmentWrapper(),
 
     override fun showImage(file: File) {
         //show image
-        Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
+        Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(userAvatar)
        // Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         newAvatar = true
     }

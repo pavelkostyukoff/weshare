@@ -82,6 +82,13 @@
     dependencies {
         // Kotlin
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+        // Retrofit
+        api "com.squareup.retrofit2:retrofit:$retrofit_version"
+        api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+        implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+        implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit2_rxjava2_adapter_version"
+        implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
         // Retrofit
         implementation 'com.squareup.retrofit2:retrofit:2.6.2'
         implementation 'com.squareup.retrofit2:converter-gson:2.6.2'

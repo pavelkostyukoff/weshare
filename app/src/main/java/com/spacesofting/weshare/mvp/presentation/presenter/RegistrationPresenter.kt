@@ -457,8 +457,6 @@ class RegistrationPresenter : MvpPresenter<RegistrationView>(), ImagePickerFragm
                     .observeOn(AndroidSchedulers.mainThread())
                     .doFinally { viewState.showProgress(false) }
                     .subscribe({ autorize ->
-                        Settings.AccessToken = autorize.accessToken
-                        Settings.refreshToken = autorize.rowrefreshTokenVersion
                         router.navigateTo(ScreenPool.FEED_FRAGMENT)
                         viewState.showToast(R.string.reg_succesfull)
                         //todo тут кладем токен в сохранялки Settings

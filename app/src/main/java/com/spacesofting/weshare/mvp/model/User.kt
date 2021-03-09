@@ -19,7 +19,7 @@ class User {
     @SerializedName("gender")
     val gender: String? = null
     @SerializedName("avatar")
-    val avatar: String? = null
+    var avatar: String? = null
     @SerializedName("roles")
     val roles: List<String>? = null
     @SerializedName("emailVerified")

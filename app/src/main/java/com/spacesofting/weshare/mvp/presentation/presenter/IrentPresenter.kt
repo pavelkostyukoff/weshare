@@ -33,6 +33,7 @@ class IrentPresenter : MvpPresenter<IrentView>() {
                 viewState.setListAdverts(it.data)
                 ApplicationWrapper.instance.myImages = it.data
                 //todo тут заполняем баннеры в advert
+
                 it
             }) {
                 it

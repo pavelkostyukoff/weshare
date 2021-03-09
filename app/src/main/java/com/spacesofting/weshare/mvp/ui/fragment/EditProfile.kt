@@ -53,8 +53,6 @@ class EditProfile : FragmentWrapper(),
 
     val CAMERA_REQUEST_CODE = 1
     val GALLERY_REQUEST_CODE = 2
-    val SCANNER_REQUEST_CODE = 101
-
 
     val REPLACEMENT = Regex("[^a-zA-Zа-яА-Я0-9-._]")
     val updProfile = UpdateProfile()
@@ -147,11 +145,18 @@ class EditProfile : FragmentWrapper(),
             // profile: User
             //todo верификация
             //todo если ок то отсылка
-            updProfile.firstName = nickName.text.toString()
-            updProfile.phone = phone.text.toString()
-            updProfile.lastName = name.text.toString()
-            //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
-            presenter.chengeMyProfile(updProfile)
+            if (nickName.text.equals(updProfile.firstName)&& phone.text.equals(updProfile.phone) && name.text.equals(updProfile.firstName))
+            {
+
+            }
+            else {
+
+                updProfile.firstName = nickName.text.toString()
+                updProfile.phone = phone.text.toString()
+                updProfile.lastName = name.text.toString()
+                //  updProfile.birthday =  "2019-09-25T20:09:17.259Z" //date.text.toString()
+                presenter.changeMyProfile(updProfile)
+            }
         }
     }
   /*  override fun onSupportNavigateUp(): Boolean {
@@ -181,7 +186,7 @@ class EditProfile : FragmentWrapper(),
                 .load(img)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                .into(avatarO,
+                .into(userAvatar,
                     object : Callback {
                         override fun onSuccess() {
                             // loadImageProgress.visibility = View.GONE
@@ -293,7 +298,7 @@ class EditProfile : FragmentWrapper(),
             .placeholder(R.drawable.ic_avatar_placeholder)
             .centerCrop()
             .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-            .into(avatarO,
+            .into(userAvatar,
                 object : Callback {
                     override fun onSuccess() {
                         progress.visibility = View.GONE
@@ -407,7 +412,7 @@ class EditProfile : FragmentWrapper(),
     }
     override fun showImage(file: File) {
         //show image
-        Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(avatarO)
+        Picasso.with(context).load(file).centerCrop().resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit).into(userAvatar)
        // Picasso.with(activity).load(R.drawable.ic_pen_circle_orange).into(actionIcon)
         newAvatar = true
     }
@@ -420,7 +425,7 @@ class EditProfile : FragmentWrapper(),
                 .load(file)
                 .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                .into(avatarO,
+                .into(userAvatar,
                     object : Callback {
                         override fun onSuccess() {
                             // loadImageProgress.visibility = View.GONE
