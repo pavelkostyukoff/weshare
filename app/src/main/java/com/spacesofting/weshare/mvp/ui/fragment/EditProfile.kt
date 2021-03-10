@@ -6,6 +6,7 @@ import android.app.FragmentTransaction
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -18,10 +19,12 @@ import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.avatar
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.UpdateProfile
 import com.spacesofting.weshare.mvp.presentation.presenter.EditProfilePresenter
 import com.spacesofting.weshare.mvp.presentation.view.EditProfileView
+import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment.Companion.AVATAR_CHANGE
 import com.spacesofting.weshare.utils.ImageUtils
 import com.spacesofting.weshare.utils.RealFilePath
 import com.spacesofting.weshare.utils.hideKeyboard
@@ -103,7 +106,7 @@ class EditProfile : FragmentWrapper(),
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      //  showProgress(false)
+        //  showProgress(false)
         showToolbar(TOOLBAR_HIDE)
         presenter
         //handle nick changes and validate it
@@ -124,33 +127,37 @@ class EditProfile : FragmentWrapper(),
             runDelayed(250) {
                 //scroll to the end when edit selected
                 if (isFocused) {
-                 //   scroll.fullScroll(View.FOCUS_DOWN)
+                    //   scroll.fullScroll(View.FOCUS_DOWN)
                 }
             }
         }
         nickName.setOnClickListener { view ->
             runDelayed(250) {
                 //scroll to the end when edit clicked
-             //   scroll.fullScroll(View.FOCUS_DOWN)
+                //   scroll.fullScroll(View.FOCUS_DOWN)
             }
         }
 
         editAvatar.setOnClickListener {
-           // showPhotoPicker()
+            // showPhotoPicker()
             showPicker()
         }
         delPhoto.setOnClickListener { presenter.deletePhoto() }
 
         saveProfile.setOnClickListener {
             // profile: User
-            //todo верификация
+            //todo верификацияs
             //todo если ок то отсылка
-            if (nickName.text.equals(updProfile.firstName)&& phone.text.equals(updProfile.phone) && name.text.equals(updProfile.firstName))
-            {
-
-            }
-            else {
-
+            val profila = Settings.get()
+            val t1 = nickName.text.toString() == profila?.firstName
+            val t2 = phone.text.toString() == profila?.phone
+            val t3 = name.text.toString() == profila?.lastName
+            Log.e("taras", t1.toString())
+            Log.e("taras", t2.toString())
+            Log.e("taras", t3.toString())
+            if (t1 && t2 && t3) {
+                router?.exitWithResult(AVATAR_CHANGE, profila)
+            } else {
                 updProfile.firstName = nickName.text.toString()
                 updProfile.phone = phone.text.toString()
                 updProfile.lastName = name.text.toString()

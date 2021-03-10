@@ -24,7 +24,6 @@ import java.util.*
 
 class InventoryFragment : FragmentWrapper(),
     InventoryView, ActionBottomDialogFragment.ItemClickListener {
-   // val user = ApplicationWrapper.user
     private var advert: ResponcePublish? = null
     private var tab: Int? = null
 
@@ -34,6 +33,7 @@ class InventoryFragment : FragmentWrapper(),
 
     companion object {
         val SCANNER_REQUEST_CODE = 101
+        val AVATAR_CHANGE = 101
         private const val POSITION_KEY = "key_pass"
         private const val ADVERT_KEY = "key_card"
         const val TAG = "InventoryFragment"
@@ -117,41 +117,42 @@ class InventoryFragment : FragmentWrapper(),
         router.setResultListener(SCANNER_REQUEST_CODE) { result ->
             if (result != null) {
                 ApplicationWrapper.user = result as User
-                showAvatar(ApplicationWrapper.user.avatar)
+             //   showAvatar(ApplicationWrapper.user.avatar)
                // nameUpdate(result as User)
                 /*setFoldInfo(result as User)   */         }
         }
-    }
 
-    fun setFoldInfo(result: User)
-    {
-        ApplicationWrapper.user = result
-       // filterCount.text = (getFiltersState.size + getFiltersPriority.size).toString()
-
-       // firstName.text = result.firstName as String
-       // lastName.text = result.lastName as String
-
+        router.setResultListener(AVATAR_CHANGE) { result ->
+            if (result != null) {
+                Settings.set(result as User)
+                ApplicationWrapper.user = result as User
+              //  showAvatar(ApplicationWrapper.user.avatar)
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        nameUpdate()
+        profileUpdate()
     }
 
-    private fun nameUpdate()
+    private fun profileUpdate()
     {
         val result  = Settings.get()
-        /*if (result == null)
+      /*  if (result == null)
         {
             mInventoryPresenter.getProfile()
         }
         else {*/
-            pHone.text = result?.phone.toString()
-            firstName.text = result?.firstName.toString()
-            lastName.text = result?.lastName.toString()
-            showAvatar(result?.avatar)
+        result?.let {
+            pHone.text = it.phone.toString()
+            firstName.text = it.firstName.toString()
+            lastName.text = it.lastName.toString()
+            showAvatar(it.avatar)
+        }
+
             // date.text = result.lastName.toString()
-     //   }
+      //  }
       //todo  showAvatar(result.avatar)
     }
     fun getStringForDate(date: String): String {

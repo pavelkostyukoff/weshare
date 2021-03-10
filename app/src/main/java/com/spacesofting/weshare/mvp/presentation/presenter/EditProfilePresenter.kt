@@ -369,10 +369,10 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     saveImgFile = ImageUtils.compressPhoto(it)
                 }
                 ImageUtils.sendAvatar(saveImgFile)?.subscribeOn(AndroidSchedulers.mainThread())
+                    .doFinally { viewState.showProgress(false) }
                     ?.subscribe({
                             avatar ->
                         viewState.updateAvatar(avatar.url)
-                        viewState.showProgress(false)
                         updateProfileAvatar(avatar.url)
                     }, { e ->
                         viewState.showToast(R.string.photo_server_full)
@@ -387,6 +387,5 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
                     .dispose()*/
             }
         }
-        viewState.showProgress(false)
     }
 }
