@@ -56,7 +56,7 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
             presenter.delAdvertById(positionOne)
         }
         holder.editAdvert.setOnClickListener {
-            presenter.getAdvert(positionOne)
+            presenter.editAdverts(positionOne)
         }
 
        /* val innText = String.format(context.getString(R.string.edit_guest_card_inn_count), company.inn)

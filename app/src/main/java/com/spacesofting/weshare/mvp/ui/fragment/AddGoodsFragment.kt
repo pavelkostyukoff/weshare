@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.toast
@@ -27,13 +28,11 @@ import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.model.Address
-import com.spacesofting.weshare.mvp.model.Advert
-import com.spacesofting.weshare.mvp.model.Point
-import com.spacesofting.weshare.mvp.model.RentPeriod
+import com.spacesofting.weshare.mvp.model.*
 import com.spacesofting.weshare.mvp.model.RentPeriod.*
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
@@ -46,6 +45,7 @@ import com.spacesofting.weshare.utils.hideKeyboard
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
+import cz.msebera.android.httpclient.protocol.ResponseDate
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
@@ -63,6 +63,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var isNew = false
     private var catPosition = 0
     private var subCatPosition = 0
+    private var setCaruselItemCategory = ""
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
 
@@ -74,9 +75,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var bannerItemsFake = ArrayList<String>()
     private var categoryItems: ArrayList<Entity>? = null
     private var subCategoryItems = ArrayList<Entity>()
-    private var advert = Advert()
     private var rentPeriodList = ArrayList<RentPeriod>()
     private var rentPeriod = RentPeriod()
+    private var advert = Advert()
 
     companion object {
         private const val DATA_KEY_STR = "string"
@@ -100,72 +101,41 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
+        advert = ApplicationWrapper.instance.getAuthorityWish()!!
         //todo иногда пустой потому что нет города а штат или что-то такое
-        if (ApplicationWrapper.instance.getAuthorityWish() != null) {
+        val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
+        if (editAdvert != null) {
             if (!isNew) {
-                advert = ApplicationWrapper.instance.getAuthorityWish()!!
-            }
-            presenter.newAdvert = advert //todo должно решить проблему
-            Log.e(
-                "Selected_Page",
-                ApplicationWrapper.instance.getAuthorityWish()!!.title.toString()
-            )
-            val place = ApplicationWrapper.place
-            place.let {
-                place.city.let { it ->
-                    if (it != null) {
-                        if (it.isNotEmpty()) {
-                            val address = Address()
-                            if (address.country == null) {
-                                address.country = "Russia"
-                            } else {
-                                if (address.country!!.isEmpty()) {
-                                    address.country = "Russia"
-                                } else {
-                                    address.country = place.country
-                                }
-                            }
-                            val point = Point()
-                            val rnds = (0..10).random()      * 0.003
-                            address.region = place.address
-                            address.city = place.city
-                            address.address = place.address
-                            point.latitude = (place.location.latitude + rnds).toString()
-                            point.longitude = place.location.longitude.toString()
-                            address.point = point
-                            advert.address = address
-                        }
-                    }
-                }
-            }
-            //todo Дописать тут условие при котором мы точно знакт что прошлая не была завершена
-                // setLoadedWishView(advert)
-            // mAddGoodsPresenter.isValid(advert)
-        }
-
-        val place = ApplicationWrapper.place
-        place.let {
-            it.city.let { it ->
-                if (it != null) {
-                    if (it.isNotEmpty()) {
-                        searchEditText.setText(place.city + " " + place.address)
-                        if (place.country == null || place.country.isEmpty()) {
-                            place.country = "Russia"
+                presenter.newAdvert = advert //todo должно решить проблему
+                Log.e(
+                    "Selected_Page",
+                    editAdvert.title.toString()
+                )
+                val place: Place? = null//ApplicationWrapper.place
+                    val address = Address()
+                    if (address.country == null) {
+                        address.country = "Russia"
+                    } else {
+                        if (address.country!!.isEmpty()) {
+                            address.country = "Russia"
                         } else {
-                            place.country = place.country
+                            address.country = editAdvert.address?.country
                         }
-                        val point = Point()
-                        val address = Address()
-                        val rnds = (0..10).random() * 0.003
-                        address.region = place.address
-                        address.city = place.city
-                        address.address = place.address
-                        point.longitude = (place.location.longitude+ rnds).toString()
-                        point.latitude = place.location.latitude.toString()
-                        address.point = point
-                        advert.address = address
                     }
-                }
+                    val point = Point()
+                    val rnds = (0..10).random() * 0.003
+                    address.region = editAdvert?.address?.region
+                    address.city = editAdvert.address?.city
+                    address.address = editAdvert.address?.address
+                    point.latitude = (editAdvert.address?.point?.latitude?.plus(rnds)).toString()
+                    point.longitude = editAdvert.address?.point?.longitude.toString()
+                    setCaruselItemCategory = editAdvert.categoryId.toString()
+                    address.point = point
+                    advert.address = address
+                    //todo Дописать тут условие при котором мы точно знакт что прошлая не была завершена
+                    setLoadedWishView(advert)
+                    presenter.isValid(advert)
+                    ApplicationWrapper.instance.setAuthorityWish(null)
             }
         }
         if (presenter.goodId.isEmpty()) {
@@ -811,9 +781,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     //todo если у нас при инициализации сразу записываем первую , если есть изменения меняем
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
-
         categoryCycleView.currentPosition = catPosition
         categoryCycleView.captionTextSize = 0
+        //todo если редактирование то берем catId и выставляем position
         var pos = 0
         var count = 0
         category?.entities?.map {

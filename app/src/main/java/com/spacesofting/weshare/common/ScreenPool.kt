@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.spacesofting.weshare.mvp.RoleEnum
+import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
 object ScreenPool {

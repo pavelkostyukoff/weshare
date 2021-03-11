@@ -68,21 +68,19 @@ class IrentPresenter : MvpPresenter<IrentView>() {
 
 
 
-    fun getAdvert(itemRent: RespounceDataMyAdverts) {
-        Api.Adverts.getMyAdvertById(itemRent.id!!)
+    fun editAdverts(itemRent: RespounceDataMyAdverts) {
+        Api.Adverts.getMyAdvertById(itemRent.id!!)//todo take goods by id
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                ApplicationWrapper.instance.setAuthorityWish(it)
+            .subscribe({advert->
+                ApplicationWrapper.instance.setAuthorityWish(advert) //reciver
              //   itemRent.id
                // it
                 //viewState.delAdvertCOmplite()
               //  editAdvert(it, itemRent.id!!)
-                router.navigateTo(ScreenPool.ADD_GOODS,itemRent.id)
-
-                it
+                router.navigateTo(ScreenPool.ADD_GOODS, itemRent.id)
             }) {
-                it
+                System.out.println(it)
             }
     }
 

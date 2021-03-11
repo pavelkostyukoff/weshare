@@ -422,8 +422,10 @@
                         android:layout_height="wrap_content"
                         style="@style/EditTextGreyBorder"
                         android:hint="@string/edit_advert_address_search"
+                        android:textSize="8sp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
+
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/categoryCycleView"
                         android:layout_width="match_parent"
