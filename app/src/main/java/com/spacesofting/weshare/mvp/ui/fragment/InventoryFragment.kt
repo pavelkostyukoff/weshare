@@ -107,6 +107,7 @@ class InventoryFragment : FragmentWrapper(),
 
 
         goodAdd.setOnClickListener {
+            ApplicationWrapper.instance.setAuthorityWish()
             mInventoryPresenter.createNewAdvert()
         }
 

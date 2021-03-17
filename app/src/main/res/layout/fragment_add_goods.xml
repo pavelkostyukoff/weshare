@@ -422,8 +422,6 @@
                         android:layout_height="wrap_content"
                         style="@style/EditTextGreyBorder"
                         android:hint="@string/edit_advert_address_search"
-                        android:inputType="textMultiLine"
-
                         android:textSize="12sp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
@@ -432,10 +430,10 @@
                         android:id="@+id/categoryCycleView"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
+                        app:imageScaleType="centerCrop"
+                        app:carouselType="SHOWCASE"
                         android:layout_height="92dp"
                         app:carouselBackground="@color/white"
-                        app:carouselType="SHOWCASE"
-                        app:imageScaleType="centerCrop"
                         app:imageViewId="@id/image_view"
                         app:itemLayout="@layout/custom_fixed_size_item_layout"
                         app:nextButtonId="@id/custom_btn_next"

@@ -29,9 +29,7 @@ import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.api.model.place.Place
-import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.common.FragmentWrapper
-import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.common.*
 import com.spacesofting.weshare.mvp.model.*
 import com.spacesofting.weshare.mvp.model.RentPeriod.*
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
@@ -49,9 +47,11 @@ import cz.msebera.android.httpclient.protocol.ResponseDate
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
+import kotlinx.android.synthetic.main.item_card_view_i_rent.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
+import org.imaginativeworld.whynotimagecarousel.OnItemClickListener
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -66,6 +66,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var setCaruselItemCategory = ""
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
+    val listFour = mutableListOf<CarouselItem>()
+    val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
 
     @InjectPresenter
     lateinit var presenter: AddGoodsPresenter
@@ -101,11 +103,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showToolbar(TOOLBAR_HIDE)
-        advert = ApplicationWrapper.instance.getAuthorityWish()!!
         //todo иногда пустой потому что нет города а штат или что-то такое
-        val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
         if (editAdvert != null) {
-            if (!isNew) {
+          //  if (!isNew) {
                 presenter.newAdvert = advert //todo должно решить проблему
                 Log.e(
                     "Selected_Page",
@@ -133,10 +133,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     address.point = point
                     advert.address = address
                     //todo Дописать тут условие при котором мы точно знакт что прошлая не была завершена
-                    setLoadedWishView(advert)
-                    presenter.isValid(advert)
+                    setLoadedWishView(editAdvert)
+                    presenter.isValid(editAdvert)
                     ApplicationWrapper.instance.setAuthorityWish(null)
-            }
+      //      }
         }
         if (presenter.goodId.isEmpty()) {
             presenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
@@ -603,38 +603,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private fun setBannerData() {
         initAdapterCategory(category)
         initData()
-        // initDataCategory()
-        //todo добавляем фото
-        /* btn_add.setOnClickListener {
-             showPicker()
-         }*/
-        //todo удаляем фото
-        /* btn_remove.setOnClickListener {
-             if (advert.bannerItems.isNotEmpty()) {
-                 val index = advert.bannerItems.size - 1
-                 advert.bannerItems.removeAt(index)
-                 adapterBaner?.notifyDataSetChanged()
-
-                 if (advert.bannerItems.isEmpty()) {
-                     btn_remove.visible = false
-
-                 }
-             }
-         }*/
-
         val nextItemVisiblePx = resources.getDimension(R.dimen.dialog_corner_radius)
         val currentItemHorizontalMarginPx =
             resources.getDimension(R.dimen.oval_radius)
         val dotsRadius = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsPadding = resources.getDimension(R.dimen.rect_corner_radius)
         val dotsBottomMargin = resources.getDimension(R.dimen.rect_corner_radius)
-        //todo попытка сделать пейджер бзе прокруток
-        /*     banner.viewPager2.overScrollMode = 2
-
-             banner.viewPager2.apply {
-                 orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                 (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER*/
-        // }
 
         CycleViewPager2Helper(banner)
             .setAdapter(adapterBaner)
@@ -660,7 +634,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
-        //todo category
     }
 
     //garage country-house house flat-квартира office workplace рабочее место warehouse склад
@@ -723,7 +696,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private fun initData() {
         // подписываем нашу активити на события колбэка
         initBanners()
+        getCategoryList()
         initCategoryList()
+
     }
 
     //todo инициализация баннера
@@ -775,22 +750,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //initBanners()
 
     }
-
-    //todo инициализация и выбор категории занесения ключа категории в ендпоинт при создании вещи 0000-0000-0000-0000-0000
-    //todo если у нас при инициализации сразу записываем первую , если есть изменения меняем
-    private fun initCategoryList() {
-        var secretPositionEditAdvert = 0
-        if (!isNew) {
-            advert.categoryId
-        }
-        val listFour = mutableListOf<CarouselItem>()
-        //todo если редактирование то берем catId и выставляем position
-        var count = 0
+    private fun getCategoryList() {
+        listFour.clear()
         category?.entities?.forEach {
-            count++
-            if (it.id == advert.categoryId) {
-                secretPositionEditAdvert = count
-            }
             it.categoryImg?.let { url ->
                 CarouselItem(
                     imageUrl = url,
@@ -800,53 +762,95 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 listFour.add(
                     item
                 )
-                categoryCycleView.addData(listFour)
             }
         }
-        //todo передать готовый список - смотри example look
-        categoryCycleView.currentPosition = 3
-        /* categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-             var positionNew = secretPositionEditAdvert
+    }
 
-             override fun onScrollStateChanged(
-                 recyclerView: RecyclerView,
-                 newState: Int,
-                 position: Int,
-                 carouselItem: CarouselItem?
-             ) {
-                 if (newState == RecyclerView.SCROLL_STATE_IDLE*//* && positionNew != position*//*) {
-                    carouselItem?.apply {
-                        custom_caption.text = caption
-                    }
-
-                    catPosition = secretPositionEditAdvert
-                    //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
-                    Single.just(position)
-                        .delay(1000, TimeUnit.MILLISECONDS)
-                        .applySchedulers()
-                        .subscribe({
-                            presenter.getSubCategory(category?.entities?.get(position))
-                            advert.categoryId = category?.entities?.get(positionNew)?.id
-                            val test = category?.entities?.get(position)?.name
-                        }, {
-                            it
-                            //  loadingViewModel.errorMessage = it.nonNullMessage()
-                            // loadingViewModel.isError = true
-                        })
-
-                }
-                positionNew = position
+    private fun initCategoryList() {
+        //todo если редактирование то берем catId и выставляем position
+        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        Single.just(position)
+                            .delay(3000, TimeUnit.MILLISECONDS)
+                            .applySchedulers()
+                            .subscribe({
+                                categoryCycleView.currentPosition = 2
+                                presenter.getSubCategory(category?.entities?.get(position))
+                                advert.categoryId = category?.entities?.get(newState)?.id
+                                val test = category?.entities?.get(position)?.name
+                            }, {
+                                it
+                                //  loadingViewModel.errorMessage = it.nonNullMessage()
+                                // loadingViewModel.isError = true
+                            })
+                            }
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
-                // todo презентер отображает initSabCategoryList ()
             }
-        }*/
-     //secretPositionEditAdvert
+        }
+        categoryCycleView.onItemClickListener = object : OnItemClickListener {
+            override fun onClick(position: Int, carouselItem: CarouselItem) {
+                // ...
+
+            }
+
+            override fun onLongClick(position: Int, dataObject: CarouselItem) {
+                // ...
+            }
+
+        }
+      //  categoryCycleView.currentPosition = 2
+
+        var name = ""
+        when (editAdvert?.categoryId)
+        {
+            CategotiesImage.KINDS_ALL.number ->{
+                name = "для детей"
+        }
+            CategotiesImage.BUILDING_ALL.number ->{
+                name = "недвижимость"
+            }
+            CategotiesImage.OBORUDOVANIE_ALL.number ->{
+                name = "оборудование"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_ALL.number ->{
+                name = "одежда"
+            }
+            CategotiesImage.OTDIH.number ->{
+                name = "отдых и спорт"
+            }
+            CategotiesImage.PROCHEE.number ->{
+                name = "прочее"
+            }CategotiesImage.CARS_ALL.number ->{
+            name = "транспорт"
+        }
+            CategotiesImage.HOBBI_ALL.number ->{
+                name = "хобби"
+            }
+            CategotiesImage.ELECTRONICS_ALL.number ->{
+                name = "электроника"
+            }
+        }
+        var count = 0
+        var currentPosition = 0
+        listFour.map {
+            if (it.caption.equals(name)) {
+                currentPosition = count
+            }
+            count++
+        }
+        categoryCycleView.addData(listFour)
+      //  categoryCycleView.currentPosition = 2
+        Log.e("categoryCycleView", currentPosition.toString())
     }
 
-    //todo инициализация и работа подкатегорий , если у нас они видны, конечно  0000-0000-0000-0000-0000
     private fun initSubCategoryList(entitys: Entitys?) {
         var position = 0
         var count = 0
@@ -862,14 +866,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 CarouselItem(
                     imageUrl = it1,
                     caption = it.name
-
                    // if(ApplicationWrapper.category.)
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-            var positionNew = 3
 
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -891,7 +893,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         }
                     }
                 }
-                positionNew = position
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -1041,6 +1042,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         setNewAdress()
     }
 
+    override fun onStart() {
+        super.onStart()
+        categoryCycleView.currentPosition = 4
+    }
+
     override fun onPause() {
         super.onPause()
         setPeriods()
@@ -1131,5 +1137,4 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
     }
-
 }
