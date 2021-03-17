@@ -435,7 +435,7 @@ open class AddressSearchFragment : FragmentWrapper(),
             if (place.house.isNotEmpty())
             {
                 ApplicationWrapper.place = place
-                router.exit()
+                router.exitWithResult(3, ApplicationWrapper.place)
             }
             else {
                 Toast.makeText(context,"Обязательно укажите дом", Toast.LENGTH_LONG).show()

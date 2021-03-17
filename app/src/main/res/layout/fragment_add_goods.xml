@@ -422,7 +422,9 @@
                         android:layout_height="wrap_content"
                         style="@style/EditTextGreyBorder"
                         android:hint="@string/edit_advert_address_search"
-                        android:textSize="8sp"
+                        android:inputType="textMultiLine"
+
+                        android:textSize="12sp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
 
@@ -445,7 +447,7 @@
                         app:scaleOnScroll="true"
                         app:scalingFactor=".25"
                         app:showBottomShadow="false"
-                        app:showCaption="true"
+                        app:showCaption="false"
                         app:showIndicator="false"
                         app:showNavigationButtons="false"
                         app:showTopShadow="false"
@@ -508,9 +510,9 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Caption" />
-
-                <!--<me.relex.circleindicator.CircleIndicator2
-                        android:id="@+id/custom_indicator_sub"
+<!--
+                <me.relex.circleindicator.CircleIndicator2
+                        android:id="@+id/custom_indicator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ci_animator="@animator/scale_with_alpha"

@@ -55,11 +55,11 @@ import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
     BannerAdapterPhoto.OnCardClickListener {
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
+    private val NEW_SEARCH_RESULTS = 3
     private var isNew = false
     private var catPosition = 0
     private var subCatPosition = 0
@@ -127,7 +127,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     address.region = editAdvert?.address?.region
                     address.city = editAdvert.address?.city
                     address.address = editAdvert.address?.address
-                    point.latitude = (editAdvert.address?.point?.latitude?.plus(rnds)).toString()
+                    point.latitude = (editAdvert.address?.point?.latitude + rnds).toString()
                     point.longitude = editAdvert.address?.point?.longitude.toString()
                     setCaruselItemCategory = editAdvert.categoryId.toString()
                     address.point = point
@@ -235,6 +235,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         currencyOptions.adapter = adapter
         currencyOptions.onItemSelectedListener = this
+
         //  currencyOptions.setSelection(0)
         //todo выбор промежутка времени
         val adpaterPeriod = ArrayAdapter.createFromResource(
@@ -411,13 +412,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         refrashAdapterBaner(file)
     }
 
-    override fun setNewSubCategory(it: Entitys) {
-        //
-        val test = it
-        Single.just(initAdapterCategory(it))
+    override fun setNewSubCategory(category: Entitys) {
+        Single.just(initAdapterCategory(category))
             .applySchedulers()
             .subscribe({
-                initSubCategoryList(test)
+                initSubCategoryList(category)
             }, {
                 it
                 //  loadingViewModel.errorMessage = it.nonNullMessage()
@@ -780,18 +779,18 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     //todo инициализация и выбор категории занесения ключа категории в ендпоинт при создании вещи 0000-0000-0000-0000-0000
     //todo если у нас при инициализации сразу записываем первую , если есть изменения меняем
     private fun initCategoryList() {
+        var secretPositionEditAdvert = 0
+        if (!isNew) {
+            advert.categoryId
+        }
         val listFour = mutableListOf<CarouselItem>()
-        categoryCycleView.currentPosition = catPosition
-        categoryCycleView.captionTextSize = 0
         //todo если редактирование то берем catId и выставляем position
-        var pos = 0
         var count = 0
-        category?.entities?.map {
+        category?.entities?.forEach {
             count++
             if (it.id == advert.categoryId) {
-                pos = count
+                secretPositionEditAdvert = count
             }
-
             it.categoryImg?.let { url ->
                 CarouselItem(
                     imageUrl = url,
@@ -804,22 +803,23 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 categoryCycleView.addData(listFour)
             }
         }
+        //todo передать готовый список - смотри example look
+        categoryCycleView.currentPosition = 3
+        /* categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+             var positionNew = secretPositionEditAdvert
 
-        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-            var positionNew = pos
-
-            @SuppressLint("CheckResult")
-            override fun onScrollStateChanged(
-                recyclerView: RecyclerView,
-                newState: Int,
-                position: Int,
-                carouselItem: CarouselItem?
-            ) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE/* && positionNew != position*/) {
+             override fun onScrollStateChanged(
+                 recyclerView: RecyclerView,
+                 newState: Int,
+                 position: Int,
+                 carouselItem: CarouselItem?
+             ) {
+                 if (newState == RecyclerView.SCROLL_STATE_IDLE*//* && positionNew != position*//*) {
                     carouselItem?.apply {
                         custom_caption.text = caption
                     }
-                    catPosition = pos
+
+                    catPosition = secretPositionEditAdvert
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
                     Single.just(position)
                         .delay(1000, TimeUnit.MILLISECONDS)
@@ -842,8 +842,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
                 // todo презентер отображает initSabCategoryList ()
             }
-        }
-        //  categoryCycleView.setIndicator(custom_indicator)
+        }*/
+     //secretPositionEditAdvert
     }
 
     //todo инициализация и работа подкатегорий , если у нас они видны, конечно  0000-0000-0000-0000-0000
@@ -867,10 +867,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
-        subCategoryCycleView.currentPosition = subCatPosition
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-            var positionNew = position
+            var positionNew = 3
 
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -878,6 +877,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 position: Int,
                 carouselItem: CarouselItem?
             ) {
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     subCatPosition = position
                     carouselItem?.apply {
@@ -944,6 +944,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         when (requestCode) {
             CAMERA_REQUEST_CODE -> presenter.onCameraResult()
             GALLERY_REQUEST_CODE -> consumeGalleryResult(data)
+            NEW_SEARCH_RESULTS -> setNewAdress()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -985,6 +986,32 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    private fun setNewAdress() {
+        ApplicationWrapper.place.let {
+            it.city.let { city ->
+                if (city != null) {
+                    if (city.isNotEmpty()) {
+                        val point = Point()
+                        val address = Address()
+                        searchEditText.setText(city + " " + it.address)
+                        if (address.country == null) {
+                            address.country = "Russia"
+                        }
+                        address.country = it.country
+                        val rnds = (0..10).random() * 0.003
+                        address.region = it.address
+                        address.city = it.city
+                        address.address = it.address
+                        point.latitude = (it.location.latitude + rnds).toString()
+                        point.longitude = it.location.longitude.toString()
+                        address.point = point
+                        advert.address = address
+                    }
+                }
+            }
+        }
+    }
+
     private fun setPeriods() {
         if (advert.rentPeriods.isEmpty()) {
             rentPeriod.amount = advertAmount.text.toString().toDouble()
@@ -1009,6 +1036,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setNewAdress()
+    }
+
     override fun onPause() {
         super.onPause()
         setPeriods()
@@ -1017,29 +1049,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
          val test2 =  periodOptions.selectedItem
          advert.rentPeriods[0].currency = currencyOptions.selectedItem as RentPeriod.Currency//currencyOptions.text.toString()
          advert.rentPeriods[0].period = periodOptions.selectedItem as RentPeriod.Period*/
-        ApplicationWrapper.place.let {
-            it.city.let { city ->
-                if (city != null) {
-                    if (city.isNotEmpty()) {
-                        val point = Point()
-                        val address = Address()
-                        searchEditText.setText(city + " " + it.address)
-                        if (address.country == null) {
-                            address.country = "Russia"
-                        }
-                        address.country = it.country
-                        val rnds = (0..10).random() * 0.003
-                        address.region = it.address
-                        address.city = it.city
-                        address.address = it.address
-                        point.latitude = (it.location.latitude + rnds).toString()
-                        point.longitude = it.location.longitude.toString()
-                        address.point = point
-                        advert.address = address
-                    }
-                }
-            }
-        }
+        setNewAdress()
         advert.let { ApplicationWrapper.instance.setAuthorityWish(it, null) }
         // advert.bannerItems = ban
     }

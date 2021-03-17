@@ -38,7 +38,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.fragment_map.categoryCycleView
+import kotlinx.android.synthetic.main.fragment_map.categoryCycleViewMaps
 import kotlinx.android.synthetic.main.fragment_map.custom_caption
 import kotlinx.android.synthetic.main.fragment_map.custom_sub_category
 import kotlinx.android.synthetic.main.fragment_map.subCategoryCycleView
@@ -444,7 +444,7 @@ class MyMapFragment : FragmentWrapper(),
     }
     private fun initCategoryList() {
         val listFour = mutableListOf<CarouselItem>()
-        categoryCycleView.captionTextSize = 0
+        categoryCycleViewMaps.captionTextSize = 0
         var pos = 0
         var count = 0
         category?.entities?.map {
@@ -462,12 +462,12 @@ class MyMapFragment : FragmentWrapper(),
                 listFour.add(
                     item
                 )
-                categoryCycleView.addData(listFour)
+                categoryCycleViewMaps.addData(listFour)
             }
         }
 
 
-        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+        categoryCycleViewMaps.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = pos
             @SuppressLint("CheckResult")
             override fun onScrollStateChanged(
@@ -532,7 +532,7 @@ class MyMapFragment : FragmentWrapper(),
             }
         }
         //  categoryCycleView.setIndicator(custom_indicator)
-        categoryCycleView.currentPosition = 0
+        categoryCycleViewMaps.currentPosition = 0
     }
 
 
