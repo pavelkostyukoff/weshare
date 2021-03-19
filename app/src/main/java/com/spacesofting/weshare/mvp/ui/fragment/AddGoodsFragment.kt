@@ -1,6 +1,5 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
-import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
@@ -277,11 +276,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
               setPeriods()
           }*/
 
-        banner.viewPager2.apply {
-            orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        }
         //todo слушатель даптера фотографий для ввода
+
         banner.viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -698,14 +694,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         initBanners()
         getCategoryList()
         initCategoryList()
-
     }
 
     //todo инициализация баннера
     private fun initBanners() {
         bannerItemsFake.clear()
 
-        adapterBaner?.setOnCardClickListener(this)
+        adapterBaner.setOnCardClickListener(this)
         if (ApplicationWrapper.instance.myImages != null && advert.bannerItems.isEmpty()) {
             if (ApplicationWrapper.instance.myImages!!.isNotEmpty()) {
                 //   bannerItems.add(f)   //todo случайный элемент(resList.random())
@@ -741,7 +736,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     //todo работа обновления баннеров карточек фото
     private fun refrashAdapterBaner(file: File) {
         // bannerItems.clear()
-        file
         bannerItemsFake.clear()
         advert.bannerItems.add(file.toString())
         adapterBaner.dataset = advert.bannerItems
@@ -920,13 +914,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             RxPermissions(it)
                 .request(android.Manifest.permission.CAMERA)
                 .subscribe {
-                    try {
-                        // brokenUrlMessage.visible = false
-                        val intent = ImageUtils.takePhotoIntent(file)
+                    if (it) {                        val intent = ImageUtils.takePhotoIntent(file)
                         startActivityForResult(intent, CAMERA_REQUEST_CODE)
-                    } catch (e: SecurityException) {
-                        //  dialogGPS(this.context) // lets the user know there is a problem with the gps
                     }
+                        // brokenUrlMessage.visible = false
                     //   val  location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                 }
         }

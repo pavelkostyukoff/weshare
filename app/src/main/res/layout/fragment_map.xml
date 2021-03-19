@@ -23,15 +23,7 @@
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toTopOf="parent">
 
-      <ImageView
-              android:id="@+id/filter"
-              android:layout_width="32dp"
-              android:layout_height="32dp"
-              android:layout_alignParentStart="true"
-              android:layout_alignParentTop="true"
-              android:layout_marginTop="258dp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:srcCompat="@drawable/ic_filter" />
+
 
       <androidx.constraintlayout.widget.ConstraintLayout
               android:id="@+id/filterLayout"
@@ -43,6 +35,14 @@
               app:layout_constraintBottom_toBottomOf="@+id/filterButtonsState"
               app:layout_constraintTop_toBottomOf="@+id/filterButtonsState">
 
+         <ImageView
+                 android:id="@+id/filter"
+                 android:layout_width="32dp"
+                 android:layout_height="32dp"
+                 android:visibility="gone"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@+id/custom_caption"
+                 app:srcCompat="@drawable/ic_filter" />
          <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                  android:id="@+id/categoryCycleViewMaps"
                  android:layout_width="0dp"

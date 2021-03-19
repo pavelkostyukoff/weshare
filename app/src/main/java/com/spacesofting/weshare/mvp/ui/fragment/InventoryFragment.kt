@@ -68,13 +68,13 @@ class InventoryFragment : FragmentWrapper(),
 
         navItemInvited.setOnClickListener {
 
-            val addPhotoBottomDialogFragment =
+     /*       val addPhotoBottomDialogFragment =
                 ActionBottomDialogFragment.newInstance()
             addPhotoBottomDialogFragment.show(
                 activity?.getSupportFragmentManager()!!,
                 ActionBottomDialogFragment.TAG
             )
-
+*/
         }
         showToolbar(TOOLBAR_HIDE)
         //showToolbar(TOOLBAR_EMBEDDED, R.layout.view_fragment_toolbar)

@@ -120,7 +120,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:riv_corner_radius="30dip" />
-
 -->
                 <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
                         android:id="@+id/banner"

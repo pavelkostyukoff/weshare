@@ -19,6 +19,7 @@ import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.CategotiesImage.*
 import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.presentation.presenter.MapPresenter
 import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
 import com.spacesofting.weshare.mvp.ui.adapter.CategoryAdapter
@@ -29,10 +30,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.MapObject
-import com.yandex.mapkit.map.MapObjectCollection
-import com.yandex.mapkit.map.MapObjectTapListener
+import com.yandex.mapkit.map.*
 import com.yandex.runtime.image.ImageProvider
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -184,12 +182,13 @@ class MyMapFragment : FragmentWrapper(),
           context?.let { Settings.SaveFilterListPriority(FILTER_LIST_PRIORITY, getFiltersPriority, it) }*/
     }
 
-    override fun showCatObjects(it: ResponceMyAdvertMaps) {
+    //https://ru.stackoverflow.com/questions/1088795/yandex-mapkit-sdk-%D1%81%D0%BB%D1%83%D1%88%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-%D0%BD%D0%B0%D0%B6%D0%B0%D1%82%D0%B8%D1%8F-%D0%BD%D0%B0-%D0%BA%D0%B0%D1%80%D1%82%D1%83-%D0%B8-%D0%BD%D0%B0-placeholders-%D1%83%D0%BD%D0%B8%D1%87%D1%82%D0%BE%D0%B6%D0%B0%D1%8E%D1%82%D1%81%D1%8F-%D1%81%D0%B1
+    override fun showCatObjects(objects: ResponceMyAdvertMaps) {
         mapObjects?.clear()
         mapObjects = mapview.map.mapObjects.addCollection()
 
         val marks = ArrayList<Point>()
-        it.data?.map { data ->
+        objects.data?.map { data ->
             data.address?.point.let {
                 marks.add(Point(it?.latitude?.toDouble()!! ,
                     it.longitude?.toDouble()!! + count
@@ -197,15 +196,32 @@ class MyMapFragment : FragmentWrapper(),
                 ))
                 count + 0.05
             }
-        }
 
         marks.map {
             mapObjects?.addPlacemark(Point(it.latitude, it.longitude))?.apply {
                 opacity = 2.8f
                 //todo вычислять номер категории и вставлять по уму
                 setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
-                addTapListener(YandexMapObjectTapListener())
+                addTapListener(YandexMapObjectTapListener(data))
             }
+        }
+
+// https://github.com/yandexmobile/yandexmapkit-android/issues/304
+           /* Спасибо, автор проблемы уже мне ответил и поддержка яндекс тоже.
+
+            листенеры нужно явно сохранять:
+            MapObjectTapListener и InputListener, карта хранит их по weakref, ими владеет приложение.
+
+            Если его не сохранять, то в случайные моменты времени он будет переставать работать (соберется garbage collector), и в логе будут такие сообщения.
+
+            И это было указано документации яндекс, просто не внимательно посмотрел:
+            При дальнейшей работе
+            Listener-объекты, сообщающие о результате многократных операций или состоянии объекта, нужно явно сохранять в памяти:
+
+            private final CameraListener cameraListener = new CameraListener() {
+// Do something.
+            }
+            mapview.getMap().addCameraListener(cameraListener);*/
         }
 
 /*
@@ -333,19 +349,22 @@ class MyMapFragment : FragmentWrapper(),
         mMapPresenter.getCategoryAdvertsList(id)
     }
 
-    private inner class YandexMapObjectTapListener : MapObjectTapListener {
+    private inner class YandexMapObjectTapListener(private val objects: DatumRequast) : MapObjectTapListener {
         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
             //toast("something")
             //showDialogMore()
-            showBottomSheetDialog()
-            return false
+            showBottomSheetDialog(objects)
+            return true
         }
 
     }
 
-    private fun showBottomSheetDialog() {
+
+    private fun showBottomSheetDialog(objects: DatumRequast) {
+
+
         val addPhotoBottomDialogFragment =
-            ActionBottomDialogFragment()
+            ActionBottomDialogFragment.getInstance(objects)
         activity?.supportFragmentManager?.let {
             addPhotoBottomDialogFragment.show(it, "add_photo_dialog_fragment")
         }

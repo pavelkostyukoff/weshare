@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="86dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/bg_purple_button_selector_round_friend_wishes_unsubscribe"
             android:fontFamily="@font/roboto"
             android:text="@string/login_autorize"
@@ -105,8 +105,9 @@
             android:textColor="@color/azure_radiance"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/registrationLayout"
@@ -148,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/bg_purple_button_selector_round_friend_wishes_unsubscribe"
             android:fontFamily="@font/roboto"
             android:text="@string/auth_to_register"
@@ -170,5 +171,15 @@
             app:layout_constraintEnd_toEndOf="@+id/toRegister"
             app:layout_constraintStart_toStartOf="@+id/toRegister"
             app:layout_constraintTop_toBottomOf="@+id/toRegister" />
+
+    <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="52dp"
+            app:layout_constraintEnd_toStartOf="@+id/verticalGlEnd"
+            app:layout_constraintStart_toStartOf="@+id/verticalGlStart"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            tools:srcCompat="@drawable/ic_google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
