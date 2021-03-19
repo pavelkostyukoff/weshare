@@ -48,7 +48,6 @@ class BannerAdapterPhoto :  CyclePagerAdapter<BannerAdapterPhoto.PagerViewHolder
                     .load(output)
                     .into(it)
             }
-
           /*  Picasso.with(context)
                 .load(output)//"http://i.imgur.com/DvpvklR.png")//dataset[position])
                 .error(R.drawable.wish_default_img)
@@ -58,9 +57,9 @@ class BannerAdapterPhoto :  CyclePagerAdapter<BannerAdapterPhoto.PagerViewHolder
                         override fun onSuccess() {
                             output
                         }
-
                         override fun onError() {
-                            output                        }
+                            output
+                            }
                     })*/
         }
         else {

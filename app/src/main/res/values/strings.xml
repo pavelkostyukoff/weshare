@@ -118,7 +118,6 @@
     <string name="hamburger_invited">Приглашенные</string>
 
     <!-- COMMON -->
-    <string name="gazprombank">ГАЗПРОМБАНК</string>
     <string name="events">МЕРОПРИЯТИЯ</string>
     <string name="ok">Ок</string>
     <string name="cancel">Отмена</string>
@@ -267,4 +266,6 @@
     <string name="edit_advert_address_search_inside">Поиск Адреса</string>
     <string name="error_link_photo">Не удалось загузить фото, либо большой размер либо не верный формат, попробуйте другое</string>
     <string name="photo_server_full">Удаленный сервер переполнен, повторите попытку еще раз</string>
+    <string name="action_rent">Арендовать</string>
+    <string name="perio_rent">Период аренды</string>
 </resources>

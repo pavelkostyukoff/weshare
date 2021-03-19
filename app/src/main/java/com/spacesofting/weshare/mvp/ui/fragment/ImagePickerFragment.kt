@@ -189,8 +189,6 @@ class ImagePickerFragment : FragmentWrapper(), TextWatcher, ViewTreeObserver.OnG
         loadImageProgress.visibility = View.VISIBLE
         if (isAvatarForm) {
             ApplicationWrapper.file = file
-
-
             Picasso.with(context)
                     .load(file)
                     .centerCrop()

@@ -4,12 +4,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="@drawable/bottom_sheet_rounded_bg"
+        android:background="@drawable/bg_navigation_gradient"
         android:layout_height="match_parent">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        >
@@ -20,21 +18,41 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="@string/ticket_event_name"
+            android:text="Связаться"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             app:fontFamily="@font/roboto_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <TextView
+            android:id="@+id/call"
+            android:layout_marginEnd="15dp"
             android:layout_width="wrap_content"
+            android:background="@drawable/bottom_sheet_rounded_bg_orange_vertical"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/view_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/ActionItem"
+            android:textColor="@android:color/background_dark"
+            android:drawableStart="@android:drawable/sym_action_call"
+            android:text="@string/action_rent"
+            app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="16dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/titleDatum"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/titleDatum"
             app:layout_constraintTop_toTopOf="@+id/titleDatum"
-            app:srcCompat="@drawable/ic_exit"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@android:drawable/sym_action_call"
             app:tint="@android:color/white" />
 
     <View
@@ -50,23 +68,43 @@
             app:layout_constraintTop_toBottomOf="@id/titleDatum" />
 
     <TextView
-            android:id="@+id/textView"
+            android:id="@+id/periodRents"
             style="@style/ActionItem"
             android:textColor="@android:color/white"
-            android:drawableStart="@drawable/ic_share"
-            android:text="@string/action_share"
+            android:drawableStart="@drawable/ic_timer_inver"
+            android:text="@string/perio_rent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_divider" />
 
+    <TextView
+            android:id="@+id/peridon"
+            style="@style/ActionItem"
+            android:textColor="@android:color/white"
+            android:drawableStart="@drawable/ic_list"
+            android:text="Описание"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/periodRents" />
+    <TextView
+            android:id="@+id/description"
+            style="@style/ActionItem"
+            android:textColor="@android:color/white"
+            android:drawableStart="@drawable/ic_money__1_"
+            android:text="Сумма"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/peridon" />
+
     <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
             android:id="@+id/bannerBottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

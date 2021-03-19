@@ -63,6 +63,9 @@ class MyMapFragment : FragmentWrapper(),
     var globalCategoryId = ""
 
     private var lngMain = String()
+
+    private var markersList = ArrayList<MapObjectCollection>()
+
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
     private val TARGET_LOCATION: Point? =
         Point(59.945933, 30.320045)
@@ -183,11 +186,15 @@ class MyMapFragment : FragmentWrapper(),
     }
 
     //https://ru.stackoverflow.com/questions/1088795/yandex-mapkit-sdk-%D1%81%D0%BB%D1%83%D1%88%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-%D0%BD%D0%B0%D0%B6%D0%B0%D1%82%D0%B8%D1%8F-%D0%BD%D0%B0-%D0%BA%D0%B0%D1%80%D1%82%D1%83-%D0%B8-%D0%BD%D0%B0-placeholders-%D1%83%D0%BD%D0%B8%D1%87%D1%82%D0%BE%D0%B6%D0%B0%D1%8E%D1%82%D1%81%D1%8F-%D1%81%D0%B1
+   //пришла пачка объектов по категории
+    //
     override fun showCatObjects(objects: ResponceMyAdvertMaps) {
         mapObjects?.clear()
+        //todo ЕГО УНИЧТОЖИТ JAVA GC ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> mapObjects - надо клонировать и работать со своим
         mapObjects = mapview.map.mapObjects.addCollection()
 
         val marks = ArrayList<Point>()
+            //координаты с вещами
         objects.data?.map { data ->
             data.address?.point.let {
                 marks.add(Point(it?.latitude?.toDouble()!! ,
@@ -204,7 +211,15 @@ class MyMapFragment : FragmentWrapper(),
                 setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
                 addTapListener(YandexMapObjectTapListener(data))
             }
+                  markersList.add(mapObjects!!)
         }
+       /*     mapObjects = markersList
+            marks.map {
+                markersList
+            }
+            markersList.forEach{
+
+            }*/
 
 // https://github.com/yandexmobile/yandexmapkit-android/issues/304
            /* Спасибо, автор проблемы уже мне ответил и поддержка яндекс тоже.

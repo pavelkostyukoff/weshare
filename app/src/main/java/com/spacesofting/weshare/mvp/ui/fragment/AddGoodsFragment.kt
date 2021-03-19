@@ -914,7 +914,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             RxPermissions(it)
                 .request(android.Manifest.permission.CAMERA)
                 .subscribe {
-                    if (it) {                        val intent = ImageUtils.takePhotoIntent(file)
+                    if (it) {
+                        val intent = ImageUtils.takePhotoIntent(file)
                         startActivityForResult(intent, CAMERA_REQUEST_CODE)
                     }
                         // brokenUrlMessage.visible = false

@@ -1,7 +1,9 @@
 package com.spacesofting.weshare.mvp.ui.widget
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,16 +14,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.ResponceMyAdvertMaps
-import com.spacesofting.weshare.common.ApplicationWrapper.Companion.advert
 import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import kotlinx.android.synthetic.main.bottom_sheet.*
-import kotlinx.android.synthetic.main.fragment_add_goods.*
 
 class ActionBottomDialogFragment : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener,
     BannerAdapterPhoto.OnCardClickListener,
@@ -90,7 +88,17 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment(), AdapterView.OnIt
                 Log.e("Selected_Page", position.toString())
             }
         })
-        titleDatum.text = datum.description
+        peridon.text = datum.description
+        call.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:1234567"))
+                startActivity(intent)
+            datum
+        }
+
+        datum.rentPeriods?.map {
+            description.text = it.amount.toString() + " " + it.currency?.name
+            periodRents.text = it.period?.name
+        }
         adapterBaner.dataset = banners
         adapterBaner.notifyDataSetChanged()
 

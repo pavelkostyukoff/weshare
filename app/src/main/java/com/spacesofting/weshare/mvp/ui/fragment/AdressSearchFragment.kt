@@ -326,7 +326,7 @@ open class AddressSearchFragment : FragmentWrapper(),
 //        webView.loadDataWithBaseURL(null, map, "text/html", "utf-8", null);
         webView.loadUrl("file:///android_asset/map.html")
         fakeImageView.setOnClickListener {
-            router.backTo(ScreenPool.ADD_GOODS)
+            router.exit()
         }
     }
     private fun positionMapToCity(name: String) {
@@ -432,7 +432,7 @@ open class AddressSearchFragment : FragmentWrapper(),
                 }*/
 
 
-            if (place.house.isNotEmpty())
+            if (place.house != null)
             {
                 ApplicationWrapper.place = place
                 router.exitWithResult(3, ApplicationWrapper.place)
