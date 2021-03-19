@@ -26,6 +26,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment(), AdapterView.OnIt
     View.OnClickListener {
     private var mListener: ItemClickListener? = null
     private var bannerItemsFake = ArrayList<String>()
+
     private var adapterBaner = BannerAdapterPhoto()
     var banners = ArrayList<String>()
 
