@@ -136,7 +136,7 @@
         implementation 'com.google.firebase:firebase-analytics:17.4.0'
         implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
         implementation 'com.pawegio.kandroid:kandroid:0.8.2@aar'
-        // Maps
+        // Maps compile 'ru.yandex:yandexmapkit:2.5.4@aar'
         implementation 'com.yandex.android:mapkit:3.5.0'
         implementation 'com.yandex.android:search:3.5.0'
         implementation 'com.yandex.android:directions:3.5.0'

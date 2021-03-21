@@ -19,7 +19,6 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
 
     }
 
-    @SuppressLint("CheckResult")
     fun getNewMapRequest(
         lat: String,
         lan: String,

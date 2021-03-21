@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -56,6 +57,8 @@ class MyMapFragment : FragmentWrapper(),
         latMain = lat.toString()
         lngMain = lng.toString()
     }
+
+    private var currentCategory:String? = null
     private val category = ApplicationWrapper.category
     private var latMain = String()
     private var arrList = Entitys()
@@ -63,9 +66,6 @@ class MyMapFragment : FragmentWrapper(),
     var globalCategoryId = ""
 
     private var lngMain = String()
-
-    private var markersList = ArrayList<MapObjectCollection>()
-
     private val MAPKIT_API_KEY = "42e20f72-1a03-4a0d-9a60-155947e01546"
     private val TARGET_LOCATION: Point? =
         Point(59.945933, 30.320045)
@@ -82,7 +82,7 @@ class MyMapFragment : FragmentWrapper(),
 
     // //  private var lat = String
     private var mapObjects: MapObjectCollection? = null
-
+    private var markersList: MutableList<MapObject> = mutableListOf()
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_map
@@ -185,42 +185,36 @@ class MyMapFragment : FragmentWrapper(),
           context?.let { Settings.SaveFilterListPriority(FILTER_LIST_PRIORITY, getFiltersPriority, it) }*/
     }
 
-    //https://ru.stackoverflow.com/questions/1088795/yandex-mapkit-sdk-%D1%81%D0%BB%D1%83%D1%88%D0%B0%D1%82%D0%B5%D0%BB%D0%B8-%D0%BD%D0%B0%D0%B6%D0%B0%D1%82%D0%B8%D1%8F-%D0%BD%D0%B0-%D0%BA%D0%B0%D1%80%D1%82%D1%83-%D0%B8-%D0%BD%D0%B0-placeholders-%D1%83%D0%BD%D0%B8%D1%87%D1%82%D0%BE%D0%B6%D0%B0%D1%8E%D1%82%D1%81%D1%8F-%D1%81%D0%B1
-   //пришла пачка объектов по категории
-    //
+    override fun onPause() {
+        super.onPause()
+        markersList.clear()
+        mapObjects?.clear()
+    }
+
     override fun showCatObjects(objects: ResponceMyAdvertMaps) {
         mapObjects?.clear()
-        //todo ЕГО УНИЧТОЖИТ JAVA GC ->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> mapObjects - надо клонировать и работать со своим
-        mapObjects = mapview.map.mapObjects.addCollection()
-
-        val marks = ArrayList<Point>()
-            //координаты с вещами
-        objects.data?.map { data ->
-            data.address?.point.let {
-                marks.add(Point(it?.latitude?.toDouble()!! ,
-                    it.longitude?.toDouble()!! + count
-
-                ))
-                count + 0.05
-            }
-
-        marks.map {
-            mapObjects?.addPlacemark(Point(it.latitude, it.longitude))?.apply {
-                opacity = 2.8f
-                //todo вычислять номер категории и вставлять по уму
-                setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
-                addTapListener(YandexMapObjectTapListener(data))
-            }
-                  markersList.add(mapObjects!!)
+        markersList.clear()
+        Log.e("maps", "start method")
+        if (mapObjects == null) {
+            mapObjects = mapview.map.mapObjects.addCollection()
         }
-       /*     mapObjects = markersList
-            marks.map {
-                markersList
+        Log.e("maps", objects.data?.size.toString())
+
+        objects.data?.forEach {
+            mapObjects?.addPlacemark(Point(requireNotNull(it.address?.point?.latitude?.toDouble()), requireNotNull(it.address?.point?.longitude?.toDouble())))?.apply {
+                markersList.add(this)
+                opacity = 2.8f
+                setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
+                Log.e("maps", "set Listener")
+                addTapListener(YandexMapObjectTapListener(it))
             }
-            markersList.forEach{
 
-            }*/
-
+        /*    objects.data?.forEach { data ->
+        data.address?.point?.let {
+            marks.add(Point(it.latitude?.toDouble()!!,
+                it.longitude?.toDouble()!!
+            ))
+       */
 // https://github.com/yandexmobile/yandexmapkit-android/issues/304
            /* Спасибо, автор проблемы уже мне ответил и поддержка яндекс тоже.
 
@@ -355,9 +349,13 @@ class MyMapFragment : FragmentWrapper(),
     }
 
     override fun setUpdateRequest(it: ResponceMyAdvertMaps) {
-        it
         showCatObjects(it)
        // createMapObjects(arrList.entities?.get(0)?.id)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentCategory?.let { getRequest(it) }
     }
 
     private fun createMapObjects(id: String?) {
@@ -532,12 +530,14 @@ class MyMapFragment : FragmentWrapper(),
                                                subCategoryCycleView.visibility = View.GONE
                                                category?.entities?.get(positionNew)?.id?.let { it1 ->
                                                    //todo стираем список точек
+                                                   currentCategory = it1
                                                    getRequest(it1)  //todo 2
                                                }
                                            }
                                        }
                                        else {
                                            category?.entities?.get(positionNew)?.id?.let { it1 ->
+                                               currentCategory = it1
                                                getRequest(it1)  //todo 2
                                            }
                                        }
@@ -568,7 +568,6 @@ class MyMapFragment : FragmentWrapper(),
         //  categoryCycleView.setIndicator(custom_indicator)
         categoryCycleViewMaps.currentPosition = 0
     }
-
 
 
 

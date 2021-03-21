@@ -61,9 +61,9 @@ class IAmShooltGoodsFragment(advert: ResponcePublish?) : FragmentWrapper(),
         adapter = ItemShootGoodsAdapter(mIrentPresenter)
         val mLayoutManager =
             androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        recyclerView.itemAnimator =
-            androidx.recyclerview.widget.DefaultItemAnimator()
+      //  recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+   /*     recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()*/
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
@@ -81,10 +81,10 @@ class IAmShooltGoodsFragment(advert: ResponcePublish?) : FragmentWrapper(),
     private fun listShow() {
         val mLayoutManager =
             androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-        recyclerView.layoutManager = mLayoutManager
-            recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        recyclerView.itemAnimator =
-            androidx.recyclerview.widget.DefaultItemAnimator()
+/*        recyclerView.layoutManager = mLayoutManager
+            recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))*/
+     /*   recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()*/
         recyclerView.adapter = adapter
     }
 

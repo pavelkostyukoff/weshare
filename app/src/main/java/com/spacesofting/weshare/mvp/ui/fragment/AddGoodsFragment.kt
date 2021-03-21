@@ -1034,11 +1034,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         setNewAdress()
     }
 
-    override fun onStart() {
-        super.onStart()
-        categoryCycleView.currentPosition = 4
-    }
-
     override fun onPause() {
         super.onPause()
         setPeriods()
