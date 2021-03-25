@@ -14,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
-
 interface UserService {
     @POST("/auth/register")  //todo //Подтвердить получение задачи Observable<Response<Void>>
     fun register(@Body updateProfile: Profile): Observable<ResponceProfile>

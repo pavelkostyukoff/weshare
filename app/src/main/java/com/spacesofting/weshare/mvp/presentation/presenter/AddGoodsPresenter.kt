@@ -1,15 +1,26 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.Toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
+import androidx.lifecycle.lifecycleScope
+
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.utils.ImageUtils
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.resolution
+import id.zelory.compressor.constraint.size
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -25,8 +36,11 @@ import java.util.*
 class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.PickerListener {
 
     var imageFile: File? = null
+    private var compressedImage: File? = null
+
     var imageChanged = false
     var timeout: Timer? = null
+    var context: Context? = null
     val ITEMS_PER_PAGE = 15
     val ITEMS_PER_PAGE_WISH_LIST = 5
     var page = 0
@@ -54,9 +68,10 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
 
     //todo тут ответ из пикер - ок поехали дальше закрываем пикер и показываем
     override fun onEditPhotoConfirmClick() {
+        viewState.showAutoCompleteProgress(true)
         imageFile?.let {
             //  viewState.showWishImage(it)
-          //   savePhoto()
+            //   savePhoto()
             imageChanged = true
             saveImageOrCompress()
         }
@@ -75,22 +90,20 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     private fun publishAdvert(goodId: String) {
         with(Api) {
             with(Adverts) {
-                    publishMyAdvert(goodId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                                advert ->
+                publishMyAdvert(goodId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ advert ->
 
-                            viewState.saved(advert)
+                        viewState.saved(advert)
+                        viewState.showProgress(false)
+                        //checkExternalApp()
 
-                            viewState.showProgress(false)
-                            //checkExternalApp()
-
-                        }, { error ->
-                            viewState.showProgress(false)
-                          //  viewState.saved(false)
-                            viewState.showToast(R.string.error_general)
-                        })
+                    }, { error ->
+                        viewState.showProgress(false)
+                        //  viewState.saved(false)
+                        viewState.showToast(R.string.error_general)
+                    })
 
             }
         }
@@ -102,8 +115,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 publishMyAdvert(goodId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                            advert ->
+                    .subscribe({ advert ->
 
                         viewState.saved(advert)
 
@@ -125,24 +137,24 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         //todo -   /me/adverts/{advertId}/publish
         //add or update wish
         // if (advert.id != 0) {
-     /*   goodId
+        /*   goodId
         //todo тут - /me/adverts/{advertId}
         goodId = ApplicationWrapper.instance.getAuthorityWish().toString()*/
-                goodId.let {
-                    Api.Adverts.updateMyAdvertById(advert,it)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ advert ->
-                          //  viewState.saved(true)
-                            viewState.showProgress(false)
-                            //checkExternalApp()
-                            goodId
-                            publishAdvert(goodId)
-                        }, { error ->
-                            viewState.showProgress(false)
-                           // viewState.saved(false)
-                            viewState.showToast(R.string.error_general)
-                        })
+        goodId.let {
+            Api.Adverts.updateMyAdvertById(advert, it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ advert ->
+                    //  viewState.saved(true)
+                    viewState.showProgress(false)
+                    //checkExternalApp()
+                    goodId
+                    publishAdvert(goodId)
+                }, { error ->
+                    viewState.showProgress(false)
+                    // viewState.saved(false)
+                    viewState.showToast(R.string.error_general)
+                })
         }
         advert.let { ApplicationWrapper.instance.setAuthorityWish(null, null) }
 
@@ -180,9 +192,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         when (field) {
             Field.IMAGE -> imageChanged = true
             Field.DESCRIPTION -> newAdvert.description = value
-            Field.NAME ->
-            {
-             /*   if (value?.length!! < 5) {
+            Field.NAME -> {
+                /*   if (value?.length!! < 5) {
                     viewState.showToast(R.string.min_title_mane_advert)
                 }*/
                 newAdvert.title = value
@@ -220,7 +231,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 }
             }, 500)
         }*/
-        if (newAdvert.title == null ) {
+        if (newAdvert.title == null) {
             //   newAdvert.rentPeriods = price
             viewState.emptyTitle(true)
         } else {
@@ -276,6 +287,7 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 }*/
 
                 viewState.showProgress(true)
+                viewState.showAutoCompleteProgress(true)
 
                 /*    ImageUtils.send(saveImgFile,goodId)
                     ?.subscribeOn(AndroidSchedulers.mainThread())
@@ -283,23 +295,45 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 if (imageSize >= Settings.LIMIT_IMAGE_SIZE) {
                     saveImgFile = ImageUtils.compressPhoto(it)
                 }
+                //todo компресуем фотку
+                //todo делаем запрос
+
+
                 ImageUtils.send(saveImgFile, goodId)
                     ?.subscribeOn(AndroidSchedulers.mainThread())
-                    ?.subscribe({
-                            img ->
+                    ?.doFinally { viewState.showAutoCompleteProgress(false) }
+
+                    ?.subscribe({ img ->
                         viewState.showProgress(false)
+                        viewState.showAutoCompleteProgress(false)
                         viewState.showWishImage(it)
-                      //  saveWish()
+                        //  saveWish()
 
                     }, { e ->
-                        e
+                        viewState.showToast(R.string.sboi)
                         //    stopShowProgress()
                     })
 
-
-            }}
+            }
+        }
 
     }
+
+    private fun customCompressImage() {
+      //  imageFile?.let { imageFiletrue ->
+   /*         lifecycleScope.launch {
+                // Full custom
+                compressedImage = Compressor.compress(context!!, imageFiletrue) {
+                    resolution(1280, 720)
+                    quality(80)
+                    format(Bitmap.CompressFormat.WEBP)
+                    size(2_097_152) // 2 MB
+                }
+                setCompressedImage()
+            }
+        } ?: showError("Please choose an image!")*/
+    }
+
 
     fun checkEditFieldsOrImage(advert: Advert) {
         //check edit fields for appsflyer
@@ -321,7 +355,11 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         }
 
     }
-
+        fun setCompressedImage() {
+            compressedImage?.let {
+                //todo Установка фотки
+            }
+        }
     fun isValid(advert: Advert): Boolean {
         val title        = advert.title
         val description = advert.description
@@ -428,6 +466,9 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                         it.entities?.let { it1 -> arr.addAll(it1) }
                         it.entities = arr
                     }
+
+
+
                     viewState.setNewSubCategory(it)
 
                 }) {

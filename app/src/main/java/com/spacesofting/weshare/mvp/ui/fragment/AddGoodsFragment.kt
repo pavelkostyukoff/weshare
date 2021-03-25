@@ -10,6 +10,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -17,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.pawegio.kandroid.toast
@@ -28,9 +29,16 @@ import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
 import com.spacesofting.weshare.api.ResponcePublish
 import com.spacesofting.weshare.api.model.place.Place
-import com.spacesofting.weshare.common.*
-import com.spacesofting.weshare.mvp.model.*
-import com.spacesofting.weshare.mvp.model.RentPeriod.*
+import com.spacesofting.weshare.common.ApplicationWrapper
+import com.spacesofting.weshare.common.CategotiesImage
+import com.spacesofting.weshare.common.FragmentWrapper
+import com.spacesofting.weshare.common.ScreenPool
+import com.spacesofting.weshare.mvp.model.Address
+import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.model.Point
+import com.spacesofting.weshare.mvp.model.RentPeriod
+import com.spacesofting.weshare.mvp.model.RentPeriod.Currency
+import com.spacesofting.weshare.mvp.model.RentPeriod.Period
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
@@ -42,11 +50,9 @@ import com.spacesofting.weshare.utils.hideKeyboard
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
-import cz.msebera.android.httpclient.protocol.ResponseDate
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
-import kotlinx.android.synthetic.main.item_card_view_i_rent.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
@@ -59,13 +65,16 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val CAMERA_REQUEST_CODE = 1
     private val GALLERY_REQUEST_CODE = 2
     private val NEW_SEARCH_RESULTS = 3
+    var count2 = 0
+    var mySubIdCategory = ""
+
     private var isNew = false
     private var catPosition = 0
     private var subCatPosition = 0
     private var setCaruselItemCategory = ""
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
-    val listFour = mutableListOf<CarouselItem>()
+    val listFour = mutableListOf<CarouselItem>() ////todo тут проблема хаос какой-то
     val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
 
     @InjectPresenter
@@ -285,21 +294,26 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         })
         save.setOnClickListener {
-            try {
-                if (searchEditText.text.isEmpty() && searchEditText.text.startsWith("null")) {
-                    toast("Заполните адресс")
-                } else if (advertAmount.text.toString() == "0.0" || advertAmount.text.toString() == "0" || advertAmount.text!!.isEmpty()) {
-                    toast("Заполните сумму")
-                } else if (advertTitle.length() < 5) {
-                    toast("Название должно быть не менее 5 символов")
-                } else {
-                    setPeriods()
-                    presenter.checkEditFieldsOrImage(advert)
+            if (count2 == 0) {
+                toast("Проверте правильность выбранной категории")
+                count2++
+            }else {
+                count2 = 0
+                try {
+                    if (searchEditText.text.isEmpty() && searchEditText.text.startsWith("null")) {
+                        toast("Заполните адресс")
+                    } else if (advertAmount.text.toString() == "0.0" || advertAmount.text.toString() == "0" || advertAmount.text!!.isEmpty()) {
+                        toast("Заполните сумму")
+                    } else if (advertTitle.length() < 5) {
+                        toast("Название должно быть не менее 5 символов")
+                    } else {
+                        setPeriods()
+                        presenter.checkEditFieldsOrImage(advert)
+                    }
+                } catch (e: Exception) {
+
                 }
-            } catch (e: Exception) {
-
             }
-
         }
         //todo слушаем ввод текста - открываем фрагмент с поиском адреса
         searchEditText.setOnTouchListener(
@@ -588,6 +602,16 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     //todo задний фон экрана
     override fun showAutoCompleteProgress(isShowed: Boolean) {
+        if (isShowed)
+        {
+           // val shurikenImgDelCard = layout.findViewById<ImageView>(R.id.shurikenImgDelCard)
+            val rotate = AnimationUtils.loadAnimation(context, R.anim.rotate)
+            rotate.interpolator = LinearInterpolator()
+            shurikenImg.startAnimation(rotate)
+        }
+        else {
+            shurikenImg.clearAnimation()
+        }
         autoCompleteProgress.visible = isShowed
     }
 
@@ -770,14 +794,26 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 carouselItem: CarouselItem?
             ) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        carouselItem?.apply {
+                            custom_caption.text = caption
+                        }
                         Single.just(position)
                             .delay(3000, TimeUnit.MILLISECONDS)
                             .applySchedulers()
                             .subscribe({
-                                categoryCycleView.currentPosition = 2
-                                presenter.getSubCategory(category?.entities?.get(position))
-                                advert.categoryId = category?.entities?.get(newState)?.id
-                                val test = category?.entities?.get(position)?.name
+                                if (!isNew) {
+                                   var myPosition = getCategoryPosition()
+                                    categoryCycleView.currentPosition = 8
+                                    isNew = true
+                                }
+                                    category?.entities?.map {
+                                        val subStr: String = mySubIdCategory.substring(0, 21)
+                                      //  presenter.getSubCategory(category?.entities?.get(myPosition.toInt))
+                                        if (it.id.toString().startsWith(subStr)){
+                                            presenter.getSubCategory(it)
+                                        }
+                                    }
+                               // advert.categoryId = category?.entities?.get(position)?.id
                             }, {
                                 it
                                 //  loadingViewModel.errorMessage = it.nonNullMessage()
@@ -800,14 +836,18 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
 
         }
-      //  categoryCycleView.currentPosition = 2
 
+        categoryCycleView.addData(listFour)
+    }
+
+    fun getCategoryPosition(): Int {
         var name = ""
+        Log.d("category", editAdvert?.categoryId.toString())
         when (editAdvert?.categoryId)
         {
             CategotiesImage.KINDS_ALL.number ->{
                 name = "для детей"
-        }
+            }
             CategotiesImage.BUILDING_ALL.number ->{
                 name = "недвижимость"
             }
@@ -822,9 +862,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
             CategotiesImage.PROCHEE.number ->{
                 name = "прочее"
-            }CategotiesImage.CARS_ALL.number ->{
+            }
+            CategotiesImage.CARS_ALL.number ->{
             name = "транспорт"
         }
+            CategotiesImage.CARS_RIVER.number -> {
+                name = "водный транспорт"
+            }
             CategotiesImage.HOBBI_ALL.number ->{
                 name = "хобби"
             }
@@ -832,16 +876,33 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 name = "электроника"
             }
         }
+        if(editAdvert?.categoryId?.contains("00000000-0000-0000-30")!!)
+        {
+           editAdvert.categoryId?.let {
+               mySubIdCategory = it
+           }
+            name = "транспорт"
+        }
+        else if (editAdvert.categoryId?.contains("00000000-0000-0000-20")!!) {
+                mySubIdCategory =    editAdvert.categoryId!!
+            name = "недвижимость"
+        }
+        else if (editAdvert.categoryId?.contains("00000000-0000-0000-10")!!) {
+                mySubIdCategory =    editAdvert.categoryId!!
+            name = "одежда"
+        }
         var count = 0
         var currentPosition = 0
         listFour.map {
+            val test = it.caption?.contains(name)
             if (it.caption.equals(name)) {
                 currentPosition = count
             }
             count++
         }
-        categoryCycleView.addData(listFour)
-      //  categoryCycleView.currentPosition = 2
+            //todo если тут нет то ищем в списке саб категорий
+            //todo если там нашли то инициализируем категорию мать
+        return currentPosition
         Log.e("categoryCycleView", currentPosition.toString())
     }
 
@@ -873,8 +934,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 position: Int,
                 carouselItem: CarouselItem?
             ) {
-
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //todo тут мы берем нашу спец позицию и делаем var myPosition = getSubCategoryPosition()
+                    //                                    categorySubCycleView.currentPosition = myPosition
+                    //todo
+                    val myPosition = getCategorySubPosition()
+                    subCategoryCycleView.currentPosition = myPosition
                     subCatPosition = position
                     carouselItem?.apply {
                         custom_sub_category.text = caption
@@ -1032,6 +1097,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     override fun onResume() {
         super.onResume()
         setNewAdress()
+        presenter.context = activity
     }
 
     override fun onPause() {
@@ -1123,5 +1189,75 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 adapterBaner?.notifyDataSetChanged()
             }
         }
+    }
+
+    fun getCategorySubPosition(): Int {
+        var name = ""
+
+        when (mySubIdCategory)
+        {
+            CategotiesImage.BUILDING_GARAGE.number ->{
+                name = "для детей"
+            }
+            CategotiesImage.BUILDING_DACHA.number ->{
+                name = "недвижимость"
+            }
+            CategotiesImage.BUILDING_HOUSE.number ->{
+                name = "оборудование"
+            }
+            CategotiesImage.BUILDING_KVARTIRA.number ->{
+                name = "одежда"
+            }
+            CategotiesImage.BUILDING_OFFICE.number ->{
+                name = "отдых и спорт"
+            }
+            CategotiesImage.BUILDING_WORK_SPACE.number ->{
+                name = "прочее"
+            }
+            CategotiesImage.BUILDING_SCLAD.number ->{
+                name = "транспорт"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_MUZ_KOSTYUM.number -> {
+                name = "водный транспорт"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_NARODNAYA.number ->{
+                name = "хобби"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_PLATYA.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_RYBASHKI.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CLOUSED_ODEZDA_TORZASTVENNAYA.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CARS_AUTO.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CARS_VELO.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CARS_MOTO.number ->{
+                name = "электроника"
+            }
+            CategotiesImage.CARS_RIVER.number ->{
+                name = "речной транспорт"
+            }
+        }
+
+        var count = 0
+        var currentPosition = 0
+        listFour.map {
+            val test = it.caption?.contains(name)
+            if (it.caption.equals(name) || it.caption?.contains(name)!!) {
+                currentPosition = count
+            }
+            count++
+        }
+        //todo если тут нет то ищем в списке саб категорий
+        //todo если там нашли то инициализируем категорию мать
+        return currentPosition
+        Log.e("categoryCycleView", currentPosition.toString())
     }
 }

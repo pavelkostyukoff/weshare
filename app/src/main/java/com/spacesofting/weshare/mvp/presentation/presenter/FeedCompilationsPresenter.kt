@@ -81,7 +81,6 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
                     }
                     viewState.setProgressAnimation(false)
 
-
                 }, { error ->
                     viewState.onLoadCompilations(ArrayList())
                     viewState.setProgressAnimation(false)

@@ -30,8 +30,6 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
        val  positionOne = dataset[position]
         if (positionOne.images != null )
         {
-            if (positionOne.images!!.isNotEmpty())
-            {
                 val output =  StringBuilder().append(positionOne.images?.get(0)?.url?.substring(0, 4))
                     .append("s").append(positionOne.images?.get(0)?.url?.length?.let {
                         positionOne.images?.get(0)?.url?.substring(4, it)
@@ -44,27 +42,14 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
                         .into(holder.carImageView)
                 }
             }
-        }
-        else {
-                    Picasso.with(context)
-                        .load(R.drawable.ic_approve)
-                        .placeholder(R.drawable.wish_default_img)
-                        // .transform(RoundedCorners(radius))
-                        .into(holder.carImageView)
-        }
         holder.dellAdvert.setOnClickListener {
             presenter.delAdvertById(positionOne)
+            dataset.remove(positionOne)
+            this.notifyDataSetChanged()
         }
         holder.editAdvert.setOnClickListener {
             presenter.editAdverts(positionOne)
         }
-
-       /* val innText = String.format(context.getString(R.string.edit_guest_card_inn_count), company.inn)
-        holder.companyInn.text = innText
-
-        holder.companyLayout.setOnClickListener {
-            router.exitWithResult(CompaniesListFragment.SELECTED_RESULT, company)
-        }*/
     }
 
     class CompaniesListViewHolder(item: View) : RecyclerView.ViewHolder(item) {

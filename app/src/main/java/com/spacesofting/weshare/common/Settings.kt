@@ -32,9 +32,9 @@ object Settings {
     private val KEY_ACCESS_TOKEN_ANONYMOUS = "key_access_token_anon"
     private val IS_A_ANONYMOUS = "is_anonymous_user"
     private val KEY_ROLE = "key_role"
-    const val LIMIT_IMAGE_SIZE = 5
-    const val LIMIT_IMAGE_AVATAR_SIZE = 5
-    const val THE_SIZE_OF_A_MEGABYTE = 1024
+    const val LIMIT_IMAGE_SIZE = 2
+    const val LIMIT_IMAGE_AVATAR_SIZE = 2
+    const val THE_SIZE_OF_A_MEGABYTE = 750
 
     private var isAuthenticated = false
     var isAnonymousUser: Boolean

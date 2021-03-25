@@ -58,9 +58,9 @@ class FeedCompilationsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.let { super.onViewCreated(it, savedInstanceState) }
-        setToolbarBackgroundDrawable(R.drawable.bg_vertical_gradient)
-        setTitleColor(R.color.white)
+        //todo ПОИСК ТУТ SEARCH HERE
         showToolbar(TOOLBAR_EMBEDDED, R.layout.view_toolbar_with_search_filter)
+        //showToolbar(TOOLBAR_HIDE)
         showAvatar()
         initCompilationsList()
         activity?.scan?.visible = true

@@ -268,4 +268,5 @@
     <string name="photo_server_full">Удаленный сервер переполнен, повторите попытку еще раз</string>
     <string name="action_rent">Арендовать</string>
     <string name="perio_rent">Период аренды</string>
+    <string name="sboi">Сбой на стороне сервера попробуйте загрузить снова</string>
 </resources>

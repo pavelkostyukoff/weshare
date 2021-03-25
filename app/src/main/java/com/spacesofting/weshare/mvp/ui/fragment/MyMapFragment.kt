@@ -119,8 +119,6 @@ class MyMapFragment : FragmentWrapper(),
             openFilter()
         }
 
-
-
         activity?.let {
             RxPermissions(it)
                 .request(android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -185,11 +183,11 @@ class MyMapFragment : FragmentWrapper(),
           context?.let { Settings.SaveFilterListPriority(FILTER_LIST_PRIORITY, getFiltersPriority, it) }*/
     }
 
-    override fun onPause() {
+/*    override fun onPause() {
         super.onPause()
         markersList.clear()
         mapObjects?.clear()
-    }
+    }*/
 
     override fun showCatObjects(objects: ResponceMyAdvertMaps) {
         mapObjects?.clear()
@@ -206,6 +204,7 @@ class MyMapFragment : FragmentWrapper(),
                 opacity = 2.8f
                 setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
                 Log.e("maps", "set Listener")
+                Log.e("maps", markersList.size.toString())
                 addTapListener(YandexMapObjectTapListener(it))
             }
 

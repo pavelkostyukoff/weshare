@@ -119,17 +119,24 @@ class IAmShooltGoodsFragment(advert: ResponcePublish?) : FragmentWrapper(),
     }
 
     private fun initListItems(advert: ArrayList<RespounceDataMyAdverts>) {
+        val clearArr =  ArrayList<RespounceDataMyAdverts>()
+
         if (adapter == null) {
             adapter = ItemShootGoodsAdapter(mIrentPresenter)
         } else {
         adapter?.dataset?.clear()
+            advert.map {
+                if (it.images?.size != 0){
+                    clearArr.add(it)
+                }
+            }
         try {
             val productDiffUtilCallback =
-                ProductDiffUtilCallback(adapter!!.dataset, advert)
+                ProductDiffUtilCallback(adapter!!.dataset, clearArr)
             val productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback)
+            adapter!!.dataset = clearArr
             productDiffResult.dispatchUpdatesTo(adapter!!)
-            adapter!!.dataset = advert
-            productDiffResult.dispatchUpdatesTo(adapter!!)
+            adapter!!.notifyDataSetChanged()
         } catch (e: Exception) {
         }
     }

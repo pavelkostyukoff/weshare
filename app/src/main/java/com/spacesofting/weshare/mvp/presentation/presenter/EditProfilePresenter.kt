@@ -343,7 +343,6 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
             .observeOn(AndroidSchedulers.mainThread())
             .doFinally { viewState.showProgress(false) }
             .subscribe({
-                it
                 Settings.set(it)
                 // ApplicationWrapper.user = it
                 //  viewState.showNewInfo(it)
