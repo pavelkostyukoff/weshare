@@ -850,7 +850,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             .applySchedulers()
             .subscribe({
                 if (!isNew) {
-                    categoryCycleView.currentPosition = it
+                    categoryCycleView.post {
+                        categoryCycleView.currentPosition = 3
+                    }
                     //1 - для детей
                     //2 - строение
                     //3 - строкние
