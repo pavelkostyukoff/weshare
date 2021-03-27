@@ -53,6 +53,7 @@ import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
+import kotlinx.android.synthetic.main.fragment_add_goods.view.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
@@ -67,11 +68,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private val NEW_SEARCH_RESULTS = 3
     var count2 = 0
     var mySubIdCategory = ""
+    var saveCurrentLastPositionCategory = ""
 
     private var isNew = false
     private var catPosition = 0
     private var subCatPosition = 0
-    private var setCaruselItemCategory = ""
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
     val listFour = mutableListOf<CarouselItem>() ////todo тут проблема хаос какой-то
@@ -137,7 +138,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     address.address = editAdvert.address?.address
                     point.latitude = (editAdvert.address?.point?.latitude + rnds).toString()
                     point.longitude = editAdvert.address?.point?.longitude.toString()
-                    setCaruselItemCategory = editAdvert.categoryId.toString()
+                    advert.categoryId = editAdvert.categoryId.toString()
                     address.point = point
                     advert.address = address
                     //todo Дописать тут условие при котором мы точно знакт что прошлая не была завершена
@@ -241,8 +242,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        currencyOptions.adapter = adapter
-        currencyOptions.onItemSelectedListener = this
+        spinnerAddAdvert.adapter = adapter
+        spinnerAddAdvert.onItemSelectedListener = this
 
         //  currencyOptions.setSelection(0)
         //todo выбор промежутка времени
@@ -266,9 +267,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     Period.month -> periodOptions.setSelection(2)
                 }
                 when (it[0].currency) {
-                    Currency.EUR -> currencyOptions.setSelection(0)
-                    Currency.USD -> currencyOptions.setSelection(1)
-                    Currency.RUB -> currencyOptions.setSelection(2)
+                    Currency.EUR -> spinnerAddAdvert.setSelection(0)
+                    Currency.USD -> spinnerAddAdvert.setSelection(1)
+                    Currency.RUB -> spinnerAddAdvert.setSelection(2)
                 }
                 //for check edit fields
                 //   mAddGoodsPresenter.editWishAmount = it[0].amount.toString()
@@ -308,6 +309,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         toast("Название должно быть не менее 5 символов")
                     } else {
                         setPeriods()
+                        advert.categoryId = saveCurrentLastPositionCategory
                         presenter.checkEditFieldsOrImage(advert)
                     }
                 } catch (e: Exception) {
@@ -382,19 +384,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 //   it.get(0)
                 //todo amound
                 advertAmount.setText(it[0].amount.toString())
-
-
-                /*   periodOptions.setSelection(2)
-                   when (it[0].period) {
-                       RentPeriod.Period.hour ->  periodOptions.setSelection(0)
-                       RentPeriod.Period.day -> periodOptions.setSelection(1)
-                       RentPeriod.Period.month -> periodOptions.setSelection(2)
-                   }
-                   when (it[0].currency) {
-                       RentPeriod.Currency.EUR -> currencyOptions.setSelection(0)
-                       RentPeriod.Currency.USD -> currencyOptions.setSelection(1)
-                       RentPeriod.Currency.RUB -> currencyOptions.setSelection(2)
-                   }*/
                 //for check edit fields
                 presenter.editWishAmount = it[0].amount.toString()
                 //todo currency
@@ -797,13 +786,29 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         carouselItem?.apply {
                             custom_caption.text = caption
                         }
-                        Single.just(position)
+                            saveCurrentLastPositionCategory = category?.entities?.get(position)?.id.toString()
+
+                      //  categoryCycleView.currentPosition = getCategoryPosition()
+                        /*  Single.just(position)
                             .delay(3000, TimeUnit.MILLISECONDS)
                             .applySchedulers()
                             .subscribe({
                                 if (!isNew) {
                                    var myPosition = getCategoryPosition()
-                                    categoryCycleView.currentPosition = 8
+                                    categoryCycleView.currentPosition = 7//myPosition -1//myPosition
+                                    //1 - для детей
+                                    //2 - строение
+                                    //3 - строкние
+                                    //4 - оборудование
+                                    //5 - дежда
+                                    //6 -отдых
+                                    //7 - прочее
+                                    //8 - трспортан
+                                    //9 - хобби
+                                    //10 - фото
+                                    Log.d("category", myPosition.toString())
+
+                                    Log.d("category", categoryCycleView.currentPosition.toString())
                                     isNew = true
                                 }
                                     category?.entities?.map {
@@ -819,7 +824,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                                 //  loadingViewModel.errorMessage = it.nonNullMessage()
                                 // loadingViewModel.isError = true
                             })
-                            }
+                            }*/
+
+                    }
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -834,10 +841,41 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
                 // ...
             }
-
         }
-
         categoryCycleView.addData(listFour)
+        var positions = 0
+
+        Single.just(getCategoryPosition())
+            .delay(3000, TimeUnit.MILLISECONDS)
+            .applySchedulers()
+            .subscribe({
+                if (!isNew) {
+                    categoryCycleView.currentPosition = it
+                    //1 - для детей
+                    //2 - строение
+                    //3 - строкние
+                    //4 - оборудование
+                    //5 - дежда
+                    //6 -отдых
+                    //7 - прочее
+                    //8 - трспортан
+                    //9 - хобби
+                    //10 - фото
+                    isNew = true
+                }
+                category?.entities?.map {
+                    val subStr: String = mySubIdCategory.substring(0, 21)
+                      presenter.getSubCategory(category?.entities?.get(positions))
+                    if (it.id.toString().startsWith(subStr)){
+                        presenter.getSubCategory(it)
+                    }
+                }
+            }, {
+                it
+                //  loadingViewModel.errorMessage = it.nonNullMessage()
+                // loadingViewModel.isError = true
+            })
+
     }
 
     fun getCategoryPosition(): Int {
@@ -869,27 +907,29 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             CategotiesImage.CARS_RIVER.number -> {
                 name = "водный транспорт"
             }
-            CategotiesImage.HOBBI_ALL.number ->{
+            CategotiesImage.HOBBI_ALL.number -> {
                 name = "хобби"
             }
-            CategotiesImage.ELECTRONICS_ALL.number ->{
+            CategotiesImage.ELECTRONICS_ALL.number -> {
                 name = "электроника"
             }
         }
-        if(editAdvert?.categoryId?.contains("00000000-0000-0000-30")!!)
-        {
-           editAdvert.categoryId?.let {
-               mySubIdCategory = it
-           }
-            name = "транспорт"
+        try {
+            if (editAdvert?.categoryId?.startsWith("00000000-0000-0000-30")!!) {
+                editAdvert.categoryId?.let {
+                    mySubIdCategory = it
+                }
+                name = "транспорт"
+            } else if (editAdvert.categoryId?.startsWith("00000000-0000-0000-20")!!) {
+                mySubIdCategory = editAdvert.categoryId!!
+                name = "недвижимость"
+            } else if (editAdvert.categoryId?.startsWith("00000000-0000-0000-10")!!) {
+                mySubIdCategory = editAdvert.categoryId!!
+                name = "одежда"
+            }
         }
-        else if (editAdvert.categoryId?.contains("00000000-0000-0000-20")!!) {
-                mySubIdCategory =    editAdvert.categoryId!!
-            name = "недвижимость"
-        }
-        else if (editAdvert.categoryId?.contains("00000000-0000-0000-10")!!) {
-                mySubIdCategory =    editAdvert.categoryId!!
-            name = "одежда"
+        catch (e:java.lang.Exception) {
+
         }
         var count = 0
         var currentPosition = 0
@@ -1086,7 +1126,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 "DAY" -> advert.rentPeriods[0].period = Period.day
                 "MONTH" -> advert.rentPeriods[0].period = Period.month // todo убрать если надо
             }
-            when (currencyOptions.selectedItem) {
+            when (spinnerAddAdvert.selectedItem) {
                 "EUR" -> advert.rentPeriods[0].currency = Currency.EUR
                 "USD" -> advert.rentPeriods[0].currency = Currency.USD
                 "RUB" -> advert.rentPeriods[0].currency = Currency.RUB
@@ -1148,7 +1188,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         3 -> advert.rentPeriods[0].period = Period.month
                     }
                 //todo выбор валюты для сдачи
-                R.id.currencyOptions ->
+                R.id.spinnerAddAdvert ->
                     when (position) {
                         1 -> advert.rentPeriods[0].currency = Currency.EUR
                         2 -> advert.rentPeriods[0].currency = Currency.USD

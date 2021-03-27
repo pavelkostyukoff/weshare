@@ -66,7 +66,13 @@ class FeedCompilationsAdapter(var context: Context, var presenter: FeedCompilati
             }
 
             viewHolder.showGoods.setOnClickListener {
-                router.navigateTo(ScreenPool.SINGLE_CATEGORY_FRAGMENT)
+                //todo передать id вещи
+               val test =  presenter.item8Maps.get(dataset[position].id)
+                if (test != null){
+                    if (test.isNotEmpty()) {
+                        router.navigateTo(ScreenPool.SHOW_ADVERT_FRAGMENT, test[0])
+                    }
+                }
             }
             viewHolder.progress.visible = true
             val arrImg = ArrayList<Int>()

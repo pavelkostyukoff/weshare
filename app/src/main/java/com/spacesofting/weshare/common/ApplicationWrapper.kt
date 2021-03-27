@@ -14,6 +14,7 @@ import com.spacesofting.weshare.mvp.Login
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.mvp.model.dto.AdvertModifiredRespouns
 import com.squareup.picasso.Picasso
 import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.OkHttpClient
@@ -64,8 +65,8 @@ class ApplicationWrapper : MultiDexApplication() {
         return photoPath
     }
 
-    fun setAuthorityWish(advert: Advert?=null , photoPath: File? = null) {
-        doAuthtorizedWish = advert
+    fun setAuthorityWish(advertRespouns: Advert?=null, photoPath: File? = null) {
+        doAuthtorizedWish = advertRespouns
         this.photoPath = photoPath
         isDesireToAuthorize = true
     }

@@ -132,7 +132,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         val width = context.displayWidth - 16.dp * 2
         val height = context.resources.getDimensionPixelOffset(R.dimen.compilation_main_img_height)
 
-       loadImage(holder.wishImage, wishList[num].getImage(), width, height, true)
+       loadImage(holder.showGoods, wishList[num].getImage(), width, height, true)
       //  holder.wishName.text = wishList[num].name
      //   holder.wishCost.text = wishList[num].price?.toString()
         (holder.wishList.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(scrollPosition, wishItemMargin)
@@ -145,7 +145,6 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         }
 
         holder.root.setOnClickListener {
-
             presenter.showWish(wishList[num], item) }
         holder.progress.visible = false
     }
@@ -212,7 +211,7 @@ class FeedChaosAdapter(var context: Context, var presenter: FeedChaosPresenter):
         val showMore: LinearLayout      = item.showMore
         val subscribe: Button           = item.goToCategory
         val unsubscribe: Button         = item.unsubscribe
-        val wishImage: RoundedImageView = item.showGoods
+        val showGoods: RoundedImageView = item.showGoods
         val imageView: ImageView = item.imageViewmini
 
         val add: ImageButton            = item.addBtn

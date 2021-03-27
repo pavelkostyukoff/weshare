@@ -4,6 +4,7 @@ import com.spacesofting.weshare.api.*
 import com.spacesofting.weshare.mvp.ResponceProfile
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.model.dto.AdvertModifiredRespouns
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -33,6 +34,10 @@ interface AdvertsService {
     //todo  Get advert by ID
     @GET("me/adverts/{advertId}")
     fun getMyAdvertById(@Path("advertId") advertId: String): Observable<Advert>
+
+    //todo  Get advert by ID
+    @GET("adverts/{advertId}")
+    fun newgetMyAdvertById(@Path("advertId") advertId: String): Observable<AdvertModifiredRespouns>
 
     //todo  Update/Create advert
     //todo создать вещь

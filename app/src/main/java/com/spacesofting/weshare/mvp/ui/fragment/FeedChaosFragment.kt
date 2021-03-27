@@ -28,7 +28,6 @@ class FeedChaosFragment : FragmentWrapper(),
         return R.layout.fragment_feed_chaos
     }
 
-
     var feedAdapter: FeedChaosAdapter? = null
     var isAuthenticated = true //Settings.isAuthenticated()
 

@@ -107,7 +107,6 @@
                 android:layout_height="@dimen/compilation_main_img_height"
                 android:scaleType="centerCrop"
                 android:src="@drawable/wish_default_img"
-
                 app:riv_corner_radius="@dimen/margin" />
            <!-- app:riv_border_color="@color/colorPrimary"
             app:riv_border_width="1dp"-->

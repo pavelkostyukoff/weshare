@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.RoleEnum
-import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.ui.fragment.*
 
 object ScreenPool {
@@ -38,6 +38,7 @@ object ScreenPool {
    //del val FEED_CHAOS_FRAGMENT = "feed_chaos_fragment"
     val ADDRESS_SEARCH = "address_search"
     val SINGLE_CATEGORY_FRAGMENT = "cat_frag"
+    val SHOW_ADVERT_FRAGMENT = "show_advert_frag"
 
     fun getFragment(screenKey: String, data: Any? = null): androidx.fragment.app.Fragment? {
         return when (screenKey) {
@@ -65,6 +66,10 @@ object ScreenPool {
             }
             SINGLE_CATEGORY_FRAGMENT -> {
                 CompilationFragment.getInstance()
+                // FeedFragment.getInstance()
+            }
+            SHOW_ADVERT_FRAGMENT -> {
+                ShowAdvertFragment.getInstance(data as DatumRequast)
                 // FeedFragment.getInstance()
             }
      /*del       FEED_CHAOS_FRAGMENT -> {
