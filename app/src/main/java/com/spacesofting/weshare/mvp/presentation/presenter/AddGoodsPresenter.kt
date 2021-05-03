@@ -467,8 +467,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                         it.entities = arr
                     }
 
-
-
                     viewState.setNewSubCategory(it)
 
                 }) {

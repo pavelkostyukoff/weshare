@@ -1,9 +1,11 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
+import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +16,9 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -53,11 +57,8 @@ import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
-import kotlinx.android.synthetic.main.fragment_add_goods.view.*
 import moxy.presenter.InjectPresenter
-import org.imaginativeworld.whynotimagecarousel.CarouselItem
-import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
-import org.imaginativeworld.whynotimagecarousel.OnItemClickListener
+import org.imaginativeworld.whynotimagecarousel.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -115,6 +116,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (editAdvert != null) {
           //  if (!isNew) {
+            categoryCycleView.performClick()
                 presenter.newAdvert = advert //todo должно решить проблему
                 Log.e(
                     "Selected_Page",
@@ -296,7 +298,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         })
         save.setOnClickListener {
             if (count2 == 0) {
-                toast("Проверте правильность выбранной категории")
+                toast("Проверте категорию и нажмите еще раз для подтверждения")
                 count2++
             }else {
                 count2 = 0
@@ -707,6 +709,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         initBanners()
         getCategoryList()
         initCategoryList()
+       // initTrueCarousel()
     }
 
     //todo инициализация баннера
@@ -774,6 +777,34 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     private fun initCategoryList() {
+        categoryCycleView.addData(listFour)
+
+      /*  Single.just(getCategoryPosition())
+            .delay(3000, TimeUnit.MILLISECONDS)
+            .applySchedulers()
+            .subscribe({
+                val positions = getCategoryPosition()
+
+                if (!isNew) {
+                  //  categoryCycleView.currentPosition = positions
+                      categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
+                    isAccessible = true
+                    val recyclerView: RecyclerView = this.get(categoryCycleView) as RecyclerView
+                    recyclerView.scrollToPosition(positions)
+                          categoryCycleView.currentPosition = positions
+                }
+                        isNew = true
+            }
+
+                 //   presenter.getSubCategory(category?.entities?.get(positions))
+
+
+    }, {
+        it
+        //  loadingViewModel.errorMessage = it.nonNullMessage()
+        // loadingViewModel.isError = true
+    })*/
+
         //todo если редактирование то берем catId и выставляем position
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
             override fun onScrollStateChanged(
@@ -782,50 +813,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 position: Int,
                 carouselItem: CarouselItem?
             ) {
+
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         carouselItem?.apply {
                             custom_caption.text = caption
                         }
-                            saveCurrentLastPositionCategory = category?.entities?.get(position)?.id.toString()
-
-                      //  categoryCycleView.currentPosition = getCategoryPosition()
-                        /*  Single.just(position)
-                            .delay(3000, TimeUnit.MILLISECONDS)
-                            .applySchedulers()
-                            .subscribe({
-                                if (!isNew) {
-                                   var myPosition = getCategoryPosition()
-                                    categoryCycleView.currentPosition = 7//myPosition -1//myPosition
-                                    //1 - для детей
-                                    //2 - строение
-                                    //3 - строкние
-                                    //4 - оборудование
-                                    //5 - дежда
-                                    //6 -отдых
-                                    //7 - прочее
-                                    //8 - трспортан
-                                    //9 - хобби
-                                    //10 - фото
-                                    Log.d("category", myPosition.toString())
-
-                                    Log.d("category", categoryCycleView.currentPosition.toString())
-                                    isNew = true
-                                }
-                                    category?.entities?.map {
-                                        val subStr: String = mySubIdCategory.substring(0, 21)
-                                      //  presenter.getSubCategory(category?.entities?.get(myPosition.toInt))
-                                        if (it.id.toString().startsWith(subStr)){
-                                            presenter.getSubCategory(it)
-                                        }
-                                    }
-                               // advert.categoryId = category?.entities?.get(position)?.id
-                            }, {
-                                it
-                                //  loadingViewModel.errorMessage = it.nonNullMessage()
-                                // loadingViewModel.isError = true
-                            })
-                            }*/
-
+                        saveCurrentLastPositionCategory  = category?.entities?.get(position)?.id.toString()
+                        presenter.getSubCategory(category?.entities?.get(position))
                     }
             }
 
@@ -835,49 +829,20 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         categoryCycleView.onItemClickListener = object : OnItemClickListener {
             override fun onClick(position: Int, carouselItem: CarouselItem) {
                 // ...
-
             }
 
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
                 // ...
             }
         }
-        categoryCycleView.addData(listFour)
-        var positions = 0
 
-        Single.just(getCategoryPosition())
-            .delay(3000, TimeUnit.MILLISECONDS)
-            .applySchedulers()
-            .subscribe({
-                if (!isNew) {
-                    categoryCycleView.post {
-                        categoryCycleView.currentPosition = 3
-                    }
-                    //1 - для детей
-                    //2 - строение
-                    //3 - строкние
-                    //4 - оборудование
-                    //5 - дежда
-                    //6 -отдых
-                    //7 - прочее
-                    //8 - трспортан
-                    //9 - хобби
-                    //10 - фото
-                    isNew = true
-                }
-                category?.entities?.map {
-                    val subStr: String = mySubIdCategory.substring(0, 21)
-                      presenter.getSubCategory(category?.entities?.get(positions))
-                    if (it.id.toString().startsWith(subStr)){
-                        presenter.getSubCategory(it)
-                    }
-                }
-            }, {
-                it
-                //  loadingViewModel.errorMessage = it.nonNullMessage()
-                // loadingViewModel.isError = true
-            })
+        /*categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
+            isAccessible = true
+            val recyclerView: RecyclerView = this.get(categoryCycleView) as RecyclerView
+            recyclerView.scrollToPosition(positions)
+        }*/
 
+       // categoryCycleView.currentPosition = getCategoryPosition()
     }
 
     fun getCategoryPosition(): Int {
@@ -981,11 +946,15 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     //                                    categorySubCycleView.currentPosition = myPosition
                     //todo
                     val myPosition = getCategorySubPosition()
-                    subCategoryCycleView.currentPosition = myPosition
-                    subCatPosition = position
+                    //subCategoryCycleView.currentPosition = myPosition
+                    subCatPosition = myPosition
                     carouselItem?.apply {
                         custom_sub_category.text = caption
                     }
+
+
+
+
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
                     if (entitys?.entities != null) {
                         if (entitys?.entities!!.isNotEmpty()) {
@@ -1301,5 +1270,88 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //todo если там нашли то инициализируем категорию мать
         return currentPosition
         Log.e("categoryCycleView", currentPosition.toString())
+    }
+
+    fun initTrueCarousel() {
+    /*    categoryCycleView.showTopShadow = true
+        categoryCycleView.topShadowAlpha = 0.6f // 0 to 1, 1 means 100%
+        categoryCycleView.topShadowHeight = activity?.let { 32.dpToPx(it) }!! // px value of dp
+        categoryCycleView.showBottomShadow = true
+        categoryCycleView.bottomShadowAlpha = 0.6f // 0 to 1, 1 means 100%
+        categoryCycleView.bottomShadowHeight = activity?.let { 64.dpToPx(it) }!! // px value of dp
+        categoryCycleView.showCaption = true
+        categoryCycleView.captionMargin = activity?.let { 0.dpToPx(it) }!! // px value of dp
+        categoryCycleView.captionTextSize = activity?.let { 14.spToPx(it) }!! // px value of sp
+        categoryCycleView.showIndicator = true
+        categoryCycleView.indicatorMargin = activity?.let { 0.dpToPx(it) }!! // px value of dp
+        categoryCycleView.showNavigationButtons = true
+        categoryCycleView.imageScaleType = ImageView.ScaleType.CENTER_CROP
+        categoryCycleView.carouselBackground = ColorDrawable(Color.parseColor("#333333"))
+        categoryCycleView.imagePlaceholder = context?.let {
+            ContextCompat.getDrawable(
+                it,
+                org.imaginativeworld.whynotimagecarousel.R.drawable.ic_picture
+            )
+        }
+        categoryCycleView.itemLayout =
+            org.imaginativeworld.whynotimagecarousel.R.layout.item_carousel
+        categoryCycleView.imageViewId = org.imaginativeworld.whynotimagecarousel.R.id.img
+        categoryCycleView.previousButtonMargin = context?.let { 4.dpToPx(it) }!! // px value of dp
+        categoryCycleView.nextButtonMargin = activity?.let { 4.dpToPx(it) }!! // px value of dp
+        categoryCycleView.carouselType = CarouselType.SHOWCASE
+        categoryCycleView.scaleOnScroll = false
+        categoryCycleView.scalingFactor = .15f // 0 to 1; 1 means 100
+        categoryCycleView.autoWidthFixing = true
+        categoryCycleView.autoPlay = false
+        categoryCycleView.autoPlayDelay = 3000 // Milliseconds
+        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+            override fun onScrollStateChanged(
+                recyclerView: RecyclerView,
+                newState: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
+              //  categoryCycleView.currentPosition = 1
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            }
+        }
+        categoryCycleView.onItemClickListener = object : OnItemClickListener {
+            override fun onClick(position: Int, carouselItem: CarouselItem) {
+                // ...
+                categoryCycleView.currentPosition = 3
+            }
+
+            override fun onLongClick(position: Int, dataObject: CarouselItem) {
+                // ...
+            }
+
+        }
+
+
+        val listOne = mutableListOf<CarouselItem>()
+
+        val max = 10
+
+        for (i in 1..max) {
+            if (i % 2 == 0) {
+                listOne.add(
+                    CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1581357825340-32259110788a?w=1080",
+                        caption = "Image $i of $max"
+                    )
+                )
+            } else {
+                listOne.add(
+                    CarouselItem(
+                        imageUrl = "https://images.unsplash.com/photo-1581441117193-63e8f6547081?w=1080",
+                        caption = "Image $i of $max"
+                    )
+                )
+            }
+        }
+
+        categoryCycleView.addData(listOne)*/
     }
 }

@@ -40,7 +40,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.categoryCycleViewMaps
 import kotlinx.android.synthetic.main.fragment_map.custom_caption
 import kotlinx.android.synthetic.main.fragment_map.custom_sub_category
-import kotlinx.android.synthetic.main.fragment_map.subCategoryCycleView
+import kotlinx.android.synthetic.main.fragment_map.subCategoryCycleViewMaps
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
@@ -526,7 +526,7 @@ class MyMapFragment : FragmentWrapper(),
                                    .subscribe({
                                        if (realLifeSizeEntities != null) {
                                            if (realLifeSizeEntities!!.isEmpty()) {
-                                               subCategoryCycleView.visibility = View.GONE
+                                               subCategoryCycleViewMaps.visibility = View.GONE
                                                category?.entities?.get(positionNew)?.id?.let { it1 ->
                                                    //todo стираем список точек
                                                    currentCategory = it1
@@ -585,7 +585,7 @@ class MyMapFragment : FragmentWrapper(),
         var count = 0
         val listFour = mutableListOf<CarouselItem>()
 
-        subCategoryCycleView.captionTextSize = 0
+        subCategoryCycleViewMaps.captionTextSize = 0
         entitys?.entities?.map {
             count++
            // if (it.id == advert.categoryId) {
@@ -598,9 +598,9 @@ class MyMapFragment : FragmentWrapper(),
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
-        subCategoryCycleView.currentPosition = 0
+        subCategoryCycleViewMaps.currentPosition = 0
 
-        subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+        subCategoryCycleViewMaps.onScrollListener = object : CarouselOnScrollListener {
             var positionNew = position
 
             override fun onScrollStateChanged(
@@ -638,15 +638,14 @@ class MyMapFragment : FragmentWrapper(),
             }
         }
 
-        subCategoryCycleView.addData(listFour)
-        subCategoryCycleView.scrollTo(0, 0)
+        subCategoryCycleViewMaps.addData(listFour)
         if (entitys?.entities?.isEmpty()!!) {
-            subCategoryCycleView.visibility = View.GONE
+            subCategoryCycleViewMaps.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
         } else {
-            subCategoryCycleView.visibility = View.GONE
+            subCategoryCycleViewMaps.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
-            subCategoryCycleView.visibility = View.VISIBLE
+            subCategoryCycleViewMaps.visibility = View.VISIBLE
             custom_sub_category.visibility = View.VISIBLE
             // subCategoryCycleView.setIndicator(custom_indicator)
         }
