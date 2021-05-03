@@ -28,14 +28,14 @@
             android:id="@+id/call"
             android:layout_marginEnd="15dp"
             android:layout_width="wrap_content"
-            android:background="@drawable/bottom_sheet_rounded_bg_orange_vertical"
+            android:background="@drawable/bg_navigation_gradient"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/view_divider"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/ActionItem"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@color/design_default_color_primary"
             android:drawableStart="@android:drawable/sym_action_call"
-            android:text="@string/action_rent"
+            android:text="@string/call"
             app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
