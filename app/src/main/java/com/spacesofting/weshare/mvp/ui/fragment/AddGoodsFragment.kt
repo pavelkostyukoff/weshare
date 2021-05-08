@@ -1016,6 +1016,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             NEW_SEARCH_RESULTS -> setNewAdress()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
+        hideKeyboard(activity)
     }
 
     //todo метод возврата с выбранным файлом фото

@@ -210,7 +210,8 @@ open class AddressSearchFragment : FragmentWrapper(),
                     LogUtil.Loge(e)
                 }
                 LogUtil.Log(query)
-               //todo скрывает клавиатуру hideKeyboard(context)
+               //todo скрывает клавиатуру
+              hideKeyboard(activity)
             }
         }
     }
@@ -390,18 +391,7 @@ open class AddressSearchFragment : FragmentWrapper(),
        return false
    }
 
-    fun hideKeyboard(context: Context?) {
-        try {
-            if (context == null) return
-            val inputMethodManager =
-                context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-           // inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
-        }
-        catch (e: Exception) {
 
-        }
-
-    }
     override fun onListItemLongClick(position: Int) {}
     // сюда возвращается из яндекс-карт адрес с координатами
     override fun onSuccessResponse(place: Place) {

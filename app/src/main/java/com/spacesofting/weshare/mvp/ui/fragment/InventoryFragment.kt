@@ -16,6 +16,7 @@ import com.spacesofting.weshare.mvp.ui.adapter.InventoryPagerAdapter
 import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.image_picker_fragment.*
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 import moxy.presenter.InjectPresenter
@@ -175,12 +176,12 @@ class InventoryFragment : FragmentWrapper(),
         {
             Picasso.with(context)
                 .load(avatar)
-                .centerCrop()
+               // .centerCrop()
                 .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
                 .into(mainAvatar,
                     object : Callback {
                         override fun onSuccess() {
-                            // loadImageProgress.visibility = View.GONE
+                           //  loadImageProgress.visibility = View.GONE
                         }
                         override fun onError() {
                             //  loadImageProgress.visibility = View.GONE

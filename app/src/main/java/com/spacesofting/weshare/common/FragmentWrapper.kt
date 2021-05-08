@@ -1,10 +1,13 @@
 package com.spacesofting.weshare.common
 
+import android.app.Activity
+import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,6 +24,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_wrapper.*
 import kotlinx.android.synthetic.main.fragment_wrapper.*
 import kotlinx.android.synthetic.main.view_drawer_menu.*
+import java.lang.Exception
 
 abstract class FragmentWrapper : MvpAppCompatFragment() {
     companion object {
@@ -359,5 +363,18 @@ abstract class FragmentWrapper : MvpAppCompatFragment() {
         val inflatedView: View = inflater.inflate(R.layout.view_guests_items, null, false)
         inflatedView.layoutParams = params
         (activity as ActivityWrapper).navItemsLayout.addView(inflatedView)
+    }
+
+    fun hideKeyboard(context: Context?) {
+        try {
+            if (context == null) return
+            val inputMethodManager =
+                context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            // inputMethodManager.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        }
+        catch (e: Exception) {
+
+        }
+
     }
 }
