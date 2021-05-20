@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.tabs.TabLayout
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.RespouncePublish
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -16,7 +16,6 @@ import com.spacesofting.weshare.mvp.ui.adapter.InventoryPagerAdapter
 import com.spacesofting.weshare.mvp.ui.widget.ActionBottomDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.image_picker_fragment.*
 import kotlinx.android.synthetic.main.view_bag_goods.*
 import kotlinx.android.synthetic.main.view_bag_my_info.*
 import moxy.presenter.InjectPresenter
@@ -25,7 +24,7 @@ import java.util.*
 
 class InventoryFragment : FragmentWrapper(),
     InventoryView, ActionBottomDialogFragment.ItemClickListener {
-    private var advert: ResponcePublish? = null
+    private var advert: RespouncePublish? = null
     private var tab: Int? = null
 
     override fun getFragmentLayout(): Int {
@@ -39,7 +38,7 @@ class InventoryFragment : FragmentWrapper(),
         private const val ADVERT_KEY = "key_card"
         const val TAG = "InventoryFragment"
 
-        fun getBundle(pass: Int?, card: ResponcePublish?) : Bundle{
+        fun getBundle(pass: Int?, card: RespouncePublish?) : Bundle{
             val argument = Bundle()
             argument.putSerializable(POSITION_KEY, pass)
             argument.putSerializable(ADVERT_KEY, card)
@@ -60,7 +59,7 @@ class InventoryFragment : FragmentWrapper(),
         super.onViewCreated(view, savedInstanceState)
         arguments?.let{ bundle ->
             tab = bundle.get(POSITION_KEY) as? Int
-            advert = bundle.get(ADVERT_KEY) as? ResponcePublish
+            advert = bundle.get(ADVERT_KEY) as? RespouncePublish
         }
 
         if(tab == null) {

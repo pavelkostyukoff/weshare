@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.mvp.model.RentPeriod
 import java.io.Serializable
 
-class RespauncePublish : Serializable {
+class RespouncePublish : Serializable {
     @SerializedName("id")
     val id: String? = null
     @SerializedName("userId")

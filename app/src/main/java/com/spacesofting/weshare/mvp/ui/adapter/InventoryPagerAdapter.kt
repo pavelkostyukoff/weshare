@@ -1,13 +1,13 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.RespouncePublish
 import com.spacesofting.weshare.mvp.ui.fragment.IAmShooltGoodsFragment
 import com.spacesofting.weshare.mvp.ui.fragment.IAmRentGoodsFragment
 
 class InventoryPagerAdapter(
     fm: FragmentManager,
-    advert: ResponcePublish?
+    advert: RespouncePublish?
 ) : androidx.fragment.app.FragmentPagerAdapter(fm) {
     val advert = advert
 

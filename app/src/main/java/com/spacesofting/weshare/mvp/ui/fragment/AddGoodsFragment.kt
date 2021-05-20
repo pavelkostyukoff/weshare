@@ -1,11 +1,9 @@
 package com.spacesofting.weshare.mvp.ui.fragment
 
-import android.annotation.SuppressLint
 import android.app.FragmentTransaction
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,9 +14,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -31,7 +27,7 @@ import com.pawegio.kandroid.w
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Entity
 import com.spacesofting.weshare.api.Entitys
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.RespouncePublish
 import com.spacesofting.weshare.api.model.place.Place
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.CategotiesImage
@@ -60,7 +56,6 @@ import kotlinx.android.synthetic.main.fragment_add_goods.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.*
 import java.io.File
-import java.util.concurrent.TimeUnit
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
     BannerAdapterPhoto.OnCardClickListener {
@@ -134,8 +129,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         }
                     }
                     val point = Point()
-                    val rnds = (0..10).random() * 0.003
-                    address.region = editAdvert?.address?.region
+                    val rnds = (0..10).random() * 0.003 //СТЕРЕТЬ ЭТО ТЕСТ ДЛЯ РАСКИДЫВАНИЯ ТОЧЕК ПО КАРТЕ
+                    address.region = editAdvert.address?.region
                     address.city = editAdvert.address?.city
                     address.address = editAdvert.address?.address
                     point.latitude = (editAdvert.address?.point?.latitude + rnds).toString()
@@ -149,15 +144,17 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     ApplicationWrapper.instance.setAuthorityWish(null)
       //      }
         }
-        if (presenter.goodId.isEmpty()) {
-            presenter.goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
+        val goodId = arguments?.getSerializable(DATA_KEY_STR).toString()
+
+        if (presenter.goodId.isEmpty() && goodId.isNotEmpty()) {
+            presenter.goodId = goodId
             if (presenter.goodId.isEmpty()) {
-                presenter.goodId = ApplicationWrapper.instance.goodId!!
+                presenter.goodId = ApplicationWrapper.instance.goodId.toString()
             } else {
                 if (presenter.goodId != "null") {
                     ApplicationWrapper.instance.goodId = presenter.goodId
                 } else {
-                    presenter.goodId = ApplicationWrapper.instance.goodId!!
+                    presenter.goodId = ApplicationWrapper.instance.goodId.toString()
                 }
             }
         }
@@ -168,15 +165,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         ) {
             presenter.goodId = ApplicationWrapper.instance.goodId!!
         }
-        //load wish to presenter - //todo мы нажали на кнопку карандаша в своих вещах на адаптер item забрали везь и прокинули сюда
-        //    val advert = arguments?.getSerializable(DATA_KEY) as? Advert
 
-        /* advert?.let {
-             //todo //presenter.wish = wish
-             // title = getString(R.string.wish_edit_wish_title)
-             //todo в случае если мы получили вещь и она пошла грузитсья в поля
-             setLoadedWish(it)
-         }*/
         advertTitle.addTextChangedListener(WishNameToDescriptionWatcher(
             presenter.nameMaxLength
         ) { s ->
@@ -507,7 +496,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         save.isEnabled = isEnabled
     }
 
-    override fun saved(isSuccess: ResponcePublish) {
+    override fun saved(isSuccess: RespouncePublish) {
         router.replaceScreen(
             ScreenPool.INVENTORY_FRAGMENT,
             InventoryFragment.getBundle(null, isSuccess)

@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.presentation.view
 
 import com.spacesofting.weshare.api.Entitys
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.RespouncePublish
 import moxy.MvpView
 import moxy.viewstate.strategy.OneExecutionStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -24,7 +24,7 @@ interface AddGoodsView : MvpView {
     fun showProgress(isShowed: Boolean)
 
     fun setConfirmButtonState(isEnabled: Boolean)
-    fun saved(isSuccess: ResponcePublish)
+    fun saved(isSuccess: RespouncePublish)
 
     fun openCamera(file: File)
     fun openGallery()

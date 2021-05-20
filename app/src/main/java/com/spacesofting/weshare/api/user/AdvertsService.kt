@@ -51,7 +51,7 @@ interface AdvertsService {
     //todo  publicsh advert
     // не показывать окно переключения языка
     @PATCH("me/adverts/{advertId}/publish")
-    fun publishMyAdvert(@Path("advertId") advertId: String): Observable<ResponcePublish>
+    fun publishMyAdvert(@Path("advertId") advertId: String): Observable<RespouncePublish>
 
    // @POST("me/adverts/{advertId}/images")  //todo //Подтвердить получение задачи Observable<Response<Void>>
    // fun addImageToMyAdvert(@Body updateProfile: String?): Observable<ResponceAddImege>

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.paginate.Paginate
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.ResponcePublish
+import com.spacesofting.weshare.api.RespouncePublish
 import com.spacesofting.weshare.common.FragmentWrapper
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
@@ -17,7 +17,7 @@ import com.spacesofting.weshare.mvp.ui.adapter.ItemShootGoodsAdapter
 import com.spacesofting.weshare.mvp.ui.adapter.ProductDiffUtilCallback
 import kotlinx.android.synthetic.main.fragment_irent.*
 
-class IAmShooltGoodsFragment(advert: ResponcePublish?) : FragmentWrapper(),
+class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
     Paginate.Callbacks,
     IrentView {
     private var adapter: ItemShootGoodsAdapter? = null
