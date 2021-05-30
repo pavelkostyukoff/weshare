@@ -59,11 +59,10 @@ class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
     private fun initAdapter() {
 
         adapter = ItemShootGoodsAdapter(mIrentPresenter)
-        val mLayoutManager =
-            androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-      //  recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-   /*     recyclerView.itemAnimator =
-            androidx.recyclerview.widget.DefaultItemAnimator()*/
+        val mLayoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        recyclerView.itemAnimator =
+            androidx.recyclerview.widget.DefaultItemAnimator()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
@@ -94,15 +93,15 @@ class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
             val position = parent.getChildAdapterPosition(view) // item position
             val column = position % spanCount // item column
             if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+                outRect.left = /*spacing - column * spacing / spanCount */ spacing - column * ((1f / spanCount) * spacing).toInt()
+                outRect.right = /*(column + 1) * spacing / spanCount*/ (column + 1) * ((1f / spanCount) * spacing).toInt()
                 if (position < spanCount) { // top edge
                     outRect.top = spacing
                 }
                 outRect.bottom = spacing // item bottom
             } else {
-                outRect.left = column * spacing / spanCount // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                outRect.left = /*column * spacing / spanCount*/  column * ((1f / spanCount) * spacing).toInt()
+                outRect.right = /*spacing - (column + 1) * spacing / spanCount*/  spacing - (column + 1) * ((1f /    spanCount) * spacing).toInt()
                 if (position >= spanCount) {
                     outRect.top = spacing // item top
                 }

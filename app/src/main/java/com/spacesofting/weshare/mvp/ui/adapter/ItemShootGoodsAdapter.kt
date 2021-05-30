@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+import com.pawegio.kandroid.displayWidth
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ApplicationWrapper.Companion.context
 import com.spacesofting.weshare.common.BoomerangoRouter
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
+import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.dellAdvert
@@ -35,8 +37,11 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
                         positionOne.images?.get(0)?.url?.substring(4, it)
                     }).toString()
                 if (positionOne.images!!.isNotEmpty()) {
+                    val width = context.displayWidth - 16.dp * 2
+                    val height = context.resources.getDimensionPixelOffset(R.dimen.image_width)
                     Picasso.with(context)
                         .load(output)
+                        .resize(width,height)
                         .placeholder(R.drawable.wish_default_img)
                         // .transform(RoundedCorners(radius))
                         .into(holder.carImageView)

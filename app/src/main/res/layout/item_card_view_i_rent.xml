@@ -5,8 +5,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv"
         app:cardCornerRadius="15dp"
-        android:layout_margin="5dp"
-        android:elevation="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,25 +18,24 @@
         <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
                 android:id="@+id/porterShapeImageView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
                 android:src="@drawable/wish_default_img"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:siShape="@drawable/shape_rounded_rectangle"
-                app:siSquare="true" />
+                app:siSquare="true"
+                tools:layout_height="100dp" />
         <!--
         android:adjustViewBounds="true"
 -->
-
 
         <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/ic_yae"
-                app:layout_constraintStart_toStartOf="@+id/imageButton2"
+                app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -46,8 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_error" />
 
         <ImageView
@@ -55,16 +50,15 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_pencil" />
+                app:srcCompat="@drawable/ic_pencil"
+                tools:layout_editor_absoluteY="68dp" />
 
         <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/ic_bissnes"
                 app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
                 app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
@@ -73,21 +67,17 @@
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/ic_hart"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.591" />
+                app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
         <TextView
                 android:id="@+id/periodRents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
                 android:text="3"
                 android:textColor="#030202"
                 android:textSize="12sp"
@@ -100,22 +90,22 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 android:text="20"
                 android:textColor="#030202"
                 android:textSize="12sp"
+                android:paddingStart="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageButton"
-                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                app:layout_constraintTop_toTopOf="@+id/imageButton"
+                app:layout_constraintVertical_bias="0.571" />
 
         <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
                 android:text="7"
                 android:textColor="#030202"
                 android:textSize="12sp"
