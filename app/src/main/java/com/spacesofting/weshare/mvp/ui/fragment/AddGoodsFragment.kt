@@ -111,7 +111,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //todo иногда пустой потому что нет города а штат или что-то такое
         if (editAdvert != null) {
           //  if (!isNew) {
-            categoryCycleView.performClick()
                 presenter.newAdvert = advert //todo должно решить проблему
                 Log.e(
                     "Selected_Page",
@@ -386,7 +385,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     override fun showWishImage(file: File) {
         if (file != null) {
-            ApplicationWrapper.instance.myImages?.clear()
+            ApplicationWrapper.instance.myImages = emptyList()
         }
         //todo  сюда складываем фото для адаптера - воти все вот и все
         /*     Picasso.with(context)
@@ -796,13 +795,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         //todo если редактирование то берем catId и выставляем position
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
                 newState: Int,
                 position: Int,
                 carouselItem: CarouselItem?
             ) {
-
+                categoryCycleView.performClick()
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         carouselItem?.apply {
                             custom_caption.text = caption
@@ -818,6 +818,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         categoryCycleView.onItemClickListener = object : OnItemClickListener {
             override fun onClick(position: Int, carouselItem: CarouselItem) {
                 // ...
+                categoryCycleView.currentPosition = 2
             }
 
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
@@ -832,6 +833,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }*/
 
        // categoryCycleView.currentPosition = getCategoryPosition()
+
     }
 
     fun getCategoryPosition(): Int {

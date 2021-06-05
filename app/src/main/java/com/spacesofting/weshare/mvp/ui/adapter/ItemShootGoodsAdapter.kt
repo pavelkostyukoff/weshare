@@ -1,11 +1,11 @@
 package com.spacesofting.weshare.mvp.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.github.siyamed.shapeimageview.mask.PorterShapeImageView
 import com.pawegio.kandroid.displayWidth
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.common.ApplicationWrapper
@@ -16,7 +16,9 @@ import com.spacesofting.weshare.mvp.presentation.presenter.IrentPresenter
 import com.spacesofting.weshare.utils.dp
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.*
+/*
 import kotlinx.android.synthetic.main.item_card_view_i_rent.view.dellAdvert
+*/
 
 class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapter<ItemShootGoodsAdapter.CompaniesListViewHolder>() {
     var dataset = ArrayList<RespounceDataMyAdverts>()
@@ -36,12 +38,18 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
                     .append("s").append(positionOne.images?.get(0)?.url?.length?.let {
                         positionOne.images?.get(0)?.url?.substring(4, it)
                     }).toString()
-                if (positionOne.images!!.isNotEmpty()) {
+                if (output.isNotEmpty()) {
                     val width = context.displayWidth - 16.dp * 2
                     val height = context.resources.getDimensionPixelOffset(R.dimen.image_width)
+                  /*  Glide
+                        .with(context)
+                        .load(R.drawable.wish_default_img)
+                        .centerCrop()
+                        .placeholder(R.drawable.wish_default_img)
+                        .into(holder.carImageView)*/
                     Picasso.with(context)
-                        .load(output)
-                        .resize(width,height)
+                        .load(R.drawable.wish_default_img)
+                       // .resize(width,height)
                         .placeholder(R.drawable.wish_default_img)
                         // .transform(RoundedCorners(radius))
                         .into(holder.carImageView)
@@ -59,7 +67,7 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
 
     class CompaniesListViewHolder(item: View) : RecyclerView.ViewHolder(item) {
       //  var person_photo = item.porterShapeImageView
-        val carImageView: PorterShapeImageView = itemView.porterShapeImageView
+        val carImageView: ImageView = itemView.carImageView
         val dellAdvert: ImageView = itemView.dellAdvert
         val editAdvert: ImageView = itemView.editAdvert
 

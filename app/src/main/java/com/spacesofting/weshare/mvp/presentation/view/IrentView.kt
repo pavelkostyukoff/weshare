@@ -9,7 +9,7 @@ import moxy.viewstate.strategy.StateStrategyType
 
 
 interface IrentView : MvpView {
-    fun setListAdverts(it: ArrayList<RespounceDataMyAdverts>?)
+    fun setListAdverts(it: List<RespounceDataMyAdverts>?)
     fun delAdvertCOmplite()
     fun editCOmplite()
 }

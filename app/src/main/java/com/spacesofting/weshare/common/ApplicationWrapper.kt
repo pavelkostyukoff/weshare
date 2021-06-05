@@ -36,8 +36,7 @@ class ApplicationWrapper : MultiDexApplication() {
         var idForEdit: String? = null
        // var profile : User? = gson.fromJson(Settings.json2, User::class.java)
 
-    var myImages: ArrayList<RespounceDataMyAdverts>? = null
-
+    var myImages: List<RespounceDataMyAdverts>? = null
 
     companion object {
         lateinit var instance: ApplicationWrapper

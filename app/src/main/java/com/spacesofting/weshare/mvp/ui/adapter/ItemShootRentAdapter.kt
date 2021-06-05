@@ -27,10 +27,7 @@ class ItemShootRentAdapter(val context: Context) : androidx.recyclerview.widget.
     override fun onBindViewHolder(holder: CompaniesListViewHolder, position: Int) {
         val itemRent = dataset[position]
 
-        Picasso.with(context).load("https://via.placeholder.com/350").into(holder.person_photo)
-
-
-
+     //   Picasso.with(context).load("https://via.placeholder.com/350").into(holder.person_photo)
       //  holder.person_name.text = itemRent.name
 
     /*    val innText = String.format(context.getString(R.string.edit_guest_card_inn_count), company.inn)
@@ -42,7 +39,7 @@ class ItemShootRentAdapter(val context: Context) : androidx.recyclerview.widget.
     }
 
     class CompaniesListViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
-        var person_photo = item.porterShapeImageView
+       // var person_photo = item.porterShapeImageView
        // var person_name = item.person_name
       //  var person_age = item.person_age
     }

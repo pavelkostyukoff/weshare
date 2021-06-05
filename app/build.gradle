@@ -151,6 +151,7 @@
         implementation 'com.yandex.android:directions:3.5.0'
         implementation 'com.yandex.android:transport:3.5.0'
         implementation 'com.yandex.android:places:3.5.0'
+        implementation 'com.github.bumptech.glide:glide:4.12.0'
         // navigation
         implementation 'ru.terrakok.cicerone:cicerone:3.0.0'
         implementation 'androidx.multidex:multidex:2.0.1'

@@ -27,12 +27,18 @@ class IrentPresenter : MvpPresenter<IrentView>() {
     @SuppressLint("CheckResult")
     fun getMyAdvert() {
         Api.Adverts.getMeAdverts()
+            .map {
+                it.data?.filter { advert ->
+                    advert.images?.firstOrNull()?.url != null
+                } ?: emptyList()
+
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                viewState.setListAdverts(it.data)
-                ApplicationWrapper.instance.myImages = it.data
-                //todo тут заполняем баннеры в advert
+
+                viewState.setListAdverts(it)
+                ApplicationWrapper.instance.myImages = it
 
                 it
             }) {
