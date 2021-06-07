@@ -53,13 +53,13 @@ class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
 
         adapter = ItemShootGoodsAdapter(mIrentPresenter)
         val mLayoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
-        mLayoutManager.isAutoMeasureEnabled = false
+       // mLayoutManager.isAutoMeasureEnabled = false
         //recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(25), false))
 
         recyclerView.layoutManager = mLayoutManager
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(8), true))
-        recyclerView.itemAnimator =
-            androidx.recyclerview.widget.DefaultItemAnimator()
+       // recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(8), true))
+       // recyclerView.itemAnimator =
+         //   androidx.recyclerview.widget.DefaultItemAnimator()
         recyclerView.adapter = adapter
 
 //        Paginate.with(compilationsList, this).build()
