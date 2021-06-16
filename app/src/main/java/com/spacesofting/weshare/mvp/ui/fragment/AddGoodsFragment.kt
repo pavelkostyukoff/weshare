@@ -783,7 +783,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         categoryCycleView.postDelayed({
             categoryCycleView.currentPosition = getCategoryPosition()
         },
-        350)
+        4000)
 
     /*    Single.just(getCategoryPosition())
             .delay(3000, TimeUnit.MILLISECONDS)
@@ -854,7 +854,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     }
 
-    fun getCategoryPosition(): Int {
+    private fun getCategoryPosition(): Int {
         var name = ""
         Log.d("category", editAdvert?.categoryId.toString())
         when (editAdvert?.categoryId)
@@ -933,13 +933,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             if (it.id == advert.categoryId) {
                 position = count
             }
-            it.categoryImg?.let { it1 ->
+            listFour.clear()
+            it.categoryImg?.let { url ->
                 CarouselItem(
-                    imageUrl = it1,
+                    imageUrl = url,
                     caption = it.name
-                    // if(ApplicationWrapper.category.)
                 )
-            }?.let { it2 -> listFour.add(it2) }
+            }?.let { item -> listFour.add(item) }
         }
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
@@ -991,6 +991,14 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             custom_sub_category.visibility = View.VISIBLE
             // subCategoryCycleView.setIndicator(custom_indicator)
         }
+
+
+
+/*
+        subCategoryCycleView.postDelayed({
+            subCategoryCycleView.currentPosition = getCategoryPosition()
+        },
+            350)*/
     }
 
     //todo запрос на открытие камеры и права
@@ -1280,88 +1288,5 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         //todo если там нашли то инициализируем категорию мать
         return currentPosition
         Log.e("categoryCycleView", currentPosition.toString())
-    }
-
-    fun initTrueCarousel() {
-    /*    categoryCycleView.showTopShadow = true
-        categoryCycleView.topShadowAlpha = 0.6f // 0 to 1, 1 means 100%
-        categoryCycleView.topShadowHeight = activity?.let { 32.dpToPx(it) }!! // px value of dp
-        categoryCycleView.showBottomShadow = true
-        categoryCycleView.bottomShadowAlpha = 0.6f // 0 to 1, 1 means 100%
-        categoryCycleView.bottomShadowHeight = activity?.let { 64.dpToPx(it) }!! // px value of dp
-        categoryCycleView.showCaption = true
-        categoryCycleView.captionMargin = activity?.let { 0.dpToPx(it) }!! // px value of dp
-        categoryCycleView.captionTextSize = activity?.let { 14.spToPx(it) }!! // px value of sp
-        categoryCycleView.showIndicator = true
-        categoryCycleView.indicatorMargin = activity?.let { 0.dpToPx(it) }!! // px value of dp
-        categoryCycleView.showNavigationButtons = true
-        categoryCycleView.imageScaleType = ImageView.ScaleType.CENTER_CROP
-        categoryCycleView.carouselBackground = ColorDrawable(Color.parseColor("#333333"))
-        categoryCycleView.imagePlaceholder = context?.let {
-            ContextCompat.getDrawable(
-                it,
-                org.imaginativeworld.whynotimagecarousel.R.drawable.ic_picture
-            )
-        }
-        categoryCycleView.itemLayout =
-            org.imaginativeworld.whynotimagecarousel.R.layout.item_carousel
-        categoryCycleView.imageViewId = org.imaginativeworld.whynotimagecarousel.R.id.img
-        categoryCycleView.previousButtonMargin = context?.let { 4.dpToPx(it) }!! // px value of dp
-        categoryCycleView.nextButtonMargin = activity?.let { 4.dpToPx(it) }!! // px value of dp
-        categoryCycleView.carouselType = CarouselType.SHOWCASE
-        categoryCycleView.scaleOnScroll = false
-        categoryCycleView.scalingFactor = .15f // 0 to 1; 1 means 100
-        categoryCycleView.autoWidthFixing = true
-        categoryCycleView.autoPlay = false
-        categoryCycleView.autoPlayDelay = 3000 // Milliseconds
-        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
-            override fun onScrollStateChanged(
-                recyclerView: RecyclerView,
-                newState: Int,
-                position: Int,
-                carouselItem: CarouselItem?
-            ) {
-              //  categoryCycleView.currentPosition = 1
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            }
-        }
-        categoryCycleView.onItemClickListener = object : OnItemClickListener {
-            override fun onClick(position: Int, carouselItem: CarouselItem) {
-                // ...
-                categoryCycleView.currentPosition = 3
-            }
-
-            override fun onLongClick(position: Int, dataObject: CarouselItem) {
-                // ...
-            }
-
-        }
-
-
-        val listOne = mutableListOf<CarouselItem>()
-
-        val max = 10
-
-        for (i in 1..max) {
-            if (i % 2 == 0) {
-                listOne.add(
-                    CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1581357825340-32259110788a?w=1080",
-                        caption = "Image $i of $max"
-                    )
-                )
-            } else {
-                listOne.add(
-                    CarouselItem(
-                        imageUrl = "https://images.unsplash.com/photo-1581441117193-63e8f6547081?w=1080",
-                        caption = "Image $i of $max"
-                    )
-                )
-            }
-        }
-
-        categoryCycleView.addData(listOne)*/
     }
 }
