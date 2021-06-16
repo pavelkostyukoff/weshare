@@ -5,11 +5,14 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
@@ -56,6 +59,8 @@ import kotlinx.android.synthetic.main.fragment_add_goods.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.*
 import java.io.File
+import java.util.concurrent.TimeUnit
+
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
     BannerAdapterPhoto.OnCardClickListener {
@@ -766,27 +771,40 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
     private fun initCategoryList() {
         categoryCycleView.addData(listFour)
+  /*      val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
+        if (vto.isAlive) {
+            vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    categoryCycleView.currentPosition = 4
+                }
+            })
+        }
+*/
+        categoryCycleView.postDelayed({
+            categoryCycleView.currentPosition = getCategoryPosition()
+        },
+        350)
 
-      /*  Single.just(getCategoryPosition())
+    /*    Single.just(getCategoryPosition())
             .delay(3000, TimeUnit.MILLISECONDS)
             .applySchedulers()
             .subscribe({
                 val positions = getCategoryPosition()
 
                 if (!isNew) {
-                  //  categoryCycleView.currentPosition = positions
-                      categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
+                    categoryCycleView.currentPosition = positions
+          *//*            categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
                     isAccessible = true
                     val recyclerView: RecyclerView = this.get(categoryCycleView) as RecyclerView
                     recyclerView.scrollToPosition(positions)
-                          categoryCycleView.currentPosition = positions
-                }
+                          categoryCycleView.currentPosition = positions*//*
+              //  }
                         isNew = true
-            }
+            }*/
 
                  //   presenter.getSubCategory(category?.entities?.get(positions))
 
-
+/*
     }, {
         it
         //  loadingViewModel.errorMessage = it.nonNullMessage()
@@ -841,27 +859,27 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         Log.d("category", editAdvert?.categoryId.toString())
         when (editAdvert?.categoryId)
         {
-            CategotiesImage.KINDS_ALL.number ->{
+            CategotiesImage.KINDS_ALL.number -> {
                 name = "для детей"
             }
-            CategotiesImage.BUILDING_ALL.number ->{
+            CategotiesImage.BUILDING_ALL.number -> {
                 name = "недвижимость"
             }
-            CategotiesImage.OBORUDOVANIE_ALL.number ->{
+            CategotiesImage.OBORUDOVANIE_ALL.number -> {
                 name = "оборудование"
             }
-            CategotiesImage.CLOUSED_ODEZDA_ALL.number ->{
+            CategotiesImage.CLOUSED_ODEZDA_ALL.number -> {
                 name = "одежда"
             }
-            CategotiesImage.OTDIH.number ->{
+            CategotiesImage.OTDIH.number -> {
                 name = "отдых и спорт"
             }
-            CategotiesImage.PROCHEE.number ->{
+            CategotiesImage.PROCHEE.number -> {
                 name = "прочее"
             }
-            CategotiesImage.CARS_ALL.number ->{
-            name = "транспорт"
-        }
+            CategotiesImage.CARS_ALL.number -> {
+                name = "транспорт"
+            }
             CategotiesImage.CARS_RIVER.number -> {
                 name = "водный транспорт"
             }
@@ -886,7 +904,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 name = "одежда"
             }
         }
-        catch (e:java.lang.Exception) {
+        catch (e: java.lang.Exception) {
 
         }
         var count = 0
@@ -919,7 +937,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 CarouselItem(
                     imageUrl = it1,
                     caption = it.name
-                   // if(ApplicationWrapper.category.)
+                    // if(ApplicationWrapper.category.)
                 )
             }?.let { it2 -> listFour.add(it2) }
         }
@@ -1199,52 +1217,52 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
         when (mySubIdCategory)
         {
-            CategotiesImage.BUILDING_GARAGE.number ->{
+            CategotiesImage.BUILDING_GARAGE.number -> {
                 name = "для детей"
             }
-            CategotiesImage.BUILDING_DACHA.number ->{
+            CategotiesImage.BUILDING_DACHA.number -> {
                 name = "недвижимость"
             }
-            CategotiesImage.BUILDING_HOUSE.number ->{
+            CategotiesImage.BUILDING_HOUSE.number -> {
                 name = "оборудование"
             }
-            CategotiesImage.BUILDING_KVARTIRA.number ->{
+            CategotiesImage.BUILDING_KVARTIRA.number -> {
                 name = "одежда"
             }
-            CategotiesImage.BUILDING_OFFICE.number ->{
+            CategotiesImage.BUILDING_OFFICE.number -> {
                 name = "отдых и спорт"
             }
-            CategotiesImage.BUILDING_WORK_SPACE.number ->{
+            CategotiesImage.BUILDING_WORK_SPACE.number -> {
                 name = "прочее"
             }
-            CategotiesImage.BUILDING_SCLAD.number ->{
+            CategotiesImage.BUILDING_SCLAD.number -> {
                 name = "транспорт"
             }
             CategotiesImage.CLOUSED_ODEZDA_MUZ_KOSTYUM.number -> {
                 name = "водный транспорт"
             }
-            CategotiesImage.CLOUSED_ODEZDA_NARODNAYA.number ->{
+            CategotiesImage.CLOUSED_ODEZDA_NARODNAYA.number -> {
                 name = "хобби"
             }
-            CategotiesImage.CLOUSED_ODEZDA_PLATYA.number ->{
+            CategotiesImage.CLOUSED_ODEZDA_PLATYA.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CLOUSED_ODEZDA_RYBASHKI.number ->{
+            CategotiesImage.CLOUSED_ODEZDA_RYBASHKI.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CLOUSED_ODEZDA_TORZASTVENNAYA.number ->{
+            CategotiesImage.CLOUSED_ODEZDA_TORZASTVENNAYA.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CARS_AUTO.number ->{
+            CategotiesImage.CARS_AUTO.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CARS_VELO.number ->{
+            CategotiesImage.CARS_VELO.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CARS_MOTO.number ->{
+            CategotiesImage.CARS_MOTO.number -> {
                 name = "электроника"
             }
-            CategotiesImage.CARS_RIVER.number ->{
+            CategotiesImage.CARS_RIVER.number -> {
                 name = "речной транспорт"
             }
         }

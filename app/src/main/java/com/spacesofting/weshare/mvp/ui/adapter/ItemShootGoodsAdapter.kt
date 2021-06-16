@@ -25,13 +25,13 @@ import kotlinx.android.synthetic.main.item_card_view_i_rent.view.dellAdvert
 
 class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapter<ItemShootGoodsAdapter.CompaniesListViewHolder>() {
     var dataset = ArrayList<RespounceDataMyAdverts>()
-    fun getScreenWidth(): Int {
+ /*   fun getScreenWidth(): Int {
         return Resources.getSystem().displayMetrics.widthPixels
     }
 
     fun getScreenHeight(): Int {
         return Resources.getSystem().displayMetrics.heightPixels
-    }
+    }*/
     val router: BoomerangoRouter = ApplicationWrapper.instance.getRouter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesListViewHolder {
@@ -40,10 +40,10 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
             parent,
             false
         )
-        view.carImageView.layoutParams.apply {
+      /*  view.porterShapeImageView.layoutParams.apply {
             this.height = getScreenHeight()
             this.width = getScreenWidth()
-        }
+        }*/
         return CompaniesListViewHolder(view)
     }
     override fun getItemCount() = dataset.size
@@ -66,8 +66,8 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
                     val height = context.resources.getDimensionPixelOffset(R.dimen.image_width)
 
                     Picasso.with(context)
-                        .load("output")//http://res.cloudinary.com/covenant61/image/upload/v1620077794/boomerango/adverts/2e702ba8-92e3-4587-80dc-72d902bcee5d/13a81da4-f796-4829-8f56-b2eec5f5ba30.jpg
-                       // .resize(width,height)
+                        .load(output)//http://res.cloudinary.com/covenant61/image/upload/v1620077794/boomerango/adverts/2e702ba8-92e3-4587-80dc-72d902bcee5d/13a81da4-f796-4829-8f56-b2eec5f5ba30.jpg
+                        .resize(width,height)
                         .placeholder(R.drawable.wish_default_img)
                         // .transform(RoundedCorners(radius))
                         .into(holder.carImageView)
@@ -85,7 +85,7 @@ class ItemShootGoodsAdapter(val presenter: IrentPresenter) : RecyclerView.Adapte
 
     class CompaniesListViewHolder(item: View) : RecyclerView.ViewHolder(item) {
       //  var person_photo = item.porterShapeImageView
-        val carImageView: ImageView = itemView.carImageView
+        val carImageView: ImageView = itemView.porterShapeImageView
         val dellAdvert: ImageView = itemView.dellAdvert
         val editAdvert: ImageView = itemView.editAdvert
 

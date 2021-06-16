@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.paginate.Paginate
 import moxy.presenter.InjectPresenter
 import com.spacesofting.weshare.R
@@ -52,12 +54,13 @@ class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
     private fun initAdapter() {
 
         adapter = ItemShootGoodsAdapter(mIrentPresenter)
-        val mLayoutManager = androidx.recyclerview.widget.GridLayoutManager(activity, 2)
+        val mLayoutManager =
+            StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+      //  recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(25), true))
        // mLayoutManager.isAutoMeasureEnabled = false
-        //recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(25), false))
 
         recyclerView.layoutManager = mLayoutManager
-       // recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(8), true))
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(8), true))
        // recyclerView.itemAnimator =
          //   androidx.recyclerview.widget.DefaultItemAnimator()
         recyclerView.adapter = adapter
@@ -131,7 +134,7 @@ class IAmShooltGoodsFragment(advert: RespouncePublish?) : FragmentWrapper(),
             val productDiffResult = DiffUtil.calculateDiff(productDiffUtilCallback)
             adapter!!.dataset = clearArr
             productDiffResult.dispatchUpdatesTo(adapter!!)
-            adapter!!.notifyDataSetChanged()
+            //adapter!!.notifyDataSetChanged()
         } catch (e: Exception) {
         }
     }
