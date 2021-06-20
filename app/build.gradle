@@ -136,6 +136,7 @@
         implementation 'androidx.appcompat:appcompat:1.1.0'
         // Carusel
         implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.0.2'
+        implementation 'androidx.constraintlayout:constraintlayout:2.1.0-beta02'
         // Material Components
         implementation 'com.google.android.material:material:1.1.0'
 

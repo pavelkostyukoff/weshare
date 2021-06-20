@@ -17,7 +17,9 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.helper.widget.Carousel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -770,8 +772,20 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     private fun initCategoryList() {
-        categoryCycleView.addData(listFour)
-  /*      val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
+        carousel.setAdapter(object : Carousel.Adapter {
+            override fun count(): Int = listFour.size
+
+            override fun populate(view: View, index: Int) {
+                if (view !is TextView) return
+                val item = listFour[index]
+                view.text = item.caption
+            }
+
+            override fun onNewItem(index: Int) {
+            }
+        })
+       /* categoryCycleView.addData(listFour)
+  *//*      val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
         if (vto.isAlive) {
             vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -779,37 +793,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             })
         }
-*/
+*//*
         categoryCycleView.postDelayed({
             categoryCycleView.currentPosition = getCategoryPosition()
         },
         4000)
-
-    /*    Single.just(getCategoryPosition())
-            .delay(3000, TimeUnit.MILLISECONDS)
-            .applySchedulers()
-            .subscribe({
-                val positions = getCategoryPosition()
-
-                if (!isNew) {
-                    categoryCycleView.currentPosition = positions
-          *//*            categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
-                    isAccessible = true
-                    val recyclerView: RecyclerView = this.get(categoryCycleView) as RecyclerView
-                    recyclerView.scrollToPosition(positions)
-                          categoryCycleView.currentPosition = positions*//*
-              //  }
-                        isNew = true
-            }*/
-
-                 //   presenter.getSubCategory(category?.entities?.get(positions))
-
-/*
-    }, {
-        it
-        //  loadingViewModel.errorMessage = it.nonNullMessage()
-        // loadingViewModel.isError = true
-    })*/
 
         //todo если редактирование то берем catId и выставляем position
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
@@ -842,15 +830,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
                 // ...
             }
-        }
-
-        /*categoryCycleView.javaClass.getDeclaredField("recyclerView").apply {
-            isAccessible = true
-            val recyclerView: RecyclerView = this.get(categoryCycleView) as RecyclerView
-            recyclerView.scrollToPosition(positions)
         }*/
-
-       // categoryCycleView.currentPosition = getCategoryPosition()
 
     }
 
