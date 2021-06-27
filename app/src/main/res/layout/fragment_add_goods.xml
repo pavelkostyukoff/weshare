@@ -421,43 +421,32 @@
                         android:layout_height="wrap_content"
                         style="@style/EditTextGreyBorder"
                         android:hint="@string/edit_advert_address_search"
-                        android:textSize="12sp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
-
-                <androidx.constraintlayout.helper.widget.Carousel
-                        android:id="@+id/carousel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:carousel_backwardTransition="@+id/backward"
-                        app:carousel_forwardTransition="@+id/forward"
-                        app:carousel_nextState="@+id/next"
-                        app:carousel_previousState="@+id/previous"
-                        app:carousel_firstView="@+id/textView2"
-                        app:constraint_referenced_ids="textView0,textView1,textView2,textView3,textView4" />
-
-           <!--     <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/categoryCycleView"
                         android:layout_width="match_parent"
-                        app:imageScaleType="centerCrop"
-                        app:carouselType="SHOWCASE"
-                        android:layout_height="92dp"
                         android:layout_marginTop="10dp"
+                        android:layout_height="92dp"
                         app:carouselBackground="@color/white"
+                        app:carouselType="SHOWCASE"
+                        app:imageScaleType="centerCrop"
                         app:imageViewId="@id/image_view"
                         app:itemLayout="@layout/custom_fixed_size_item_layout"
                         app:nextButtonId="@id/custom_btn_next"
                         app:nextButtonLayout="@layout/custom_next_button_layout"
+                        app:nextButtonMargin="8dp"
                         app:previousButtonId="@id/custom_btn_previous"
                         app:previousButtonLayout="@layout/custom_previous_button_layout"
                         app:previousButtonMargin="8dp"
                         app:scaleOnScroll="true"
+                        app:scalingFactor=".25"
                         app:showBottomShadow="false"
-                        app:showCaption="false"
+                        app:showCaption="true"
                         app:showIndicator="false"
                         app:showNavigationButtons="false"
                         app:showTopShadow="false"
-                       />-->
+                       />
 
                 <TextView
                         android:id="@+id/custom_caption"
@@ -475,48 +464,50 @@
                         android:textStyle="bold"
                         tools:text="Caption" />
 
-                    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                            android:id="@+id/subCategoryCycleView"
-                            android:layout_width="match_parent"
-                            android:layout_height="92dp"
-                            android:visibility="visible"
-                            app:carouselBackground="@color/white"
-                            app:carouselType="SHOWCASE"
-                            app:imageScaleType="centerCrop"
-                            app:imageViewId="@id/image_view"
-                            app:itemLayout="@layout/custom_fixed_size_item_layout"
-                            app:nextButtonId="@id/custom_btn_next"
-                            app:nextButtonLayout="@layout/custom_next_button_layout"
-                            app:nextButtonMargin="8dp"
-                            app:previousButtonId="@id/custom_btn_previous"
-                            app:previousButtonLayout="@layout/custom_previous_button_layout"
-                            app:previousButtonMargin="8dp"
-                            app:scaleOnScroll="true"
-                            app:scalingFactor=".25"
-                            app:showBottomShadow="false"
-                            app:showCaption="true"
-                            app:showIndicator="false"
-                            app:showNavigationButtons="false"
-                            app:showTopShadow="false" />
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                        android:id="@+id/subCategoryCycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="92dp"
+                        app:carouselBackground="@color/white"
+                        app:carouselType="SHOWCASE"
+                        app:imageScaleType="centerCrop"
+                        app:imageViewId="@id/image_view"
+                        app:itemLayout="@layout/custom_fixed_size_item_layout"
+                        app:nextButtonId="@id/custom_btn_next"
+                        app:nextButtonLayout="@layout/custom_next_button_layout"
+                        app:nextButtonMargin="8dp"
+                        app:previousButtonId="@id/custom_btn_previous"
+                        app:previousButtonLayout="@layout/custom_previous_button_layout"
+                        app:previousButtonMargin="8dp"
+                        app:scaleOnScroll="true"
+                        android:visibility="gone"
+                        app:scalingFactor=".25"
+                        app:showBottomShadow="false"
+                        app:showCaption="true"
+                        app:showIndicator="false"
+                        app:showNavigationButtons="false"
+                        app:showTopShadow="false"
+                        />
 
-                    <TextView
-                            android:id="@+id/custom_sub_category"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="10dp"
-                            android:ellipsize="marquee"
-                            android:gravity="center"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:singleLine="true"
-                            android:textColor="@color/flat_green_2"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            tools:text="Caption" />
-<!--
-                <me.relex.circleindicator.CircleIndicator2
-                        android:id="@+id/custom_indicator"
+                <TextView
+                        android:id="@+id/custom_sub_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="1dp"
+                        android:ellipsize="marquee"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:textColor="@color/flat_green_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Caption" />
+
+                <!--<me.relex.circleindicator.CircleIndicator2
+                        android:id="@+id/custom_indicator_sub"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:ci_animator="@animator/scale_with_alpha"

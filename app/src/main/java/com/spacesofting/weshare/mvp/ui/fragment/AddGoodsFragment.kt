@@ -772,7 +772,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     private fun initCategoryList() {
-        carousel.setAdapter(object : Carousel.Adapter {
+     /*   carousel.setAdapter(object : Carousel.Adapter {
             override fun count(): Int = listFour.size
 
             override fun populate(view: View, index: Int) {
@@ -783,9 +783,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
 
             override fun onNewItem(index: Int) {
             }
-        })
-       /* categoryCycleView.addData(listFour)
-  *//*      val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
+        })*/
+        categoryCycleView.addData(listFour)
+        val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
         if (vto.isAlive) {
             vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -793,7 +793,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             })
         }
-*//*
+
         categoryCycleView.postDelayed({
             categoryCycleView.currentPosition = getCategoryPosition()
         },
@@ -830,7 +830,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
                 // ...
             }
-        }*/
+        }
 
     }
 
