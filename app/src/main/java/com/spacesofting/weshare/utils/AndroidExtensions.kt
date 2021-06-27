@@ -14,18 +14,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import android.util.DisplayMetrics as DisplayMetrics1
 
-
-inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
-    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            if (measuredWidth > 0 && measuredHeight > 0) {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                f()
-            }
-        }
-    })
-}
-
 fun View.setHeight(height: Int) {
     val params = layoutParams
     params.height = height
@@ -123,5 +111,29 @@ val Activity.screenWidth: Int
 val Activity.screenHeight: Int
     get() = screenMetrics.heightPixels
 
+inline fun View.afterMeasured(crossinline action: (view: View) -> Unit) {
+    val oldViewTreeObserver = viewTreeObserver
+    oldViewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+
+        override fun onGlobalLayout() {
+            if (measuredWidth > 0 && measuredHeight > 0) {
+                action(this@afterMeasured)
+                disposeOnGlobalLayoutListener(oldViewTreeObserver, viewTreeObserver, this)
+            }
+        }
+    })
+}
+
+@PublishedApi
+internal fun disposeOnGlobalLayoutListener(
+    oldViewTreeObserver: ViewTreeObserver,
+    viewTreeObserver: ViewTreeObserver,
+    listener: ViewTreeObserver.OnGlobalLayoutListener
+) {
+    when {
+        oldViewTreeObserver.isAlive -> oldViewTreeObserver.removeOnGlobalLayoutListener(listener)
+        else -> viewTreeObserver.removeOnGlobalLayoutListener(listener)
+    }
+}
 
 

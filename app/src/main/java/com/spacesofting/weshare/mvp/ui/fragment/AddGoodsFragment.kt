@@ -48,10 +48,7 @@ import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
 import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
-import com.spacesofting.weshare.utils.ImageUtils
-import com.spacesofting.weshare.utils.RealFilePath
-import com.spacesofting.weshare.utils.applySchedulers
-import com.spacesofting.weshare.utils.hideKeyboard
+import com.spacesofting.weshare.utils.*
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
@@ -409,15 +406,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun setNewSubCategory(category: Entitys) {
-        Single.just(initAdapterCategory(category))
-            .applySchedulers()
-            .subscribe({
-                initSubCategoryList(category)
-            }, {
-                it
-                //  loadingViewModel.errorMessage = it.nonNullMessage()
-                // loadingViewModel.isError = true
-            })
+        initAdapterCategory(category)
+        initSubCategoryList(category)
     }
 
     fun showSubCategory(id: String?) {
@@ -784,20 +774,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             override fun onNewItem(index: Int) {
             }
         })*/
-        categoryCycleView.addData(listFour)
-        val vto: ViewTreeObserver = categoryCycleView.viewTreeObserver
-        if (vto.isAlive) {
-            vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    categoryCycleView.currentPosition = 4
-                }
-            })
-        }
-
-        categoryCycleView.postDelayed({
-            categoryCycleView.currentPosition = getCategoryPosition()
-        },
-        4000)
 
         //todo если редактирование то берем catId и выставляем position
         categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
@@ -832,6 +808,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
 
+        categoryCycleView.addData(listFour)
+        categoryCycleView.afterMeasured {
+            val categoryPosition = getCategoryPosition()
+            categoryCycleView.currentPosition = categoryPosition
+        }
     }
 
     private fun getCategoryPosition(): Int {
@@ -960,7 +941,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
         subCategoryCycleView.addData(listFour)
-        subCategoryCycleView.scrollTo(0, 0)
         if (entitys?.entities?.isEmpty()!!) {
             subCategoryCycleView.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
@@ -969,7 +949,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             custom_sub_category.visibility = View.GONE
             subCategoryCycleView.visibility = View.VISIBLE
             custom_sub_category.visibility = View.VISIBLE
-            // subCategoryCycleView.setIndicator(custom_indicator)
+//             subCategoryCycleView.setIndicator(custom_indicator)
         }
 
 
