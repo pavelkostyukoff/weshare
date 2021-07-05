@@ -423,11 +423,12 @@
                         android:hint="@string/edit_advert_address_search"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
+
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/categoryCycleView"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
-                        android:layout_height="92dp"
+                        android:layout_height="wrap_content"
                         app:carouselBackground="@color/white"
                         app:carouselType="SHOWCASE"
                         app:imageScaleType="centerCrop"
