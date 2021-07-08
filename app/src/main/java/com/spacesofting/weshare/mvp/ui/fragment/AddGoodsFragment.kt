@@ -75,7 +75,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var subCatPosition = 0
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
-    val listFour = mutableListOf<CarouselItem>() ////todo тут проблема хаос какой-то
+    val listFour = mutableListOf<CarouselItem>()
     val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
 
     @InjectPresenter
@@ -797,21 +797,23 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             }
         }
-        categoryCycleView.onItemClickListener = object : OnItemClickListener {
+            /*  categoryCycleView.onItemClickListener = object : OnItemClickListener {
             override fun onClick(position: Int, carouselItem: CarouselItem) {
                 // ...
                 categoryCycleView.currentPosition = 2
             }
-
             override fun onLongClick(position: Int, dataObject: CarouselItem) {
                 // ...
             }
-        }
+        } */
 
         categoryCycleView.addData(listFour)
         categoryCycleView.afterMeasured {
             val categoryPosition = getCategoryPosition()
             categoryCycleView.currentPosition = categoryPosition
+            if (editAdvert?.categoryId.isNullOrEmpty()) {
+                initSubCategoryList(category)
+            }
         }
     }
 
@@ -852,17 +854,21 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
         try {
-            if (editAdvert?.categoryId?.startsWith("00000000-0000-0000-30")!!) {
-                editAdvert.categoryId?.let {
-                    mySubIdCategory = it
+            when {
+                editAdvert?.categoryId?.startsWith("00000000-0000-0000-30")!! -> {
+                    editAdvert.categoryId?.let {
+                        mySubIdCategory = it
+                    }
+                    name = "транспорт"
                 }
-                name = "транспорт"
-            } else if (editAdvert.categoryId?.startsWith("00000000-0000-0000-20")!!) {
-                mySubIdCategory = editAdvert.categoryId!!
-                name = "недвижимость"
-            } else if (editAdvert.categoryId?.startsWith("00000000-0000-0000-10")!!) {
-                mySubIdCategory = editAdvert.categoryId!!
-                name = "одежда"
+                editAdvert.categoryId?.startsWith("00000000-0000-0000-20")!! -> {
+                    mySubIdCategory = editAdvert.categoryId!!
+                    name = "недвижимость"
+                }
+                editAdvert.categoryId?.startsWith("00000000-0000-0000-10")!! -> {
+                    mySubIdCategory = editAdvert.categoryId!!
+                    name = "одежда"
+                }
             }
         }
         catch (e: java.lang.Exception) {
