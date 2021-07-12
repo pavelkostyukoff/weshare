@@ -83,6 +83,7 @@ class MyMapFragment : FragmentWrapper(),
     // //  private var lat = String
     private var mapObjects: MapObjectCollection? = null
     private var markersList: MutableList<MapObject> = mutableListOf()
+    private val tapsListeners = mutableListOf<YandexMapObjectTapListener>()
 
     override fun getFragmentLayout(): Int {
         return R.layout.fragment_map
@@ -192,6 +193,8 @@ class MyMapFragment : FragmentWrapper(),
     override fun showCatObjects(objects: ResponceMyAdvertMaps) {
         mapObjects?.clear()
         markersList.clear()
+        tapsListeners.clear()
+
         Log.e("maps", "start method")
         if (mapObjects == null) {
             mapObjects = mapview.map.mapObjects.addCollection()
@@ -205,7 +208,10 @@ class MyMapFragment : FragmentWrapper(),
                 setIcon(ImageProvider.fromResource(activity, getIconWithCategory(globalCategoryId)))
                 Log.e("maps", "set Listener")
                 Log.e("maps", markersList.size.toString())
-                addTapListener(YandexMapObjectTapListener(it))
+
+                val yandexMapObjectTapListener = YandexMapObjectTapListener(it)
+                tapsListeners.add(yandexMapObjectTapListener)
+                addTapListener(yandexMapObjectTapListener)
             }
 
         /*    objects.data?.forEach { data ->
