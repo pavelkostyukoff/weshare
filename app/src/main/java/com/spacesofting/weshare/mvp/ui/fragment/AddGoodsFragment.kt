@@ -75,7 +75,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var subCatPosition = 0
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
-    val listFour = mutableListOf<CarouselItem>()
+    private val listFour = mutableListOf<CarouselItem>()
     val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
 
     @InjectPresenter
@@ -406,8 +406,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     override fun setNewSubCategory(category: Entitys) {
-        initAdapterCategory(category)
-        initSubCategoryList(category)
+        // initSubCategoryList(category)
     }
 
     fun showSubCategory(id: String?) {
@@ -647,7 +646,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             when (it.code) {
                 "kids" -> {
                     resourceId = R.drawable.kids
-                    ApplicationWrapper.category
                 }
                 "realty" -> {
                     resourceId = R.drawable.nedviga
@@ -790,7 +788,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                             custom_caption.text = caption
                         }
                         saveCurrentLastPositionCategory  = category?.entities?.get(position)?.id.toString()
-                        presenter.getSubCategory(category?.entities?.get(position))
+                     //   presenter.getSubCategory(category?.entities?.get(position))
                     }
             }
 
@@ -810,9 +808,12 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         categoryCycleView.addData(listFour)
         categoryCycleView.afterMeasured {
             val categoryPosition = getCategoryPosition()
-            categoryCycleView.currentPosition = categoryPosition
+     /*       if(categoryPosition > 7) {
+                categoryPosition
+            }*/
+            categoryCycleView.currentPosition = 1//categoryPosition
             if (editAdvert?.categoryId.isNullOrEmpty()) {
-                initSubCategoryList(category)
+               // initSubCategoryList(category)
             }
         }
     }
@@ -877,7 +878,6 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         var count = 0
         var currentPosition = 0
         listFour.map {
-            val test = it.caption?.contains(name)
             if (it.caption.equals(name)) {
                 currentPosition = count
             }
@@ -889,24 +889,23 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         Log.e("categoryCycleView", currentPosition.toString())
     }
 
-    private fun initSubCategoryList(entitys: Entitys?) {
+    private fun initSubCategoryList(entitysSub: Entitys?) {
         var position = 0
         var count = 0
-        val listFour = mutableListOf<CarouselItem>()
+        val listFourSub = mutableListOf<CarouselItem>()
 
         subCategoryCycleView.captionTextSize = 0
-        entitys?.entities?.map {
+        entitysSub?.entities?.map {
             count++
             if (it.id == advert.categoryId) {
                 position = count
             }
-            listFour.clear()
             it.categoryImg?.let { url ->
                 CarouselItem(
                     imageUrl = url,
                     caption = it.name
                 )
-            }?.let { item -> listFour.add(item) }
+            }
         }
 
         subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
@@ -928,14 +927,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         custom_sub_category.text = caption
                     }
 
-
-
-
                     //todo идем в презентер что бы он сделал нам новую выгрузку если есть подкатегории
-                    if (entitys?.entities != null) {
-                        if (entitys?.entities!!.isNotEmpty()) {
-                            advert.categoryId = entitys?.entities!![position].id
-                            val test = entitys?.entities!![position].name
+                    if (entitysSub?.entities != null) {
+                        if (entitysSub.entities!!.isNotEmpty()) {
+                            advert.categoryId = entitysSub.entities!![position].id
                         }
                     }
                 }
@@ -947,7 +942,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
         subCategoryCycleView.addData(listFour)
-        if (entitys?.entities?.isEmpty()!!) {
+        if (entitysSub?.entities?.isEmpty()!!) {
             subCategoryCycleView.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
         } else {
