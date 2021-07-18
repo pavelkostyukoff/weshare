@@ -42,8 +42,8 @@ import kotlinx.android.synthetic.main.fragment_map.custom_caption
 import kotlinx.android.synthetic.main.fragment_map.custom_sub_category
 import kotlinx.android.synthetic.main.fragment_map.subCategoryCycleViewMaps
 import moxy.presenter.InjectPresenter
-import org.imaginativeworld.whynotimagecarousel.CarouselItem
-import org.imaginativeworld.whynotimagecarousel.CarouselOnScrollListener
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselOnScrollListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.util.concurrent.TimeUnit
 
 class MyMapFragment : FragmentWrapper(),
@@ -565,7 +565,13 @@ class MyMapFragment : FragmentWrapper(),
                 }
                 positionNew = position
             }
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
                 // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
                 // todo презентер отображает initSabCategoryList ()
             }
@@ -638,7 +644,13 @@ class MyMapFragment : FragmentWrapper(),
                 positionNew = position
             }
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
                 // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
                 // todo презентер отображает initSabCategoryList ()
             }

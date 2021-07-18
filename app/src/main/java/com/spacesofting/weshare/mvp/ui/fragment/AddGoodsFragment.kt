@@ -57,6 +57,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.*
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselOnScrollListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -468,7 +470,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 .content(R.string.wish_edit_add_img_obligatorily)
                 .positiveText(R.string.edit_guest_card_inn_count)
                 .onPositive { _, _ ->
-                    activity!!.finish()
+                    requireActivity().finish()
                 }
                 .neutralText(R.string.edit)
                 .show()
@@ -792,7 +794,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     }
             }
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
             }
         }
             /*  categoryCycleView.onItemClickListener = object : OnItemClickListener {
@@ -936,7 +944,13 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
             }
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(
+                recyclerView: RecyclerView,
+                dx: Int,
+                dy: Int,
+                position: Int,
+                carouselItem: CarouselItem?
+            ) {
                 // todo меняем категорию - получаем номер саб категориий делаем запрос на сервер через призентер
                 // todo презентер отображает initSabCategoryList ()
             }
@@ -1029,7 +1043,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                         ?.add(R.id.container, picker!!)
                         ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         ?.commit()
-                    ApplicationWrapper.context = this.context!!
+                    ApplicationWrapper.context = this.requireContext()
                 }
         }
     }
