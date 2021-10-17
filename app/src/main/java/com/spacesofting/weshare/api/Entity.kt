@@ -9,7 +9,7 @@ class Entity {
 	@SerializedName("name")
     var name: String? = null
 	@SerializedName("code")
-	val code: String? = null
+	var code: String? = null
 	@SerializedName("parentId")
 	var parentId: String? = null
 	var categoryImg: String? = null

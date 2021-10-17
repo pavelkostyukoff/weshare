@@ -298,6 +298,12 @@
                         android:layout_marginTop="@dimen/margin_half"
                         android:orientation="vertical">
 
+                    <FrameLayout
+                            android:id="@+id/container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible" />
+
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -423,44 +429,92 @@
                         android:hint="@string/edit_advert_address_search"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
-
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                        android:id="@+id/categoryCycleView"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content"
-                        app:carouselBackground="@color/white"
-                        app:carouselType="SHOWCASE"
-                        app:imageScaleType="centerCrop"
-                        app:nextButtonId="@id/custom_btn_next"
-                        app:previousButtonId="@id/custom_btn_previous"
-                        app:previousButtonLayout="@layout/custom_previous_button_layout"
-                        app:previousButtonMargin="8dp"
-                        app:scaleOnScroll="true"
-                        app:scalingFactor=".25"
-                        app:showBottomShadow="false"
-                        app:showCaption="true"
-                        app:showIndicator="false"
-                        app:showNavigationButtons="false"
-                        app:showTopShadow="false"
-                       />
-
-                <TextView
-                        android:id="@+id/custom_caption"
+                <!-- ================================================================ -->
+<!--
+                <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="10dp"
-                        android:ellipsize="marquee"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Caption" />
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="8dp">
 
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="92dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:orientation="horizontal">-->
+                <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <com.jama.carouselview.CarouselView
+                            android:id="@+id/carouselView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:spacing="20" />
+                </LinearLayout>
+<!--
+
+                            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                                    android:id="@+id/categoryCycleView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="92dp"
+                                    app:carouselType="SHOWCASE"
+                                    app:imageScaleType="centerCrop"
+                                    app:imageViewId="@id/image_view"
+                                    android:layout_marginStart="0dp"
+                                    android:layout_weight="1"
+                                    app:carouselBackground="@android:color/transparent"
+                                    app:infiniteCarousel="false"
+                                    app:nextButtonId="@id/custom_btn_next"
+                                    app:nextButtonLayout="@layout/custom_next_button_layout"
+                                    app:nextButtonMargin="16dp"
+                                    app:previousButtonId="@id/custom_btn_previous"
+                                    app:previousButtonLayout="@layout/custom_previous_button_layout"
+                                    app:previousButtonMargin="16dp"
+                                    app:scaleOnScroll="false"
+                                    app:showBottomShadow="false"
+                                    app:showCaption="false"
+                                    app:showIndicator="false"
+                                    app:showNavigationButtons="false"
+                                    app:showTopShadow="false"
+                                    app:touchToPause="true" />
+-->
+
+             <!--           </LinearLayout>
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="8dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>-->
+
+                <!-- ================================================================ -->
+<!--                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                         android:id="@+id/subCategoryCycleView"
                         android:layout_width="match_parent"
                         android:layout_height="92dp"
@@ -497,7 +551,7 @@
                         android:singleLine="true"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        tools:text="Caption" />
+                        tools:text="Caption" />-->
 
                 <!--<me.relex.circleindicator.CircleIndicator2
                         android:id="@+id/custom_indicator_sub"
@@ -611,10 +665,5 @@
                     android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </FrameLayout>
-    <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

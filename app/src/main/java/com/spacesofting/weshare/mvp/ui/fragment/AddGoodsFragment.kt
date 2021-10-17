@@ -8,24 +8,22 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnTouchListener
-import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.helper.widget.Carousel
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
 import com.jakewharton.rxbinding2.widget.RxTextView
+import com.jama.carouselview.CarouselScrollListener
+import com.jama.carouselview.enums.IndicatorAnimationType
+import com.jama.carouselview.enums.OffsetType
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
@@ -48,15 +46,19 @@ import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
 import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
+import com.spacesofting.weshare.mvp.ui.adapter.CompilationAdapter
 import com.spacesofting.weshare.utils.*
+import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.confirm_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import moxy.presenter.InjectPresenter
 import org.imaginativeworld.whynotimagecarousel.*
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselOnScrollListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
@@ -77,7 +79,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var subCatPosition = 0
     private var adapterBaner = BannerAdapterPhoto()
     private val category = ApplicationWrapper.category
-    private val listFour = mutableListOf<CarouselItem>()
+    private val listFour = mutableListOf<String>()
+
     val editAdvert = ApplicationWrapper.instance.getAuthorityWish()
 
     @InjectPresenter
@@ -165,7 +168,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         }
 
         if (ApplicationWrapper.instance.goodId != null && !ApplicationWrapper.instance.goodId.equals(
-                ""
+                ""//todo тут подгружается по id вещь вместо синглтона
             )
         ) {
             presenter.goodId = ApplicationWrapper.instance.goodId!!
@@ -199,6 +202,11 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 AddGoodsPresenter.Field.DESCRIPTION
             )
         )
+      /*  caruselLayout.setOnClickListener {
+            toast("Заполните адресс")
+           // carouselView.currentItem = 5
+        }*/
+
         RxTextView.afterTextChangeEvents(advertDiscription)
             //.debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
@@ -290,6 +298,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 Log.e("Selected_Page", position.toString())
             }
         })
+
+
+
         save.setOnClickListener {
             if (count2 == 0) {
                 toast("Проверте категорию и нажмите еще раз для подтверждения")
@@ -644,14 +655,21 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private fun setPhotoAdapter(it: Entitys?) {
         var resourceId: Int? = null
         // if (it?.entities == null) {
-        it?.entities?.map {
+        val myArray = arrayOf("kids","realty","equipment","clothes","relaxation","other","transport","hobby","electronics")
+        val ent = Entity()
+        val entities = ArrayList<Entity>()
+        myArray.map { st->
+            ent.code = st
+            entities.add(ent)
+        }
+
+     /*   it?.*/entities.map {
             when (it.code) {
                 "kids" -> {
                     resourceId = R.drawable.kids
                 }
                 "realty" -> {
                     resourceId = R.drawable.nedviga
-
                 }
                 "equipment" -> {
                     resourceId = R.drawable.oborudovanie_stroyka
@@ -659,22 +677,18 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 }
                 "clothes" -> {
                     resourceId = R.drawable.clouse
-
                 }
                 "relaxation" -> {
                     resourceId = R.drawable.rest_otdih
-
                 }
                 "other" -> {
                     resourceId = R.drawable.sports
-
                 }
                 "transport" -> {
                     resourceId = R.drawable.transport
                 }
                 "hobby" -> {
                     resourceId = R.drawable.sports
-
                 }
                 "electronics" -> {
                     resourceId = R.drawable.electronix
@@ -684,6 +698,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             val uri: Uri =
                 Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + resourceId)
             it.categoryImg = uri.toString()
+            listFour.add(uri.toString())
         }
         //    }
     }
@@ -743,87 +758,75 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         btn_remove.visible = advert.bannerItems.isNotEmpty()
         adapterBaner.notifyDataSetChanged()
         //initBanners()
-
     }
+
     private fun getCategoryList() {
-        listFour.clear()
+     /*   listFour.clear()
         category?.entities?.forEach {
             it.categoryImg?.let { url ->
-                CarouselItem(
-                    imageUrl = url,
-                    caption = it.name
-                )
-            }?.let { item ->
                 listFour.add(
-                    item
+                    url
                 )
             }
-        }
+        }*/
     }
 
     private fun initCategoryList() {
-     /*   carousel.setAdapter(object : Carousel.Adapter {
-            override fun count(): Int = listFour.size
 
-            override fun populate(view: View, index: Int) {
-                if (view !is TextView) return
-                val item = listFour[index]
-                view.text = item.caption
+
+       // carouselView.currentItem = 1
+      /*  val scrollListener = object : CarouselScrollListener {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int, position: Int) {
+                Log.i("log111", " -> " + position)
+               // carouselView.positio
+
+                getCategoryPosition()
+              //  saveCurrentLastPositionCategory  = category?.entities?.get(position)?.id.toString()
+               // presenter.getSubCategory(category?.entities?.get(position))
             }
 
-            override fun onNewItem(index: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {}
+        }*/
+       // carouselView.currentItem = 2
+ /*       carouselView.afterMeasured {
+           // val categoryPosition = getCategoryPosition()
+
+            //  categoryCycleView.currentPosition = 1//categoryPosition
+            if (editAdvert?.categoryId.isNullOrEmpty()) {
+                // initSubCategoryList(category)
             }
-        })*/
+        }*/
+       // val images = arrayListOf(R.drawable.boardwalk_by_the_ocean, R.drawable.journal_and_coffee_at_table, R.drawable.tying_down_tent_fly)
 
         //todo если редактирование то берем catId и выставляем position
-        categoryCycleView.onScrollListener = object : CarouselOnScrollListener {
 
-            override fun onScrollStateChanged(
-                recyclerView: RecyclerView,
-                newState: Int,
-                position: Int,
-                carouselItem: CarouselItem?
-            ) {
-                categoryCycleView.performClick()
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        carouselItem?.apply {
-                            custom_caption.text = caption
-                        }
-                        saveCurrentLastPositionCategory  = category?.entities?.get(position)?.id.toString()
-                     //   presenter.getSubCategory(category?.entities?.get(position))
-                    }
-            }
 
-            override fun onScrolled(
-                recyclerView: RecyclerView,
-                dx: Int,
-                dy: Int,
-                position: Int,
-                carouselItem: CarouselItem?
-            ) {
+        val images = arrayListOf(R.drawable.boardwalk_by_the_ocean, R.drawable.journal_and_coffee_at_table, R.drawable.tying_down_tent_fly)
+        carouselView.apply {
+            size = images.size
+            resource = R.layout.center_carousel_item
+            indicatorAnimationType = IndicatorAnimationType.THIN_WORM
+            carouselOffset = OffsetType.CENTER
+                setCarouselViewListener { view, position ->
+                    val imageView = view.findViewById<ImageView>(R.id.imageView)
+                   imageView.setImageDrawable(resources.getDrawable(images[position]))
+
+/*
+                Picasso.with(context)
+                    .load(listFour[position])
+                    .centerCrop()
+                    .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                    .into(imageView)*/
             }
+            currentItem = 1
+            show()
+            currentItem = 1
         }
-            /*  categoryCycleView.onItemClickListener = object : OnItemClickListener {
-            override fun onClick(position: Int, carouselItem: CarouselItem) {
-                // ...
-                categoryCycleView.currentPosition = 2
-            }
-            override fun onLongClick(position: Int, dataObject: CarouselItem) {
-                // ...
-            }
-        } */
+        carouselView.setOnClickListener {
 
-        categoryCycleView.addData(listFour)
-        categoryCycleView.afterMeasured {
-            val categoryPosition = getCategoryPosition()
-     /*       if(categoryPosition > 7) {
-                categoryPosition
-            }*/
-            categoryCycleView.currentPosition = 1//categoryPosition
-            if (editAdvert?.categoryId.isNullOrEmpty()) {
-               // initSubCategoryList(category)
-            }
+            carouselView.currentItem = 0
         }
+       // carouselView.currentItem = 3
     }
 
     private fun getCategoryPosition(): Int {
@@ -886,7 +889,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         var count = 0
         var currentPosition = 0
         listFour.map {
-            if (it.caption.equals(name)) {
+            if (it == name) {
                 currentPosition = count
             }
             count++
@@ -902,7 +905,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         var count = 0
         val listFourSub = mutableListOf<CarouselItem>()
 
-        subCategoryCycleView.captionTextSize = 0
+       // subCategoryCycleView.captionTextSize = 0
         entitysSub?.entities?.map {
             count++
             if (it.id == advert.categoryId) {
@@ -916,7 +919,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             }
         }
 
-        subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
+  /*      subCategoryCycleView.onScrollListener = object : CarouselOnScrollListener {
 
             override fun onScrollStateChanged(
                 recyclerView: RecyclerView,
@@ -955,7 +958,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                 // todo презентер отображает initSabCategoryList ()
             }
         }
-        subCategoryCycleView.addData(listFour)
+       // subCategoryCycleView.addData(listFour)
         if (entitysSub?.entities?.isEmpty()!!) {
             subCategoryCycleView.visibility = View.GONE
             custom_sub_category.visibility = View.GONE
@@ -965,7 +968,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
             subCategoryCycleView.visibility = View.VISIBLE
             custom_sub_category.visibility = View.VISIBLE
 //             subCategoryCycleView.setIndicator(custom_indicator)
-        }
+        }*/
 
 
 
@@ -1253,8 +1256,8 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         var count = 0
         var currentPosition = 0
         listFour.map {
-            val test = it.caption?.contains(name)
-            if (it.caption.equals(name) || it.caption?.contains(name)!!) {
+            val test = it.contains(name)
+            if (it == name || it.contains(name)) {
                 currentPosition = count
             }
             count++

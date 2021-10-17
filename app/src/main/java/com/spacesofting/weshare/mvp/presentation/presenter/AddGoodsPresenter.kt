@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
-import androidx.lifecycle.lifecycleScope
 
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
@@ -16,11 +15,6 @@ import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.utils.ImageUtils
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
