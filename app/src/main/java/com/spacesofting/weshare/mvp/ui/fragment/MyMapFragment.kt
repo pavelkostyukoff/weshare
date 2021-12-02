@@ -51,7 +51,6 @@ class MyMapFragment : FragmentWrapper(),
     override fun onLocationChanged(p0: Location?) {
         //  lng = p0?.longitude.toString()
         //  lat= p0?.latitude.toString()
-
         val lat = (p0?.latitude)
         val lng = (p0?.longitude)
         latMain = lat.toString()

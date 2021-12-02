@@ -421,6 +421,15 @@
                         android:textColor="@color/invalid"
                         android:visibility="gone" />
 //карусель  <!--    здесь мы встровляем окно поиска-->
+                
+                <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp">
+
+                </androidx.viewpager2.widget.ViewPager2>
+                
+                
                 <EditText
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
@@ -430,137 +439,6 @@
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
                 <!-- ================================================================ -->
-<!--
-                <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp">
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="92dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="8dp"
-                                android:orientation="horizontal">-->
-                <LinearLayout
-                        android:id="@+id/linearLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-                    <com.jama.carouselview.CarouselView
-                            android:id="@+id/carouselView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:spacing="20" />
-                </LinearLayout>
-<!--
-
-                            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                                    android:id="@+id/categoryCycleView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="92dp"
-                                    app:carouselType="SHOWCASE"
-                                    app:imageScaleType="centerCrop"
-                                    app:imageViewId="@id/image_view"
-                                    android:layout_marginStart="0dp"
-                                    android:layout_weight="1"
-                                    app:carouselBackground="@android:color/transparent"
-                                    app:infiniteCarousel="false"
-                                    app:nextButtonId="@id/custom_btn_next"
-                                    app:nextButtonLayout="@layout/custom_next_button_layout"
-                                    app:nextButtonMargin="16dp"
-                                    app:previousButtonId="@id/custom_btn_previous"
-                                    app:previousButtonLayout="@layout/custom_previous_button_layout"
-                                    app:previousButtonMargin="16dp"
-                                    app:scaleOnScroll="false"
-                                    app:showBottomShadow="false"
-                                    app:showCaption="false"
-                                    app:showIndicator="false"
-                                    app:showNavigationButtons="false"
-                                    app:showTopShadow="false"
-                                    app:touchToPause="true" />
--->
-
-             <!--           </LinearLayout>
-
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="8dp"
-                                android:paddingTop="8dp"
-                                android:paddingEnd="8dp"
-                                android:paddingBottom="8dp"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>-->
-
-                <!-- ================================================================ -->
-<!--                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                        android:id="@+id/subCategoryCycleView"
-                        android:layout_width="match_parent"
-                        android:layout_height="92dp"
-                        app:carouselBackground="@color/white"
-                        app:carouselType="SHOWCASE"
-                        app:imageScaleType="centerCrop"
-                        app:nextButtonId="@id/custom_btn_next"
-                        app:nextButtonLayout="@layout/custom_next_button_layout"
-                        app:nextButtonMargin="8dp"
-                        app:previousButtonId="@id/custom_btn_previous"
-                        app:previousButtonLayout="@layout/custom_previous_button_layout"
-                        app:previousButtonMargin="8dp"
-                        app:scaleOnScroll="true"
-                        android:visibility="gone"
-                        app:scalingFactor=".25"
-                        app:showBottomShadow="false"
-                        app:showCaption="true"
-                        app:showIndicator="false"
-                        app:showNavigationButtons="false"
-                        app:showTopShadow="false"
-                        />
-
-                <TextView
-                        android:id="@+id/custom_sub_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="1dp"
-                        android:ellipsize="marquee"
-                        android:visibility="gone"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Caption" />-->
-
-                <!--<me.relex.circleindicator.CircleIndicator2
-                        android:id="@+id/custom_indicator_sub"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ci_animator="@animator/scale_with_alpha"
-                        app:ci_drawable="@drawable/dot"
-                        android:visibility="gone"
-                        app:ci_drawable_unselected="@drawable/dot" />-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

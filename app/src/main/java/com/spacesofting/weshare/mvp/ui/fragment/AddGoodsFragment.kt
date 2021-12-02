@@ -5,25 +5,19 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.gpbdigital.wishninja.ui.watcher.WishNameToDescriptionWatcher
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.jama.carouselview.CarouselScrollListener
-import com.jama.carouselview.enums.IndicatorAnimationType
-import com.jama.carouselview.enums.OffsetType
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import com.pawegio.kandroid.w
@@ -46,23 +40,17 @@ import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
 import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
-import com.spacesofting.weshare.mvp.ui.adapter.CompilationAdapter
+import com.spacesofting.weshare.mvp.ui.adapter.Category
+import com.spacesofting.weshare.mvp.ui.adapter.CategoryAdapter
 import com.spacesofting.weshare.utils.*
-import com.squareup.picasso.Picasso
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.wangpeiyuan.cycleviewpager2.CycleViewPager2Helper
 import com.wangpeiyuan.cycleviewpager2.indicator.DotsIndicator
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.confirm_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import moxy.presenter.InjectPresenter
-import org.imaginativeworld.whynotimagecarousel.*
-import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
-import org.imaginativeworld.whynotimagecarousel.listener.CarouselOnScrollListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
-import java.util.concurrent.TimeUnit
 
 
 class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSelectedListener,
@@ -94,6 +82,7 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     private var rentPeriodList = ArrayList<RentPeriod>()
     private var rentPeriod = RentPeriod()
     private var advert = Advert()
+    private val adapter  = CategoryAdapter()
 
     companion object {
         private const val DATA_KEY_STR = "string"
@@ -335,7 +324,10 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
                     return false
                 }
             })
+        initViewPager()
+
         setBannerData()
+       // toggleGroup.selectAnimation = SelectAnimation`.HORIZONTAL_SLIDE
     }
 
     //todo размещаем поля - если мы зашли в режим редактрования объявления
@@ -607,9 +599,21 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
         return R.layout.fragment_add_goods
     }
 
+    private fun initViewPager() {
+        adapter.setItems(listOf(Category(1, "test1"), Category(2, "trst2"), Category(3, "test3"), Category(4, "test4")))
+        viewPager.adapter = adapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.e("test", adapter.getItem(position).toString())
+            }
+        })
+    }
+
     //todo инициализация банеров / категорий и прочее
     private fun setBannerData() {
         initAdapterCategory(category)
+
         initData()
         val nextItemVisiblePx = resources.getDimension(R.dimen.dialog_corner_radius)
         val currentItemHorizontalMarginPx =
@@ -761,8 +765,9 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     private fun getCategoryList() {
-     /*   listFour.clear()
-        category?.entities?.forEach {
+        listFour.clear()
+        listFour.add("http://placehold.it/120x120&text=image1\n")
+      /*  category?.entities?.forEach {
             it.categoryImg?.let { url ->
                 listFour.add(
                     url
@@ -772,61 +777,58 @@ class AddGoodsFragment : FragmentWrapper(), AddGoodsView, AdapterView.OnItemSele
     }
 
     private fun initCategoryList() {
+        // Create the toggle group and add it to the rootView        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+       /* val buttonGroup = ThemedToggleButtonGroup(ApplicationWrapper.context)
+        buttonGroup.justifyContent = JustifyContent.CENTER // this is optional
+        toggleGroup.addView(buttonGroup)
+        // Create the 1st button and add it to the toggle group
+        val btn1 = ThemedButton(buttonGroup.context)
+        btn1.text = "Button 1"
+        buttonGroup.addView(btn1, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ))
 
+        // Create the 2nd button and add it to the toggle group
+        val btn2 = ThemedButton(buttonGroup.context)
+        btn2.text = "Button 2"
+        buttonGroup.addView(btn2, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ))
 
-       // carouselView.currentItem = 1
-      /*  val scrollListener = object : CarouselScrollListener {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int, position: Int) {
-                Log.i("log111", " -> " + position)
-               // carouselView.positio
+        // Create the 3rd button and add it to the toggle group
+        val btn3 = ThemedButton(buttonGroup.context)
+        btn3.text = "Button 3"
+        buttonGroup.addView(btn3, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ))
 
-                getCategoryPosition()
-              //  saveCurrentLastPositionCategory  = category?.entities?.get(position)?.id.toString()
-               // presenter.getSubCategory(category?.entities?.get(position))
-            }
+        // Create the 3rd button and add it to the toggle group
+        val btn4 = ThemedButton(buttonGroup.context)
+        btn4.text = "Button 3"
+        buttonGroup.addView(btn4, ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ))*/
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {}
+      /*  val btn = ThemedButton(ApplicationWrapper.context)
+        listFour.map {
+            btn.text = it
+            Picasso.with(context)
+                .load(it)
+                .centerCrop()
+                .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
+                .into(btn.ivIcon)
+            buttonGroup.addView(btn,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            )
         }*/
-       // carouselView.currentItem = 2
- /*       carouselView.afterMeasured {
-           // val categoryPosition = getCategoryPosition()
 
-            //  categoryCycleView.currentPosition = 1//categoryPosition
-            if (editAdvert?.categoryId.isNullOrEmpty()) {
-                // initSubCategoryList(category)
-            }
-        }*/
-       // val images = arrayListOf(R.drawable.boardwalk_by_the_ocean, R.drawable.journal_and_coffee_at_table, R.drawable.tying_down_tent_fly)
-
-        //todo если редактирование то берем catId и выставляем position
-
-
-        val images = arrayListOf(R.drawable.boardwalk_by_the_ocean, R.drawable.journal_and_coffee_at_table, R.drawable.tying_down_tent_fly)
-        carouselView.apply {
-            size = images.size
-            resource = R.layout.center_carousel_item
-            indicatorAnimationType = IndicatorAnimationType.THIN_WORM
-            carouselOffset = OffsetType.CENTER
-                setCarouselViewListener { view, position ->
-                    val imageView = view.findViewById<ImageView>(R.id.imageView)
-                   imageView.setImageDrawable(resources.getDrawable(images[position]))
-
-/*
-                Picasso.with(context)
-                    .load(listFour[position])
-                    .centerCrop()
-                    .resizeDimen(R.dimen.avatar_size_profile_edit, R.dimen.avatar_size_profile_edit)
-                    .into(imageView)*/
-            }
-            currentItem = 1
-            show()
-            currentItem = 1
-        }
-        carouselView.setOnClickListener {
-
-            carouselView.currentItem = 0
-        }
-       // carouselView.currentItem = 3
     }
 
     private fun getCategoryPosition(): Int {
