@@ -72,7 +72,7 @@ class RegistrationFragment : FragmentWrapper(),
                 val mailComfirm = MailComfirm()
                 mailComfirm.code = view.findViewById<EditText>(R.id.code)?.text.toString()
                 mailComfirm.login = login
-                regPresenter.comfirmMail(mailComfirm)
+                regPresenter.confirmMail(mailComfirm)
                 comfirmDlg?.dismiss()
             }
 

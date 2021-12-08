@@ -5,18 +5,18 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.pawegio.kandroid.runOnUiThread
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.BoomerangoRouter
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.model.UpdateProfile
+import com.spacesofting.weshare.mvp.presentation.usecases.GetMyProfileUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.UpdateProfileUseCase
 import com.spacesofting.weshare.mvp.presentation.view.EditProfileView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.mvp.ui.fragment.InventoryFragment.Companion.SCANNER_REQUEST_CODE
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -29,7 +29,8 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
     val router: BoomerangoRouter = ApplicationWrapper.instance.getRouter()
     val PATTERN = Pattern.compile("[a-zA-Z0-9а-яА-Я_.$%*)(!@:|]{4,32}")
     val MAX_NICK_LINGTH = 32
-
+    val useCaseGetAccount = GetMyProfileUseCase()
+    val useCaseUpdateProfile = UpdateProfileUseCase()
     enum class Field {
         NICK,
         IMAGE
@@ -324,25 +325,21 @@ class EditProfilePresenter : MvpPresenter<EditProfileView>(), ImagePickerFragmen
 
     //todo вешать на кнопку сохранения передает на общий экран обратно данные профиля
 
+    @SuppressLint("CheckResult")
     private fun getMyProfile() {
-        with(Api) {
-            Users.getAccount()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ profile ->
+       useCaseGetAccount.getAccount()
+                ?.subscribe({ profile ->
                     Settings.set(profile)
                 }, { e ->
                 })
         }
-    }
 
+    @SuppressLint("CheckResult")
     fun changeMyProfile(updProfile: UpdateProfile) {
         viewState.showProgress(true)
-        Api.Users.updateProfile(updProfile)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally { viewState.showProgress(false) }
-            .subscribe({
+        useCaseUpdateProfile.update(updProfile)
+            ?.doFinally { viewState.showProgress(false) }
+            ?.subscribe({
                 Settings.set(it)
                 // ApplicationWrapper.user = it
                 //  viewState.showNewInfo(it)

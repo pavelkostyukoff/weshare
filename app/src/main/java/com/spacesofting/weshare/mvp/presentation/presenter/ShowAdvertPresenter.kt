@@ -1,11 +1,11 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
-import com.spacesofting.weshare.api.Api
+import android.annotation.SuppressLint
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.mvp.presentation.usecases.ShowAdverShowUseCase
 import com.spacesofting.weshare.mvp.presentation.view.ShowAdvertView
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 @InjectViewState
 class ShowAdvertPresenter : MvpPresenter<ShowAdvertView>() {
@@ -13,13 +13,13 @@ class ShowAdvertPresenter : MvpPresenter<ShowAdvertView>() {
     var paginatePage = 0
     var lastLoadedCount = 0
 
+    @SuppressLint("CheckResult")
     fun showAdvertFolds(idAdvert: String) {
-        Api.Adverts.newgetMyAdvertById(idAdvert)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ advert ->
+        val useCase = ShowAdverShowUseCase(idAdvert)
+        useCase.execute(profile)
+            ?.subscribe({ advert ->
                 viewState.setAdvertFold(advert)
-            }, { error ->
-                error
+            }, { _ ->
             })
     }
     fun addWish(wish: Wish) {

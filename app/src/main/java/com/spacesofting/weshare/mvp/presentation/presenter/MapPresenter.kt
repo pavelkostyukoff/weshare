@@ -1,12 +1,10 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
 import android.annotation.SuppressLint
-import com.spacesofting.weshare.api.Api
+import com.spacesofting.weshare.mvp.presentation.usecases.GetMyAdvertToMapsUseCase
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.spacesofting.weshare.mvp.presentation.view.MapViewMaps
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class MapPresenter : MvpPresenter<MapViewMaps>() {
@@ -15,20 +13,20 @@ class MapPresenter : MvpPresenter<MapViewMaps>() {
     var page = 0
     var lastLoadedCount = 0
     var paginateLoading = false
+    var useCase = GetMyAdvertToMapsUseCase()
     fun getCategoryAdvertsList(id: String?) {
 
     }
 
+    @SuppressLint("CheckResult")
     fun getNewMapRequest(
         lat: String,
         lan: String,
         searchRadius: String,
         category: String
     ) {
-        Api.Adverts.getMyAdverts(lan, lat, searchRadius, category)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            useCase.execute(lan, lat, searchRadius, category)
+            ?.subscribe({
                 viewState.setUpdateRequest(it)
             }) {
                 //Log.e(it,"")

@@ -1,23 +1,24 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
 import android.annotation.SuppressLint
-import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
-import com.spacesofting.weshare.mvp.DatumRequast
-import com.spacesofting.weshare.mvp.model.Advert
 import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.mvp.presentation.usecases.DeleteMyAdvertsByIdUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.EditMyAdvertsByIdUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.GetMyAdvertsUseCase
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import com.spacesofting.weshare.mvp.presentation.view.IrentView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 @InjectViewState
 class IrentPresenter : MvpPresenter<IrentView>() {
     val router = ApplicationWrapper.instance.getRouter()
     var bannerItems = ArrayList<File>()
+    val useCaseGet = GetMyAdvertsUseCase()
+    val useCaseDelete = DeleteMyAdvertsByIdUseCase()
+    val useCaseEdit = EditMyAdvertsByIdUseCase()
 
 
     init {
@@ -26,31 +27,29 @@ class IrentPresenter : MvpPresenter<IrentView>() {
 
     @SuppressLint("CheckResult")
     fun getMyAdvert() {
-        Api.Adverts.getMeAdverts()
+        useCaseGet.getMyAdverts()
             .map {
                 it.data?.filter { advert ->
                     advert.images?.firstOrNull()?.url != null
                 } ?: emptyList()
 
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+
             .subscribe({
 
                 viewState.setListAdverts(it)
                 ApplicationWrapper.instance.myImages = it
+            }) { it
 
-                it
-            }) {
-                it
+
             }
     }
 
+    @SuppressLint("CheckResult")
     fun delAdvertById(itemRent: RespounceDataMyAdverts) {
-            Api.Adverts.dellMeAdverts(itemRent.id!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+        useCaseDelete.deleteMyAdvertById(itemRent, goodImageId)
+
+                ?.subscribe({
                     viewState.delAdvertCOmplite()
                     it
                 }) {
@@ -74,11 +73,10 @@ class IrentPresenter : MvpPresenter<IrentView>() {
 
 
 
+    @SuppressLint("CheckResult")
     fun editAdverts(itemRent: RespounceDataMyAdverts) {
-        Api.Adverts.getMyAdvertById(itemRent.id!!)//todo take goods by id
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({advert->
+      useCaseEdit.editMyAdvertById(itemRent)
+            ?.subscribe({advert->
                 ApplicationWrapper.instance.setAuthorityWish(advert) //reciver
              //   itemRent.id
                // it

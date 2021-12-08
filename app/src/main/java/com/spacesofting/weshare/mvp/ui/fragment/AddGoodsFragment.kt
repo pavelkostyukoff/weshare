@@ -39,8 +39,7 @@ import com.spacesofting.weshare.mvp.model.RentPeriod.Period
 import com.spacesofting.weshare.mvp.presentation.presenter.AddGoodsPresenter
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.WishEditPresenterReporterWatcher
-import com.spacesofting.weshare.mvp.ui.adapter.BannerAdapterPhoto
-import com.spacesofting.weshare.mvp.ui.adapter.Category
+import com.spacesofting.weshare.mvp.ui.adapter.BInventoryPresenterr.Category
 import com.spacesofting.weshare.mvp.ui.adapter.CategoryAdapter
 import com.spacesofting.weshare.utils.*
 import com.tbruyelle.rxpermissions2.RxPermissions

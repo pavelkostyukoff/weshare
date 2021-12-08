@@ -10,6 +10,8 @@ import com.spacesofting.weshare.mvp.DatumRequast
 import com.spacesofting.weshare.mvp.User
 import com.spacesofting.weshare.mvp.Wish
 import com.spacesofting.weshare.mvp.model.dto.WishList
+import com.spacesofting.weshare.mvp.presentation.usecases.GetCategoriesUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.GetOneCategoryUseCase
 import com.spacesofting.weshare.mvp.presentation.view.FeedCompilationsView
 import com.spacesofting.weshare.mvp.ui.adapter.FeedCompilationsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,6 +28,8 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
         val ITEMS_PER_PAGE_WISH_LIST = 5
         var page = 0
         var lastLoadedCount = 0
+        var useCaseGetCategory = GetCategoriesUseCase()
+        var useCaseGetOneCategory = GetOneCategoryUseCase()
         var item8Maps = HashMap<String,ArrayList<DatumRequast>>()
         var paginateLoading = false
         var entitiesListPresenter: ArrayList<Entity>? = null
@@ -67,9 +71,8 @@ class FeedCompilationsPresenter : MvpPresenter<FeedCompilationsView>() {
 
         @SuppressLint("CheckResult")
         fun loadCompilations() {
-            Api.Tags.getCategories("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)//одежда clothes
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ ent ->
+            useCaseGetCategory.getCategory("00000000-0000-0000-0000-000000000000" ,ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+                ?.subscribe({ ent ->
                     ApplicationWrapper.category?.entities?.clear()
                     ApplicationWrapper.category = ent
                   //  ent.entities?.let { checkFavoritCompilations(it) }
@@ -171,10 +174,10 @@ val    val observableSeven = Observable.just("Bye", "Friends")
             viewState.goToWish(wish, compilation)
         }
 
+    @SuppressLint("CheckResult")
     private fun getOneCategory(id: String?) {
-        Api.Tags.get8ItemToFeed(59.956.toString(), 30.313.toString(), 50000000.toString(),8, id.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ ent ->
+        useCaseGetOneCategory.getCategory(59.956.toString(), 30.313.toString(), 50000000.toString(),8, id.toString())
+            ?.subscribe({ ent ->
                 //todo set adapter?
                     item8Maps.put(id.toString(),ent.data!!)
                     viewState.refreshAdapter()

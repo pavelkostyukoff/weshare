@@ -1,25 +1,23 @@
 package com.spacesofting.weshare.mvp.presentation.presenter
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Log
-import android.widget.Toast
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.Entity
 
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.Settings
 import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.mvp.presentation.usecases.DeleteMyAdvertsByIdUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.GetSubCategoryUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.PublishMyAdvertUseCase
+import com.spacesofting.weshare.mvp.presentation.usecases.UpdateMyAdvertByIdUseCase
 import com.spacesofting.weshare.mvp.presentation.view.AddGoodsView
 import com.spacesofting.weshare.mvp.ui.fragment.ImagePickerFragment
 import com.spacesofting.weshare.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import okhttp3.OkHttpClient
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -41,6 +39,10 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
     var advertOld = ApplicationWrapper.advert
 
     var newAdvert = Advert()
+    var useCasePublishAdvert = PublishMyAdvertUseCase()
+    var useCaseUpdateMyAdverById = UpdateMyAdvertByIdUseCase()
+    var useCaseDeletePicture = DeleteMyAdvertsByIdUseCase()
+    var getSubCatUseCase = GetSubCategoryUseCase()
     val nameMaxLength = 48
     val nameMinLength = 3
     val descriptionMaxLength = 800
@@ -81,35 +83,24 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         WISH_URL
     }
 
+    @SuppressLint("CheckResult")
     private fun publishAdvert(goodId: String) {
-        with(Api) {
-            with(Adverts) {
-                publishMyAdvert(goodId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ advert ->
-
+        useCasePublishAdvert.execute(goodId)
+                    ?.subscribe({ advert ->
                         viewState.saved(advert)
                         viewState.showProgress(false)
                         //checkExternalApp()
-
                     }, { error ->
                         viewState.showProgress(false)
                         //  viewState.saved(false)
                         viewState.showToast(R.string.error_general)
                     })
-
-            }
-        }
     }
 
+    @SuppressLint("CheckResult")
     private fun loadAvertToEdit(goodId: String) {
-        with(Api) {
-            with(Adverts) {
-                publishMyAdvert(goodId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ advert ->
+        useCasePublishAdvert.execute(goodId)
+                    ?.subscribe({ advert ->
 
                         viewState.saved(advert)
 
@@ -121,9 +112,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                         //  viewState.saved(false)
                         viewState.showToast(R.string.error_general)
                     })
-
-            }
-        }
     }
 
     private fun saveAdvert(advert: Advert) {
@@ -135,10 +123,8 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         //todo тут - /me/adverts/{advertId}
         goodId = ApplicationWrapper.instance.getAuthorityWish().toString()*/
         goodId.let {
-            Api.Adverts.updateMyAdvertById(advert, it)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ advert ->
+         useCaseUpdateMyAdverById.execute(advert,it)
+                ?.subscribe({ advert ->
                     //  viewState.saved(true)
                     viewState.showProgress(false)
                     //checkExternalApp()
@@ -417,11 +403,10 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         }
     }
 
+    @SuppressLint("CheckResult")
     fun delPictureMyGood() {
-        Api.Pictures.delPictureMyGood(goodId!!, goodImageId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+      useCaseDeletePicture.deleteMyAdvertById(goodId, goodImageId)
+            ?.subscribe({
                 it
                 viewState.wishImageDelete()
                 viewState.showToast(R.string.imag_load_ok_delete)
@@ -445,12 +430,10 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
         }
     }
 
+    @SuppressLint("CheckResult")
     fun getSubCategory(ent: Entity?) {
-        with(Api) {
-            Tags.getCategories(ent?.id, ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+        getSubCatUseCase.getSubCat(ent?.id, ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+                ?.subscribe({
                     if (it.entities?.isNotEmpty()!!)
                     {
                         val arr = ArrayList<Entity>()
@@ -466,7 +449,6 @@ class AddGoodsPresenter : MvpPresenter<AddGoodsView>(), ImagePickerFragment.Pick
                 }) {
                     viewState.showToast(R.string.error_load_ok_delete)
                 }
-        }
     }
 
     fun savePhoto() {

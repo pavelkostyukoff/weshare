@@ -2,7 +2,6 @@ package com.spacesofting.weshare.mvp.presentation.presenter
 
 import android.annotation.SuppressLint
 import com.pawegio.kandroid.d
-import com.spacesofting.weshare.api.Api
 import com.spacesofting.weshare.api.EnumErrorType
 import com.spacesofting.weshare.common.ApplicationWrapper
 import com.spacesofting.weshare.common.ScreenPool
@@ -13,11 +12,10 @@ import com.spacesofting.weshare.mvp.device.DeviceInfo
 import com.spacesofting.weshare.mvp.model.Mail
 import com.spacesofting.weshare.mvp.model.MailComfirm
 import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
+import com.spacesofting.weshare.mvp.presentation.usecases.*
 import com.spacesofting.weshare.mvp.presentation.view.AutorizeView
 import com.spacesofting.weshare.utils.ErrorUtils
 import com.spacesofting.weshare.utils.ServerException
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 
@@ -26,13 +24,18 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
     lateinit var deviceInfo: DeviceInfo
     val router = ApplicationWrapper.instance.getRouter()
 
+    val useCaseRegister = RegisterNewUserUseCase()
+    val useCaseGetMyProfile = GetMyProfileUseCase()
+    val useCaseCheck = RequestMailCheckUseCase()
+    val useCaseConfirm = RequestMailConfirmUseCase()
+    val useCaseRequest = RequestMailUseCase()
+
     @SuppressLint("CheckResult")
     fun autorize(mail: Login, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
-        Api.Auth.autorize(mail)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally { viewState.showProgress(false) }
-            .subscribe ({
+        useCaseRegister.autorize(mail)
+            ?.doFinally { viewState.showProgress(false) }
+            ?.subscribe ({
                 Settings.accessToken = it.accessToken
                 Settings.refreshToken = it.refreshToken
              //   ApplicationWrapper.user = it.user!!
@@ -47,10 +50,8 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
 
     @SuppressLint("CheckResult")
     fun loginMailRequest(mail: Mail) {
-        Api.Users.reqestMeil(mail)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+        useCaseRequest.execute(mail)
+            ?.subscribe({
                     profile ->
                 viewState.showComfiermRequstMailDialog()
               //  router.newRootScreen(ScreenPool.FEED_FRAGMENT)
@@ -59,11 +60,11 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             })
     }
 
+    @SuppressLint("CheckResult")
+
     fun comfirmRequest(mailComf: MailComfirm) {
-        Api.Users.reqestMailCHeck(mailComf)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+        useCaseCheck.execute(mailComf)
+            ?.subscribe({
                     profile ->
                 viewState.shownewPasswordCreate()
             }, { e ->
@@ -71,11 +72,10 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
             })
     }
 
+    @SuppressLint("CheckResult")
     fun passComfirm(passComf: PasswordResetComfirm) {
-        Api.Users.reqestMailComfirm(passComf)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+        useCaseConfirm.execute(passComf)
+            ?.subscribe({
                     profile ->
               //  viewState.showComfiermRequstMailDialog()
              //   router.newRootScreen(ScreenPool.FEED_FRAGMENT)
@@ -83,14 +83,12 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
                 e
             })
     }
+    @SuppressLint("CheckResult")
     private fun getProfile()
         {
             //todo userME
-            with(Api) {
-                Users.getAccount()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
+            useCaseGetMyProfile.getAccount()
+                        ?.subscribe({
                                 profile ->
 
                             Settings.set(profile)
@@ -98,7 +96,6 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
                         }, { e ->
                             e.message?.let { viewState.toastError(it) }
                         })
-            }
         }
     //todo ТУТТУТ
 
@@ -107,10 +104,9 @@ class AutorizePresenter : MvpPresenter<AutorizeView>() {
     @SuppressLint("CheckResult")
     fun registration(profile: Profile, isRetryIn: Boolean = false) {
         viewState.showProgress(true)
-        Api.Users.register(profile)
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally { viewState.showProgress(false) }
-            .subscribe ({
+        useCaseRegister.register(profile)
+            ?.doFinally { viewState.showProgress(false) }
+            ?.subscribe ({
                 it
                 //todo проходим в основной экран
                 router.newRootScreen(ScreenPool.FEED_FRAGMENT)
