@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp.model
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.api.Image
+import com.spacesofting.weshare.data.api.Image
 
 
 class RespounceDataMyAdverts {

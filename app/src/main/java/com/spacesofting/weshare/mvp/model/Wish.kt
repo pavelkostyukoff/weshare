@@ -1,8 +1,7 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.common.ApplicationWrapper
-import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
+import com.spacesofting.weshare.ui.adapter.ListWishElement
 import java.io.Serializable
 import java.util.*
 

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rootLayout"
-        tools:context=".mvp.ui.fragment.MyMapFragment">
+        tools:context=".ui.fragment.MyMapFragment">
 
    <com.yandex.mapkit.mapview.MapView
            android:id="@+id/mapview"

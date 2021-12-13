@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="fill_vertical">
 
-        <com.spacesofting.weshare.mvp.presentation.views.StaggeredRecyclerView
+        <com.spacesofting.weshare.presentation.views.StaggeredRecyclerView
                 android:id="@+id/wishesList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
