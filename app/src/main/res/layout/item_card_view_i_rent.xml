@@ -5,7 +5,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv"
         app:cardCornerRadius="15dp"
-        android:layout_margin="5dp"
         android:elevation="10dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -19,8 +18,9 @@
 
         <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
                 android:id="@+id/porterShapeImageView"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
+                tools:layout_height="100dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/wish_default_img"
                 app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +30,6 @@
         <!--
         android:adjustViewBounds="true"
 -->
-
-
         <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
@@ -79,11 +77,10 @@
                 android:background="@drawable/ic_hart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porterShapeImageView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.591" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/periodRents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

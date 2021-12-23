@@ -120,7 +120,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:riv_corner_radius="30dip" />
-
 -->
                 <com.wangpeiyuan.cycleviewpager2.CycleViewPager2
                         android:id="@+id/banner"
@@ -299,6 +298,12 @@
                         android:layout_marginTop="@dimen/margin_half"
                         android:orientation="vertical">
 
+                    <FrameLayout
+                            android:id="@+id/container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible" />
+
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -314,7 +319,7 @@
                             android:layout_height="wrap_content">
 
                         <Spinner
-                                android:id="@+id/currencyOptions"
+                                android:id="@+id/spinnerAddAdvert"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -416,107 +421,24 @@
                         android:textColor="@color/invalid"
                         android:visibility="gone" />
 //карусель  <!--    здесь мы встровляем окно поиска-->
+                
+                <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="68dp">
+
+                </androidx.viewpager2.widget.ViewPager2>
+                
+                
                 <EditText
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/EditTextGreyBorder"
                         android:hint="@string/edit_advert_address_search"
-                        android:textSize="12sp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="10dp" />
-
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                        android:id="@+id/categoryCycleView"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        app:imageScaleType="centerCrop"
-                        app:carouselType="SHOWCASE"
-                        android:layout_height="92dp"
-                        app:carouselBackground="@color/white"
-                        app:imageViewId="@id/image_view"
-                        app:itemLayout="@layout/custom_fixed_size_item_layout"
-                        app:nextButtonId="@id/custom_btn_next"
-                        app:nextButtonLayout="@layout/custom_next_button_layout"
-                        app:nextButtonMargin="8dp"
-                        app:previousButtonId="@id/custom_btn_previous"
-                        app:previousButtonLayout="@layout/custom_previous_button_layout"
-                        app:previousButtonMargin="8dp"
-                        app:scaleOnScroll="true"
-                        app:scalingFactor=".25"
-                        app:showBottomShadow="false"
-                        app:showCaption="false"
-                        app:showIndicator="false"
-                        app:showNavigationButtons="false"
-                        app:showTopShadow="false"
-                       />
-
-                <TextView
-                        android:id="@+id/custom_caption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="10dp"
-                        android:ellipsize="marquee"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:textColor="@color/flat_green_2"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Caption" />
-
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                        android:id="@+id/subCategoryCycleView"
-                        android:layout_width="match_parent"
-                        android:layout_height="92dp"
-                        app:carouselBackground="@color/white"
-                        app:carouselType="SHOWCASE"
-                        app:imageScaleType="centerCrop"
-                        app:imageViewId="@id/image_view"
-                        app:itemLayout="@layout/custom_fixed_size_item_layout"
-                        app:nextButtonId="@id/custom_btn_next"
-                        app:nextButtonLayout="@layout/custom_next_button_layout"
-                        app:nextButtonMargin="8dp"
-                        app:previousButtonId="@id/custom_btn_previous"
-                        app:previousButtonLayout="@layout/custom_previous_button_layout"
-                        app:previousButtonMargin="8dp"
-                        app:scaleOnScroll="true"
-                        android:visibility="gone"
-                        app:scalingFactor=".25"
-                        app:showBottomShadow="false"
-                        app:showCaption="true"
-                        app:showIndicator="false"
-                        app:showNavigationButtons="false"
-                        app:showTopShadow="false"
-                        />
-
-                <TextView
-                        android:id="@+id/custom_sub_category"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="1dp"
-                        android:ellipsize="marquee"
-                        android:visibility="gone"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:textColor="@color/flat_green_2"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:text="Caption" />
-<!--
-                <me.relex.circleindicator.CircleIndicator2
-                        android:id="@+id/custom_indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:ci_animator="@animator/scale_with_alpha"
-                        app:ci_drawable="@drawable/dot"
-                        android:visibility="gone"
-                        app:ci_drawable_unselected="@drawable/dot" />-->
+                <!-- ================================================================ -->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -621,10 +543,5 @@
                     android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
     </FrameLayout>
-    <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

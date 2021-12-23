@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.mvp.ui.adapter.ListWishElement
+import com.spacesofting.weshare.ui.adapter.ListWishElement
 
 
 class Template: ListWishElement {

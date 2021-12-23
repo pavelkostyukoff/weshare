@@ -4,9 +4,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.spacesofting.weshare.mvp.model.Address
 import com.spacesofting.weshare.mvp.model.RentPeriod
+import java.io.Serializable
 
 
-class DatumRequast {
+class DatumRequast : Serializable {
 
     @SerializedName("id")
     var id: String? = null

@@ -1,7 +1,6 @@
 package com.spacesofting.weshare.mvp
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.mvp.model.AvatarPhoto
 
 class User {
     @SerializedName("id")
