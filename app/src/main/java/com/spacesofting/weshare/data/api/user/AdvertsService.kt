@@ -1,10 +1,10 @@
 package com.spacesofting.weshare.data.api.user
 
 import com.spacesofting.weshare.data.api.*
-import com.spacesofting.weshare.mvp.ResponceProfile
-import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.model.Advert
-import com.spacesofting.weshare.mvp.model.dto.AdvertModifiredRespouns
+import com.spacesofting.weshare.presentation.mvp.ResponceProfile
+import com.spacesofting.weshare.presentation.mvp.User
+import com.spacesofting.weshare.presentation.mvp.model.Advert
+import com.spacesofting.weshare.presentation.mvp.model.dto.AdvertModifiredRespouns
 import io.reactivex.Observable
 import retrofit2.http.*
 

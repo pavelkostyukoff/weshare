@@ -1,30 +1,33 @@
 package com.spacesofting.weshare.presentation.presenter
 
 import android.annotation.SuppressLint
-import com.pawegio.kandroid.d
+import android.util.Log.d
 import com.spacesofting.weshare.data.api.EnumErrorType
-import com.spacesofting.weshare.domain.common.ApplicationWrapper
-import com.spacesofting.weshare.domain.common.ScreenPool
-import com.spacesofting.weshare.domain.common.Settings
-import com.spacesofting.weshare.mvp.Login
-import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.device.DeviceInfo
-import com.spacesofting.weshare.mvp.model.Mail
-import com.spacesofting.weshare.mvp.model.MailComfirm
-import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper
+import com.spacesofting.weshare.presentation.common.ScreenPool
+import com.spacesofting.weshare.presentation.common.Settings
+import com.spacesofting.weshare.presentation.mvp.Login
+import com.spacesofting.weshare.presentation.mvp.Profile
+import com.spacesofting.weshare.presentation.mvp.device.DeviceInfo
+import com.spacesofting.weshare.presentation.mvp.model.Mail
+import com.spacesofting.weshare.presentation.mvp.model.MailComfirm
+import com.spacesofting.weshare.presentation.mvp.model.PasswordResetComfirm
 import com.spacesofting.weshare.domain.usecases.*
 import com.spacesofting.weshare.presentation.view.AutorizeView
-import com.spacesofting.weshare.domain.common.utils.ErrorUtils
-import com.spacesofting.weshare.domain.common.utils.ServerException
+import com.spacesofting.weshare.presentation.common.utils.ErrorUtils
+import com.spacesofting.weshare.presentation.common.utils.ServerException
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import org.koin.core.KoinComponent //todo везде добавить
+import org.koin.core.inject
 
 @InjectViewState
-class AutorizePresenter : MvpPresenter<AutorizeView>() {
+class AutorizePresenter : MvpPresenter<AutorizeView>(), KoinComponent {
     lateinit var deviceInfo: DeviceInfo
     val router = ApplicationWrapper.instance.getRouter()
 
     val useCaseRegister = RegisterNewUserUseCase()
+    val useCaseAutorize: AutorizeUserUseCase by inject()  //todo везде добавить
     val useCaseGetMyProfile = GetMyProfileUseCase()
     val useCaseCheck = RequestMailCheckUseCase()
     val useCaseConfirm = RequestMailConfirmUseCase()

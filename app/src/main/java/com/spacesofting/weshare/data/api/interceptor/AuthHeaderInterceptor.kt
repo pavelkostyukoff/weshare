@@ -3,8 +3,8 @@ package com.spacesofting.weshare.data.api.interceptor
 
 import android.util.Log
 import com.spacesofting.weshare.data.api.Api
-import com.spacesofting.weshare.domain.common.Settings
-import com.spacesofting.weshare.mvp.Refresh
+import com.spacesofting.weshare.presentation.common.Settings
+import com.spacesofting.weshare.presentation.mvp.Refresh
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -13,7 +13,7 @@ class AuthHeaderInterceptor : Interceptor {
 
     private var isRefreshing = false
 
-    override fun intercept(chain: Interceptor.Chain): Response? {
+    override fun intercept(chain: Interceptor.Chain): Response {
         var accessToken = "Bearer " + Settings.accessToken
         var originalRequest : Request = chain.request()
         val response: Response = chain.proceed(originalRequest )
@@ -22,9 +22,9 @@ class AuthHeaderInterceptor : Interceptor {
         //todo первый раз прокатываем
         builder.header("Authorization", accessToken)// accessToken.getToken())
         builder.header("Content-Type", "application/json")
-        builder.method(originalRequest .method(), originalRequest .body())
+        builder.method(originalRequest.method, originalRequest.body)
         originalRequest  = builder.build()
-        if (response.code().equals(403)/* || response.code() === 401*/) {
+        if (response.code.equals(403)/* || response.code() === 401*/) {
             //todo получаем 403
             synchronized(this) {
                 Log.e(

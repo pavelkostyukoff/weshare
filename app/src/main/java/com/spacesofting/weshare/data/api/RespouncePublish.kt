@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.data.api
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.mvp.model.RentPeriod
+import com.spacesofting.weshare.presentation.mvp.model.RentPeriod
 import java.io.Serializable
 
 class RespouncePublish : Serializable {

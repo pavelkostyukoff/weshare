@@ -6,8 +6,8 @@ import com.spacesofting.weshare.data.api.picture.PicturesService
 import com.spacesofting.weshare.data.api.picture.TagsService
 import com.spacesofting.weshare.data.api.user.AdvertsService
 import com.spacesofting.weshare.data.api.user.UserService
-import com.spacesofting.weshare.domain.common.ApplicationWrapper.Companion.context
-import com.spacesofting.weshare.domain.common.Settings
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper.Companion.context
+import com.spacesofting.weshare.presentation.common.Settings
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient

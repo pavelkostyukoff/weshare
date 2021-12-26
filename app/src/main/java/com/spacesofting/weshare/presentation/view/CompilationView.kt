@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.presentation.view
 
-import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Wish
-import com.spacesofting.weshare.ui.adapter.ListWishElement
+import com.spacesofting.weshare.presentation.mvp.Compilation
+import com.spacesofting.weshare.presentation.mvp.Wish
+import com.spacesofting.weshare.presentation.ui.adapter.ListWishElement
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

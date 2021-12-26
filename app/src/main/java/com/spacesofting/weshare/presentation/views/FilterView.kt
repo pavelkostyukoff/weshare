@@ -11,8 +11,8 @@ import com.pawegio.kandroid.d
 import com.pawegio.kandroid.find
 import com.pawegio.kandroid.visible
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.domain.common.utils.dp
-import com.spacesofting.weshare.domain.common.utils.inflate
+import com.spacesofting.weshare.presentation.common.utils.dp
+import com.spacesofting.weshare.presentation.common.utils.inflate
 import kotlinx.android.synthetic.main.view_filter.view.*
 import org.apmem.tools.layouts.FlowLayout
 

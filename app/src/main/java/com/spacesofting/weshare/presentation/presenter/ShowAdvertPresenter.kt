@@ -3,7 +3,7 @@ package com.spacesofting.weshare.presentation.presenter
 import android.annotation.SuppressLint
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.presentation.mvp.Wish
 import com.spacesofting.weshare.domain.usecases.ShowAdverShowUseCase
 import com.spacesofting.weshare.presentation.view.ShowAdvertView
 

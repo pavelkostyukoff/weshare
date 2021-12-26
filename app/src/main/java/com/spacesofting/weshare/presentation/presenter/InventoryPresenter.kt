@@ -1,9 +1,9 @@
 package com.spacesofting.weshare.presentation.presenter
 
 import android.annotation.SuppressLint
-import com.spacesofting.weshare.domain.common.ApplicationWrapper
-import com.spacesofting.weshare.domain.common.ApplicationWrapper.Companion.editAdvertId
-import com.spacesofting.weshare.domain.common.ScreenPool
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper.Companion.editAdvertId
+import com.spacesofting.weshare.presentation.common.ScreenPool
 import com.spacesofting.weshare.domain.usecases.CreateNewAdvertUseCase
 import com.spacesofting.weshare.presentation.view.InventoryView
 import moxy.InjectViewState

@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.domain.usecases
 
 import com.spacesofting.weshare.data.api.Api
-import com.spacesofting.weshare.mvp.model.Advert
-import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.presentation.mvp.model.Advert
+import com.spacesofting.weshare.presentation.mvp.model.RespounceDataMyAdverts
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

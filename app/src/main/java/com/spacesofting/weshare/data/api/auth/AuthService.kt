@@ -1,8 +1,8 @@
 package com.spacesofting.weshare.data.api.auth
 
-import com.spacesofting.weshare.mvp.Autorize
-import com.spacesofting.weshare.mvp.Login
-import com.spacesofting.weshare.mvp.Refresh
+import com.spacesofting.weshare.presentation.mvp.Autorize
+import com.spacesofting.weshare.presentation.mvp.Login
+import com.spacesofting.weshare.presentation.mvp.Refresh
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.Body

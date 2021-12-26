@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.data.api.picture
 
-import com.spacesofting.weshare.mvp.model.AvatarPhoto
-import com.spacesofting.weshare.mvp.model.Photo
+import com.spacesofting.weshare.presentation.mvp.model.AvatarPhoto
+import com.spacesofting.weshare.presentation.mvp.model.Photo
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.Response

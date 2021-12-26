@@ -2,13 +2,13 @@ package com.spacesofting.weshare.presentation.presenter
 
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import com.spacesofting.weshare.domain.common.Settings
-import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Datum
-import com.spacesofting.weshare.mvp.Wish
-import com.spacesofting.weshare.mvp.model.dto.WishList
+import com.spacesofting.weshare.presentation.common.Settings
+import com.spacesofting.weshare.presentation.mvp.Compilation
+import com.spacesofting.weshare.presentation.mvp.Datum
+import com.spacesofting.weshare.presentation.mvp.Wish
+import com.spacesofting.weshare.presentation.mvp.model.dto.WishList
 import com.spacesofting.weshare.presentation.view.FeedChaosView
-import com.spacesofting.weshare.ui.adapter.FeedCompilationsAdapter
+import com.spacesofting.weshare.presentation.ui.adapter.FeedCompilationsAdapter
 import java.util.*
 
 @InjectViewState

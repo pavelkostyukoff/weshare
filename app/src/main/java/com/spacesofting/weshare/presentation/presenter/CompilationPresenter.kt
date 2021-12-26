@@ -2,8 +2,8 @@ package com.spacesofting.weshare.presentation.presenter
 
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import com.spacesofting.weshare.mvp.Compilation
-import com.spacesofting.weshare.mvp.Wish
+import com.spacesofting.weshare.presentation.mvp.Compilation
+import com.spacesofting.weshare.presentation.mvp.Wish
 import com.spacesofting.weshare.presentation.view.CompilationView
 
 @InjectViewState

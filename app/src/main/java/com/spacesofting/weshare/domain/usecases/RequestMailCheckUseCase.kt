@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.domain.usecases
 
 import com.spacesofting.weshare.data.api.Api
-import com.spacesofting.weshare.mvp.model.MailComfirm
+import com.spacesofting.weshare.presentation.mvp.model.MailComfirm
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

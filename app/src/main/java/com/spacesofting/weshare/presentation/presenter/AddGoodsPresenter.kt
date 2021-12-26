@@ -5,16 +5,16 @@ import android.content.Context
 import com.spacesofting.weshare.R
 import com.spacesofting.weshare.data.api.Entity
 
-import com.spacesofting.weshare.domain.common.ApplicationWrapper
-import com.spacesofting.weshare.domain.common.Settings
-import com.spacesofting.weshare.mvp.model.Advert
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper
+import com.spacesofting.weshare.presentation.common.Settings
+import com.spacesofting.weshare.presentation.mvp.model.Advert
 import com.spacesofting.weshare.domain.usecases.DeleteMyAdvertsByIdUseCase
 import com.spacesofting.weshare.domain.usecases.GetSubCategoryUseCase
 import com.spacesofting.weshare.domain.usecases.PublishMyAdvertUseCase
 import com.spacesofting.weshare.domain.usecases.UpdateMyAdvertByIdUseCase
 import com.spacesofting.weshare.presentation.view.AddGoodsView
-import com.spacesofting.weshare.ui.fragment.ImagePickerFragment
-import com.spacesofting.weshare.domain.common.utils.ImageUtils
+import com.spacesofting.weshare.presentation.ui.fragment.ImagePickerFragment
+import com.spacesofting.weshare.presentation.common.utils.ImageUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter

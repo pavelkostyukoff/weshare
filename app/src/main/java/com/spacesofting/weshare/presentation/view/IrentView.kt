@@ -1,6 +1,6 @@
 package com.spacesofting.weshare.presentation.view
 
-import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.presentation.mvp.model.RespounceDataMyAdverts
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

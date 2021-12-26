@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.data.api
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.presentation.mvp.model.RespounceDataMyAdverts
 import java.io.Serializable
 
 

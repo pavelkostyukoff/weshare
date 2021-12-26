@@ -1,9 +1,9 @@
 package com.spacesofting.weshare.presentation.presenter
 
 import android.annotation.SuppressLint
-import com.spacesofting.weshare.domain.common.ApplicationWrapper
-import com.spacesofting.weshare.domain.common.ScreenPool
-import com.spacesofting.weshare.mvp.model.RespounceDataMyAdverts
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper
+import com.spacesofting.weshare.presentation.common.ScreenPool
+import com.spacesofting.weshare.presentation.mvp.model.RespounceDataMyAdverts
 import com.spacesofting.weshare.domain.usecases.DeleteMyAdvertsByIdUseCase
 import com.spacesofting.weshare.domain.usecases.EditMyAdvertsByIdUseCase
 import com.spacesofting.weshare.domain.usecases.GetMyAdvertsUseCase

@@ -1,15 +1,15 @@
 package com.spacesofting.weshare.presentation.presenter
 
 import com.pawegio.kandroid.e
-import com.spacesofting.weshare.domain.common.ApplicationWrapper
-import com.spacesofting.weshare.mvp.Image
-import com.spacesofting.weshare.mvp.Template
-import com.spacesofting.weshare.mvp.Wish
-import com.spacesofting.weshare.mvp.model.Advert
-import com.spacesofting.weshare.mvp.model.dto.WishList
+import com.spacesofting.weshare.presentation.common.ApplicationWrapper
+import com.spacesofting.weshare.presentation.mvp.Image
+import com.spacesofting.weshare.presentation.mvp.Template
+import com.spacesofting.weshare.presentation.mvp.Wish
+import com.spacesofting.weshare.presentation.mvp.model.Advert
+import com.spacesofting.weshare.presentation.mvp.model.dto.WishList
 import com.spacesofting.weshare.presentation.view.FeedView
-import com.spacesofting.weshare.ui.adapter.ListWishElement
-import com.spacesofting.weshare.ui.fragment.FeedFragment
+import com.spacesofting.weshare.presentation.ui.adapter.ListWishElement
+import com.spacesofting.weshare.presentation.ui.fragment.FeedFragment
 import moxy.InjectViewState
 import moxy.MvpPresenter
 

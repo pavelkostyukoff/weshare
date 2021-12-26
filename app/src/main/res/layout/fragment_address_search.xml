@@ -142,7 +142,7 @@
                 android:layout_marginRight="16dp"
                 android:paddingTop="10dp"
                 app:layoutManager="LinearLayoutManager"
-                tools:context=".ui.fragment.AddressSearchFragment"
+                tools:context=".presentation.ui.fragment.AddressSearchFragment"
                 tools:lisd="@layout/item_address_place" />
 
         <ProgressBar

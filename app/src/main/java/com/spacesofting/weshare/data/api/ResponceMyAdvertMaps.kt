@@ -1,7 +1,7 @@
 package com.spacesofting.weshare.data.api
 
 import com.google.gson.annotations.SerializedName
-import com.spacesofting.weshare.mvp.DatumRequast
+import com.spacesofting.weshare.presentation.mvp.DatumRequast
 import java.io.Serializable
 
 

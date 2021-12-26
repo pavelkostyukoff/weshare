@@ -1,12 +1,12 @@
 package com.spacesofting.weshare.data.api.user
 
-import com.spacesofting.weshare.mvp.Profile
-import com.spacesofting.weshare.mvp.ResponceProfile
-import com.spacesofting.weshare.mvp.User
-import com.spacesofting.weshare.mvp.model.Mail
-import com.spacesofting.weshare.mvp.model.MailComfirm
-import com.spacesofting.weshare.mvp.model.PasswordResetComfirm
-import com.spacesofting.weshare.mvp.model.UpdateProfile
+import com.spacesofting.weshare.presentation.mvp.Profile
+import com.spacesofting.weshare.presentation.mvp.ResponceProfile
+import com.spacesofting.weshare.presentation.mvp.User
+import com.spacesofting.weshare.presentation.mvp.model.Mail
+import com.spacesofting.weshare.presentation.mvp.model.MailComfirm
+import com.spacesofting.weshare.presentation.mvp.model.PasswordResetComfirm
+import com.spacesofting.weshare.presentation.mvp.model.UpdateProfile
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body

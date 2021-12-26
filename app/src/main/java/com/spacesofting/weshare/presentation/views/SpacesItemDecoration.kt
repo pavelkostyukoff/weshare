@@ -2,7 +2,7 @@ package com.spacesofting.weshare.presentation.views
 
 import android.graphics.Rect
 import android.view.View
-import com.spacesofting.weshare.domain.common.utils.dp
+import com.spacesofting.weshare.presentation.common.utils.dp
 
 /**
  * Created by bender on 30/06/2017.

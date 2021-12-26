@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.spacesofting.weshare.R
-import com.spacesofting.weshare.domain.common.utils.dp
-import com.spacesofting.weshare.domain.common.utils.inflate
+import com.spacesofting.weshare.presentation.common.utils.dp
+import com.spacesofting.weshare.presentation.common.utils.inflate
 import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList

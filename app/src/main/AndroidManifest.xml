@@ -30,7 +30,7 @@
                android:usesCleartextTraffic="true"-->
     <application
             android:usesCleartextTraffic="true"
-            android:name="com.spacesofting.weshare.domain.common.ApplicationWrapper"
+            android:name="com.spacesofting.weshare.presentation.common.ApplicationWrapper"
             android:windowSoftInputMode="stateHidden"
             android:allowBackup="true"
             android:configChanges="keyboardHidden|screenSize"
@@ -40,7 +40,7 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme"
             android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name="com.spacesofting.weshare.ui.activity.MainActivity"
+        <activity android:name="com.spacesofting.weshare.presentation.ui.activity.MainActivity"
                   android:label="@string/app_name"
                   android:windowSoftInputMode="stateHidden"
                   android:configChanges="keyboardHidden|screenSize">

@@ -2,7 +2,7 @@ package com.spacesofting.weshare.presentation.presenter
 
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import com.spacesofting.weshare.domain.common.Settings
+import com.spacesofting.weshare.presentation.common.Settings
 import com.spacesofting.weshare.presentation.view.SlashView
 import java.util.*
 
